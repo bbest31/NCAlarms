@@ -12,6 +12,8 @@ namespace NapChat
         public App()
         {
             // The root page is the LoginPage of NapChat
+            /*TODO:Find the proper way to load ot the Login Page seeing as it goes to some blank black page before opening it.
+             */  
             MainPage = new LoginPage();
            
         }
