@@ -12,6 +12,10 @@ namespace NapChat
     {
         public MainPage()
         {
+            // Track whether the user has authenticated.
+            bool authenticated = false;
+
+
             InitializeComponent();
         }
     }

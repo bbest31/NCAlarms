@@ -2,13 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NapChat
 {
+    public interface IAuthenticate
+    {
+        Task<bool> Authenticate();
+    }
+
+  
+
     public class App : Application
     {
+
+        public static IAuthenticate Authenticator { get; private set; }
+
+        public static void Init(IAuthenticate authenticator)
+        {
+            Authenticator = authenticator;
+        }
+
         public App()
         {
             // The root page is the LoginPage of NapChat
