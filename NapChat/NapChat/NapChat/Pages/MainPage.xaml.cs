@@ -10,8 +10,10 @@ namespace NapChat
 {
     public partial class MainPage : ContentPage
     {
+
         public MainPage()
         {
+           
             // Track whether the user has authenticated.
             bool authenticated = false;
 
