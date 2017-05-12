@@ -12,7 +12,5 @@ namespace NapChat
         
         private String username { get; set; }
 
-        //Constructor
-       public Patron(String username) {  }
     }
 }
