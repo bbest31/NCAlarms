@@ -10,13 +10,11 @@ namespace NapChat.Model
     public class User
     {
         //inherits username and ID attributes
-        public string ID { get; set; }
+        
+        public string id { get; set; }
+        [JsonProperty("username")]
         public string username { get; set; }
-        [JsonProperty("first_name")]
-        public string FirstName { get; set; }
-        [JsonProperty("last_name")]
-        public string LastName { get; set; }
-        public bool isVerified { get; set; }
+        
 
         //private List<Friend> friendList { get; }
 

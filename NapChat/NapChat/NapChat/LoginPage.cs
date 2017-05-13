@@ -12,9 +12,7 @@ namespace NapChat
 {
     public partial class LoginPage : ContentPage
     {
-        //This is our link to the server/database
-        //Move to NapChat singleton
-        //public static MobileServiceClient MobileService = new MobileServiceClient("https://napchat.azurewebsites.net");
+        
 
         private string ClientID = "827964794033926";
 
@@ -59,7 +57,7 @@ namespace NapChat
                 FontSize = 26
             };
 
-            loginButton.Clicked += LoginWithFacebook_Clicked;
+          
 
             //StackLayout Used 
             StackLayout stackLayout = new StackLayout
@@ -77,12 +75,6 @@ namespace NapChat
 
             
         }
-
-        private async void LoginWithFacebook_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new MainPage());
-        }
-
 
     }
 }
