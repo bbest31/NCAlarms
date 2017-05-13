@@ -14,25 +14,37 @@ namespace NapChat
         Task<bool> Authenticate();
     }
 
-  
+   
 
     public class App : Application
     {
+        //Singletons
 
-       /* public static IAuthenticate Authenticator { get; private set; }
+        //This is the link to the database/server
+        private static MobileServiceClient client;
+        //This is the user
+        private static MobileServiceUser user;
 
-        public static void Init(IAuthenticate authenticator)
-        {
-            Authenticator = authenticator;
-        }
-        */
+
+        //Controllers
+
+         public static IAuthenticate Authenticator { get; private set; }
+
+         public static void Init(IAuthenticate authenticator)
+         {
+             Authenticator = authenticator;
+         }
+         
         public App()
         {
             // The root page is the LoginPage of NapChat  
             MainPage = new LoginPage();
 
-            NapChat Application = new NapChat();
-           
+            client =  new MobileServiceClient("http://napchat.azurewebsites.net");
+
+
+
+
         }
 
         protected override void OnStart()

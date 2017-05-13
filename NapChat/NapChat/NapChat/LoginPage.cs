@@ -27,10 +27,12 @@ namespace NapChat
 
             Image napChatLogo = new Image
             {
-                Source = "NapChat_Logo.png",
-                VerticalOptions = LayoutOptions.Center,
+                Source = "NapChat_Logo.png",   
                 Aspect = Aspect.AspectFit,
                 HorizontalOptions = LayoutOptions.Center,
+                HeightRequest = 100,
+                WidthRequest = 100,
+                
             };
 
             Label welcomeLabel = new Label
