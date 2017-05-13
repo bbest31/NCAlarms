@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using NapChat.Model;
 using Newtonsoft.Json;
-using NapChat.Model;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 

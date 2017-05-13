@@ -14,13 +14,14 @@ namespace NapChat
     {
         //This is our link to the server/database
         //Move to NapChat singleton
-        public static MobileServiceClient MobileService = new MobileServiceClient("https://napchat.azurewebsites.net");
+        //public static MobileServiceClient MobileService = new MobileServiceClient("https://napchat.azurewebsites.net");
 
         private string ClientID = "827964794033926";
 
         public LoginPage()
         {
 
+            this.BackgroundColor = Color.Purple;
 
 
 
@@ -28,7 +29,9 @@ namespace NapChat
 
             Image napChatLogo = new Image
             {
-                Source = "napchaticon",
+                Source = "NapChat_Logo.png",
+                VerticalOptions = LayoutOptions.Center,
+                Aspect = Aspect.AspectFit,
                 HorizontalOptions = LayoutOptions.Center,
             };
 
@@ -52,7 +55,7 @@ namespace NapChat
                 Text = "Login with Facebook",
                 TextColor = Color.White,
                 BackgroundColor = Color.FromHex("#01579B"),
-                Font = Font.BoldSystemFontOfSize(26),
+                Font = Font.SystemFontOfSize(26, FontAttributes.Bold),
                 FontSize = 26
             };
 
@@ -64,19 +67,23 @@ namespace NapChat
                 Children =
                 {
                     welcomeLabel,
+                    napChatLogo,
                     loginUsernameEntry,
                     loginButton
                 }
             };
-            InitializeComponent();
+
+            this.Content = stackLayout;
+
+            
         }
 
-            private async void LoginWithFacebook_Clicked(object sender, EventArgs e)
+        private async void LoginWithFacebook_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new MainPage());
         }
 
-    
+
     }
-    }
+}
 
