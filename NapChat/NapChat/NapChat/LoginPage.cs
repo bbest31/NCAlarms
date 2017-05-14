@@ -43,12 +43,6 @@ namespace NapChat
                 HorizontalOptions = LayoutOptions.Center,
             };
 
-            Entry loginUsernameEntry = new Entry
-            {
-                Placeholder = "Username",
-                PlaceholderColor = Color.DimGray,
-
-            };
 
             var loginButton = new Button
             {
@@ -68,7 +62,6 @@ namespace NapChat
                 {
                     welcomeLabel,
                     napChatLogo,
-                    loginUsernameEntry,
                     loginButton
                 }
             };
