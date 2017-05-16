@@ -53,15 +53,15 @@ namespace NapChatService
     {
         protected override void Seed(NapChatContext context)
         {
-            List<Friend> friendList = new List<Friend>
+            List<User> userList = new List<User>
             {
-                new Friend { Id = Guid.NewGuid().ToString(), username = "First item" },
-                new Friend { Id = Guid.NewGuid().ToString(), username = "Second item" },
+                new User { Id = Guid.NewGuid().ToString(), username = "First item" },
+                new User { Id = Guid.NewGuid().ToString(), username = "Second item" },
             };
 
-            foreach (Friend friend in friendList)
+            foreach (User user in userList)
             {
-                context.Set<Friend>().Add(friend);
+                context.Set<User>().Add(user);
             }
 
             base.Seed(context);

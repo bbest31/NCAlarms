@@ -22,7 +22,7 @@ namespace NapChatService.Models
         {
         } 
 
-        public DbSet<Friend> friendSet { get; set; }
+        public DbSet<User> userSet { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
