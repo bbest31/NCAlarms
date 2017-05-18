@@ -8,7 +8,7 @@ using NapChatService.DataObjects;
 using NapChatService.Models;
 
 namespace NapChatService.Controllers
-{   
+{   //makes viewing the table only possible if authenticated.
     [Authorize]
     public class UserController : TableController<User>
     {

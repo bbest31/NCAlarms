@@ -2,64 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using NapChat.Abstractions;
+using NapChat.Services;
+using NapChat.Model;
 using Xamarin.Forms;
-using Microsoft.WindowsAzure.MobileServices;
-
 
 namespace NapChat
 {
-    public interface IAuthenticate
-    {
-        Task<bool> Authenticate();
-    }
+	public class App : Application
+	{
+        //Might want to implement a singleton manager class
+        public static ICloudService CloudService { get; set; }
+		public App ()
+		{
+            CloudService = new AzureCloudService();
 
-   
+            // The root page of your application
+            MainPage = new NavigationPage(new Pages.LoginPage());
+		}
 
-    public class App : Application
-    {
-        //Singletons
+		protected override void OnStart ()
+		{
+			// Handle when your app starts
+		}
 
-        //This is the link to the database/server
-        private static MobileServiceClient client;
-        //This is the user
-        private static MobileServiceUser user;
+		protected override void OnSleep ()
+		{
+			// Handle when your app sleeps
+		}
 
-
-        //Controllers
-
-         public static IAuthenticate Authenticator { get; private set; }
-
-         public static void Init(IAuthenticate authenticator)
-         {
-             Authenticator = authenticator;
-         }
-         
-        public App()
-        {
-            // The root page is the LoginPage of NapChat  
-            MainPage = new LoginPage();
-
-            client =  new MobileServiceClient("http://napchat.azurewebsites.net");
-
-
-
-
-        }
-
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
-    }
+		protected override void OnResume ()
+		{
+			// Handle when your app resumes
+		}
+	}
 }
