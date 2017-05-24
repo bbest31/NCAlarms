@@ -18,7 +18,7 @@ namespace NapChat
             CloudService = new AzureCloudService();
 
             // The root page of your application
-            MainPage = new NavigationPage(new Pages.LoginPage());
+            MainPage = new NavigationPage(new Pages.HomePage());
 		}
 
 		protected override void OnStart ()

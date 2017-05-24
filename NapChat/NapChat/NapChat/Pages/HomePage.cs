@@ -9,6 +9,8 @@ namespace NapChat.Pages
     {
         public HomePage()
         {
+            BackgroundColor = Color.NavajoWhite;
+
             //views
             Label userCredentials = new Label
             {
@@ -18,6 +20,17 @@ namespace NapChat.Pages
                 FontSize = 500,
             };
 
+            Button napTimerButton = new Button {
+                HorizontalOptions = LayoutOptions.Center,
+                WidthRequest = 200,
+                Text = "Naptimer",
+                TextColor = Color.White,
+                BackgroundColor = Color.MediumPurple,
+
+            };
+
+            napTimerButton.Clicked += async (sender, args) => await Navigation.PushAsync(new NapTimerPage());
+
 
             //Layout
             StackLayout homeLayout = new StackLayout
@@ -25,6 +38,8 @@ namespace NapChat.Pages
                 Children =
                 {
                     userCredentials,
+                    napTimerButton,
+
                 }
             };
         }
