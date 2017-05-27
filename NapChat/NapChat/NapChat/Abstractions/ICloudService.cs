@@ -14,8 +14,8 @@ namespace NapChat.Abstractions
 
         Task LoginAsync();
         
-        //Task LoginAsync(User user);
+        Task LoginAsync(User user);
 
-       // Task<AppServiceIdentity> GetIdentityAsync();
+        Task<AppServiceIdentity> GetIdentityAsync();
     }
 }

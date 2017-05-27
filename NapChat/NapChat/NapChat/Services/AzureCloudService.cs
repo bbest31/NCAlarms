@@ -19,9 +19,9 @@ namespace NapChat.Services
         {
             
             client = new MobileServiceClient(Locations.AppServiceUrl);
-            // client = new MobileServiceClient("https://napchat.azurewebsites.net");
+            
         }
-
+        
         public ICloudTable<T> GetTable<T>() where T : TableData
         {
             return new AzureCloudTable<T>(client);
@@ -35,13 +35,13 @@ namespace NapChat.Services
             return loginProvider.LoginAsync(client);
         }
 
-       /* List<AppServiceIdentity> identities = null;
+       List<AppServiceIdentity> identities = null;
 
         public Task LoginAsync(User user)
         {
             return client.LoginAsync("custom", JObject.FromObject(user));
         }
-
+        
         public async Task<AppServiceIdentity> GetIdentityAsync()
         {
             if (client.CurrentUser == null || client.CurrentUser?.MobileServiceAuthenticationToken == null)
@@ -58,6 +58,6 @@ namespace NapChat.Services
                 return identities[0];
             return null;
         }
-        */
+        
     }
 }
