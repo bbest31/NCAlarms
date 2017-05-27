@@ -24,13 +24,15 @@ namespace NapChat.Services
             return new AzureCloudTable<T>(client);
         }
 
+        /*The method looks up the platform dependent version of the login provider and executes the login method,
+        passing along the client */ 
         public Task LoginAsync()
         {
             var loginProvider = DependencyService.Get<ILoginProvider>();
             return loginProvider.LoginAsync(client);
         }
 
-        List<AppServiceIdentity> identities = null;
+       /* List<AppServiceIdentity> identities = null;
 
         public Task LoginAsync(User user)
         {
@@ -53,5 +55,6 @@ namespace NapChat.Services
                 return identities[0];
             return null;
         }
+        */
     }
 }

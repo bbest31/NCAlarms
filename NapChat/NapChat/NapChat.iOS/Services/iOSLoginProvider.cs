@@ -16,24 +16,28 @@ namespace NapChat.iOS.Services
 {
     public class iOSLoginProvider : ILoginProvider
     {
-        public AccountStore AccountStore { get; private set; }
+       /* public AccountStore AccountStore { get; private set; }
         public UIViewController RootView => UIApplication.SharedApplication.KeyWindow.RootViewController;
 
         public iOSLoginProvider()
         {
             AccountStore = AccountStore.Create();
         }
+        */
 
         public async Task LoginAsync(MobileServiceClient client)
         {
-            var accessToken = await LoginFacebookAsync();
+           /* var accessToken = await LoginFacebookAsync();
             var zumoPayload = new JObject()
             {
                 ["access_token"] = accessToken
             };
-            await client.LoginAsync("facebook", zumoPayload);
+            */
+            await client.LoginAsync(RootView, "facebook");
         }
 
+        public UIViewController RootView => UIApplication.SharedApplication.KeyWindow.RootViewController;
+        /*
         public MobileServiceUser RetrieveTokenFromSecureStore()
         {
             var accounts = AccountStore.FindAccountsForService("tasklist");
@@ -54,7 +58,7 @@ namespace NapChat.iOS.Services
             }
             return null;
         }
-
+        
         public void StoreTokenInSecureStore(MobileServiceUser user)
         {
             var account = new Account(user.UserId);
@@ -99,6 +103,7 @@ namespace NapChat.iOS.Services
             }
         }
         #endregion
+        */
     }
 
 

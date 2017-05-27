@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using NapChat.Abstractions;
+using NapChat.Helpers;
 using Xamarin.Forms;
 
 namespace NapChat.ViewModel
@@ -25,11 +26,14 @@ namespace NapChat.ViewModel
 
             try
             {
+                var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+                await cloudService.LoginAsync();
                 Application.Current.MainPage = new NavigationPage(new Pages.HomePage());
             }
+
             catch(Exception ex)
             {
-                Debug.WriteLine($"[Login] Error = {ex.Message}");
+                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
             }
             finally
             {

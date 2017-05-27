@@ -33,6 +33,7 @@ namespace NapChat.Droid.Services
 
         public async Task LoginAsync(MobileServiceClient client)
         {
+            /*
             // Check if the token is available within the key store
             var accounts = AccountStore.FindAccountsForService("napchat");
             if (accounts != null)
@@ -51,15 +52,16 @@ namespace NapChat.Droid.Services
                         }
                     }
                 }
-            }
+            } */
             await client.LoginAsync(RootView, "facebook");
-
+            /*
             // Store the new token within the store
             var account = new Account(client.CurrentUser.UserId);
             account.Properties.Add("token", client.CurrentUser.MobileServiceAuthenticationToken);
             AccountStore.Save(account, "napchat");
+            */
         }
-
+        /*
         bool IsTokenExpired(string token)
         {
             // Get just the JWT part of the token (without the signature).
@@ -91,6 +93,6 @@ namespace NapChat.Droid.Services
             var expire = minTime.AddSeconds(exp);
             return (expire < DateTime.UtcNow);
         }
-
+        */
     }
 }
