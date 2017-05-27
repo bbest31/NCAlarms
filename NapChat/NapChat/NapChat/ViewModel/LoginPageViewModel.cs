@@ -14,7 +14,7 @@ namespace NapChat.ViewModel
             Title = "NapChat";
             LoginCommand = new Command(async () => await ExecuteLoginCommand());
         }
-        // Command loginCmd;
+         //Command loginCmd;
         // public Command LoginCommand => loginCmd ?? (loginCmd = new Command(async () => await ExecuteLoginCommand().ConfigureAwait(false)));
         public Command LoginCommand { get; }
 

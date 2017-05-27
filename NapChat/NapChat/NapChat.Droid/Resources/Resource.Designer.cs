@@ -35,7 +35,9 @@ namespace NapChat.Droid
 			global::Xamarin.Auth.Resource.Layout.activity_webview = global::NapChat.Droid.Resource.Layout.activity_webview;
 			global::Xamarin.Auth.Resource.String.ApplicationName = global::NapChat.Droid.Resource.String.ApplicationName;
 			global::Xamarin.Auth.Resource.String.Hello = global::NapChat.Droid.Resource.String.Hello;
+			global::Xamarin.Auth.Resource.String.library_name = global::NapChat.Droid.Resource.String.library_name;
 			global::Xamarin.Auth.Resource.String.title_activity_webview = global::NapChat.Droid.Resource.String.title_activity_webview;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::NapChat.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation
