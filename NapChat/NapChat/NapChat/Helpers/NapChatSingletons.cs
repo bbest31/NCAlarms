@@ -8,13 +8,13 @@ namespace NapChat.Helpers
 {
     public static class NapChatSingletons
     {
-        //public static ICloudService CloudService { get; set; }
+        public static ICloudService CloudService { get; set; }
 
-        //public static ICloudService createSingletons()
-        //{
-        //    return CloudService = new AzureCloudService();
+        public static ICloudService createSingletons()
+        {
+            return CloudService = new AzureCloudService();
 
-        //}
+        }
 
     }
 }

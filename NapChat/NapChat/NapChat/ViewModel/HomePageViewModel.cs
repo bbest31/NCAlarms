@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using NapChat.Pages;
 using NapChat.Abstractions;
 using NapChat.Services;
+using NapChat.Helpers;
 
 
 namespace NapChat.ViewModel
@@ -16,7 +17,8 @@ namespace NapChat.ViewModel
 
         public HomePageViewModel()
         {
-            CloudService = new AzureCloudService();
+            //CloudService = new AzureCloudService();
+            CloudService = NapChatSingletons.CloudService;
             Title = "Home Page";
            // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
            // DisplayUserName.Execute(null);

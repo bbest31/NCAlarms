@@ -14,12 +14,12 @@ namespace NapChat
 	public class App : Application
 	{
         //Might want to implement a singleton manager class
-        public static ICloudService CloudService { get; set; }
+        //public static ICloudService CloudService { get; set; }
 
         public App ()
 		{
-            CloudService = new AzureCloudService();
-            //ICloudService CloudService = NapChatSingletons.createSingletons();
+            //CloudService = new AzureCloudService();
+            ICloudService CloudService = NapChatSingletons.CloudService;
 
             // The root page of your application
             MainPage = new NavigationPage(new LoginPage());
