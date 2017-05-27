@@ -14,9 +14,11 @@ namespace NapChat.ViewModel
         public LoginPageViewModel()
         {
             Title = "NapChat";
+            LoginCommand = new Command(async () => await ExecuteLoginCommand());
         }
-        Command loginCmd;
-        public Command LoginCommand => loginCmd ?? (loginCmd = new Command(async () => await ExecuteLoginCommand().ConfigureAwait(false)));
+        // Command loginCmd;
+        // public Command LoginCommand => loginCmd ?? (loginCmd = new Command(async () => await ExecuteLoginCommand().ConfigureAwait(false)));
+        public Command LoginCommand { get; }
 
         async Task ExecuteLoginCommand()
         {
@@ -33,7 +35,8 @@ namespace NapChat.ViewModel
 
             catch(Exception ex)
             {
-                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+                // Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Login Failed", ex.Message, "OK");
             }
             finally
             {
