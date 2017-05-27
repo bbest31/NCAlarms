@@ -6,6 +6,7 @@ using NapChat.Abstractions;
 using NapChat.Services;
 using NapChat.Model;
 using Xamarin.Forms;
+using NapChat.Pages;
 
 namespace NapChat
 {
@@ -18,7 +19,7 @@ namespace NapChat
             CloudService = new AzureCloudService();
 
             // The root page of your application
-            MainPage = new NavigationPage(new Pages.HomePage());
+            MainPage = new NavigationPage(new LoginPage());
 		}
 
 		protected override void OnStart ()

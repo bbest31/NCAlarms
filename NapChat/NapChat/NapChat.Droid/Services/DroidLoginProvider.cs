@@ -28,7 +28,7 @@ namespace NapChat.Droid.Services
         public void Init(Context context)
         {
             RootView = context;
-            AccountStore = AccountStore.Create(context);
+           // AccountStore = AccountStore.Create(context);
         }
 
         public async Task LoginAsync(MobileServiceClient client)

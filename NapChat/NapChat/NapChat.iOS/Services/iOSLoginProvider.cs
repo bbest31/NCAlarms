@@ -16,10 +16,10 @@ namespace NapChat.iOS.Services
 {
     public class iOSLoginProvider : ILoginProvider
     {
-       /* public AccountStore AccountStore { get; private set; }
-        public UIViewController RootView => UIApplication.SharedApplication.KeyWindow.RootViewController;
-
-        public iOSLoginProvider()
+       // public AccountStore AccountStore { get; private set; }
+        
+        
+       /* public iOSLoginProvider()
         {
             AccountStore = AccountStore.Create();
         }
@@ -37,8 +37,8 @@ namespace NapChat.iOS.Services
         }
 
         public UIViewController RootView => UIApplication.SharedApplication.KeyWindow.RootViewController;
-        /*
-        public MobileServiceUser RetrieveTokenFromSecureStore()
+
+       /* public MobileServiceUser RetrieveTokenFromSecureStore()
         {
             var accounts = AccountStore.FindAccountsForService("tasklist");
             if (accounts != null)
