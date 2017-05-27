@@ -4,6 +4,7 @@ using NapChat.Abstractions;
 using Xamarin.Forms;
 using NapChat.Helpers;
 using NapChat.Services;
+using NapChat.Pages;
 
 namespace NapChat.ViewModel
 {
@@ -29,7 +30,7 @@ namespace NapChat.ViewModel
 
                 var cloudService = new AzureCloudService();
                 await cloudService.LoginAsync();
-                Application.Current.MainPage = new NavigationPage(new Pages.HomePage());
+                Application.Current.MainPage = new NavigationPage(new HomePage());
             }
 
             catch(Exception ex)
