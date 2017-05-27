@@ -20,14 +20,16 @@ namespace NapChat.Droid.Services
 {
     public class DroidLoginProvider : ILoginProvider
     {
-        public Context RootView { get; private set; }
+        //  public Context RootView { get; private set; }
 
-        public AccountStore AccountStore { get; private set; }
+        // public AccountStore AccountStore { get; private set; }
 
+        Context context;
 
         public void Init(Context context)
         {
-            RootView = context;
+            this.context = context;
+            // RootView = context;
            // AccountStore = AccountStore.Create(context);
         }
 
@@ -53,7 +55,7 @@ namespace NapChat.Droid.Services
                     }
                 }
             } */
-            await client.LoginAsync(RootView, "facebook");
+            await client.LoginAsync(context, "facebook");
             /*
             // Store the new token within the store
             var account = new Account(client.CurrentUser.UserId);

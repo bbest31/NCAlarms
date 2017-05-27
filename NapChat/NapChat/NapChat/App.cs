@@ -36,5 +36,6 @@ namespace NapChat
 		{
 			// Handle when your app resumes
 		}
+
 	}
 }

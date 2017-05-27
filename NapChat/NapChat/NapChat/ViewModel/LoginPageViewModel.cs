@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using NapChat.Abstractions;
-using NapChat.Helpers;
 using Xamarin.Forms;
+using NapChat.Helpers;
+using NapChat.Services;
 
 namespace NapChat.ViewModel
 {
@@ -28,7 +26,8 @@ namespace NapChat.ViewModel
 
             try
             {
-                var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+
+                var cloudService = new AzureCloudService();
                 await cloudService.LoginAsync();
                 Application.Current.MainPage = new NavigationPage(new Pages.HomePage());
             }

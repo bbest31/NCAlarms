@@ -5,6 +5,7 @@ using NapChat.Abstractions;
 using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using NapChat.Helpers;
 using NapChat.Model;
 using Newtonsoft.Json.Linq;
 
@@ -16,7 +17,9 @@ namespace NapChat.Services
 
         public AzureCloudService()
         {
-            client = new MobileServiceClient("https://napchat.azurewebsites.net");
+            
+            client = new MobileServiceClient(Locations.AppServiceUrl);
+            // client = new MobileServiceClient("https://napchat.azurewebsites.net");
         }
 
         public ICloudTable<T> GetTable<T>() where T : TableData

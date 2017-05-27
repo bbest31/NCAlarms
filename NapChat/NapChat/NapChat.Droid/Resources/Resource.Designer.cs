@@ -26,11 +26,12 @@ namespace NapChat.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::PCLCrypto.Resource.String.ApplicationName = global::NapChat.Droid.Resource.String.ApplicationName;
+			global::PCLCrypto.Resource.String.Hello = global::NapChat.Droid.Resource.String.Hello;
 			global::Xamarin.Auth.Resource.Id.webview = global::NapChat.Droid.Resource.Id.webview;
 			global::Xamarin.Auth.Resource.Layout.activity_webview = global::NapChat.Droid.Resource.Layout.activity_webview;
 			global::Xamarin.Auth.Resource.String.ApplicationName = global::NapChat.Droid.Resource.String.ApplicationName;
 			global::Xamarin.Auth.Resource.String.Hello = global::NapChat.Droid.Resource.String.Hello;
-			global::Xamarin.Auth.Resource.String.library_name = global::NapChat.Droid.Resource.String.library_name;
 			global::Xamarin.Auth.Resource.String.title_activity_webview = global::NapChat.Droid.Resource.String.title_activity_webview;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::NapChat.Droid.Resource.Attribute.actionBarSize;
 		}
@@ -2936,6 +2937,12 @@ namespace NapChat.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f080028
+			public const int ApplicationName = 2131230760;
+			
+			// aapt resource value: 0x7f080027
+			public const int Hello = 2131230759;
 			
 			// aapt resource value: 0x7f08000f
 			public const int abc_action_bar_home_description = 2131230735;

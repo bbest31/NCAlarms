@@ -27,5 +27,6 @@ namespace NapChat.Droid
             LoadApplication (new NapChat.App ());
 		}
 	}
+
 }
 
