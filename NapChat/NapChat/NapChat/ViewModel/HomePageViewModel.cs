@@ -18,8 +18,8 @@ namespace NapChat.ViewModel
         {
             CloudService = new AzureCloudService();
             Title = "Home Page";
-            DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
-            DisplayUserName.Execute(null);
+           // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
+           // DisplayUserName.Execute(null);
         }
 
         public Command DisplayUserName { get; }
