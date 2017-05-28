@@ -6,6 +6,7 @@
   <ContentPage.Content BackgroundColor ="White">
     <StackLayout>
       <Label Text="Username: {name}" HorizontalOptions="Center">userNameLabel</Label>
+      <Button Text="NapTimer" TextColor="White" BackgroundColor="Purple" HorizontalOptions="Center" Clicked="{Binding napTimerClicked}"></Button>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>
