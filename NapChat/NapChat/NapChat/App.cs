@@ -7,16 +7,19 @@ using NapChat.Services;
 using NapChat.Model;
 using Xamarin.Forms;
 using NapChat.Pages;
+using NapChat.Helpers;
 
 namespace NapChat
 {
 	public class App : Application
 	{
         //Might want to implement a singleton manager class
-        public static ICloudService CloudService { get; set; }
-		public App ()
+        //public static ICloudService CloudService { get; set; }
+
+        public App ()
 		{
-            CloudService = new AzureCloudService();
+            //CloudService = new AzureCloudService();
+            ICloudService CloudService = NapChatSingletons.CloudService;
 
             // The root page of your application
             MainPage = new NavigationPage(new LoginPage());

@@ -1,29 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
-using NapChat.Services;
-using NapChat.Abstractions;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics;
+using Xamarin.Forms;
+using NapChat.Pages;
+using NapChat.Abstractions;
+using NapChat.Services;
+using NapChat.Helpers;
+
 
 namespace NapChat.ViewModel
 {
     public class HomePageViewModel : BaseViewModel
     {
-        ICloudService cloudService;
-
-        public Command LogoutCommand { get; }
+        ICloudService CloudService;
 
         public HomePageViewModel()
         {
-            Debug.WriteLine("In TaskListViewMOdel");
-         
-
+            //CloudService = new AzureCloudService();
+            CloudService = NapChatSingletons.CloudService;
+            Title = "Home Page";
+           // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
+           // DisplayUserName.Execute(null);
         }
 
+        public Command DisplayUserName { get; }
 
+        async Task ExecuteDisplayUserName()
+        {
+            if (IsBusy)
+                return;
+            IsBusy = true;
+
+            try
+            {
+                var identity = await CloudService.GetIdentityAsync();
+                if (identity != null)
+                {
+                    var name = identity.UserClaims.Find(c => c.Type.Equals("name")).Value;
+                     Title = $"Tasks for {name}";
+                }
+                //var list = await Table.ReadAllItemsAsync();
+                //Items.ReplaceRange(list);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Items Not Loaded", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
     }
 }
