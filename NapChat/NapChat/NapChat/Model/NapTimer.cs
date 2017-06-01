@@ -34,6 +34,7 @@ namespace NapChat.Model
         {
             //Alarm time was set to same time as current time
             //We therefore make the alarm system know they mean for the next day
+            //Or if the time set was earlier than currentTime then we add a day to the set time.
             if (alarm.CompareTo(getCurrentTime()) == 0 || (alarm.CompareTo(getCurrentTime()) < 0))
             {
                 alarm.AddDays(1);
