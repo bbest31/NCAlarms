@@ -42,8 +42,14 @@ namespace NapChat.Helpers
         }
     }
 
+    /// <summary>
+    /// Helper class that holds important Url's, Uri's, etc.
+    /// </summary>
     public static class Locations
     {
+        /// <summary>
+        /// App Service Url: https://napchat.azurewebsties.net
+        /// </summary>
         public static readonly string AppServiceUrl = "https://napchat.azurewebsites.net";
 
         // public static readonly string AadClientId = "0c3309fe-e392-4ca5-8d54-55f69ae1e0f8";

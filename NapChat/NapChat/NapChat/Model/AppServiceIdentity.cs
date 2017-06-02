@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace NapChat.Model
 {
+    /// <summary>
+    /// Holds the information about the authenticated User provided by the Identity Provider.
+    /// </summary>
     public class AppServiceIdentity
     {
         [JsonProperty(PropertyName = "id_token")]
