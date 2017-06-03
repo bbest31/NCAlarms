@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NapChat.Pages
@@ -12,6 +12,10 @@ namespace NapChat.Pages
     /// </summary>
 	public class NapTimerPage : ContentPage
 	{
+        public async Task backToHome()
+        {
+            await Navigation.PopAsync();
+        }
 		
 		}
 	}

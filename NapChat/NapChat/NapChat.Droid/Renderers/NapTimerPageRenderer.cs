@@ -13,6 +13,7 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using NapChat.Pages;
 using NapChat.Droid.Renderers;
+using NapChat.Droid.Broadcast;
 
 //https://github.com/eddydn/XamarinAlarmDemo
 
@@ -32,18 +33,62 @@ namespace NapChat.Droid.Renderers
                 return;
             }
         }
-        /*  private void SetAlarm(Context packagedContext)
+       
+        
+        Label alarmLabel = new Label
         {
+            Text = "Set Alarm",
+            TextColor = Color.White,
+            HorizontalOptions = LayoutOptions.Center,
+        };
+
+        Xamarin.Forms.TimePicker timePicker = new Xamarin.Forms.TimePicker()
+        {
+            Time = new TimeSpan (12,0,0),
+            TextColor = Color.Black,
+
+        };
+
+        Xamarin.Forms.Button setAlarmButton = new Xamarin.Forms.Button
+        {
+            Text = "Confirm",
+            TextColor = Color.White,
+            BackgroundColor = Color.Purple,
+            BorderColor = Color.Black,
+            HorizontalOptions = LayoutOptions.CenterAndExpand,
+            
+        };
+        StackLayout droidTimerLayout = new StackLayout()
+        {
+           
+        };
+       
+        /// <summary>
+        /// Uses an alarm manager to set the alarm for broadcast on the device.
+        /// The isRepearing boolean indicates whether the alarm repeats or not.
+        /// </summary>
+        /// <param name="isRepeating"></param>
+          private void SetAlarm(bool isRepeating)
+        {
+
             AlarmManager manager = (AlarmManager)GetSystemService(Context.AlarmService);
-            Intent myIntent = new Intent(packagedContext,typeof(AlarmReceiver));
+            Intent myIntent = new Intent(this,typeof(AlarmReceiver));
             PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.GetBroadcast(packagedContext, 0, myIntent, 0);
+            pendingIntent = PendingIntent.GetBroadcast(this, 0, myIntent, 0);
 
-            manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, pendingIntent);
+            
+            if (!isRepeating)
+            {
+                manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, pendingIntent);
+            }
+            else
+            {
+                manager.SetRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, 60 * 1000, pendingIntent);
+            }
 
-            TimePicker timepicker;
+            ((NapTimerPage)Element).backToHome();
 
         }
-         */
+         
     }
 }
