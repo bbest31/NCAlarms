@@ -156,9 +156,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Broadcast\AlarmReceiver.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DroidAlarmManager.cs" />
     <Compile Include="Services\DroidLoginProvider.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -37,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\HomePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\NapTimerPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)GettingStarted.Xamarin" />

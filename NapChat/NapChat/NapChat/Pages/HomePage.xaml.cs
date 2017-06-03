@@ -16,10 +16,5 @@ namespace NapChat.Pages
 			InitializeComponent ();
             BindingContext = new HomePageViewModel();
 		}
-
-        protected async void napTimerClicked(object sender, EventArgs args)
-        {
-            await Navigation.PushAsync(new NapTimerPage());
-        }
 	}
 }

@@ -7,6 +7,7 @@ using NapChat.Pages;
 using NapChat.Abstractions;
 using NapChat.Services;
 using NapChat.Helpers;
+using Xamarin.Forms;
 
 
 namespace NapChat.ViewModel
@@ -22,6 +23,18 @@ namespace NapChat.ViewModel
             Title = "Home Page";
            // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
            // DisplayUserName.Execute(null);
+        }
+
+        /// <summary>
+        /// Clicked event method for Menu button to navigate to NapTimerPage.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected async void napTimerClicked(object sender, EventArgs args)
+        {
+            //goes to the nap timer page
+            Page homepage = Application.Current.MainPage;
+            await homepage.Navigation.PushAsync(new NapTimerPage());
         }
 
         public Command DisplayUserName { get; }
