@@ -42,7 +42,10 @@ namespace NapChat.Droid.Renderers
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Center,
             };
-            //May switch the Android TimePicker
+            /*WILLY TODO:
+             * May switch the Android TimePicker, See which one is easier to grab time from.
+             * Seems the AlarmManager uses long ints for milliseconds to determine alarm length.
+            */
             Xamarin.Forms.TimePicker timePicker = new Xamarin.Forms.TimePicker()
             {
                 Time = new TimeSpan(12, 0, 0),
@@ -61,6 +64,9 @@ namespace NapChat.Droid.Renderers
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
 
             };
+            /*WILLY TODO:
+             * Create a onClick method that refers to the SetAlarm() method below.
+             */
             //setAlarmButton.Clicked += SetAlarm();
 
             StackLayout droidTimerLayout = new StackLayout
@@ -92,7 +98,8 @@ namespace NapChat.Droid.Renderers
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-
+            /*WILLY TODO:
+             * Add a parameter to pass in the alarm time length for method calls to replace SystemClock.ElapsedRealtime...*/
             if (!isRepeating)
             {
                 manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, pendingIntent);
