@@ -33,8 +33,9 @@ namespace NapChat.Droid.Renderers
                 return;
             }
         }
-       
-        
+
+        Context context;
+
         Label alarmLabel = new Label
         {
             Text = "Set Alarm",
@@ -58,8 +59,20 @@ namespace NapChat.Droid.Renderers
             HorizontalOptions = LayoutOptions.CenterAndExpand,
             
         };
-        StackLayout droidTimerLayout = new StackLayout()
+        StackLayout droidTimerLayout = new StackLayout
         {
+            BackgroundColor = Color.Beige,
+            VerticalOptions = LayoutOptions.Center,
+            
+        Children =
+            {
+                new Label {
+                    Text = "Set Alarm",
+                    TextColor = Color.White,
+                    HorizontalOptions = LayoutOptions.Center,
+                    },
+                
+               }
            
         };
        
@@ -70,11 +83,11 @@ namespace NapChat.Droid.Renderers
         /// <param name="isRepeating"></param>
           private void SetAlarm(bool isRepeating)
         {
-
-            AlarmManager manager = (AlarmManager)GetSystemService(Context.AlarmService);
-            Intent myIntent = new Intent(this,typeof(AlarmReceiver));
+            
+            AlarmManager manager = ((AlarmManager)Context.GetSystemService(Context.AlarmService));
+            Intent myIntent = new Intent(context,typeof(AlarmReceiver));
             PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.GetBroadcast(this, 0, myIntent, 0);
+            pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
             
             if (!isRepeating)
@@ -85,9 +98,9 @@ namespace NapChat.Droid.Renderers
             {
                 manager.SetRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, 60 * 1000, pendingIntent);
             }
-
+            
             ((NapTimerPage)Element).backToHome();
-
+            
         }
          
     }
