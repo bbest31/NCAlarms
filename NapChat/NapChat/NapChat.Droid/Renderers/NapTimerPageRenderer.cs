@@ -14,6 +14,7 @@ using Xamarin.Forms;
 using NapChat.Pages;
 using NapChat.Droid.Renderers;
 using NapChat.Droid.Broadcast;
+using System.Threading.Tasks;
 
 //https://github.com/eddydn/XamarinAlarmDemo
 
@@ -32,64 +33,66 @@ namespace NapChat.Droid.Renderers
             {
                 return;
             }
+
+            this.SetBackgroundColor(Android.Graphics.Color.Indigo);
+
+            Label alarmLabel = new Label
+            {
+                Text = "Set Alarm",
+                TextColor = Color.White,
+                HorizontalOptions = LayoutOptions.Center,
+            };
+            //May switch the Android TimePicker
+            Xamarin.Forms.TimePicker timePicker = new Xamarin.Forms.TimePicker()
+            {
+                Time = new TimeSpan(12, 0, 0),
+                TextColor = Color.Black,
+
+            };
+
+            
+
+            Xamarin.Forms.Button setAlarmButton = new Xamarin.Forms.Button
+            {
+                Text = "Confirm",
+                TextColor = Color.White,
+                BackgroundColor = Color.Purple,
+                BorderColor = Color.Black,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+
+            };
+            //setAlarmButton.Clicked += SetAlarm();
+
+            StackLayout droidTimerLayout = new StackLayout
+            {
+                BackgroundColor = Color.White,
+                VerticalOptions = LayoutOptions.Center,
+
+                Children =
+                    {
+                    alarmLabel,
+                    timePicker,
+                    setAlarmButton
+                    }
+
+            };
         }
 
         Context context;
-
-        Label alarmLabel = new Label
-        {
-            Text = "Set Alarm",
-            TextColor = Color.White,
-            HorizontalOptions = LayoutOptions.Center,
-        };
-
-        Xamarin.Forms.TimePicker timePicker = new Xamarin.Forms.TimePicker()
-        {
-            Time = new TimeSpan (12,0,0),
-            TextColor = Color.Black,
-
-        };
-
-        Xamarin.Forms.Button setAlarmButton = new Xamarin.Forms.Button
-        {
-            Text = "Confirm",
-            TextColor = Color.White,
-            BackgroundColor = Color.Purple,
-            BorderColor = Color.Black,
-            HorizontalOptions = LayoutOptions.CenterAndExpand,
-            
-        };
-        StackLayout droidTimerLayout = new StackLayout
-        {
-            BackgroundColor = Color.Beige,
-            VerticalOptions = LayoutOptions.Center,
-            
-        Children =
-            {
-                new Label {
-                    Text = "Set Alarm",
-                    TextColor = Color.White,
-                    HorizontalOptions = LayoutOptions.Center,
-                    },
-                
-               }
-           
-        };
-       
         /// <summary>
         /// Uses an alarm manager to set the alarm for broadcast on the device.
         /// The isRepearing boolean indicates whether the alarm repeats or not.
         /// </summary>
         /// <param name="isRepeating"></param>
-          private void SetAlarm(bool isRepeating)
+        private void SetAlarm(bool isRepeating)
         {
-            
+
             AlarmManager manager = ((AlarmManager)Context.GetSystemService(Context.AlarmService));
-            Intent myIntent = new Intent(context,typeof(AlarmReceiver));
+            Intent myIntent = new Intent(context, typeof(AlarmReceiver));
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-            
+
             if (!isRepeating)
             {
                 manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, pendingIntent);
@@ -98,10 +101,9 @@ namespace NapChat.Droid.Renderers
             {
                 manager.SetRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, 60 * 1000, pendingIntent);
             }
-            
+
             ((NapTimerPage)Element).backToHome();
-            
+
         }
-         
+    }         
     }
-}
