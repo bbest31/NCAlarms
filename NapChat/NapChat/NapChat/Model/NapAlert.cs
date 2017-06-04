@@ -8,22 +8,24 @@ namespace NapChat.Model
     /// The timer object that holds the alarm lengths, nap message, nap settings,
     /// and also contributes to the nap log.
     /// </summary>
-    public class NapTimer
+    public class NapAlert
     {
         /// <summary>
         /// Will be the alarm length by getting the set alarm time from the TimerPicker and then comparing to the current time.
         /// </summary>
         private TimeSpan alarmLength;
 
-        private DateTime currentTime;
+       
 
         /// <summary>
         /// Alarm time set by the User.
+        /// Could be receieved by friends if we want to just display text that says when they set the alarm for.
         /// </summary>
         private DateTime alarmTime;
 
         /// <summary>
         /// Message sent in push notifications.
+        /// Will be received by friends.
         /// </summary>
         private string napMessage;
 
@@ -39,17 +41,7 @@ namespace NapChat.Model
 
         //private Group attachedGroup;
 
-        /// <summary>
-        /// Returns the current local time.
-        /// </summary>
-        /// <returns>The current local time as type DateTime</returns>
-        public DateTime getCurrentTime()
-        {
-            currentTime = currentTime.ToLocalTime();
-            return currentTime;
-        }
-       
-        /// <summary>
+      /*  /// <summary>
         /// Takes in the DateTime from the UI and sets the appropriate alarm time.
         /// </summary>
         /// <param name="alarm"></param>
@@ -69,7 +61,8 @@ namespace NapChat.Model
                 alarmTime = alarm;
             }
         }
-
+        */
+        /*
         /// <summary>
         /// Returns the time the alarm is set to go off on.
         /// </summary>
@@ -85,6 +78,7 @@ namespace NapChat.Model
         {
             alarmLength = getAlarmTime().Subtract(getCurrentTime());
         }
+        */
         /// <summary>
         /// Returns the length of the alarm as type TimeSpan
         /// </summary>

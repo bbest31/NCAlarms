@@ -36,15 +36,16 @@ namespace NapChat.Droid.Renderers
 
             this.SetBackgroundColor(Android.Graphics.Color.Indigo);
 
+           
+            //Views
             Label alarmLabel = new Label
             {
                 Text = "Set Alarm",
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Center,
             };
-            /*WILLY TODO:
+            /*?:
              * May switch the Android TimePicker, See which one is easier to grab time from.
-             * Seems the AlarmManager uses long ints for milliseconds to determine alarm length.
             */
             Xamarin.Forms.TimePicker timePicker = new Xamarin.Forms.TimePicker()
             {
@@ -53,7 +54,13 @@ namespace NapChat.Droid.Renderers
 
             };
 
-            
+            Xamarin.Forms.Switch awakeSwitch = new Xamarin.Forms.Switch
+            {
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.End,
+            };
+
+            awakeSwitch.Toggled += AwakeSwitch_Toggled;
 
             Xamarin.Forms.Button setAlarmButton = new Xamarin.Forms.Button
             {
@@ -64,11 +71,10 @@ namespace NapChat.Droid.Renderers
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
 
             };
-            /*WILLY TODO:
-             * Create a onClick method that refers to the SetAlarm() method below.
-             */
-            //setAlarmButton.Clicked += SetAlarm();
 
+            setAlarmButton.Clicked += SetAlarmButton_Clicked;
+
+            //Layout
             StackLayout droidTimerLayout = new StackLayout
             {
                 BackgroundColor = Color.White,
@@ -78,19 +84,70 @@ namespace NapChat.Droid.Renderers
                     {
                     alarmLabel,
                     timePicker,
-                    setAlarmButton
+                    setAlarmButton,
+                    awakeSwitch,
                     }
 
             };
         }
+        /// <summary>
+        /// Sets the repeating alarm boolean indicator to make the switch toggle.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AwakeSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            isRepeating = e.Value;
+        }
+
+        /// <summary>
+        ///  Calls getAlarmLength to get time set by user in TimePicker,
+        ///  Passes attached Group name (if any) and NapMessage (if any),
+        ///  Determines whether to create a one-time alarm or a repeating alarm
+        ///  and then passes the necessary parameters to create the alarm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetAlarmButton_Clicked(object sender, EventArgs e)
+        {
+            //Get alarm length
+            long alarmlength = getAlarmLength();
+            //Get Group
+
+            //Get NapMessage.
+
+            //Determine if repeating.
+            if (!isRepeating)
+            {
+                createAlarm(alarmlength);
+            }
+            else
+            {
+                createRepeatingAlarm(alarmlength, 0);
+            }
+        }
+
+        //TODO: get time from TimePicker and determine alarm length
+        /// <summary>
+        /// Gets alarm time from TimePicker and returns alarm time length based on current time.
+        /// </summary>
+        /// <returns></returns>
+        public long getAlarmLength()
+        {
+            long alarmlength = 0;
+
+            return alarmlength;
+        }
 
         Context context;
+        Boolean isRepeating;
+
         /// <summary>
         /// Uses an alarm manager to set the alarm for broadcast on the device.
-        /// The isRepearing boolean indicates whether the alarm repeats or not.
+        /// Also builds NapAlert to then update the NapLog and then finally sends the push notifications.
         /// </summary>
         /// <param name="isRepeating"></param>
-        private void SetAlarm(bool isRepeating)
+        private void createAlarm(long alarmlengthMilli)
         {
 
             AlarmManager manager = ((AlarmManager)Context.GetSystemService(Context.AlarmService));
@@ -98,16 +155,48 @@ namespace NapChat.Droid.Renderers
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-            /*WILLY TODO:
-             * Add a parameter to pass in the alarm time length for method calls to replace SystemClock.ElapsedRealtime...*/
-            if (!isRepeating)
-            {
-                manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, pendingIntent);
-            }
-            else
-            {
-                manager.SetRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, 60 * 1000, pendingIntent);
-            }
+            /*TODO:
+             * Use parameter to pass in the alarm time length for method calls to replace SystemClock.ElapsedRealtime...
+             Also we will use a Builder class to make Nap-Alerts for the Nap-Log and Push notifications.*/
+            
+             manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, pendingIntent);
+
+
+            //Call builder class here.
+
+            //Update Nap-Log here.
+
+            //Send notifications here.
+
+
+
+
+            ((NapTimerPage)Element).backToHome();
+
+        }
+        /// <summary>
+        /// Uses the AlarmManager to create a alarm for broadcast on the device that repeats at certains day(s)/time(s).
+        /// Also builds NapAlert to then update the NapLog and then finally sends the push notifications.
+        /// </summary>
+        /// <param name="alarmLengthMilli"></param>
+        /// <param name="alarmInterval"></param>
+        private void createRepeatingAlarm(long alarmLengthMilli, long alarmInterval)
+        {
+            AlarmManager manager = ((AlarmManager)Context.GetSystemService(Context.AlarmService));
+            Intent myIntent = new Intent(context, typeof(AlarmReceiver));
+            PendingIntent pendingIntent;
+            pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
+
+            manager.SetRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, 60 * 1000, pendingIntent);
+
+            //Call builder class here.
+
+            //Update Nap-Log here.
+
+            //Send notifications here.
+
+
+
 
             ((NapTimerPage)Element).backToHome();
 
