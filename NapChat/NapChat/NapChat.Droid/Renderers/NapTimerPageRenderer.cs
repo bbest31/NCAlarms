@@ -44,24 +44,30 @@ namespace NapChat.Droid.Renderers
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Center,
             };
-            /*?:
-             * May switch the Android TimePicker, See which one is easier to grab time from.
-            */
+           
+          
             Xamarin.Forms.TimePicker timePicker = new Xamarin.Forms.TimePicker()
             {
                 Time = new TimeSpan(12, 0, 0),
                 TextColor = Color.Black,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                BindingContext = alarmLength,
+               
 
             };
-
+            
+            //timePicker.SetBinding(Xamarin.Forms.TimePicker.TimeProperty, "TimeProperty");
+            
+            
             Xamarin.Forms.Switch awakeSwitch = new Xamarin.Forms.Switch
             {
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.End,
+
             };
 
             awakeSwitch.Toggled += AwakeSwitch_Toggled;
-
+            
             Xamarin.Forms.Button setAlarmButton = new Xamarin.Forms.Button
             {
                 Text = "Confirm",
@@ -85,11 +91,12 @@ namespace NapChat.Droid.Renderers
                     alarmLabel,
                     timePicker,
                     setAlarmButton,
-                    awakeSwitch,
+                   // awakeSwitch,
                     }
 
             };
         }
+       
         /// <summary>
         /// Sets the repeating alarm boolean indicator to make the switch toggle.
         /// </summary>
@@ -110,8 +117,7 @@ namespace NapChat.Droid.Renderers
         /// <param name="e"></param>
         private void SetAlarmButton_Clicked(object sender, EventArgs e)
         {
-            //Get alarm length
-            long alarmlength = getAlarmLength();
+             
             //Get Group
 
             //Get NapMessage.
@@ -119,29 +125,28 @@ namespace NapChat.Droid.Renderers
             //Determine if repeating.
             if (!isRepeating)
             {
-                createAlarm(alarmlength);
+                createAlarm(alarmLength);
             }
             else
             {
-                createRepeatingAlarm(alarmlength, 0);
+                createRepeatingAlarm(alarmLength, 0);
             }
         }
 
-        //TODO: get time from TimePicker and determine alarm length
-        /// <summary>
-        /// Gets alarm time from TimePicker and returns alarm time length based on current time.
-        /// </summary>
-        /// <returns></returns>
-        public long getAlarmLength()
-        {
-            long alarmlength = 0;
-
-            return alarmlength;
-        }
 
         Context context;
         Boolean isRepeating;
-
+        long alarmLength = 0;
+        /// <summary>
+        /// Converts DateTime object to type long.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns>long int object</returns>
+        public long convertToLong(DateTime dateTime)
+        {
+            long timeLong = dateTime.Ticks;
+            return timeLong;
+        }
         /// <summary>
         /// Uses an alarm manager to set the alarm for broadcast on the device.
         /// Also builds NapAlert to then update the NapLog and then finally sends the push notifications.
