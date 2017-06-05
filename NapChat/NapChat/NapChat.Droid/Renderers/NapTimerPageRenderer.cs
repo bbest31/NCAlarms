@@ -137,7 +137,7 @@ namespace NapChat.Droid.Renderers
 
 
         Context context;
-        Boolean isRepeating;
+        Boolean isRepeating = false;
         TimeSpan pickerTime;
         long alarmLength = 0;
         /// <summary>
