@@ -168,7 +168,7 @@ namespace NapChat.Droid.Renderers
              * Use parameter to pass in the alarm time length for method calls to replace SystemClock.ElapsedRealtime...
              Also we will use a Builder class to make Nap-Alerts for the Nap-Log and Push notifications.*/
             
-             manager.Set(AlarmType.RtcWakeup, alarmlengthMilli, pendingIntent);
+             manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime()+3000/*alarmlengthMilli*/, pendingIntent);
 
 
             //Call builder class here.
@@ -196,7 +196,7 @@ namespace NapChat.Droid.Renderers
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-            manager.SetRepeating(AlarmType.RtcWakeup, alarmLengthMilli, 60 * 1000, pendingIntent);
+            manager.SetRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime()+3000/*alarmLengthMilli*/, 60 * 1000, pendingIntent);
 
             //Call builder class here.
 
