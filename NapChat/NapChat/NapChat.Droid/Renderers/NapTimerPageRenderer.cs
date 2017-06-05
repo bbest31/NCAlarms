@@ -51,14 +51,14 @@ namespace NapChat.Droid.Renderers
                 Time = new TimeSpan(12, 0, 0),
                 TextColor = Color.Black,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
-                BindingContext = alarmLength,
+                BindingContext = pickerTime,
                
 
             };
             
-            //timePicker.SetBinding(Xamarin.Forms.TimePicker.TimeProperty, "TimeProperty");
+            timePicker.SetBinding(Xamarin.Forms.TimePicker.TimeProperty, new Binding("Property") {Mode = BindingMode.OneWayToSource });
             
-            
+            //Change to OneWayToSource data binding.
             Xamarin.Forms.Switch awakeSwitch = new Xamarin.Forms.Switch
             {
                 HorizontalOptions = LayoutOptions.End,
@@ -125,10 +125,12 @@ namespace NapChat.Droid.Renderers
             //Determine if repeating.
             if (!isRepeating)
             {
+                alarmLength = convertToLong(pickerTime);
                 createAlarm(alarmLength);
             }
             else
             {
+                alarmLength = convertToLong(pickerTime);
                 createRepeatingAlarm(alarmLength, 0);
             }
         }
@@ -136,15 +138,17 @@ namespace NapChat.Droid.Renderers
 
         Context context;
         Boolean isRepeating;
+        TimeSpan pickerTime;
         long alarmLength = 0;
         /// <summary>
         /// Converts DateTime object to type long.
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns>long int object</returns>
-        public long convertToLong(DateTime dateTime)
+        public long convertToLong(TimeSpan timeSpan)
         {
-            long timeLong = dateTime.Ticks;
+            
+            long timeLong = timeSpan.Ticks;
             return timeLong;
         }
         /// <summary>
@@ -164,7 +168,7 @@ namespace NapChat.Droid.Renderers
              * Use parameter to pass in the alarm time length for method calls to replace SystemClock.ElapsedRealtime...
              Also we will use a Builder class to make Nap-Alerts for the Nap-Log and Push notifications.*/
             
-             manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, pendingIntent);
+             manager.Set(AlarmType.RtcWakeup, alarmlengthMilli, pendingIntent);
 
 
             //Call builder class here.
@@ -192,7 +196,7 @@ namespace NapChat.Droid.Renderers
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-            manager.SetRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000, 60 * 1000, pendingIntent);
+            manager.SetRepeating(AlarmType.RtcWakeup, alarmLengthMilli, 60 * 1000, pendingIntent);
 
             //Call builder class here.
 
