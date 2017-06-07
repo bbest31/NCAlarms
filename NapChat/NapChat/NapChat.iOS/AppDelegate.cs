@@ -26,7 +26,10 @@ namespace NapChat.iOS
             global::Xamarin.Forms.Forms.Init ();
 			LoadApplication (new NapChat.App ());
 
-			return base.FinishedLaunching (app, options);
+            var settings = UIUserNotificationSettings.GetSettingsForTypes(
+            UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
+            UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+            return base.FinishedLaunching (app, options);
 		}
 	}
 }
