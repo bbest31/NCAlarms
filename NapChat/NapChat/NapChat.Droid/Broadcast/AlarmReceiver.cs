@@ -10,24 +10,30 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
+using Android.Media;
 
 namespace NapChat.Droid.Broadcast
 {
     [BroadcastReceiver(Enabled =true)]
     public class AlarmReceiver : BroadcastReceiver
     {
+        
+        
+
         public override void OnReceive(Context context, Intent intent)
         {
-            /*
+            
+            /*//Make the notification link to a certain page in the app
             // Set up an intent so that tapping the notifications returns to this app:
-            Intent intent = new Intent(this, typeof(MainActivity));
+            Intent localIntent = new Intent(this, typeof(MainActivity));
 
             // Create a PendingIntent; we're only using one PendingIntent (ID = 0):
-            const int pendingIntentId = 0;
+            int pendingIntentId = (int)SystemClock.ElapsedRealtime();
             PendingIntent pendingIntent =
-                PendingIntent.GetActivity(this, pendingIntentId, intent, PendingIntentFlags.OneShot);
-             */
-            //Toast.MakeText(context, "Received intent!", ToastLength.Short).Show();
+                PendingIntent.GetActivity(, pendingIntentId, localIntent, PendingIntentFlags.OneShot);
+
+
+            //Toast.MakeText(context, "Received intent!", ToastLength.Short).Show();*/
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
             builder.SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
@@ -35,15 +41,16 @@ namespace NapChat.Droid.Broadcast
                     .SetSmallIcon(Resource.Drawable.Icon)
                     .SetContentTitle("NapChat Alarm")
                     .SetContentText("Time to wake up!")
+                    //.AddAction(Resource.Drawable.Icon, "Snooze", pendingIntent)
+                    //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
                     .SetVisibility((int)NotificationVisibility.Public)
                     .SetContentInfo("Info");
                     //.SetContentIntent(pendingIntent);
             //to set ringtone to default or set sound
-            //builder.SetSound (RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
+            builder.SetSound (RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
             //builder.SetSound (RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
 
-            //Make the notification link to a certain page in the app
-          
+           
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
             manager.Notify(1, builder.Build());
         }
