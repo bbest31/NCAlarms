@@ -12,6 +12,7 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using NapChat.Pages;
+using NapChat.Helpers;
 using NapChat.Droid.Renderers;
 using NapChat.Droid.Broadcast;
 using System.Threading.Tasks;
@@ -120,7 +121,7 @@ namespace NapChat.Droid.Renderers
              
             //Get Group
 
-            //Get NapMessage.
+            //Get Context
 
             //Determine if repeating.
             if (!isRepeating)
@@ -172,7 +173,7 @@ namespace NapChat.Droid.Renderers
 
 
             //Call builder class here.
-
+         // NapAlertFactory.buildNapAlert();
             //Update Nap-Log here.
 
             //Send notifications here.

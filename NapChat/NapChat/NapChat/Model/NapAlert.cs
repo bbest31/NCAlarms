@@ -10,10 +10,21 @@ namespace NapChat.Model
     /// </summary>
     public class NapAlert
     {
+        public NapAlert(string sender, long triggertime,string message,bool awakeNotify)
+        {
+            this.senderName = sender;
+            this.triggerTime = triggertime;
+            this.napMessage = message;
+            this.awakeNotify = awakeNotify;
+        }
+        /// <summary>
+        /// Username of the User who set the alarm.
+        /// </summary>
+        private string senderName;
         /// <summary>
         /// Will be the alarm length by getting the set alarm time from the TimerPicker and then comparing to the current time.
         /// </summary>
-        private TimeSpan alarmLength;
+        private long triggerTime;
 
        
 
@@ -29,10 +40,6 @@ namespace NapChat.Model
         /// </summary>
         private string napMessage;
 
-        /// <summary>
-        /// Optional context added by User, to explain Nap-Alert.
-        /// </summary>
-        private string context;
 
         /// <summary>
         /// Boolean indicator if there is an awake notification to be sent out once the alarm is ended.
@@ -79,47 +86,45 @@ namespace NapChat.Model
             alarmLength = getAlarmTime().Subtract(getCurrentTime());
         }
         */
+
+        //--START-- Getters and Setters
+
         /// <summary>
-        /// Returns the length of the alarm as type TimeSpan
+        /// Returns the name of the User who set the Alarm.
         /// </summary>
-        /// <returns>TimeSpan alarmlength</returns>
-        public TimeSpan getAlarmLength()
+        /// <returns></returns>
+        public string getSenderName()
         {
-            return alarmLength;
+            return senderName;
         }
+
         /// <summary>
-        /// Returns the optional string context set by the user to accompany the Nap-Alert.
+        /// Returns the trigger time of the alarm.
         /// </summary>
-        /// <returns>String context</returns>
-        public string getContext()
+        /// <returns>long triggerTime</returns>
+        public long getTriggerTime()
         {
-            return context;
+            return triggerTime;
         }
+        
         /// <summary>
         /// Method uses Username, context and timestamp to create the Nap-Alert to send to the attached Group.
         /// </summary>
         /// <returns>String Nap-Alert</returns>
-        public string createNapMessage()
+        public string getNapMessage()
         {
-            //here we get the username, attach context and then add timestamp.
-            //Maybe also indicate if the awake notification is on or not.
             return napMessage;
         }
 
         /// <summary>
-        /// Turns the boolean awake notifier on.
+        /// Returns the boolean representing if there is an awake time given or not.
         /// </summary>
-        public void turnOnAwakeNotify()
+        /// <returns>boolean</returns>
+        public bool getAwakeNotify()
         {
-            awakeNotify = true;
+            return awakeNotify;
         }
 
-        /// <summary>
-        /// Turns the boolean awake notifier off.
-        /// </summary>
-        public void turnOffAwakeNotify()
-        {
-            awakeNotify = false;
-        }
+        //--END-- Getters and Setters
     }
 }
