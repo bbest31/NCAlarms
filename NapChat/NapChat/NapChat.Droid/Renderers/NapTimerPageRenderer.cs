@@ -181,7 +181,7 @@ namespace NapChat.Droid.Renderers
 
 
 
-            ((NapTimerPage)Element).backToHome();
+             ((NapTimerPage)Element).backToHome();
 
         }
         /// <summary>
