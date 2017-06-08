@@ -105,7 +105,7 @@ namespace NapChat.Droid.Renderers
         /// <param name="e"></param>
         private void AwakeSwitch_Toggled(object sender, ToggledEventArgs e)
         {
-            isRepeating = e.Value;
+            awakeNotify = e.Value;
         }
 
         /// <summary>
@@ -139,6 +139,7 @@ namespace NapChat.Droid.Renderers
 
         Context context;
         Boolean isRepeating = false;
+        Boolean awakeNotify;
         TimeSpan pickerTime;
         long alarmLength = 0;
         /// <summary>

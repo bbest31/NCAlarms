@@ -28,7 +28,7 @@ namespace NapChat.ViewModel
             try
             {
 
-                var cloudService = new AzureCloudService();
+                var cloudService = NapChatSingletons.CloudService;
                 await cloudService.LoginAsync();
                 Application.Current.MainPage = new NavigationPage(new HomePage());
             }

@@ -72,7 +72,7 @@ namespace NapChat.iOS.Renderers
             setAlarmButton.Clicked += SetAlarmButton_Clicked;
 
             //Layout
-            StackLayout droidTimerLayout = new StackLayout
+            StackLayout iOSTimerLayout = new StackLayout
             {
                 BackgroundColor = Color.White,
                 VerticalOptions = LayoutOptions.Center,
@@ -86,12 +86,13 @@ namespace NapChat.iOS.Renderers
                     }
 
             };
-
+            
         }
 
         //Local variables
        
         Boolean isRepeating = false;
+        Boolean awakeNotify;
         TimeSpan pickerTime;
         long alarmLength = 0;
 
@@ -102,7 +103,7 @@ namespace NapChat.iOS.Renderers
         /// <param name="e"></param>
         private void AwakeSwitch_Toggled(object sender, ToggledEventArgs e)
         {
-            isRepeating = e.Value;
+            awakeNotify = e.Value;
         }
 
         /// <summary>

@@ -39,6 +39,10 @@ namespace NapChat.ViewModel
 
         public Command DisplayUserName { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         async Task ExecuteDisplayUserName()
         {
             if (IsBusy)
