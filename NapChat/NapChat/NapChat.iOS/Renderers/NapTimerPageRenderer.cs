@@ -125,6 +125,7 @@ namespace NapChat.iOS.Renderers
             if (!isRepeating)
             {
                // alarmLength = convertToLong(pickerTime);
+              
                 createAlarm();
             }
             else
@@ -139,9 +140,11 @@ namespace NapChat.iOS.Renderers
             UILocalNotification notification = new UILocalNotification();
 
             NSDate.FromTimeIntervalSinceNow(15);
+            
             notification.AlertAction = "View Alert";
             notification.AlertBody = "Your 15 second alert has fired";
             notification.SoundName = UILocalNotification.DefaultSoundName;
+            
             //Schedule notificaiton
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
         }
