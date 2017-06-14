@@ -14,12 +14,12 @@ namespace NapChat.ViewModel
 {
     public class HomePageViewModel : BaseViewModel
     {
-        ICloudService CloudService;
+       // ICloudService CloudService;
 
         public HomePageViewModel()
         {
             //CloudService = new AzureCloudService();
-            CloudService = NapChatSingletons.CloudService;
+       //     CloudService = NapChatSingletons.CloudService;
             Title = "Home Page";
            // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
            // DisplayUserName.Execute(null);
@@ -37,7 +37,7 @@ namespace NapChat.ViewModel
             await homepage.Navigation.PushAsync(new NapTimerPage());
         }
 
-        public Command DisplayUserName { get; }
+      /*  public Command DisplayUserName { get; }
 
         /// <summary>
         /// 
@@ -68,7 +68,7 @@ namespace NapChat.ViewModel
             {
                 IsBusy = false;
             }
-        }
+        }*/
 
     }
 }
