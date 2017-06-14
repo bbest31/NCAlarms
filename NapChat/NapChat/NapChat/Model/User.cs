@@ -14,6 +14,8 @@ namespace NapChat.Model
 
         public List<Alarm> alarmList { get; set; }
 
+        public List<NapAlert> napAlerts { get; set; }
+
 
     }
 }
