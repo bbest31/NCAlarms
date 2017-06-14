@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="Broadcast\AlarmReceiver.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\AlarmPageRenderer.cs" />
     <Compile Include="Renderers\NapTimerPageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

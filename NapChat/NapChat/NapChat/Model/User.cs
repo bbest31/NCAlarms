@@ -11,5 +11,9 @@ namespace NapChat.Model
     public class User : TableData
     {
         public string username { get; set; }
+
+        public List<Alarm> alarmList { get; set; }
+
+
     }
 }
