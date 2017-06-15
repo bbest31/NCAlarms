@@ -21,10 +21,35 @@ namespace NapChat.ViewModel
             //CloudService = new AzureCloudService();
        //     CloudService = NapChatSingletons.CloudService;
             Title = "Home Page";
-           // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
-           // DisplayUserName.Execute(null);
+            // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
+            // DisplayUserName.Execute(null);
+            AlarmsCommand = new Command(async () => await goToAlarms());
         }
+        public Command AlarmsCommand { get; }
 
+        async Task goToAlarms()
+        {
+            if (IsBusy)
+                return;
+            IsBusy = true;
+
+            try
+            {
+                //goes to the nap timer page
+                Page homepage = Application.Current.MainPage;
+                await homepage.Navigation.PushAsync(new NapTimerPage());
+            }
+
+            catch (Exception ex)
+            {
+                //Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Failed to go to Alarms", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
         /// <summary>
         /// Clicked event method for Menu button to navigate to NapTimerPage.
         /// </summary>

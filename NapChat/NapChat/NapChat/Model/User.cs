@@ -12,9 +12,9 @@ namespace NapChat.Model
     {
         public string username { get; set; }
 
-        public List<Alarm> alarmList { get; set; }
+       // public List<Alarm> alarmList { get; set; }
 
-        public List<NapAlert> napAlerts { get; set; }
+      //  public List<NapAlert> napAlerts { get; set; }
 
 
     }
