@@ -7,7 +7,7 @@ namespace NapChat.Helpers
 {
     public static class NapAlertFactory
     {
-        public static NapAlert buildNapAlert(string sender, long trigger, string context, bool isAwakeIndicate)
+        public static NapAlert buildNapAlert(string sender, string context, bool isAwakeIndicate)
         {
             string napMessage;
             //Build nap message
@@ -18,7 +18,7 @@ namespace NapChat.Helpers
             {
                  napMessage = sender + " " + context;
             }
-            NapAlert napAlert = new NapAlert(sender, trigger, napMessage, isAwakeIndicate);
+            NapAlert napAlert = new NapAlert(sender, napMessage, isAwakeIndicate);
             return napAlert;
         }
     }

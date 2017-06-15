@@ -27,8 +27,8 @@ namespace NapChat.ViewModel
 
             try
             {
-
-                var cloudService = NapChatSingletons.CloudService;
+                //using = NapChatSingletons.CloudService; breaks auth for some reason.
+                var cloudService = new AzureCloudService();
                 await cloudService.LoginAsync();
                 Application.Current.MainPage = new NavigationPage(new HomePage());
             }
