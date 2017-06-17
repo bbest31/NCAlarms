@@ -20,10 +20,7 @@ namespace NapChat.iOS.Renderers
         //View Declarations
         UITableView AlarmTableView;
         AlarmTableSource tableSource;
-
-        //Test code
-        List<Alarm> userAlarms;
-
+        //List<Alarm> userAlarms;
 
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
@@ -58,7 +55,12 @@ namespace NapChat.iOS.Renderers
             //Set up boundary on ScrollView
             var topLeftX = View.Bounds.X + 25;
             var topRightX = View.Bounds.X - 65;
+
+            //Test code
             
+            //Alarm firstalarm = new Alarm();
+            //userAlarms.Add(firstalarm);
+            //tableSource = new AlarmTableSource(userAlarms);
 
             //Initialize View and give properties.
             AlarmTableView = new UITableView()
@@ -69,8 +71,10 @@ namespace NapChat.iOS.Renderers
                
                 
                 Frame = new CoreGraphics.CGRect(0f,0f,320f,View.Bounds.Height),
+                SeparatorColor = UIColor.Purple,
+                SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine,
                 BackgroundColor = UIColor.White,
-                Source = tableSource,
+                //Source = tableSource,
 
             };
 
@@ -89,9 +93,7 @@ namespace NapChat.iOS.Renderers
         /// </summary>
         void RetrieveAlarms()
         {
-            //Test code
-            userAlarms.Add(new Alarm());
-            tableSource = new AlarmTableSource(userAlarms);
+            
         }
 
     }
