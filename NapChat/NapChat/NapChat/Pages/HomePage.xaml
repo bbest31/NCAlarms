@@ -8,11 +8,12 @@
             HorizontalOptions="Center"
             Orientation="Vertical"
              VerticalOptions="Center">
-            <Label Text="Username: {name}" HorizontalOptions="Center"/>
-            <Button Text="NapTimer" 
-                    TextColor="Black"
+            <Button Text="Alarms" 
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BorderColor="BlueViolet"
                     BackgroundColor="Purple"
-                    HeightRequest="100"
+                    HeightRequest="65"
                     WidthRequest="100"
                     IsVisible="True"
                     HorizontalOptions="Center"

@@ -7,10 +7,10 @@
     <StackLayout HorizontalOptions="Center"
                  Orientation="Vertical"
                  VerticalOptions="Center">
-      <Button BackgroundColor="Teal"
+      <Button BackgroundColor="Blue"
               BorderRadius="10"
               Command="{Binding LoginCommand}"
-              Text="Login"
+              Text="Login using Facebook"
               TextColor="White" />
     </StackLayout>
   </ContentPage.Content>

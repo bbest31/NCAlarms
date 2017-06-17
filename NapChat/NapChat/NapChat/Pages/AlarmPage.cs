@@ -9,6 +9,7 @@ namespace NapChat.Pages
 {
 	public class AlarmPage : ContentPage
 	{
+
         public async Task backToHome()
         {
             await Navigation.PopAsync();

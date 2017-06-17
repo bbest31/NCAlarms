@@ -7,7 +7,7 @@ using NapChat.Pages;
 using NapChat.Abstractions;
 using NapChat.Services;
 using NapChat.Helpers;
-using Xamarin.Forms;
+
 
 
 namespace NapChat.ViewModel
@@ -59,7 +59,7 @@ namespace NapChat.ViewModel
         {
             //goes to the nap timer page
             Page homepage = Application.Current.MainPage;
-            await homepage.Navigation.PushAsync(new NapTimerPage());
+            await homepage.Navigation.PushAsync(new AlarmPage());
         }
 
       /*  public Command DisplayUserName { get; }
