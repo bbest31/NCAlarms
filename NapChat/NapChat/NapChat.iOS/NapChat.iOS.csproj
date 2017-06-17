@@ -91,6 +91,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\AlarmPageRenderer.cs" />
+    <Compile Include="Renderers\AlarmTableSource.cs" />
     <Compile Include="Renderers\NapTimerPageRenderer.cs" />
     <Compile Include="Services\iOSLoginProvider.cs" />
     <None Include="app.config" />

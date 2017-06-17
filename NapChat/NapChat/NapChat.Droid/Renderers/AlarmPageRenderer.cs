@@ -25,6 +25,8 @@ namespace NapChat.Droid.Renderers
     /// </summary>
     public class AlarmPageRenderer : PageRenderer
     {
+        //View Declarations
+
         protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
         {
             base.OnElementChanged(e);
@@ -32,6 +34,30 @@ namespace NapChat.Droid.Renderers
             {
                 return;
             }
+            try {
+                RetrieveAlarms();
+                SetUpUI();
+                SetUpEventHandlers();
+
+            } catch (Exception ex)
+            {
+                Debug.WriteLine($"Custom Renderer Failed: Error = {ex.Message}");
+            }            
+        }
+
+        void SetUpUI()
+        {
+
+        }
+
+        void RetrieveAlrms()
+        {
+
+        }
+
+        void SetUpEventHandlers()
+        {
+
         }
     }
 }

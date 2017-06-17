@@ -35,9 +35,9 @@ namespace NapChat.ViewModel
 
             try
             {
-                //goes to the nap timer page
+                //goes to the alarms page
                 Page homepage = Application.Current.MainPage;
-                await homepage.Navigation.PushAsync(new NapTimerPage());
+                await homepage.Navigation.PushAsync(new AlarmPage());
             }
 
             catch (Exception ex)

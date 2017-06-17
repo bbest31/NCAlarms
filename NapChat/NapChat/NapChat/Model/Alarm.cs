@@ -23,7 +23,7 @@ namespace NapChat.Model
 
         }
 
-        String timeDisplay;
+        public String timeDisplay { get; set; }
 
         /// <summary>
         /// Will be the alarm length by getting the set alarm time from the TimerPicker and then comparing to the current time.

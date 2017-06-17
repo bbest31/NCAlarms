@@ -18,11 +18,17 @@ namespace NapChat.iOS.Renderers
     {
 
         //View Declarations
-        UIScrollView AlarmScrollView;
+        UITableView AlarmTableView;
+        AlarmTableSource tableSource;
+
+        //Test code
+        List<Alarm> userAlarms;
+
+
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
-           
+
             base.OnElementChanged(e);
             if (e.OldElement != null || Element == null)
             {
@@ -34,34 +40,18 @@ namespace NapChat.iOS.Renderers
                 RetrieveAlarms();
                 SetUpUI();
                 SetUpEventHandlers();
-             
+               
               
                 
             } catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Custome Renderer Failed: Error = {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Custom Renderer Failed: Error = {ex.Message}");
             }
 
-           /* ListView alarmListView = new ListView();
-            
-            //Get saved alarms from User object.
-            List<Alarm> alarms = new List<Alarm>();
-            Alarm alarm1 = new Alarm();
-            alarms.Add(alarm1);
-            alarmListView.ItemsSource = alarms;
-
-            var alarmTemplate = new DataTemplate(typeof(SwitchCell));
-            alarmTemplate.SetBinding(SwitchCell.TextProperty, "alarmTime");
-            
-            alarmListView.ItemTemplate = alarmTemplate;*/
-           // alarmListView.ItemTemplate.SetBinding(SwitchCell.TextProperty, "alarmTime");
-
-            //Event Hanndler when switch is activated we turn on that alarm and schedule and alarm using platform specific implmented methods.
-            //alarmListView.ItemSelected += AlarmListView_ItemSelected;
             
         }
         /// <summary>
-        /// Sets up the iOS AlarmPage UI.
+        /// Sets up the Alarm Page UI and gives the TableView its item source.
         /// </summary>
         void SetUpUI()
         {
@@ -69,13 +59,22 @@ namespace NapChat.iOS.Renderers
             var topLeftX = View.Bounds.X + 25;
             var topRightX = View.Bounds.X - 65;
             
+
             //Initialize View and give properties.
-            AlarmScrollView = new UIScrollView()
+            AlarmTableView = new UITableView()
             {
+                //Small code to place colored background with custom image.
+                /*BackgroundColor = UIColor.Clear,
+                BackgroundView = ...*/
+               
                 
+                Frame = new CoreGraphics.CGRect(0f,0f,320f,View.Bounds.Height),
+                BackgroundColor = UIColor.White,
+                Source = tableSource,
+
             };
 
-           
+            View.Add(AlarmTableView);
         }
 
         /// <summary>
@@ -85,10 +84,14 @@ namespace NapChat.iOS.Renderers
         {
 
         }
-
+        /// <summary>
+        /// Gets saved Alarms from the User.
+        /// </summary>
         void RetrieveAlarms()
         {
-
+            //Test code
+            userAlarms.Add(new Alarm());
+            tableSource = new AlarmTableSource(userAlarms);
         }
 
     }
