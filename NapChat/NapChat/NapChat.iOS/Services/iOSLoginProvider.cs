@@ -7,7 +7,9 @@ using NapChat.Abstractions;
 using Foundation;
 using UIKit;
 using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using NapChat.iOS.Services;
+using NapChat.Helpers;
 using Newtonsoft.Json.Linq;
 using Xamarin.Auth;
 
@@ -16,24 +18,52 @@ namespace NapChat.iOS.Services
 {
     public class iOSLoginProvider : ILoginProvider
     {
-       // public AccountStore AccountStore { get; private set; }
-        
-        
-       /* public iOSLoginProvider()
-        {
-            AccountStore = AccountStore.Create();
-        }
-        */
+        // public AccountStore AccountStore { get; private set; }
 
+
+        /* public iOSLoginProvider()
+         {
+             AccountStore = AccountStore.Create();
+         }
+         */
+        /// <summary>
+        /// Login via ADAL
+        /// </summary>
+        /// <returns>(async) token from the ADAL process</returns>
+        public async Task<string> LoginADALAsync(UIViewController view)
+        {
+            Uri returnUri = new Uri(Locations.AadRedirectUri);
+
+            var authContext = new AuthenticationContext(Locations.AadAuthority);
+            if (authContext.TokenCache.ReadItems().Count() > 0)
+            {
+                authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
+            }
+            var authResult = await authContext.AcquireTokenAsync(
+                Locations.AppServiceUrl, /* The resource we want to access  */
+                Locations.AadClientId,   /* The Client ID of the Native App */
+                returnUri,               /* The Return URI we configured    */
+                new PlatformParameters(view));
+            return authResult.AccessToken;
+        }
         public async Task LoginAsync(MobileServiceClient client)
         {
-           /* var accessToken = await LoginFacebookAsync();
-            var zumoPayload = new JObject()
-            {
-                ["access_token"] = accessToken
-            };
-            */
-            await client.LoginAsync(RootView, "facebook");
+            /* var accessToken = await LoginFacebookAsync();
+             var zumoPayload = new JObject()
+             {
+                 ["access_token"] = accessToken
+             };
+             */
+            //AAD Client Flow
+            var rootView = UIApplication.SharedApplication.KeyWindow.RootViewController;
+            var accessToken = await LoginADALAsync(rootView);
+            var zumoPayload = new JObject();
+            zumoPayload["access_token"] = accessToken;
+            await client.LoginAsync("aad", zumoPayload);
+
+            //Server Flow for AAD
+            await client.LoginAsync(RootView, "aad");
+            //await client.LoginAsync(RootView, "facebook");
         }
 
         public UIViewController RootView => UIApplication.SharedApplication.KeyWindow.RootViewController;

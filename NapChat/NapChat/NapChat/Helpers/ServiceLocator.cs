@@ -44,12 +44,19 @@ namespace NapChat.Helpers
 
     public static class Locations
     {
+       
         public static readonly string AppServiceUrl = "https://napchat.azurewebsites.net";
-
-        // public static readonly string AadClientId = "0c3309fe-e392-4ca5-8d54-55f69ae1e0f8";
-
-        // public static readonly string AadRedirectUri = "https://zumobook-chapter2.azurewebsites.net/.auth/login/done";
-
-        // public static readonly string AadAuthority = "https://login.windows.net/photoadrianoutlook.onmicrosoft.com";
+        /// <summary>
+        /// af38cecf-9afe-4692-99eb-12d80a616473
+        /// </summary>
+        public static readonly string AadClientId = "af38cecf-9afe-4692-99eb-12d80a616473";
+        /// <summary>
+        /// https://napchat.azurewebsites.net/.auth/login/done
+        /// </summary>
+        public static readonly string AadRedirectUri = "https://napchat.azurewebsites.net/.auth/login/done";
+        /// <summary>
+        /// https://login.windows.net/brandonbest94live.onmicrosoft.com
+        /// </summary>
+        public static readonly string AadAuthority = "https://login.windows.net/brandonbest94live.onmicrosoft.com";
     }
 }
