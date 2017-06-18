@@ -19,6 +19,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Alarm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AppServiceIdentity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Friend.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Group.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\NapAlert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.cs" />
