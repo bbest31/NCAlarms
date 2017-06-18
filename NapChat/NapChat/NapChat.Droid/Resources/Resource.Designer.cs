@@ -26,6 +26,9 @@ namespace NapChat.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::NapChat.Droid.Resource.Id.agentWebView;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::NapChat.Droid.Resource.Layout.WebAuthenticationBroker;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::NapChat.Droid.Resource.String.ApplicationName;
 			global::PCLCrypto.Resource.String.ApplicationName = global::NapChat.Droid.Resource.String.ApplicationName;
 			global::PCLCrypto.Resource.String.Hello = global::NapChat.Droid.Resource.String.Hello;
 			global::Xamarin.Auth.Resource.Animation.slide_in_right = global::NapChat.Droid.Resource.Animation.slide_in_right;
@@ -2283,6 +2286,9 @@ namespace NapChat.Droid
 			// aapt resource value: 0x7f07003d
 			public const int activity_chooser_view_content = 2131165245;
 			
+			// aapt resource value: 0x7f070099
+			public const int agentWebView = 2131165337;
+			
 			// aapt resource value: 0x7f070049
 			public const int alertTitle = 2131165257;
 			
@@ -2936,6 +2942,9 @@ namespace NapChat.Droid
 			
 			// aapt resource value: 0x7f030037
 			public const int support_simple_spinner_dropdown_item = 2130903095;
+			
+			// aapt resource value: 0x7f030038
+			public const int WebAuthenticationBroker = 2130903096;
 			
 			static Layout()
 			{
