@@ -77,15 +77,15 @@ namespace NapChat.Droid.Services
                     }
                 }
             } */
-            // await client.LoginAsync(context, "facebook");
+             await client.LoginAsync(context, "facebook");
 
-            //AAD Client Flow
+          /*  //AAD Client Flow
             var accessToken = await LoginADALAsync();
             var zumoPayload = new JObject()
             {
                 ["access_token"] = accessToken
             };
-            await client.LoginAsync("aad",zumoPayload);
+            await client.LoginAsync("aad",zumoPayload);*/
             /*
             // Store the new token within the store
             var account = new Account(client.CurrentUser.UserId);
