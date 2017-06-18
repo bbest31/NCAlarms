@@ -6,7 +6,6 @@ namespace NapChat.Model
 {
     public class Group
     {
-        public List<Friend> group { get; set; }
-
+        List<Friend> group { get; set; }
     }
 }

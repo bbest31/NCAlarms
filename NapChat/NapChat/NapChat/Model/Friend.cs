@@ -6,7 +6,6 @@ namespace NapChat.Model
 {
     public class Friend
     {
-        public string username { get; set; }
-
+        public string Username { get; }
     }
 }
