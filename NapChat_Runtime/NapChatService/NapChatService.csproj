@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataObjects\Friend.cs" />
     <Compile Include="DataObjects\User.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NapChatContext.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

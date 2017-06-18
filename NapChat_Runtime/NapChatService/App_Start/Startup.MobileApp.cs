@@ -9,6 +9,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 using NapChatService.DataObjects;
 using NapChatService.Models;
 using Owin;
+using System.Data.Entity.Migrations;
 
 namespace NapChatService
 {
@@ -22,12 +23,13 @@ namespace NapChatService
             config.EnableSystemDiagnosticsTracing();
 
             new MobileAppConfiguration()
-                .UseDefaultConfiguration()
+                .AddTablesWithEntityFramework()
                 .ApplyTo(config);
 
-            // Use Entity Framework Code First to create database tables based on your DbContext
-            Database.SetInitializer(new NapChatInitializer());
 
+            // Use Entity Framework Code First to create database tables based on your DbContext
+           // Database.SetInitializer(new NapChatInitializer());
+            var migrator = new DbMigrator(new Migrations.Configuration());
             // To prevent Entity Framework from modifying your database schema, use a null database initializer
             // Database.SetInitializer<NapChatContext>(null);
 
@@ -49,7 +51,7 @@ namespace NapChatService
         }
     }
 
-    public class NapChatInitializer : CreateDatabaseIfNotExists<NapChatContext>
+   /* public class NapChatInitializer : CreateDatabaseIfNotExists<NapChatContext>
     {
         protected override void Seed(NapChatContext context)
         {
@@ -66,6 +68,6 @@ namespace NapChatService
 
             base.Seed(context);
         }
-    }
+    }*/
 }
 
