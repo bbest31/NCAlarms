@@ -9,7 +9,7 @@ namespace NapChat.Pages
 {
 	public class AlarmPage : ContentPage
 	{
-
+        
         
         /// <summary>
         /// Opens page to add or edit an alarm.

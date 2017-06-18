@@ -21,6 +21,8 @@ namespace NapChat.iOS.Renderers
     {
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
+            //View Declarations
+
             base.OnElementChanged(e);
             if (e.OldElement != null || Element == null)
             {
@@ -28,7 +30,7 @@ namespace NapChat.iOS.Renderers
             }
 
             //Plaftorm specific code goes here.
-            //Views
+            //SetUpUserInterface();
             Label alarmLabel = new Label
             {
                 Text = "Set Alarm",

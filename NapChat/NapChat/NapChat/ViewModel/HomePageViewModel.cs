@@ -20,7 +20,7 @@ namespace NapChat.ViewModel
         {
             //CloudService = new AzureCloudService();
        //     CloudService = NapChatSingletons.CloudService;
-            Title = "Home Page";
+            Title = "Home";
             // DisplayUserName = new Command(async () => await ExecuteDisplayUserName());
             // DisplayUserName.Execute(null);
             AlarmsCommand = new Command(async () => await goToAlarms());
@@ -37,7 +37,8 @@ namespace NapChat.ViewModel
             {
                 //goes to the alarms page
                 Page homepage = Application.Current.MainPage;
-                await homepage.Navigation.PushAsync(new AlarmPage());
+                //should go to Alarms page but Naptimer until we can confirm the alarm works.
+                await homepage.Navigation.PushAsync(new NapTimerPage());
             }
 
             catch (Exception ex)

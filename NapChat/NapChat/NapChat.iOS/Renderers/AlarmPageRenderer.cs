@@ -5,6 +5,7 @@ using System.Text;
 
 using Foundation;
 using UIKit;
+using CoreGraphics;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using NapChat.iOS.Renderers;
@@ -20,8 +21,12 @@ namespace NapChat.iOS.Renderers
         //View Declarations
         UITableView AlarmTableView;
         AlarmTableSource tableSource;
+        UINavigationBar AlarmNavBar;
+
         //List<Alarm> userAlarms;
 
+        //TEST
+        UIButton tempNapTimerButton;
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
@@ -55,7 +60,7 @@ namespace NapChat.iOS.Renderers
             //Set up boundary on ScrollView
             var topLeftX = View.Bounds.X + 25;
             var topRightX = View.Bounds.X - 65;
-
+            
             //Test code
             
             //Alarm firstalarm = new Alarm();
@@ -70,24 +75,64 @@ namespace NapChat.iOS.Renderers
                 BackgroundView = ...*/
                
                 
-                Frame = new CoreGraphics.CGRect(0f,0f,320f,View.Bounds.Height),
+                Frame = new CoreGraphics.CGRect(20f,20f,320f,View.Bounds.Height),
                 SeparatorColor = UIColor.Purple,
                 SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine,
-                BackgroundColor = UIColor.White,
+                BackgroundColor = UIColor.FromRGB(261f,191f,216f),
                 //Source = tableSource,
 
             };
+            UIBarButtonItem newAlarmButton = new UIBarButtonItem()
+            {
+                
+            };
+            //TEMP------------
+             tempNapTimerButton = new UIButton()
+            {
+                Frame = new CoreGraphics.CGRect(topLeftX,View.Bounds.Top+15,37,37),
+                
 
+            };
+            tempNapTimerButton.SetTitle("Set-Alarms", UIControlState.Normal);
+            tempNapTimerButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+            tempNapTimerButton.BackgroundColor = UIColor.Red;
+            
+            //------------
+            AlarmNavBar = new UINavigationBar()
+            {
+                BarTintColor = UIColor.Purple,
+                TintColor = UIColor.White,
+                Translucent = true,
+                TitleTextAttributes = new UIStringAttributes()
+                {
+                    
+                },
+               // NavigationItem.RightBarButtonItem.
+                Frame = new CoreGraphics.CGRect(0f,0f,View.Bounds.Width,40f)
+                
+            };
             View.Add(AlarmTableView);
+            View.Add(AlarmNavBar);
+            View.Add(tempNapTimerButton);
         }
+
+       
 
         /// <summary>
         /// Assigns event handlers to Views on AlarmsPage.
         /// </summary>
-       void SetUpEventHandlers()
+        void SetUpEventHandlers()
         {
+            //TEMP
+            tempNapTimerButton.TouchUpInside += TempNapTimerButton_TouchUpInside;
 
         }
+
+        private void TempNapTimerButton_TouchUpInside(object sender, EventArgs e)
+        {
+            openAlarmCreator();
+        }
+
         /// <summary>
         /// Gets saved Alarms from the User.
         /// </summary>
@@ -96,5 +141,9 @@ namespace NapChat.iOS.Renderers
             
         }
 
+        void openAlarmCreator()
+        {
+            
+        }
     }
 }
