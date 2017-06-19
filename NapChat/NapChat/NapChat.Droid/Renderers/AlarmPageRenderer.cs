@@ -41,7 +41,7 @@ namespace NapChat.Droid.Renderers
 
             } catch (Exception ex)
             {
-                Debug.WriteLine($"Custom Renderer Failed: Error = {ex.Message}");
+               // Debug.WriteLine($"Custom Renderer Failed: Error = {ex.Message}");
             }            
         }
 
@@ -50,7 +50,7 @@ namespace NapChat.Droid.Renderers
 
         }
 
-        void RetrieveAlrms()
+        void RetrieveAlarms()
         {
 
         }
