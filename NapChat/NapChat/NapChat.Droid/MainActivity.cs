@@ -4,6 +4,7 @@ using NapChat.Droid.Services;
 using NapChat.Abstractions;
 using Android.App;
 using Android.Content.PM;
+using Microsoft.WindowsAzure.MobileServices;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
