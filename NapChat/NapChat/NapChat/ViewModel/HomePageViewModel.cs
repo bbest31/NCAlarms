@@ -38,7 +38,7 @@ namespace NapChat.ViewModel
                 //goes to the alarms page
                 Page homepage = Application.Current.MainPage;
                 //should go to Alarms page but Naptimer until we can confirm the alarm works.
-                await homepage.Navigation.PushAsync(new NapTimerPage());
+                await homepage.Navigation.PushAsync(new AlarmPage());
             }
 
             catch (Exception ex)

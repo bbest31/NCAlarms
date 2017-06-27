@@ -54,9 +54,10 @@ namespace NapChat.Droid.Services
                         }
                     }
                 }
-            } 
+            }
+            
             //Breaks HERE
-            await client.LoginAsync(context, "facebook");
+            await client.LoginAsync(MobileServiceAuthenticationProvider.Facebook, null );
             
             // Store the new token within the store
             var account = new Account(client.CurrentUser.UserId);

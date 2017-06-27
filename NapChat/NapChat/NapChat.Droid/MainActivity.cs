@@ -4,11 +4,11 @@ using NapChat.Droid.Services;
 using NapChat.Abstractions;
 using Android.App;
 using Android.Content.PM;
-using Microsoft.WindowsAzure.MobileServices;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace NapChat.Droid
 {
@@ -19,7 +19,7 @@ namespace NapChat.Droid
 		{
 
 			base.OnCreate (bundle);
-            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+            //Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 
