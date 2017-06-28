@@ -8,7 +8,8 @@ namespace NapChatService.DataObjects
 {
     public class User : EntityData
     {
-        public string username {get; set;}
+        public string Username {get; set;}
+
         
     }
 }

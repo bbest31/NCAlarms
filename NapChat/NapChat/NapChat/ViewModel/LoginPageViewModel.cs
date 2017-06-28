@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using NapChat.Helpers;
 using NapChat.Services;
 using NapChat.Pages;
+using System.Diagnostics;
 
 namespace NapChat.ViewModel
 {
@@ -27,7 +28,7 @@ namespace NapChat.ViewModel
 
             try
             {
-
+                //using = NapChatSingletons.CloudService; breaks auth for some reason.
                 var cloudService = new AzureCloudService();
                 await cloudService.LoginAsync();
                 Application.Current.MainPage = new NavigationPage(new HomePage());
@@ -35,7 +36,7 @@ namespace NapChat.ViewModel
 
             catch(Exception ex)
             {
-                // Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
                 await Application.Current.MainPage.DisplayAlert("Login Failed", ex.Message, "OK");
             }
             finally

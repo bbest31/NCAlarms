@@ -11,10 +11,15 @@ using Newtonsoft.Json.Linq;
 
 namespace NapChat.Services
 {
+    /// <summary>
+    /// Class is responsible for connecting the client to Azure Cloud Services such as server, database, login providers.
+    /// </summary>
    public class AzureCloudService : ICloudService
     {
         MobileServiceClient client;
-
+        /// <summary>
+        /// Constructor creates a new MobileServiceClient using the App Service Url
+        /// </summary>
         public AzureCloudService()
         {
             
@@ -27,8 +32,10 @@ namespace NapChat.Services
             return new AzureCloudTable<T>(client);
         }
 
-        /*The method looks up the platform dependent version of the login provider and executes the login method,
-        passing along the client */ 
+        ///<summary>
+        ///The method looks up the platform dependent version of the login provider and executes the login method,
+        ///passing along the client. 
+        ///</summary>
         public Task LoginAsync()
         {
             var loginProvider = DependencyService.Get<ILoginProvider>();

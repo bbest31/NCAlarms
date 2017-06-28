@@ -12,11 +12,13 @@ namespace NapChat.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
-	{
-		public LoginPage ()
-		{
-			InitializeComponent ();
+    {
+        public LoginPage()
+        {
+            InitializeComponent();
             BindingContext = new LoginPageViewModel();
-		}
-	}
+        }
+
+       
+    }
 }

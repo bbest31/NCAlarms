@@ -6,6 +6,10 @@ using NapChat.Services;
 
 namespace NapChat.Helpers
 {
+    /// <summary>
+    /// Singleton manager class. Holds: AzureCloudService,
+    /// </summary>
+    /// 
     public static class NapChatSingletons
     {
         public static ICloudService CloudService { get; set; }
