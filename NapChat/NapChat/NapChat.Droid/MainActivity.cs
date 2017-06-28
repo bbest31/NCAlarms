@@ -19,7 +19,7 @@ namespace NapChat.Droid
 		{
 
 			base.OnCreate (bundle);
-            //Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 
