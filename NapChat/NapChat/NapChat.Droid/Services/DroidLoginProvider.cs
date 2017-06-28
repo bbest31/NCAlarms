@@ -14,6 +14,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using NapChat.Abstractions;
 using NapChat.Droid.Services;
 using Xamarin.Auth;
+using NapChat.Helpers;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DroidLoginProvider))]
 namespace NapChat.Droid.Services
@@ -59,6 +60,7 @@ namespace NapChat.Droid.Services
             //Breaks HERE
             var user = await client.LoginAsync(context, MobileServiceAuthenticationProvider.Facebook);
             
+
             // Store the new token within the store
             var account = new Account(client.CurrentUser.UserId);
             account.Properties.Add("token", client.CurrentUser.MobileServiceAuthenticationToken);

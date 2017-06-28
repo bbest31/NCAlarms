@@ -23,20 +23,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Group.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\NapAlert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\User.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.xaml.cs">
+      <DependentUpon>AlarmPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\NapTimerPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\NapTimerPage.xaml.cs">
+      <DependentUpon>NapTimerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudTable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AlarmPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BaseViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\HomePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +51,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\HomePage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\NapTimerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

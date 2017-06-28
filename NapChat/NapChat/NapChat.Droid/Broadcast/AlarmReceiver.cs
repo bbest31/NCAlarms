@@ -9,7 +9,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using NapChat.Droid.Renderers;
 using Android.Support.V7.App;
 using Android.Media;
 
