@@ -63,7 +63,7 @@ namespace NapChat.iOS
             //reset our badge
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
 
-            //base.ReceivedLocalNotification(application, notification);
+            base.ReceivedLocalNotification(application, notification);
         }
     }
 }

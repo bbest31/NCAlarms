@@ -9,6 +9,7 @@
     <Import_RootNamespace>NapChat</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IAlarmController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICloudTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ILoginProvider.cs" />
@@ -27,6 +28,7 @@
       <DependentUpon>AlarmPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\CreateAlarmPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -35,6 +37,7 @@
       <DependentUpon>NapTimerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)RenderedViews\CustomTimePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AlarmPageViewModel.cs" />

@@ -21,7 +21,7 @@ namespace NapChat.Pages
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             
-            Navigation.PushAsync(new NapTimerPage());
+            Navigation.PushAsync(new CreateAlarmPage());
         }
     }
 }
