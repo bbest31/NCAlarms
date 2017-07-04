@@ -18,14 +18,24 @@ namespace NapChat.Pages
         Button createAndActivateButton;
         StackLayout layout;
         StackLayout vibrateLayout;
+        StackLayout snoozeLayout;
         ScrollView scrollView;
         Switch vibrateSwitch;
         Label vibrateLabel;
+        Label snoozeLengthLabel;
+        Button attachUsersButton;
+        Button alarmToneButton;
+        Picker snoozeLengthPicker;
+        Dictionary<string, int> snoozeLength;
+        Entry napMessageEntry;
+        
+
 
         //Binded Attributes
         TimeSpan pickerTime;
         Boolean awakeNotify;
         Boolean isVibrate;
+        int SnoozeLengthInt;
 
         public CreateAlarmPage()
         {
@@ -50,7 +60,7 @@ namespace NapChat.Pages
             };
             vibrateSwitch = new Switch()
             {
-                //HorizontalOptions = LayoutOptions.End,
+                HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.End,
                 IsToggled = false,
                 BindingContext = isVibrate,
@@ -68,6 +78,78 @@ namespace NapChat.Pages
 
 
             vibrateSwitch.SetBinding(Xamarin.Forms.Switch.IsToggledProperty, new Binding("IsToggled") { Mode = BindingMode.OneWayToSource });
+
+            attachUsersButton = new Button()
+            {
+                Text = "Attach Friends",
+                TextColor = Color.White,
+                FontAttributes = FontAttributes.Bold,
+                BackgroundColor = Color.MediumPurple,
+                BorderColor = Color.White,
+                HeightRequest = 40,
+                WidthRequest = 120,
+                HorizontalOptions = LayoutOptions.Center,
+                
+            };
+
+            attachUsersButton.Clicked += AttachUsersButton_Clicked;
+
+            napMessageEntry = new Entry()
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                Placeholder = "Nap Message...",
+                PlaceholderColor = Color.DimGray,
+                IsVisible = false,
+
+            };
+
+            alarmToneButton = new Button()
+            {
+                Text = "Alarm Tone",
+                TextColor = Color.White,
+                FontAttributes = FontAttributes.Bold,
+                BackgroundColor = Color.MediumPurple,
+                BorderColor = Color.White,
+                HeightRequest = 40,
+                WidthRequest = 125,
+                HorizontalOptions = LayoutOptions.Center,
+            };
+
+            alarmToneButton.Clicked += AlarmToneButton_Clicked;
+
+            snoozeLength = new Dictionary<string, int>
+            {
+                {"5",5 }, {"10",10 }, {"15",15 }, {"30",30 }
+            };
+
+            snoozeLengthLabel = new Label()
+            {
+                HorizontalOptions = LayoutOptions.Start,
+                Text = "Vibrate on Alarm:",
+                TextColor = Color.Purple,
+            };
+
+            snoozeLengthPicker = new Picker()
+            {
+                Title = "Snooze Length",
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+            };
+
+            foreach (string time in snoozeLength.Keys)
+            {
+                snoozeLengthPicker.Items.Add(time);
+            }
+
+            snoozeLengthPicker.SelectedIndexChanged += SnoozeLengthPicker_SelectedIndexChanged;
+
+            snoozeLayout = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children = {
+                    snoozeLengthLabel,
+                    snoozeLengthPicker,
+                }
+            };
 
             cancelButton = new Button()
             {
@@ -112,6 +194,10 @@ namespace NapChat.Pages
                 {
                     timePicker,
                     vibrateLayout,
+                    alarmToneButton,
+                    attachUsersButton,
+                    napMessageEntry,
+                    snoozeLayout,
                     createAlarmButton,
                     createAndActivateButton,
                     cancelButton,
@@ -122,6 +208,32 @@ namespace NapChat.Pages
             scrollView.Content = layout;
 
             this.Content = scrollView;
+        }
+
+        private void SnoozeLengthPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(snoozeLengthPicker.SelectedIndex == -1)
+            {
+                SnoozeLengthInt = 5;
+            }
+            else{
+                string timeLength = snoozeLengthPicker.Items[snoozeLengthPicker.SelectedIndex];
+                SnoozeLengthInt = snoozeLength[timeLength];
+            }
+            System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString());
+        }
+
+        private void AlarmToneButton_Clicked(object sender, EventArgs e)
+        {
+            //push to page to view all phone tones, music, and Napchat tones.
+        }
+
+        private void AttachUsersButton_Clicked(object sender, EventArgs e)
+        {
+            //Pops up modal to choose to add a group of friends or pick a selection of Friends.
+
+            //Shows the context entry
+            napMessageEntry.IsVisible = true;
         }
 
         private void CreateAndActivateButton_Clicked(object sender, EventArgs e)
