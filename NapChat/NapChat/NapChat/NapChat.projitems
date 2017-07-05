@@ -18,6 +18,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NapAlertFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NapChatSingletons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\WeekDayChoice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\WeekDayList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Alarm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AppServiceIdentity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Friend.cs" />
@@ -39,6 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AlarmPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewTemplates\WeekdayListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)GettingStarted.Xamarin" />

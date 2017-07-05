@@ -32,6 +32,7 @@ namespace NapChat.Droid.Renderers
             this.Control.SetTextColor(Android.Graphics.Color.Purple);
             Control.SetBackgroundColor(Android.Graphics.Color.Transparent);
             
+            
         }
 
         

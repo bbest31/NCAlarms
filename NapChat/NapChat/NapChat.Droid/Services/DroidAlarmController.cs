@@ -22,16 +22,17 @@ namespace NapChat.Droid.Services
         
         public  void createAlarm()
         {
-            AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
-            Intent myIntent = new Intent(context, typeof(AlarmReceiver));
-            PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
+            
+           // AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
+            //Intent myIntent = new Intent(context, typeof(AlarmReceiver));
+            //PendingIntent pendingIntent;
+            //pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
             /*TODO:
              * Use parameter to pass in the alarm time length for method calls to replace SystemClock.ElapsedRealtime...
              Also we will use a Builder class to make Nap-Alerts for the Nap-Log and Push notifications.*/
 
-            manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000/*alarmlengthMilli*/, pendingIntent);
+            //manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 3000/*alarmlengthMilli*/, pendingIntent);
 
 
             //Call builder class here.

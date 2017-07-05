@@ -5,7 +5,9 @@ using System.Text;
 using Xamarin.Forms;
 using NapChat.Abstractions;
 using NapChat.RenderedViews;
+using NapChat.Helpers;
 using NapChat.Model;
+using NapChat.ViewTemplates;
 
 namespace NapChat.Pages
 {
@@ -28,19 +30,19 @@ namespace NapChat.Pages
         Picker snoozeLengthPicker;
         Dictionary<string, int> snoozeLength;
         Entry napMessageEntry;
-        
+        ListView alarmRepeatList;
+        WeekDayList weekDayList = new WeekDayList();     
 
 
         //Binded Attributes
         TimeSpan pickerTime;
-        Boolean awakeNotify;
         Boolean isVibrate;
         int SnoozeLengthInt;
 
         public CreateAlarmPage()
         {
             Title = "Create Alarm";
-
+            BackgroundColor = Color.Lavender;
             timePicker = new CustomTimePicker()
             { 
                 HorizontalOptions = LayoutOptions.Fill,
@@ -50,6 +52,16 @@ namespace NapChat.Pages
                 BackgroundColor = Color.Lavender,
             };
             timePicker.SetBinding(Xamarin.Forms.TimePicker.TimeProperty, new Binding("Time") { Mode = BindingMode.OneWayToSource });
+
+            alarmRepeatList = new ListView()
+            {
+                ItemsSource = weekDayList,
+                RowHeight = 80,
+                ItemTemplate = new DataTemplate(typeof(WeekdayListItem)),
+            
+            };
+
+            alarmRepeatList.ItemSelected += AlarmRepeatList_ItemSelected;
 
             vibrateLabel = new Label()
             {
@@ -125,14 +137,14 @@ namespace NapChat.Pages
             snoozeLengthLabel = new Label()
             {
                 HorizontalOptions = LayoutOptions.Start,
-                Text = "Vibrate on Alarm:",
+                Text = "Snooze Length:",
                 TextColor = Color.Purple,
             };
 
             snoozeLengthPicker = new Picker()
             {
                 Title = "Snooze Length",
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.Center,
             };
 
             foreach (string time in snoozeLength.Keys)
@@ -210,6 +222,21 @@ namespace NapChat.Pages
             this.Content = scrollView;
         }
 
+        private void AlarmRepeatList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if(e.SelectedItem == null)
+            {
+                var SelectedWeekday = e.SelectedItem as WeekdayListItem;
+                SelectedWeekday.View.BackgroundColor = Color.White;
+                
+            } else
+            {
+                var SelectedWeekday = e.SelectedItem as WeekdayListItem;
+                SelectedWeekday.View.BackgroundColor = Color.Gray;
+            }
+
+        }
+
         private void SnoozeLengthPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(snoozeLengthPicker.SelectedIndex == -1)
@@ -242,7 +269,7 @@ namespace NapChat.Pages
             //get the set options of the alarm from other views
 
             //create alarm by passing in the alarm attributes
-
+            //IsVibrate, SnoozeLengthInt, pickerTime => long int, Group, ringtone, NapMessage, startTime 
             alarmController.createAlarm();
 
             //Save alarm to User
