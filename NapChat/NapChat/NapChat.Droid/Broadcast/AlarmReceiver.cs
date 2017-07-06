@@ -35,27 +35,22 @@ namespace NapChat.Droid.Broadcast
             //Custom notification layout
             
 
-            //Toast.MakeText(context, "Received intent!", ToastLength.Short).Show();*/
+            */
            // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-            builder.SetDefaults((int)NotificationDefaults.Vibrate)
-                    .SetCategory(Notification.CategoryAlarm)
+            builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
                     //.SetContent(remoteViews)
                     .SetContentTitle("NapChat Alarm")
                     .SetContentText("Time to wake up!")
                     //.AddAction(Resource.Drawable.Icon, "Snooze", pendingIntent)
                     //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
+                    .SetContentInfo("")
                     .SetVisibility((int)NotificationVisibility.Public)
-                    .SetContentInfo("Info")
-                    .SetPriority((int)NotificationPriority.Max);
-
-
-                    //.SetContentIntent(pendingIntent);
-            //to set ringtone to default or set sound
-            builder.SetSound (RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
-            //builder.SetSound (RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
+                    .SetPriority((int)NotificationPriority.Max)
+                    .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
+                   
 
            
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);

@@ -8,6 +8,7 @@ using NapChat.RenderedViews;
 using NapChat.Helpers;
 using NapChat.Model;
 using NapChat.ViewTemplates;
+using System.Diagnostics;
 
 namespace NapChat.Pages
 {
@@ -22,7 +23,7 @@ namespace NapChat.Pages
         StackLayout vibrateLayout;
         StackLayout snoozeLayout;
         ScrollView scrollView;
-        Switch vibrateSwitch;
+        Xamarin.Forms.Switch vibrateSwitch;
         Label vibrateLabel;
         Label snoozeLengthLabel;
         Button attachUsersButton;
@@ -33,9 +34,9 @@ namespace NapChat.Pages
         ListView alarmRepeatList;
         WeekDayList weekDayList = new WeekDayList();
 
-        //Binded Attributes
+        //Binded Variables
         TimeSpan pickerTime;
-        Boolean isVibrate;
+        Boolean isVibrate = false;
         int SnoozeLengthInt;
 
         
@@ -52,7 +53,8 @@ namespace NapChat.Pages
                 HeightRequest = 100,
                 BackgroundColor = Color.Lavender,
             };
-            timePicker.SetBinding(Xamarin.Forms.TimePicker.TimeProperty, new Binding("Time") { Mode = BindingMode.OneWayToSource });
+
+            timePicker.PropertyChanged += TimePicker_PropertyChanged;
 
             alarmRepeatList = new ListView()
             {
@@ -71,12 +73,12 @@ namespace NapChat.Pages
                 TextColor = Color.Purple,
 
             };
-            vibrateSwitch = new Switch()
+            vibrateSwitch = new Xamarin.Forms.Switch()
             {
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.End,
                 IsToggled = false,
-                BindingContext = isVibrate,
+               
             };
 
             vibrateLayout = new StackLayout()
@@ -90,8 +92,8 @@ namespace NapChat.Pages
             };
 
 
-            vibrateSwitch.SetBinding(Xamarin.Forms.Switch.IsToggledProperty, new Binding("IsToggled") { Mode = BindingMode.OneWayToSource });
-
+            vibrateSwitch.Toggled += VibrateSwitch_Toggled;
+            
             attachUsersButton = new Button()
             {
                 Text = "Attach Friends",
@@ -222,6 +224,25 @@ namespace NapChat.Pages
 
             this.Content = scrollView;
         }
+
+        private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            pickerTime = timePicker.Time;
+            Debug.WriteLine("TimeSpan in time picker:" + pickerTime.ToString()+". In milliseconds:"+pickerTime.Ticks.ToString());
+        }
+
+        /// <summary>
+        /// Assigns toggled state of VibrateSwitch to isVibrate boolean variable.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VibrateSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            isVibrate = e.Value;
+   
+            Debug.WriteLine("isvibrate = " + isVibrate.ToString());
+        }
+
         /// <summary>
         /// Updates UI to reflect selection of alarm repeat days. Changes the list item background to gray.
         /// </summary>
@@ -257,7 +278,7 @@ namespace NapChat.Pages
                 string timeLength = snoozeLengthPicker.Items[snoozeLengthPicker.SelectedIndex];
                 SnoozeLengthInt = snoozeLength[timeLength];
             }
-            System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString());
+            System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString()+ "and isVibrate = "+isVibrate.ToString());
         }
 
         /// <summary>
@@ -290,12 +311,14 @@ namespace NapChat.Pages
         private void CreateAndActivateButton_Clicked(object sender, EventArgs e)
         {
             var alarmController = DependencyService.Get<IAlarmController>();
-            //get the set options of the alarm from other views
+            //get or set options of the alarm from other views
 
             //create alarm by passing in the alarm attributes
-            //IsVibrate, SnoozeLengthInt, pickerTime => long int, Group, ringtone, NapMessage, startTime
-             
-            alarmController.createAlarm();
+            var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate);
+
+            //Schedule alarm with AlarmController
+            //TODO: Group, ringtoneURI, NapMessage, messageTime 
+            alarmController.createAlarm(alarm);
 
             //Save alarm to User
 
@@ -310,7 +333,8 @@ namespace NapChat.Pages
         /// <param name="e"></param>
         private void CreateAlarmButton_Clicked(object sender, EventArgs e)
         {
-            //Creates alarm
+            //Creates Alarm
+            var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate);
 
             //Adds to User
 
@@ -324,6 +348,7 @@ namespace NapChat.Pages
         /// <param name="e"></param>
         private void CancelButton_Clicked(object sender, EventArgs e)
         {
+           
             Navigation.PopAsync();
         }
     }

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
+using NapChat.Model;
 using NapChat.Droid.Services;
 using NapChat.Abstractions;
 using NapChat.Droid.Broadcast;
@@ -23,7 +24,7 @@ namespace NapChat.Droid.Services
         Context context = Android.App.Application.Context;
 
 
-        public  void createAlarm()
+        public  void createAlarm(Alarm alarm)
         {
 
 
@@ -32,16 +33,9 @@ namespace NapChat.Droid.Services
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
             
-            /*TODO:
-             * Use parameter to pass in the alarm time length for method calls to replace SystemClock.ElapsedRealtime...
-             Also we will use a Builder class to make Nap-Alerts for the Nap-Log and Push notifications.*/
-            
-            manager.Set(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime() + 10000/*alarmlengthMilli*/, pendingIntent);
+            manager.SetExact(AlarmType.RtcWakeup, alarm.getTriggerTime().Ticks , pendingIntent);
 
             Toast.MakeText(context, "Alarm Created!", ToastLength.Long).Show();
-
-            //Call builder class here.
-            // NapAlertFactory.buildNapAlert();
             
             //Send notifications here.
 
