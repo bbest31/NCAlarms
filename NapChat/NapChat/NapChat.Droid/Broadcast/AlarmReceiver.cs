@@ -39,7 +39,7 @@ namespace NapChat.Droid.Broadcast
            // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-            builder.SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
+            builder.SetDefaults((int)NotificationDefaults.Vibrate)
                     .SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
                     //.SetContent(remoteViews)
@@ -48,7 +48,9 @@ namespace NapChat.Droid.Broadcast
                     //.AddAction(Resource.Drawable.Icon, "Snooze", pendingIntent)
                     //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
                     .SetVisibility((int)NotificationVisibility.Public)
-                    .SetContentInfo("Info");
+                    .SetContentInfo("Info")
+                    .SetPriority((int)NotificationPriority.Max);
+
 
                     //.SetContentIntent(pendingIntent);
             //to set ringtone to default or set sound

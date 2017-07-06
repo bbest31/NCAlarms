@@ -31,13 +31,14 @@ namespace NapChat.Pages
         Dictionary<string, int> snoozeLength;
         Entry napMessageEntry;
         ListView alarmRepeatList;
-        WeekDayList weekDayList = new WeekDayList();     
-
+        WeekDayList weekDayList = new WeekDayList();
 
         //Binded Attributes
         TimeSpan pickerTime;
         Boolean isVibrate;
         int SnoozeLengthInt;
+
+        
 
         public CreateAlarmPage()
         {
@@ -221,7 +222,11 @@ namespace NapChat.Pages
 
             this.Content = scrollView;
         }
-
+        /// <summary>
+        /// Updates UI to reflect selection of alarm repeat days. Changes the list item background to gray.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AlarmRepeatList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if(e.SelectedItem == null)
@@ -237,6 +242,11 @@ namespace NapChat.Pages
 
         }
 
+        /// <summary>
+        /// Databinding method to match the selection in the Picker to the snooze length variable.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SnoozeLengthPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(snoozeLengthPicker.SelectedIndex == -1)
@@ -250,11 +260,21 @@ namespace NapChat.Pages
             System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString());
         }
 
+        /// <summary>
+        /// Pushes to page to select alarm tone from phone or from music.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AlarmToneButton_Clicked(object sender, EventArgs e)
         {
             //push to page to view all phone tones, music, and Napchat tones.
         }
 
+        /// <summary>
+        /// Pushes to page to attach a Group or a selection of Friends.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AttachUsersButton_Clicked(object sender, EventArgs e)
         {
             //Pops up modal to choose to add a group of friends or pick a selection of Friends.
@@ -262,14 +282,19 @@ namespace NapChat.Pages
             //Shows the context entry
             napMessageEntry.IsVisible = true;
         }
-
+        /// <summary>
+        /// Creates Alarm object and saves to User. Sends parameters to platform AlarmController to schedule alarm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateAndActivateButton_Clicked(object sender, EventArgs e)
         {
             var alarmController = DependencyService.Get<IAlarmController>();
             //get the set options of the alarm from other views
 
             //create alarm by passing in the alarm attributes
-            //IsVibrate, SnoozeLengthInt, pickerTime => long int, Group, ringtone, NapMessage, startTime 
+            //IsVibrate, SnoozeLengthInt, pickerTime => long int, Group, ringtone, NapMessage, startTime
+             
             alarmController.createAlarm();
 
             //Save alarm to User
@@ -278,7 +303,11 @@ namespace NapChat.Pages
         }
 
 
-        //OnClick methods
+        /// <summary>
+        /// Creates and saves Alarm object to User.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateAlarmButton_Clicked(object sender, EventArgs e)
         {
             //Creates alarm
@@ -288,6 +317,11 @@ namespace NapChat.Pages
             Navigation.PopAsync();
         }
 
+        /// <summary>
+        /// Returns to AlarmPage.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CancelButton_Clicked(object sender, EventArgs e)
         {
             Navigation.PopAsync();
