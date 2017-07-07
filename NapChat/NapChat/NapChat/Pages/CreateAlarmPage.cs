@@ -228,7 +228,7 @@ namespace NapChat.Pages
         private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             pickerTime = timePicker.Time;
-            Debug.WriteLine("TimeSpan in time picker:" + pickerTime.ToString()+". In milliseconds:"+pickerTime.Ticks.ToString());
+            Debug.WriteLine("TimeSpan in time picker:" + pickerTime.ToString()+". In milliseconds:"+pickerTime.TotalMilliseconds.ToString());
         }
 
         /// <summary>
