@@ -15,7 +15,7 @@ using NapChat.Model;
 using NapChat.Droid.Services;
 using NapChat.Abstractions;
 using NapChat.Droid.Broadcast;
-using Android.Icu.Util;
+
 
 [assembly: Xamarin.Forms.Dependency(typeof(DroidAlarmController))]
 namespace NapChat.Droid.Services
@@ -34,17 +34,12 @@ namespace NapChat.Droid.Services
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-            /*System.TimeZone timezone = System.TimeZone.CurrentTimeZone;
-            Android.Icu.Util.TimeZone timeZone = Android.Icu.Util.TimeZone.Default;
-            Calendar calendar = Calendar.GetInstance(timeZone);
-            calendar.TimeInMillis = SystemClock.CurrentThreadTimeMillis();
-            calendar.Set(CalendarField.HourOfDay, alarm.getTriggerTime().Hours);
-            calendar.Set(CalendarField.Minute, alarm.getTriggerTime().Minutes);
-
-            DateTime time = DateTime.Now;
-            */
+            DateTime dt = new DateTime(alarm.getTriggerTime().Ticks);
+            dt = dt.ToUniversalTime();
             
-            manager.SetExact(AlarmType.RtcWakeup, (long)alarm.getTriggerTime().TotalMilliseconds , pendingIntent);
+
+
+            manager.SetExact(AlarmType.RtcWakeup, Java.Lang.JavaSystem.CurrentTimeMillis() + 5*1000 , pendingIntent);
 
             Toast.MakeText(context, "Alarm Created!", ToastLength.Long).Show();
             
