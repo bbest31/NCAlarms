@@ -36,7 +36,10 @@ namespace NapChat.Droid.Broadcast
             
 
             */
-           // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
+            // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
+            //Get Extras
+            Boolean vibrate = intent.GetBooleanExtra("VIBRATE", false);
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
             builder.SetCategory(Notification.CategoryAlarm)
@@ -50,6 +53,16 @@ namespace NapChat.Droid.Broadcast
                     .SetVisibility((int)NotificationVisibility.Public)
                     .SetPriority((int)NotificationPriority.Max)
                     .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
+
+            if(vibrate == true)
+            {
+                /*Vibrate pattern is in milliseconds. First number indicates the time to wait
+                 * to start vibrating when notification fires. Second number is the time to vibrate
+                 * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
+                  */
+                builder.SetVibrate(new long[] { 0 , 1000 , 500 , 1000 , 500 , 1000, 500, 1000 });
+                //builder.SetDefaults((int)NotificationDefaults.Vibrate);
+            }
                    
 
            

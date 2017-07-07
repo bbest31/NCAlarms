@@ -30,14 +30,19 @@ namespace NapChat.Droid.Services
         /// <param name="alarm"></param>
         public  void scheduleAlarm(Alarm alarm)
         {
-
+            var triggerTime = UTCMilliseconds(alarm.getTriggerTime());
+            //Request code to identify the PendingIntent.
+            int requestCode = alarm.GetHashCode();
 
             AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
             Intent myIntent = new Intent(context, typeof(AlarmReceiver));
-            PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-            manager.SetExact(AlarmType.RtcWakeup, UTCMilliseconds(alarm.getTriggerTime()) , pendingIntent);
+            myIntent.PutExtra("VIBRATE", alarm.getVibrateSettings());
+
+            PendingIntent pendingIntent;
+            pendingIntent = PendingIntent.GetBroadcast(context, requestCode, myIntent, 0);
+
+            manager.SetExact(AlarmType.RtcWakeup, triggerTime , pendingIntent);
 
             Toast.MakeText(context, "Alarm Created!", ToastLength.Long).Show();
 
@@ -54,9 +59,15 @@ namespace NapChat.Droid.Services
         /// <returns></returns>
         public long UTCMilliseconds(TimeSpan ts)
         {
-            /*TODO: check TimeSpan value that was set to see if the hours is less than the current hours.
-             If so we add one day to DateTime to schedule it for tomorrow.*/ 
             DateTime dt = DateTime.Today + ts;
+            DateTime dtNow = DateTime.Now;
+            /*Check TimeSpan value that was set to see if the hours is less than the current hours.
+             If so we add one day to DateTime to schedule it for tomorrow.*/ 
+            if(dt.TimeOfDay.CompareTo(dtNow.TimeOfDay) < 0)
+            {
+                dt = dt.AddDays(1);
+            }
+
             dt = dt.ToUniversalTime();
             DateTime dtUTC = new DateTime(1970, 1, 1);
             TimeSpan newTS = new TimeSpan(dt.Ticks - dtUTC.Ticks);

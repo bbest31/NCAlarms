@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NapAlertFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NapChatSingletons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Vibrations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\WeekDayChoice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\WeekDayList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Alarm.cs" />
