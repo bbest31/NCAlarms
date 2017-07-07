@@ -7,7 +7,7 @@ namespace NapChat.Abstractions
 {
     public interface IAlarmController
     {
-        void createAlarm(Alarm alarm);
-        void createRepeatingAlarm();
+        void scheduleAlarm(Alarm alarm);
+        void scheduleRepeatingAlarm();
     }
 }

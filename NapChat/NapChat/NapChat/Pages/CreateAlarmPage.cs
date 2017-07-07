@@ -318,7 +318,7 @@ namespace NapChat.Pages
 
             //Schedule alarm with AlarmController
             //TODO: Group, ringtoneURI, NapMessage, messageTime 
-            alarmController.createAlarm(alarm);
+            alarmController.scheduleAlarm(alarm);
 
             //Save alarm to User
 

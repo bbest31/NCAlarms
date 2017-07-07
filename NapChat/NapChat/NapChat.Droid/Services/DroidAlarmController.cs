@@ -24,8 +24,11 @@ namespace NapChat.Droid.Services
     {
         Context context = Android.App.Application.Context;
 
-
-        public  void createAlarm(Alarm alarm)
+        /// <summary>
+        /// Schedules an alarm with the AlarmManager.
+        /// </summary>
+        /// <param name="alarm"></param>
+        public  void scheduleAlarm(Alarm alarm)
         {
 
 
@@ -34,25 +37,31 @@ namespace NapChat.Droid.Services
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, 0);
 
-            DateTime dt = new DateTime(alarm.getTriggerTime().Ticks);
-            dt = dt.ToUniversalTime();
-            
-
-
-            manager.SetExact(AlarmType.RtcWakeup, Java.Lang.JavaSystem.CurrentTimeMillis() + 5*1000 , pendingIntent);
+            manager.SetExact(AlarmType.RtcWakeup, UTCMilliseconds(alarm.getTriggerTime()) , pendingIntent);
 
             Toast.MakeText(context, "Alarm Created!", ToastLength.Long).Show();
-            
-            //Send notifications here.
-
 
         }
 
-        public void createRepeatingAlarm()
+        public void scheduleRepeatingAlarm()
         {
 
         }
-
+        /// <summary>
+        /// Returns the trigger time of the alarm in milliseconds with respect to UTC.
+        /// </summary>
+        /// <param name="ts"></param>
+        /// <returns></returns>
+        public long UTCMilliseconds(TimeSpan ts)
+        {
+            /*TODO: check TimeSpan value that was set to see if the hours is less than the current hours.
+             If so we add one day to DateTime to schedule it for tomorrow.*/ 
+            DateTime dt = DateTime.Today + ts;
+            dt = dt.ToUniversalTime();
+            DateTime dtUTC = new DateTime(1970, 1, 1);
+            TimeSpan newTS = new TimeSpan(dt.Ticks - dtUTC.Ticks);
+            return (long)newTS.TotalMilliseconds;
+        }
         
     }
 }
