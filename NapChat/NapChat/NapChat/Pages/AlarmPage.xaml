@@ -4,6 +4,7 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:NavigationPage.IsNavigationBarTranslucent="True"
              x:Class="NapChat.Pages.AlarmPage"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="Lavender">
     <ContentPage.Content>
         <StackLayout Padding="10,10,5,5">

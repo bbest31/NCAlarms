@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Text;
 
 using Xamarin.Forms;
@@ -45,6 +46,7 @@ namespace NapChat.Pages
         {
             Title = "Create Alarm";
             BackgroundColor = Color.Lavender;
+            NavigationPage.SetHasBackButton(this, false);
             timePicker = new CustomTimePicker()
             { 
                 HorizontalOptions = LayoutOptions.Fill,
@@ -120,14 +122,13 @@ namespace NapChat.Pages
 
             alarmToneButton = new Button()
             {
-                Text = "Alarm Tone",
-                TextColor = Color.White,
+                Text = "Alarm Tone: "+"Default",
+                TextColor = Color.Black,
                 FontAttributes = FontAttributes.Bold,
-                BackgroundColor = Color.MediumPurple,
-                BorderColor = Color.White,
+                BackgroundColor = Color.White,
+                BorderColor = Color.Transparent,
                 HeightRequest = 40,
-                WidthRequest = 125,
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Fill,
             };
 
             alarmToneButton.Clicked += AlarmToneButton_Clicked;
@@ -282,13 +283,26 @@ namespace NapChat.Pages
         }
 
         /// <summary>
-        /// Pushes to page to select alarm tone from phone or from music.
+        /// Displays an Action sheet to select alarm tone from phone, music or set default ringtone.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AlarmToneButton_Clicked(object sender, EventArgs e)
+        private async void AlarmToneButton_Clicked(object sender, EventArgs e)
         {
-            //push to page to view all phone tones, music, and Napchat tones.
+            //Should input some visual cue that they clicked it.
+            string action = await DisplayActionSheet("Alarm Tones", "Cancel", null, "Default", "Ringtones", "From Music");
+            if(action == "Default")
+            {
+                alarmToneButton.Text = "Alarm Tone: " + action;
+
+            } else if(action == "RingTones")
+            {
+                //await Navigation.PushAsync(new RingtonesPage());
+            } else if (action == "From Music")
+            {
+
+            }
+             
         }
 
         /// <summary>

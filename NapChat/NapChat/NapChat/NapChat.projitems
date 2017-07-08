@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Friend.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Group.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\NapAlert.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\RepeatingAlarm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.xaml.cs">
       <DependentUpon>AlarmPage.xaml</DependentUpon>

@@ -11,7 +11,9 @@ namespace NapChat.Model
     {
         private TimeSpan triggerTime { get; set; }
         private Boolean vibrateOnAlarm { get; set; }
+        private Boolean isActive { get; set; }
         private int snoozeLength { get; set; }
+        private int ID { get; set; }
 
         /// <summary>
         /// Constructor for Alarm object.
@@ -24,9 +26,25 @@ namespace NapChat.Model
             this.triggerTime = time;
             this.snoozeLength = snooze;
             this.vibrateOnAlarm = vibrate;
+            this.isActive = false;
+            this.ID = this.GetHashCode();
 
         }
         //=====SETTERS=======
+        /// <summary>
+        /// Sets boolean indicator to true.
+        /// </summary>
+        public void Activate()
+        {
+            this.isActive = true;
+        }
+        /// <summary>
+        /// Sets boolean indicator to false.
+        /// </summary>
+        public void Deactivate()
+        {
+            this.isActive = false;
+        }
         /// <summary>
         /// Sets the time the Alarm triggers at.
         /// </summary>
@@ -56,6 +74,22 @@ namespace NapChat.Model
         //========================
 
         //=======GETTERS==========
+        /// <summary>
+        /// Returns integer hash code that identifies this alarm.
+        /// </summary>
+        /// <returns></returns>
+        public int getID()
+        {
+            return this.ID;
+        }
+        /// <summary>
+        /// Returns a boolean to indicate whether the alarm is currently active or not.
+        /// </summary>
+        /// <returns></returns>
+        public Boolean getState()
+        {
+            return this.isActive;
+        }
         /// <summary>
         /// Returns trigger time of alarm as a TimeSpan type.
         /// </summary>

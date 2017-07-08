@@ -30,17 +30,19 @@ namespace NapChat.Droid.Services
         /// <param name="alarm"></param>
         public  void scheduleAlarm(Alarm alarm)
         {
-            var triggerTime = UTCMilliseconds(alarm.getTriggerTime());
-            //Request code to identify the PendingIntent.
-            int requestCode = alarm.GetHashCode();
+            alarm.Activate();
 
+            var triggerTime = UTCMilliseconds(alarm.getTriggerTime());
+            
             AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
             Intent myIntent = new Intent(context, typeof(AlarmReceiver));
 
+            //Provide Settings
             myIntent.PutExtra("VIBRATE", alarm.getVibrateSettings());
 
+
             PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.GetBroadcast(context, requestCode, myIntent, 0);
+            pendingIntent = PendingIntent.GetBroadcast(context, alarm.getID(), myIntent, 0);
 
             manager.SetExact(AlarmType.RtcWakeup, triggerTime , pendingIntent);
 
