@@ -39,7 +39,7 @@ namespace NapChat.Droid.Services
 
             //Provide Settings
             myIntent.PutExtra("VIBRATE", alarm.getVibrateSettings());
-
+            myIntent.PutExtra("RINGTONEURI", alarm.getRingTone());
 
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, alarm.getID(), myIntent, 0);

@@ -39,6 +39,7 @@ namespace NapChat.Droid.Broadcast
             // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
             //Get Extras
             Boolean vibrate = intent.GetBooleanExtra("VIBRATE", false);
+            string ringtone = intent.GetStringExtra("RINGTONEURI");
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
@@ -51,8 +52,15 @@ namespace NapChat.Droid.Broadcast
                     //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
                     .SetContentInfo("")
                     .SetVisibility((int)NotificationVisibility.Public)
-                    .SetPriority((int)NotificationPriority.Max)
-                    .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
+                    .SetPriority((int)NotificationPriority.Max);
+
+            if (ringtone == "default")
+            {
+                builder.SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
+            }
+            else {
+                builder.SetSound((Android.Net.Uri)ringtone);
+            }
 
             if(vibrate == true)
             {

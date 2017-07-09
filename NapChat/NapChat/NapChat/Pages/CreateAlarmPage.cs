@@ -39,6 +39,7 @@ namespace NapChat.Pages
         TimeSpan pickerTime;
         Boolean isVibrate = false;
         int SnoozeLengthInt;
+        string ringToneURI = "default";
 
         
 
@@ -293,11 +294,17 @@ namespace NapChat.Pages
             string action = await DisplayActionSheet("Alarm Tones", "Cancel", null, "Default", "Ringtones", "From Music");
             if(action == "Default")
             {
+                
                 alarmToneButton.Text = "Alarm Tone: " + action;
 
-            } else if(action == "RingTones")
+            } else if(action == "Ringtones")
             {
-                //await Navigation.PushAsync(new RingtonesPage());
+                var ringtToneList = DependencyService.Get<IRingtoneList>();
+                Debug.WriteLine("Ringtone Uri: " + ringToneURI);
+                ringtToneList.pickAndReceiveRingtone(ringToneURI);
+                Debug.WriteLine("Ringtone Uri: " + ringToneURI);
+                alarmToneButton.Text = "Alarm Tone: " + action;
+                
             } else if (action == "From Music")
             {
 
@@ -328,7 +335,7 @@ namespace NapChat.Pages
             //get or set options of the alarm from other views
 
             //create alarm by passing in the alarm attributes
-            var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate);
+            var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate, ringToneURI);
 
             //Schedule alarm with AlarmController
             //TODO: Group, ringtoneURI, NapMessage, messageTime 
@@ -348,7 +355,7 @@ namespace NapChat.Pages
         private void CreateAlarmButton_Clicked(object sender, EventArgs e)
         {
             //Creates Alarm
-            var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate);
+            var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate, ringToneURI);
 
             //Adds to User
 

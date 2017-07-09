@@ -10,6 +10,7 @@ namespace NapChat.Model
     public class Alarm
     {
         private TimeSpan triggerTime { get; set; }
+        private string ringtoneURI { get; set; }
         private Boolean vibrateOnAlarm { get; set; }
         private Boolean isActive { get; set; }
         private int snoozeLength { get; set; }
@@ -21,16 +22,25 @@ namespace NapChat.Model
         /// <param name="time"></param>
         /// <param name="triggerTime"></param>
         /// <param name="vibrate"></param>
-        public Alarm(TimeSpan time, int snooze , Boolean vibrate)
+        public Alarm(TimeSpan time, int snooze , Boolean vibrate,string ringtone)
         {
             this.triggerTime = time;
             this.snoozeLength = snooze;
             this.vibrateOnAlarm = vibrate;
             this.isActive = false;
             this.ID = this.GetHashCode();
+            this.ringtoneURI = ringtone;
 
         }
         //=====SETTERS=======
+        /// <summary>
+        /// Sets the Ringtone Uri of the alarm.
+        /// </summary>
+        /// <param name="ringtone"></param>
+        public void setRingtone(string ringtone)
+        {
+            this.ringtoneURI = ringtone;
+        }
         /// <summary>
         /// Sets boolean indicator to true.
         /// </summary>
@@ -74,6 +84,14 @@ namespace NapChat.Model
         //========================
 
         //=======GETTERS==========
+        /// <summary>
+        /// Returns the ringtone uri as a string.
+        /// </summary>
+        /// <returns></returns>
+        public string getRingTone()
+        {
+            return this.ringtoneURI;
+        }
         /// <summary>
         /// Returns integer hash code that identifies this alarm.
         /// </summary>
