@@ -15,7 +15,8 @@ using NapChat.Model;
 using NapChat.Droid.Services;
 using NapChat.Abstractions;
 using NapChat.Droid.Broadcast;
-
+using System.Diagnostics;
+using Android.Media;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DroidAlarmController))]
 namespace NapChat.Droid.Services
@@ -38,11 +39,14 @@ namespace NapChat.Droid.Services
             Intent myIntent = new Intent(context, typeof(AlarmReceiver));
 
             //Provide Settings
+            System.Diagnostics.Debug.WriteLine("Vibrate Settings on Pass: " + alarm.getVibrateSettings().ToString());
             myIntent.PutExtra("VIBRATE", alarm.getVibrateSettings());
+            myIntent.PutExtra("ID", alarm.getID());
+            System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
             myIntent.PutExtra("RINGTONEURI", alarm.getRingTone());
 
             PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.GetBroadcast(context, alarm.getID(), myIntent, 0);
+            pendingIntent = PendingIntent.GetBroadcast(context, 0 , myIntent, 0);
 
             manager.SetExact(AlarmType.RtcWakeup, triggerTime , pendingIntent);
 

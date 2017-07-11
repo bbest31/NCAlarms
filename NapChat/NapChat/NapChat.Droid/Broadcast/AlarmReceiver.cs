@@ -39,7 +39,10 @@ namespace NapChat.Droid.Broadcast
             // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
             //Get Extras
             Boolean vibrate = intent.GetBooleanExtra("VIBRATE", false);
+            System.Diagnostics.Debug.WriteLine("Vibrate Bool Given to AlarmReceiver: " + vibrate);
             string ringtone = intent.GetStringExtra("RINGTONEURI");
+            System.Diagnostics.Debug.WriteLine("Ringtone Given to AlarmReceiver: " + ringtone);
+            int ID = intent.GetIntExtra("ID",0);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
@@ -68,14 +71,14 @@ namespace NapChat.Droid.Broadcast
                  * to start vibrating when notification fires. Second number is the time to vibrate
                  * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
                   */
-                builder.SetVibrate(new long[] { 0 , 1000 , 500 , 1000 , 500 , 1000, 500, 1000 });
-                //builder.SetDefaults((int)NotificationDefaults.Vibrate);
+               // builder.SetVibrate(new long[] { 0 , 1000 , 500 , 1000 , 500 , 1000, 500, 1000 });
+                builder.SetDefaults((int)NotificationDefaults.Vibrate);
             }
                    
 
            
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
-            manager.Notify(1, builder.Build());
+            manager.Notify(ID, builder.Build());
         }
     }
 }
