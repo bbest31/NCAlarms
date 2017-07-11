@@ -323,12 +323,15 @@ namespace NapChat.Pages
                 if (Device.RuntimePlatform == Device.Android)
                 {
 #if __ANDROID__
-                    //need some compiler notes to skip this instead of the Device.RuntimePlatform
+                    
                     MessagingCenter.Subscribe< NapChat.Droid.MainActivity , string>(this, "URI", (sending, EventArgs) =>
                     {
+                        Android.Content.Context context = Android.App.Application.Context;
                         ringToneURI = EventArgs;
-                       // Android.Net.Uri uri = (Android.Net.Uri)ringToneURI;
-                        alarmToneButton.Text = "Alarm Tone: " + ringToneURI;
+                       Android.Net.Uri uri = Android.Net.Uri.Parse(ringToneURI);
+                        Android.Media.Ringtone r = Android.Media.RingtoneManager.GetRingtone(context,uri);
+                        string ringToneName = r.GetTitle(context);
+                        alarmToneButton.Text = "Alarm Tone: " + ringToneName;
                         Debug.WriteLine("Ringtone Recieved: "+ringToneURI);
                     });
 #endif

@@ -40,13 +40,13 @@ namespace NapChat.Droid.Services
 
             //Provide Settings
             System.Diagnostics.Debug.WriteLine("Vibrate Settings on Pass: " + alarm.getVibrateSettings().ToString());
-            myIntent.PutExtra("VIBRATE", alarm.getVibrateSettings());
-            myIntent.PutExtra("ID", alarm.getID());
+            myIntent.PutExtra("Vibrate", alarm.getVibrateSettings());
+            myIntent.PutExtra("Id", alarm.getID());
             System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
-            myIntent.PutExtra("RINGTONEURI", alarm.getRingTone());
+            myIntent.PutExtra("Uri", alarm.getRingTone());
 
             PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.GetBroadcast(context, 0 , myIntent, 0);
+            pendingIntent = PendingIntent.GetBroadcast(context, 0 , myIntent, PendingIntentFlags.UpdateCurrent);
 
             manager.SetExact(AlarmType.RtcWakeup, triggerTime , pendingIntent);
 

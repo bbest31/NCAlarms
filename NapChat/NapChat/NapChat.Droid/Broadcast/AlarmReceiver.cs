@@ -38,11 +38,11 @@ namespace NapChat.Droid.Broadcast
             */
             // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
             //Get Extras
-            Boolean vibrate = intent.GetBooleanExtra("VIBRATE", false);
+            Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);
             System.Diagnostics.Debug.WriteLine("Vibrate Bool Given to AlarmReceiver: " + vibrate);
-            string ringtone = intent.GetStringExtra("RINGTONEURI");
+            string ringtone = intent.GetStringExtra("Uri");
             System.Diagnostics.Debug.WriteLine("Ringtone Given to AlarmReceiver: " + ringtone);
-            int ID = intent.GetIntExtra("ID",0);
+            int ID = intent.GetIntExtra("Id",0);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
@@ -62,7 +62,8 @@ namespace NapChat.Droid.Broadcast
                 builder.SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
             }
             else {
-                builder.SetSound((Android.Net.Uri)ringtone);
+                Android.Net.Uri uri = Android.Net.Uri.Parse(ringtone);
+                builder.SetSound(uri);
             }
 
             if(vibrate == true)
