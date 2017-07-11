@@ -17,6 +17,7 @@ namespace NapChat.Pages
     {
         //Views
         CustomTimePicker timePicker;
+        StackLayout actionButtonLayout;
         Button cancelButton;
         Button createAlarmButton;
         Button createAndActivateButton;
@@ -218,6 +219,17 @@ namespace NapChat.Pages
 
             createAndActivateButton.Clicked += CreateAndActivateButton_Clicked;
 
+            actionButtonLayout = new StackLayout()
+            {
+                VerticalOptions = LayoutOptions.EndAndExpand,
+                Children = {
+                    createAlarmButton,
+                    createAndActivateButton,
+                    cancelButton,
+                }
+                
+            };
+
             layout = new StackLayout()
             {
                 Children =
@@ -229,9 +241,7 @@ namespace NapChat.Pages
                     attachUsersButton,
                     napMessageEntry,
                     snoozeLayout,
-                    createAlarmButton,
-                    createAndActivateButton,
-                    cancelButton,
+                   actionButtonLayout,
                 }
             };
 
@@ -249,7 +259,7 @@ namespace NapChat.Pages
         private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             pickerTime = timePicker.Time;
-            Debug.WriteLine("TimeSpan in time picker:" + pickerTime.ToString()+". In milliseconds:"+pickerTime.TotalMilliseconds.ToString());
+           // Debug.WriteLine("TimeSpan in time picker:" + pickerTime.ToString()+". In milliseconds:"+pickerTime.TotalMilliseconds.ToString());
         }
 
         /// <summary>
@@ -261,7 +271,7 @@ namespace NapChat.Pages
         {
             isVibrate = e.Value;
    
-            Debug.WriteLine("isvibrate = " + isVibrate.ToString());
+            //Debug.WriteLine("isvibrate = " + isVibrate.ToString());
         }
 
         /// <summary>
@@ -299,7 +309,7 @@ namespace NapChat.Pages
                 string timeLength = snoozeLengthPicker.Items[snoozeLengthPicker.SelectedIndex];
                 SnoozeLengthInt = snoozeLength[timeLength];
             }
-            System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString()+ "and isVibrate = "+isVibrate.ToString());
+            System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString());
         }
 
         /// <summary>
@@ -332,7 +342,7 @@ namespace NapChat.Pages
                         Android.Media.Ringtone r = Android.Media.RingtoneManager.GetRingtone(context,uri);
                         string ringToneName = r.GetTitle(context);
                         alarmToneButton.Text = "Alarm Tone: " + ringToneName;
-                        Debug.WriteLine("Ringtone Recieved: "+ringToneURI);
+                        //Debug.WriteLine("Ringtone Recieved: "+ringToneURI);
                     });
 #endif
                 } else if (Device.RuntimePlatform == Device.iOS)
@@ -341,9 +351,9 @@ namespace NapChat.Pages
                 }
                 
                 var ringtToneList = DependencyService.Get<IRingtoneList>();
-                Debug.WriteLine("Ringtone Uri: " + ringToneURI);
+                //Debug.WriteLine("Ringtone Uri: " + ringToneURI);
                 ringtToneList.pickRingtone();
-                Debug.WriteLine("Ringtone Uri: " + ringToneURI);
+                //Debug.WriteLine("Ringtone Uri: " + ringToneURI);
                 alarmToneButton.Text = "Alarm Tone: " + ringToneURI;
             }
             else if (action == "From Music")
@@ -379,7 +389,7 @@ namespace NapChat.Pages
 
             var alarmController = DependencyService.Get<IAlarmController>();
             //get or set options of the alarm from other views
-            Debug.WriteLine("Ringtone Recieved Before Creation: " + ringToneURI);
+            //Debug.WriteLine("Ringtone Recieved Before Creation: " + ringToneURI);
             //create alarm by passing in the alarm attributes
             var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate, ringToneURI);
 

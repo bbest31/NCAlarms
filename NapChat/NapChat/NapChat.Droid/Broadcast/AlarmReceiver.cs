@@ -36,19 +36,23 @@ namespace NapChat.Droid.Broadcast
             
 
             */
-            // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
+            //string pckname;
+            //RemoteViews contentViews = new RemoteViews(Package.,Resource.);
+            /*
+             * contentView.setTextView(R.id.title,<take in string of trigger time>)
+             * */
             //Get Extras
             Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);
-            System.Diagnostics.Debug.WriteLine("Vibrate Bool Given to AlarmReceiver: " + vibrate);
+            //System.Diagnostics.Debug.WriteLine("Vibrate Bool Given to AlarmReceiver: " + vibrate);
             string ringtone = intent.GetStringExtra("Uri");
-            System.Diagnostics.Debug.WriteLine("Ringtone Given to AlarmReceiver: " + ringtone);
+            //System.Diagnostics.Debug.WriteLine("Ringtone Given to AlarmReceiver: " + ringtone);
             int ID = intent.GetIntExtra("Id",0);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
             builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
-                    //.SetContent(remoteViews)
+                    //.SetContent(contentViews)
                     .SetContentTitle("NapChat Alarm")
                     .SetContentText("Time to wake up!")
                     //.AddAction(Resource.Drawable.Icon, "Snooze", pendingIntent)

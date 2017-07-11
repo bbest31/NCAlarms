@@ -39,10 +39,10 @@ namespace NapChat.Droid.Services
             Intent myIntent = new Intent(context, typeof(AlarmReceiver));
 
             //Provide Settings
-            System.Diagnostics.Debug.WriteLine("Vibrate Settings on Pass: " + alarm.getVibrateSettings().ToString());
+            //System.Diagnostics.Debug.WriteLine("Vibrate Settings on Pass: " + alarm.getVibrateSettings().ToString());
             myIntent.PutExtra("Vibrate", alarm.getVibrateSettings());
             myIntent.PutExtra("Id", alarm.getID());
-            System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
+           // System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
             myIntent.PutExtra("Uri", alarm.getRingTone());
 
             PendingIntent pendingIntent;
