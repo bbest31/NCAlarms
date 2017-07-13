@@ -36,11 +36,12 @@ namespace NapChat.Droid.Broadcast
             
 
             */
-            //string pckname;
-            //RemoteViews contentViews = new RemoteViews(Package.,Resource.);
-            /*
-             * contentView.setTextView(R.id.title,<take in string of trigger time>)
-             * */
+
+
+
+            //RemoteViews contentViews = new RemoteViews(context.PackageName,  );
+            //contentView.setTextView(R.id.title,<take in string of trigger time>)
+
             //Get Extras
             Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);
             //System.Diagnostics.Debug.WriteLine("Vibrate Bool Given to AlarmReceiver: " + vibrate);
