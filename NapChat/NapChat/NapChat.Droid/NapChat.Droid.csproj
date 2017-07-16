@@ -200,6 +200,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlarmActivity.cs" />
     <Compile Include="Broadcast\AlarmReceiver.cs" />
     <Compile Include="CustomModel\DroidRingtoneList.cs" />
     <Compile Include="MainActivity.cs" />

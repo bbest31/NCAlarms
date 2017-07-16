@@ -52,6 +52,9 @@ namespace NapChat.Droid.Services
 
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0 , myIntent, PendingIntentFlags.UpdateCurrent);
+           
+
+            
 
             manager.SetExact(AlarmType.RtcWakeup, triggerTime , pendingIntent);
 

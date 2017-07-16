@@ -56,19 +56,23 @@ namespace NapChat.Droid.Broadcast
            
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-            
+
+
+
+
 
 
             builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
+                    //.SetContentIntent(notifyPending);
                     .SetContent(contentViews)  //Might switch back to SetContent if we don't want our icon on it. Also delete the SetStyle line    
-                    //.SetStyle(new NotificationCompat.InboxStyle())   
-                   // .AddAction(action)
-                    //.AddAction(Resource.Drawable.Icon, "Snooze", intent)
-                    //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
+                                               //.SetStyle(new NotificationCompat.InboxStyle())   
+                                               // .AddAction(action)
+                                               //.AddAction(Resource.Drawable.Icon, "Snooze", intent)
+                                               //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
                     .SetVisibility((int)NotificationVisibility.Public)
-                    .SetPriority((int)NotificationPriority.Max)
-                    .SetAutoCancel(false);
+                    .SetPriority((int)NotificationPriority.Max);
+                    //.SetAutoCancel(false);
             
 
             if (ringtone == "default")

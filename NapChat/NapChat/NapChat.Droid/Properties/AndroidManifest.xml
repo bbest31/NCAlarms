@@ -2,4 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="26" />
 	<application android:label="$safeprojectname$"></application>
+  <activity
+    android:name=".AlarmActivty"
+    android:launchMode="singleTask"
+    android:excludeFromRecents="true"/>
 </manifest>
