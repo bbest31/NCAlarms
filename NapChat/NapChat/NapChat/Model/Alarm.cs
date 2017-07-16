@@ -9,13 +9,15 @@ namespace NapChat.Model
     /// </summary>
     public class Alarm
     {
+        #region Attributes
         private TimeSpan triggerTime { get; set; }
         private string ringtoneURI { get; set; }
         private Boolean vibrateOnAlarm { get; set; }
         private Boolean isActive { get; set; }
         private int snoozeLength { get; set; }
         private int ID { get; set; }
-
+        #endregion
+        #region Constructor
         /// <summary>
         /// Constructor for Alarm object.
         /// </summary>
@@ -32,6 +34,8 @@ namespace NapChat.Model
             this.ringtoneURI = ringtone;
 
         }
+        #endregion
+        #region Setters
         //=====SETTERS=======
         /// <summary>
         /// Sets the Ringtone Uri of the alarm.
@@ -81,8 +85,8 @@ namespace NapChat.Model
         {
             this.snoozeLength = snooze;
         }
-        //========================
-
+        #endregion
+        #region Getters
         //=======GETTERS==========
         /// <summary>
         /// Returns the ringtone uri as a string.
@@ -132,5 +136,6 @@ namespace NapChat.Model
         {
             return this.snoozeLength;
         }
+        #endregion
     }
 }

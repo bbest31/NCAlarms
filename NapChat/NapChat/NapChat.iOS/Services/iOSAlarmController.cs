@@ -22,8 +22,29 @@ namespace NapChat.iOS.Services
     {
         public void scheduleAlarm(Alarm alarm)
         {
+            //Notifications Actions
+            var DismissActionId = "dismiss";
+            var DismissTitle = "Dismiss";
+            var DismissAction = UNNotificationAction.FromIdentifier(DismissActionId, DismissTitle, UNNotificationActionOptions.Foreground);
 
-			var nsDate = new NSDateComponents();
+            var SnoozeActionId = "snooze";
+            var SnoozeTitle = "Snooze";
+            var SnoozeAction = UNNotificationAction.FromIdentifier(SnoozeActionId, SnoozeTitle, UNNotificationActionOptions.None);
+
+            //Category of Actions
+            var ActionCategoryID = "AlarmButtons";
+            var actions = new UNNotificationAction[] { DismissAction, SnoozeAction };
+            var intentIDs = new string[] { };
+            var ActionCategoryOptions = new UNNotificationCategoryOptions[] { UNNotificationCategoryOptions.CustomDismissAction};
+            var ActionCategory = UNNotificationCategory.FromIdentifier(ActionCategoryID, actions, intentIDs, ActionCategoryOptions[0]);
+
+            //Register Category
+            var ActionCategories = new UNNotificationCategory[] { ActionCategory };
+
+            UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(ActionCategories));
+
+
+            var nsDate = new NSDateComponents();
 			TimeSpan ts = alarm.getTriggerTime();
 
 			nsDate.Hour = ts.Hours;
@@ -45,6 +66,7 @@ namespace NapChat.iOS.Services
 			//content.Subtitle = "Notification Subtitle";
 			content.Body = "Time to wake up!";
 			content.Badge = 1;
+            content.CategoryIdentifier = "AlarmButtons";
 
             if (alarm.getRingTone() == "default")
             {

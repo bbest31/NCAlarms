@@ -1,6 +1,7 @@
 ﻿using System;
 using UserNotifications;
 using System.Diagnostics;
+using ObjCRuntime;
 
 namespace NapChat.iOS.Services
 {
@@ -23,6 +24,22 @@ namespace NapChat.iOS.Services
 			// `None` to say we have handled the display locally.
 			completionHandler(UNNotificationPresentationOptions.Alert);
 		}
-		#endregion
-	}
+
+        public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        {
+            switch (response.Notification.Request.Identifier)
+            {
+                case "snooze":
+                    Debug.WriteLine("Snoo Snoo click snooze");
+                    break;
+                case "dismiss":
+                    Debug.WriteLine("Dismiss was clicked bitch.");
+                    break;
+            }
+
+            completionHandler();
+
+        }
+        #endregion
+    }
 }
