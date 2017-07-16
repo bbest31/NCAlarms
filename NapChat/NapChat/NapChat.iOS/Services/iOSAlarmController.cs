@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +22,28 @@ namespace NapChat.iOS.Services
     {
         public void scheduleAlarm(Alarm alarm)
         {
+
+			var nsDate = new NSDateComponents();
+			TimeSpan ts = alarm.getTriggerTime();
+
+			nsDate.Hour = ts.Hours;
+			nsDate.Minute = ts.Minutes;
+
+            string meridiem;
+            if (nsDate.Hour >= 0 && nsDate.Hour < 12)
+            {
+                meridiem = " AM";
+            }
+            else
+            {
+                meridiem = " PM";
+            }
+
+
 			var content = new UNMutableNotificationContent();
-			content.Title = "Notification Title";
-			content.Subtitle = "Notification Subtitle";
-			content.Body = "This is the message body of the notification.";
+			content.Title = nsDate.Hour.ToString() + ":" + nsDate.Minute.ToString() + meridiem;
+			//content.Subtitle = "Notification Subtitle";
+			content.Body = "Time to wake up!";
 			content.Badge = 1;
 
             if (alarm.getRingTone() == "default")
@@ -36,21 +54,14 @@ namespace NapChat.iOS.Services
                 content.Sound = UNNotificationSound.GetSound(alarm.getRingTone());
             }
 
-            var nsDate = new NSDateComponents();
-            TimeSpan ts = alarm.getTriggerTime();
+           
 
 
-            //DateTime dt = DateTime.Today + ts;
-            //nsDate.Day = dt.Day;
-            //nsDate.Month = dt.Month;
-            //nsDate.Year = dt.Year;
-            //nsDate.Hour = dt.Hour;
-            //nsDate.Minute = dt.Minute;
-			nsDate.Hour = ts.Hours;
-			nsDate.Minute = ts.Minutes;
+ 
 
-            // trigger time
-            var trigger = UNCalendarNotificationTrigger.CreateTrigger(nsDate ,false);
+
+			// trigger time
+			var trigger = UNCalendarNotificationTrigger.CreateTrigger(nsDate ,false);
 
             // Notification ID for updates
 			var requestID = alarm.getID().ToString();
