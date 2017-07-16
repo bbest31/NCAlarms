@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
 using Android.Media;
+using NapChat.Model;
 
 namespace NapChat.Droid.Broadcast
 {
@@ -95,6 +96,14 @@ namespace NapChat.Droid.Broadcast
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
             manager.Notify(ID, builder.Build());
             
+        }
+
+        public void Cancel(Alarm alarm, Context context)
+        {
+            NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
+
+            manager.Cancel(alarm.getID());
+
         }
     }
 }

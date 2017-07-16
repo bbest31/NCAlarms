@@ -85,9 +85,10 @@ namespace NapChat.Droid.Services
             return (long)newTS.TotalMilliseconds;
         }
         
-        public void cancelAlarm()
+        public void cancelAlarm(Alarm alarm)
         {
-            AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
+            AlarmReceiver alarmReceiver = new AlarmReceiver();
+            alarmReceiver.Cancel(alarm, context);
         }
     }
 }
