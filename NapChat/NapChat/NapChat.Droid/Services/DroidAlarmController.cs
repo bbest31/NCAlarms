@@ -34,14 +34,19 @@ namespace NapChat.Droid.Services
             alarm.Activate();
 
             var triggerTime = UTCMilliseconds(alarm.getTriggerTime());
-            
+            DateTime Dtime = DateTime.Today + alarm.getTriggerTime();
+            string time = Dtime.TimeOfDay.ToString();
+
             AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
             Intent myIntent = new Intent(context, typeof(AlarmReceiver));
+            
 
             //Provide Settings
             //System.Diagnostics.Debug.WriteLine("Vibrate Settings on Pass: " + alarm.getVibrateSettings().ToString());
             myIntent.PutExtra("Vibrate", alarm.getVibrateSettings());
             myIntent.PutExtra("Id", alarm.getID());
+            myIntent.PutExtra("Snooze", alarm.getSnoozeLength());
+            myIntent.PutExtra("Time", time);
            // System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
             myIntent.PutExtra("Uri", alarm.getRingTone());
 
@@ -80,5 +85,9 @@ namespace NapChat.Droid.Services
             return (long)newTS.TotalMilliseconds;
         }
         
+        public void cancelAlarm()
+        {
+            AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
+        }
     }
 }

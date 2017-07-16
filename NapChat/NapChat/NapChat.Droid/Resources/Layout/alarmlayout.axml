@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="256dp"
-    android:id="@+id/alarmlayout">
-  <TextView
-    android:id="@+id/custom_notification_title"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:textSize="13dp"
-    android:textColor="#000"
-    android:text="Testing Layout"/>
-  <TextView
-        android:textSize="13dp"
-        android:textColor="#000"
-        android:text="Testing is awecome"
-        android:id="@+id/custom_notification_text"
+    android:id="@+id/alarmlayout"
+    android:padding="10dp">
+    <TextView
+        android:id="@+id/custom_notification_title"
+        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-  
-  
+        android:textAlignment="center"
+        android:textSize="15dp"
+        android:textColor="#000"
+        android:text="Time" />
+    <Button
+        android:id="@+id/snooze_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:backgroundTint="@android:color/holo_purple"
+        android:text="Snooze"
+        android:textColor="#000"
+        android:textSize="13dp"  
+         />
+    <Button
+        android:id="@+id/dismiss_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:backgroundTint="@android:color/holo_purple"
+        android:text="Dimiss"
+        android:textColor="#000"
+        android:textSize="13dp"
+         />
 </LinearLayout>

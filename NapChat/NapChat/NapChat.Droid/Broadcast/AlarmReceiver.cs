@@ -36,22 +36,23 @@ namespace NapChat.Droid.Broadcast
             
 
             */
-
-
-            RemoteViews contentViews = new RemoteViews(context.PackageName, Resource.Layout.alarmlayout );
-
-            contentViews.SetTextViewText(Resource.Id.custom_notification_title, "Custom Napchat Title");
-            contentViews.SetTextViewText(Resource.Id.custom_notification_text, "Custom Text HERE");
-
-           // Notification.Action action = new Notification.Action.Builder(Resource.Drawable.Icon, "Dismiss", null).Build();
-          
-
             //Get Extras
             Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);
             //System.Diagnostics.Debug.WriteLine("Vibrate Bool Given to AlarmReceiver: " + vibrate);
             string ringtone = intent.GetStringExtra("Uri");
             //System.Diagnostics.Debug.WriteLine("Ringtone Given to AlarmReceiver: " + ringtone);
-            int ID = intent.GetIntExtra("Id",0);
+            int ID = intent.GetIntExtra("Id", 0);
+            int snoozeLength = intent.GetIntExtra("Snooze", 5);
+            string time = intent.GetStringExtra("Time");
+
+            RemoteViews contentViews = new RemoteViews(context.PackageName, Resource.Layout.alarmlayout );
+
+            contentViews.SetTextViewText(Resource.Id.custom_notification_title, time);
+
+           // Notification.Action action = new Notification.Action.Builder(Resource.Drawable.Icon, "Dismiss", null).Build();
+          
+
+           
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
             
@@ -59,12 +60,14 @@ namespace NapChat.Droid.Broadcast
 
             builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
-                    .SetContent(contentViews)         
+                    .SetContent(contentViews)  //Might switch back to SetContent if we don't want our icon on it. Also delete the SetStyle line    
+                    //.SetStyle(new NotificationCompat.InboxStyle())   
                    // .AddAction(action)
                     //.AddAction(Resource.Drawable.Icon, "Snooze", intent)
                     //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
                     .SetVisibility((int)NotificationVisibility.Public)
-                    .SetPriority((int)NotificationPriority.Max);
+                    .SetPriority((int)NotificationPriority.Max)
+                    .SetAutoCancel(false);
             
 
             if (ringtone == "default")
@@ -91,6 +94,7 @@ namespace NapChat.Droid.Broadcast
            
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
             manager.Notify(ID, builder.Build());
+            
         }
     }
 }
