@@ -17,6 +17,7 @@ namespace NapChat.Pages
     {
         //Views
         CustomTimePicker timePicker;
+        StackLayout actionButtonLayout;
         Button cancelButton;
         Button createAlarmButton;
         Button createAndActivateButton;
@@ -32,6 +33,7 @@ namespace NapChat.Pages
         Picker snoozeLengthPicker;
         Dictionary<string, int> snoozeLength;
         Entry napMessageEntry;
+        Button repeatButton;
         ListView alarmRepeatList;
         WeekDayList weekDayList = new WeekDayList();
 
@@ -40,7 +42,7 @@ namespace NapChat.Pages
         Boolean isVibrate = false;
         int SnoozeLengthInt;
         string ringToneURI = "default";
-
+        string[] repeatLabelList = { "None" };
         
 
         public CreateAlarmPage()
@@ -133,6 +135,18 @@ namespace NapChat.Pages
             };
 
             alarmToneButton.Clicked += AlarmToneButton_Clicked;
+            repeatButton = new Button()
+            {
+                Text = "Repeat: " + repeatLabelList[0],
+                TextColor = Color.Black,
+                FontAttributes = FontAttributes.Bold,
+                BackgroundColor = Color.White,
+                BorderColor = Color.Transparent,
+                HeightRequest = 40,
+                HorizontalOptions = LayoutOptions.Fill,
+            };
+
+            repeatButton.Clicked += RepeatButton_Clicked;
 
             snoozeLength = new Dictionary<string, int>
             {
@@ -205,6 +219,17 @@ namespace NapChat.Pages
 
             createAndActivateButton.Clicked += CreateAndActivateButton_Clicked;
 
+            actionButtonLayout = new StackLayout()
+            {
+                VerticalOptions = LayoutOptions.EndAndExpand,
+                Children = {
+                    createAlarmButton,
+                    createAndActivateButton,
+                    cancelButton,
+                }
+                
+            };
+
             layout = new StackLayout()
             {
                 Children =
@@ -212,12 +237,11 @@ namespace NapChat.Pages
                     timePicker,
                     vibrateLayout,
                     alarmToneButton,
+                    repeatButton,
                     attachUsersButton,
                     napMessageEntry,
                     snoozeLayout,
-                    createAlarmButton,
-                    createAndActivateButton,
-                    cancelButton,
+                   actionButtonLayout,
                 }
             };
 
@@ -227,10 +251,15 @@ namespace NapChat.Pages
             this.Content = scrollView;
         }
 
+        private void RepeatButton_Clicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             pickerTime = timePicker.Time;
-            Debug.WriteLine("TimeSpan in time picker:" + pickerTime.ToString()+". In milliseconds:"+pickerTime.TotalMilliseconds.ToString());
+           // Debug.WriteLine("TimeSpan in time picker:" + pickerTime.ToString()+". In milliseconds:"+pickerTime.TotalMilliseconds.ToString());
         }
 
         /// <summary>
@@ -242,7 +271,7 @@ namespace NapChat.Pages
         {
             isVibrate = e.Value;
    
-            Debug.WriteLine("isvibrate = " + isVibrate.ToString());
+            //Debug.WriteLine("isvibrate = " + isVibrate.ToString());
         }
 
         /// <summary>
@@ -280,7 +309,7 @@ namespace NapChat.Pages
                 string timeLength = snoozeLengthPicker.Items[snoozeLengthPicker.SelectedIndex];
                 SnoozeLengthInt = snoozeLength[timeLength];
             }
-            System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString()+ "and isVibrate = "+isVibrate.ToString());
+            System.Diagnostics.Debug.WriteLine("Snooze Length is set to: "+ SnoozeLengthInt.ToString());
         }
 
         /// <summary>
@@ -299,17 +328,39 @@ namespace NapChat.Pages
 
             } else if(action == "Ringtones")
             {
-                var ringtToneList = DependencyService.Get<IRingtoneList>();
-                Debug.WriteLine("Ringtone Uri: " + ringToneURI);
-                ringtToneList.pickAndReceiveRingtone(ringToneURI);
-                Debug.WriteLine("Ringtone Uri: " + ringToneURI);
-                alarmToneButton.Text = "Alarm Tone: " + action;
                 
-            } else if (action == "From Music")
+
+                if (Device.RuntimePlatform == Device.Android)
+                {
+#if __ANDROID__
+                    
+                    MessagingCenter.Subscribe< NapChat.Droid.MainActivity , string>(this, "URI", (sending, EventArgs) =>
+                    {
+                        Android.Content.Context context = Android.App.Application.Context;
+                        ringToneURI = EventArgs;
+                       Android.Net.Uri uri = Android.Net.Uri.Parse(ringToneURI);
+                        Android.Media.Ringtone r = Android.Media.RingtoneManager.GetRingtone(context,uri);
+                        string ringToneName = r.GetTitle(context);
+                        alarmToneButton.Text = "Alarm Tone: " + ringToneName;
+                        //Debug.WriteLine("Ringtone Recieved: "+ringToneURI);
+                    });
+#endif
+                } else if (Device.RuntimePlatform == Device.iOS)
+                {
+
+                }
+                
+                var ringtToneList = DependencyService.Get<IRingtoneList>();
+                //Debug.WriteLine("Ringtone Uri: " + ringToneURI);
+                ringtToneList.pickRingtone();
+                //Debug.WriteLine("Ringtone Uri: " + ringToneURI);
+                alarmToneButton.Text = "Alarm Tone: " + ringToneURI;
+            }
+            else if (action == "From Music")
             {
 
             }
-             
+
         }
 
         /// <summary>
@@ -331,14 +382,19 @@ namespace NapChat.Pages
         /// <param name="e"></param>
         private void CreateAndActivateButton_Clicked(object sender, EventArgs e)
         {
+            
+#if __ANDROID__
+            MessagingCenter.Unsubscribe<NapChat.Droid.MainActivity, string>(this, "URI");
+#endif
+
             var alarmController = DependencyService.Get<IAlarmController>();
             //get or set options of the alarm from other views
-
+            //Debug.WriteLine("Ringtone Recieved Before Creation: " + ringToneURI);
             //create alarm by passing in the alarm attributes
             var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate, ringToneURI);
 
             //Schedule alarm with AlarmController
-            //TODO: Group, ringtoneURI, NapMessage, messageTime 
+            //TODO: Group, NapMessage, messageTime 
             alarmController.scheduleAlarm(alarm);
 
             //Save alarm to User
@@ -372,5 +428,7 @@ namespace NapChat.Pages
            
             Navigation.PopAsync();
         }
+
+        
     }
 }

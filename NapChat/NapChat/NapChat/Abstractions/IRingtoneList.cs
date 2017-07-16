@@ -8,7 +8,7 @@ namespace NapChat.Abstractions
     public interface IRingtoneList
     {
         string uri { get; set; }
-        Task<string> pickAndReceiveRingtone(string current);
+        void pickRingtone();
        
       
     }

@@ -13,15 +13,13 @@ using NapChat.Abstractions;
 using NapChat.Droid.CustomModel;
 using Android.Media;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DroidRingtoneList))]
 namespace NapChat.Droid.CustomModel
 {
     public class DroidRingtoneList : IRingtoneList
     {
-        
-        Context context = Android.App.Application.Context;
-
         public string uri { get; set; }
 
         public string getURI()
@@ -37,26 +35,29 @@ namespace NapChat.Droid.CustomModel
         /// <summary>
         /// Goes to a ringtone picker activity and retrieves the selected tones uri as a string.
         /// </summary>
-        /// <param name="currentUri"></param>
-        /// <returns>String RingtoneManager.EXtraRingtonePickedUri</returns>
-         public async Task<string> pickAndReceiveRingtone(string currentUri)
+        public void pickRingtone()
         {
+            
             Intent intent = new Intent(RingtoneManager.ActionRingtonePicker);
             intent.PutExtra(RingtoneManager.ExtraRingtoneShowSilent, false);
             intent.PutExtra(RingtoneManager.ExtraRingtoneTitle, "Select a ringtone");
             intent.PutExtra(RingtoneManager.ExtraRingtoneShowDefault, false);
             intent.PutExtra(RingtoneManager.ExtraRingtoneType, (int)RingtoneType.Alarm);
             intent.PutExtra(RingtoneManager.ExtraRingtoneExistingUri, RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
-            intent.SetFlags(ActivityFlags.NewTask);
+            //intent.SetFlags(ActivityFlags.);
 
-            //Replace below
-            /*await*/ context.StartActivity(intent);
+            var activity = Xamarin.Forms.Forms.Context as Activity;
+            
 
-            //Grab selected uri here
-            //currentUri = ...
-
-            return currentUri;
+            activity.StartActivityForResult(intent, 0); 
+            
+                     
         }
+
+        
+
+      
+
 
     }
 }
