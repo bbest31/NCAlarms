@@ -41,16 +41,24 @@ namespace NapChat.iOS.Services
 			nsDate.Hour = ts.Hours;
 			nsDate.Minute = ts.Minutes;
 
+            // trigger time
             var trigger = UNCalendarNotificationTrigger.CreateTrigger(nsDate ,false);
+
+            // Notification ID for updates
 			var requestID = alarm.getID().ToString();
 			var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
-
+                                                
 			UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
 			{
 				if (err != null)
 				{
+                    Debug.WriteLine("error, {0}", err);
                     // Do something with error
 				}
+                else
+                {
+                    Debug.WriteLine("Notification Scheduled, {0}", request);
+                }
 			});
         }
 
