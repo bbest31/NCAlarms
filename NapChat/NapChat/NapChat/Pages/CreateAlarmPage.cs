@@ -347,6 +347,10 @@ namespace NapChat.Pages
 #endif
                 } else if (Device.RuntimePlatform == Device.iOS)
                 {
+#if __IOS__
+
+
+#endif
 
                 }
                 

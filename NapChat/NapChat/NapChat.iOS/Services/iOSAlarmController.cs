@@ -28,6 +28,14 @@ namespace NapChat.iOS.Services
 			content.Body = "This is the message body of the notification.";
 			content.Badge = 1;
 
+            if (alarm.getRingTone() == "default")
+            {
+                content.Sound = UNNotificationSound.Default;
+            }else
+            {
+                content.Sound = UNNotificationSound.GetSound(alarm.getRingTone());
+            }
+
             var nsDate = new NSDateComponents();
             TimeSpan ts = alarm.getTriggerTime();
 
