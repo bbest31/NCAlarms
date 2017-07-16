@@ -47,7 +47,7 @@ namespace NapChat.iOS
 			//});
 
 			// Watch for notifications while the app is active
-			//UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
+			UNUserNotificationCenter.Current.Delegate = new UNUserNotificationCenterDelegate();
 
 			//return true;
 
