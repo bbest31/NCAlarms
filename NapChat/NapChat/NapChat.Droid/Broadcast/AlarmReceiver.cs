@@ -38,9 +38,13 @@ namespace NapChat.Droid.Broadcast
             */
 
 
+            RemoteViews contentViews = new RemoteViews(context.PackageName, Resource.Layout.alarmlayout );
 
-            //RemoteViews contentViews = new RemoteViews(context.PackageName,  );
-            //contentView.setTextView(R.id.title,<take in string of trigger time>)
+            contentViews.SetTextViewText(Resource.Id.custom_notification_title, "Custom Napchat Title");
+            contentViews.SetTextViewText(Resource.Id.custom_notification_text, "Custom Text HERE");
+
+           // Notification.Action action = new Notification.Action.Builder(Resource.Drawable.Icon, "Dismiss", null).Build();
+          
 
             //Get Extras
             Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);
@@ -50,17 +54,18 @@ namespace NapChat.Droid.Broadcast
             int ID = intent.GetIntExtra("Id",0);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+            
+
 
             builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
-                    //.SetContent(contentViews)
-                    .SetContentTitle("NapChat Alarm")
-                    .SetContentText("Time to wake up!")
-                    //.AddAction(Resource.Drawable.Icon, "Snooze", pendingIntent)
+                    .SetContent(contentViews)         
+                   // .AddAction(action)
+                    //.AddAction(Resource.Drawable.Icon, "Snooze", intent)
                     //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
-                    .SetContentInfo("")
                     .SetVisibility((int)NotificationVisibility.Public)
                     .SetPriority((int)NotificationPriority.Max);
+            
 
             if (ringtone == "default")
             {
@@ -78,6 +83,7 @@ namespace NapChat.Droid.Broadcast
                  * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
                   */
                // builder.SetVibrate(new long[] { 0 , 1000 , 500 , 1000 , 500 , 1000, 500, 1000 });
+                builder.SetDefaults((int)NotificationDefaults.Vibrate);
                 builder.SetDefaults((int)NotificationDefaults.Vibrate);
             }
                    
