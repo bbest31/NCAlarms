@@ -6,5 +6,6 @@
   <activity
     android:name="AlarmActivty"
     android:launchMode="singleTask"
+    android:theme="@android:style/Theme.Holo.NoActionBar"
     android:excludeFromRecents="true"/>
 </manifest>
