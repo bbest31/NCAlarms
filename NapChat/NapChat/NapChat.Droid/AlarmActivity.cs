@@ -15,6 +15,7 @@ namespace NapChat.Droid
     [Activity(Label = "AlarmActivity")]
     public class AlarmActivity : Activity
     {
+        string timeDisplayString;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -24,20 +25,27 @@ namespace NapChat.Droid
 
             SetContentView(Resource.Layout.alarmlayout);
 
-            // Create your application here
+            #region Reference Activity Views
             Button dismissButton = (Button)FindViewById(Resource.Id.dismiss_button);
             Button snoozeButton = (Button)FindViewById(Resource.Id.snooze_button);
             TextView timeDisplay = (TextView)FindViewById(Resource.Id.timedisplay);
-
-            #region Grabs alarm info for snooze reschedule
-            this.Intent.GetIntExtra("SNOOZE", 5);
-            this.Intent.GetIntExtra("ID",0);
-            this.Intent.GetBooleanExtra("VIBRATE", false);
-            this.Intent.GetStringExtra("URI");
-            this.Intent.GetStringExtra("TIME");
+            TextView meridianDisplay = (TextView)FindViewById(Resource.Id.merdian_textView);
             #endregion
 
+            #region Grabs alarm info for snooze reschedule
+            int snoozeLength = this.Intent.GetIntExtra("SNOOZE", 5);
+            int ID = this.Intent.GetIntExtra("ID",0);
+            bool vibrate = this.Intent.GetBooleanExtra("VIBRATE", false);
+            string ringtoneURI = this.Intent.GetStringExtra("URI");
+            
+            string meridian = ringtoneURI[];
 
+            timeDisplayString = this.Intent.GetStringExtra("TIME");
+            #endregion
+
+            //Displays the Alarm time in the TextView
+            timeDisplay.SetText(timeDisplayString,TextView.BufferType.Normal);
+            meridianDisplay.SetText();
             
         }
 
