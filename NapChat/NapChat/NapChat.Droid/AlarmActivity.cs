@@ -27,6 +27,7 @@ namespace NapChat.Droid
             // Create your application here
             Button dismissButton = (Button)FindViewById(Resource.Id.dismiss_button);
             Button snoozeButton = (Button)FindViewById(Resource.Id.snooze_button);
+            TextView timeDisplay = (TextView)FindViewById(Resource.Id.timedisplay);
 
             #region Grabs alarm info for snooze reschedule
             this.Intent.GetIntExtra("SNOOZE", 5);

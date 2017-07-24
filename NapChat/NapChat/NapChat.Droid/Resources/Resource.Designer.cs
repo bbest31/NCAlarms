@@ -2915,7 +2915,7 @@ namespace NapChat.Droid
 			public const int customPanel = 2131296340;
 			
 			// aapt resource value: 0x7f090075
-			public const int custom_notification_title = 2131296373;
+			public const int timedisplay = 2131296373;
 			
 			// aapt resource value: 0x7f090062
 			public const int decor_content_parent = 2131296354;
