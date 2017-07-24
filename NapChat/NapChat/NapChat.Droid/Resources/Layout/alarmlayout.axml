@@ -19,15 +19,13 @@
         android:backgroundTint="@android:color/holo_purple"
         android:text="Snooze"
         android:textColor="#000"
-        android:textSize="13dp"  
-         />
+        android:textSize="13dp" />
     <Button
         android:id="@+id/dismiss_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:backgroundTint="@android:color/holo_purple"
-        android:text="Dimiss"
+        android:text="Dismiss"
         android:textColor="#000"
-        android:textSize="13dp"
-         />
+        android:textSize="13dp" />
 </LinearLayout>

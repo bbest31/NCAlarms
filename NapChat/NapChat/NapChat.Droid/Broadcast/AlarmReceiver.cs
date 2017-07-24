@@ -44,37 +44,33 @@ namespace NapChat.Droid.Broadcast
             //System.Diagnostics.Debug.WriteLine("Ringtone Given to AlarmReceiver: " + ringtone);
             int ID = intent.GetIntExtra("Id", 0);
             int snoozeLength = intent.GetIntExtra("Snooze", 5);
-            string time = intent.GetStringExtra("Time");
+            string displayTime = intent.GetStringExtra("Time");
 
-            RemoteViews contentViews = new RemoteViews(context.PackageName, Resource.Layout.alarmlayout );
+            //Pass parameters to AlarmActivity so it can have same settings for snooze refire.
+            Intent alarmIntent = new Intent(context, typeof(AlarmActivity));
+            alarmIntent.PutExtra("SNOOZE", snoozeLength);
+            alarmIntent.PutExtra("VIBRATE", vibrate);
+            alarmIntent.PutExtra("URI", ringtone);
+            alarmIntent.PutExtra("ID", ID);
+            alarmIntent.PutExtra("TIME", displayTime);
 
-            contentViews.SetTextViewText(Resource.Id.custom_notification_title, time);
+            PendingIntent pendingAlarmIntent = PendingIntent.GetActivity(context, ID, alarmIntent, PendingIntentFlags.OneShot);
 
-           // Notification.Action action = new Notification.Action.Builder(Resource.Drawable.Icon, "Dismiss", null).Build();
-          
-
-           
+           // Notification.Action action = new Notification.Action.Builder(Resource.Drawable.Icon, "Dismiss", null).Build();      
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-
-
-
-
-
             builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
-                    //.SetContentIntent(notifyPending);
-                    .SetContent(contentViews)  //Might switch back to SetContent if we don't want our icon on it. Also delete the SetStyle line    
-                                               //.SetStyle(new NotificationCompat.InboxStyle())   
-                                               // .AddAction(action)
-                                               //.AddAction(Resource.Drawable.Icon, "Snooze", intent)
-                                               //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
+                    .SetFullScreenIntent(pendingAlarmIntent, true)
+                    .SetContentIntent(pendingAlarmIntent)
+                    .SetContentTitle("Napchat Alarm")
+                    .SetContentText("Open Alarm")    
                     .SetVisibility((int)NotificationVisibility.Public)
                     .SetPriority((int)NotificationPriority.Max);
-                    //.SetAutoCancel(false);
-            
+          
 
+            #region Setting Alarm Ringtone
             if (ringtone == "default")
             {
                 builder.SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
@@ -83,8 +79,10 @@ namespace NapChat.Droid.Broadcast
                 Android.Net.Uri uri = Android.Net.Uri.Parse(ringtone);
                 builder.SetSound(uri);
             }
+            #endregion
 
-            if(vibrate == true)
+            #region Setting Vibrate 
+            if (vibrate == true)
             {
                 /*Vibrate pattern is in milliseconds. First number indicates the time to wait
                  * to start vibrating when notification fires. Second number is the time to vibrate
@@ -94,9 +92,9 @@ namespace NapChat.Droid.Broadcast
                 builder.SetDefaults((int)NotificationDefaults.Vibrate);
                 builder.SetDefaults((int)NotificationDefaults.Vibrate);
             }
-                   
+            #endregion
 
-           
+
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
             manager.Notify(ID, builder.Build());
             

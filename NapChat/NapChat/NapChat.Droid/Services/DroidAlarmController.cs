@@ -33,7 +33,10 @@ namespace NapChat.Droid.Services
         {
             alarm.Activate();
 
+            //convert trigger time to UTC milliseconds
             var triggerTime = UTCMilliseconds(alarm.getTriggerTime());
+
+            //Gets the time of day that the alarm fires as a string to display on the alarm activity.
             DateTime Dtime = DateTime.Today + alarm.getTriggerTime();
             string time = Dtime.TimeOfDay.ToString();
 
