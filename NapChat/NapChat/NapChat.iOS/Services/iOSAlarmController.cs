@@ -22,26 +22,26 @@ namespace NapChat.iOS.Services
     {
         public void scheduleAlarm(Alarm alarm)
         {
-            //Notifications Actions
-            var DismissActionId = "dismiss";
-            var DismissTitle = "Dismiss";
-            var DismissAction = UNNotificationAction.FromIdentifier(DismissActionId, DismissTitle, UNNotificationActionOptions.Foreground);
+            ////Notifications Actions
+            //var DismissActionId = "dismiss";
+            //var DismissTitle = "Dismiss";
+            //var DismissAction = UNNotificationAction.FromIdentifier(DismissActionId, DismissTitle, UNNotificationActionOptions.Foreground);
 
-            var SnoozeActionId = "snooze";
-            var SnoozeTitle = "Snooze";
-            var SnoozeAction = UNNotificationAction.FromIdentifier(SnoozeActionId, SnoozeTitle, UNNotificationActionOptions.None);
+            //var SnoozeActionId = "snooze";
+            //var SnoozeTitle = "Snooze";
+            //var SnoozeAction = UNNotificationAction.FromIdentifier(SnoozeActionId, SnoozeTitle, UNNotificationActionOptions.None);
 
-            //Category of Actions
-            var ActionCategoryID = "AlarmButtons";
-            var actions = new UNNotificationAction[] { DismissAction, SnoozeAction };
-            var intentIDs = new string[] { };
-            var ActionCategoryOptions = new UNNotificationCategoryOptions[] { UNNotificationCategoryOptions.CustomDismissAction};
-            var ActionCategory = UNNotificationCategory.FromIdentifier(ActionCategoryID, actions, intentIDs, ActionCategoryOptions[0]);
+            ////Category of Actions
+            //var ActionCategoryID = "AlarmButtons";
+            //var actions = new UNNotificationAction[] { DismissAction, SnoozeAction };
+            //var intentIDs = new string[] { };
+            //var ActionCategoryOptions = new UNNotificationCategoryOptions[] { UNNotificationCategoryOptions.CustomDismissAction};
+            //var ActionCategory = UNNotificationCategory.FromIdentifier(ActionCategoryID, actions, intentIDs, ActionCategoryOptions[0]);
 
-            //Register Category
-            var ActionCategories = new UNNotificationCategory[] { ActionCategory };
+            ////Register Category
+            //var ActionCategories = new UNNotificationCategory[] { ActionCategory };
 
-            UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(ActionCategories));
+            //UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(ActionCategories));
 
 
             var nsDate = new NSDateComponents();
@@ -50,21 +50,15 @@ namespace NapChat.iOS.Services
 			nsDate.Hour = ts.Hours;
 			nsDate.Minute = ts.Minutes;
 
-            string meridiem;
-            if (nsDate.Hour >= 0 && nsDate.Hour < 12)
-            {
-                meridiem = " AM";
-            }
-            else
-            {
-                meridiem = " PM";
-            }
+ 
 
+            var timeDisplay = new DateTime(ts.Ticks).ToString("h:mm tt");
 
 			var content = new UNMutableNotificationContent();
-			content.Title = nsDate.Hour.ToString() + ":" + nsDate.Minute.ToString() + meridiem;
+
+			content.Title = timeDisplay;
 			//content.Subtitle = "Notification Subtitle";
-			content.Body = "Time to wake up!";
+			content.Body = "Open Alarm.";
 			content.Badge = 1;
             content.CategoryIdentifier = "AlarmButtons";
 
