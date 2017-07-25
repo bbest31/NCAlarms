@@ -121,16 +121,21 @@ namespace NapChat.Droid.Services
             myIntent.PutExtra("Snooze", snooze);
             myIntent.PutExtra("Time", timedisplay[0]);
             myIntent.PutExtra("Meridian", timedisplay[1]);
-            // System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
             myIntent.PutExtra("Uri", ringtone);
 
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, PendingIntentFlags.UpdateCurrent);
 
+            //Getting current time in UTC.
+            DateTime nowDT = DateTime.Now;
+            nowDT = nowDT.ToUniversalTime();
+            DateTime dtUTC = new DateTime(1970, 1, 1);
+            TimeSpan newTS = new TimeSpan(nowDT.Ticks - dtUTC.Ticks);
 
 
 
-            manager.SetExact(AlarmType.RtcWakeup, SystemClock.CurrentThreadTimeMillis() + 20000 , pendingIntent);
+            manager.SetExact(AlarmType.RtcWakeup,  (long)newTS.TotalMilliseconds + snooze*60000 , pendingIntent);
+            
         }
 
         /// <summary>

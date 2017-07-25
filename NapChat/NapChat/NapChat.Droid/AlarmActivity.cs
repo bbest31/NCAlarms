@@ -69,6 +69,7 @@ namespace NapChat.Droid
         private void SnoozeButton_Click(object sender, EventArgs e)
         {
             DroidAlarmController controller = new DroidAlarmController();
+            controller.cancelAlarm(ID);
             controller.snoozeAlarm(ID, vibrate, snoozeLength, ringtoneURI);
             Finish();
         }

@@ -33,6 +33,10 @@ namespace NapChat.Droid.Broadcast
             string displayMeridian = intent.GetStringExtra("Meridian");
             #endregion
 
+            //Cancel Intent
+            Intent cancel = new Intent("Dismiss");
+            PendingIntent cancelPending = PendingIntent.GetBroadcast(context, ID, cancel, PendingIntentFlags.CancelCurrent);
+
             #region Pass parameters to AlarmActivity so it can have same settings for snooze refire.
             Intent alarmIntent = new Intent(context, typeof(AlarmActivity));
             alarmIntent.PutExtra("SNOOZE", snoozeLength);
@@ -52,7 +56,8 @@ namespace NapChat.Droid.Broadcast
                     .SetFullScreenIntent(pendingAlarmIntent, true)
                     .SetContentIntent(pendingAlarmIntent)
                     .SetContentTitle("Napchat Alarm")
-                    .SetContentText("Open Alarm")    
+                    .SetContentText("Open Alarm")
+                    .AddAction(Resource.Drawable.ic_mr_button_connected_00_dark, "Dismiss", cancelPending)
                     .SetVisibility((int)NotificationVisibility.Public)
                     .SetPriority((int)NotificationPriority.Max);
             #endregion
