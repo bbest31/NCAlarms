@@ -47,9 +47,14 @@ namespace NapChat.Droid
             timeDisplay.SetText(timeDisplayString,TextView.BufferType.Normal);
 
             meridianDisplay.SetText(meridianDisplayString, TextView.BufferType.Normal);
+
             
         }
 
+        [Java.Interop.Export("dismissAlarm")]
+        public void dismissAlarm(View v){
+            Finish();
+        }
 
     }
 }
