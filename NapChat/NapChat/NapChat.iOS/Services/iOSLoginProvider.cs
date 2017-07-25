@@ -16,31 +16,35 @@ namespace NapChat.iOS.Services
 {
     public class iOSLoginProvider : ILoginProvider
     {
-       // public AccountStore AccountStore { get; private set; }
+        public AccountStore AccountStore { get; private set; }
         
         
-       /* public iOSLoginProvider()
+        public iOSLoginProvider()
         {
             AccountStore = AccountStore.Create();
         }
-        */
+        
 
         public async Task LoginAsync(MobileServiceClient client)
         {
-           /* var accessToken = await LoginFacebookAsync();
-            var zumoPayload = new JObject()
-            {
-                ["access_token"] = accessToken
-            };
-            */
-            await client.LoginAsync(RootView, "facebook");
+            /* var accessToken = await LoginFacebookAsync();
+             var zumoPayload = new JObject()
+             {
+                 ["access_token"] = accessToken
+             };
+             */
+            //RetrieveTokenFromSecureStore();
+
+            var user = await client.LoginAsync(RootView, MobileServiceAuthenticationProvider.Facebook);
+
+            //StoreTokenInSecureStore(user);
         }
 
         public UIViewController RootView => UIApplication.SharedApplication.KeyWindow.RootViewController;
 
-       /* public MobileServiceUser RetrieveTokenFromSecureStore()
+        public MobileServiceUser RetrieveTokenFromSecureStore()
         {
-            var accounts = AccountStore.FindAccountsForService("tasklist");
+            var accounts = AccountStore.FindAccountsForService("napchat");
             if (accounts != null)
             {
                 foreach (var acct in accounts)
@@ -63,7 +67,7 @@ namespace NapChat.iOS.Services
         {
             var account = new Account(user.UserId);
             account.Properties.Add("token", user.MobileServiceAuthenticationToken);
-            AccountStore.Save(account, "tasklist");
+            AccountStore.Save(account, "napchat");
         }
 
 
@@ -78,7 +82,7 @@ namespace NapChat.iOS.Services
                 }
             }
         }
-
+        /*
         #region Facebook Client Flow
         private TaskCompletionSource<string> fbtcs;
 

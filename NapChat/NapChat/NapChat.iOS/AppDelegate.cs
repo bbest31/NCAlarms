@@ -1,9 +1,13 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms.Platform.iOS;
+using UserNotifications;
+using NapChat.iOS.Services;
+
 
 namespace NapChat.iOS
 {
@@ -30,40 +34,34 @@ namespace NapChat.iOS
             UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
             UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
 
-            // check for a notification
-    if (options != null)
-                {
-                    // check for a local notification
-                    if (options.ContainsKey(UIApplication.LaunchOptionsLocalNotificationKey))
-                    {
-                        var localNotification = options[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
-                        if (localNotification != null)
-                        {
-                            UIAlertController dismissAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
-                            dismissAlertController.AddAction(UIAlertAction.Create("Dismiss", UIAlertActionStyle.Cancel, null));
-                         //   dismissAlertController.AddAction(UIAlertAction.Create("Snooze", UIAlertActionStyle.Default, snoozeAlarm()));
-                            Window.RootViewController.PresentViewController(dismissAlertController, true, null);
+			UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) =>
+			{
+				// Handle approval
 
-                            // reset our badge
-                            UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
-                        }
-                    }
-                }
+			});
+
+            // //Get current notification settings
+            //UNUserNotificationCenter.Current.GetNotificationSettings((settings) =>
+            //{
+            //	var alertsAllowed = (settings.AlertSetting == UNNotificationSetting.Enabled);
+            //});
+
+            // Watch for notifications while the app is active
+            UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
+
+			//return true;
+
             return base.FinishedLaunching (app, options);
 		}
 
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
-            //show an alert
-            UIAlertController dismissAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
-            //Should implement a second AlertAction for Snooze and the third param in Create is the event handler when clicked.
-            dismissAlertController.AddAction(UIAlertAction.Create("Dismiss", UIAlertActionStyle.Cancel, null));
-            Window.RootViewController.PresentViewController(dismissAlertController, true, null);
-
+            
             //reset our badge
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
 
             //base.ReceivedLocalNotification(application, notification);
+
         }
     }
 }

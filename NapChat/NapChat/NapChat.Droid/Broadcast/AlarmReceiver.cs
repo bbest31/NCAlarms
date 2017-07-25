@@ -9,9 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using NapChat.Droid.Renderers;
 using Android.Support.V7.App;
 using Android.Media;
+using NapChat.Model;
 
 namespace NapChat.Droid.Broadcast
 {
@@ -24,41 +24,84 @@ namespace NapChat.Droid.Broadcast
         public override void OnReceive(Context context, Intent intent)
         {
 
-            /*//Make the notification link to a certain page in the app
-            // Set up an intent so that tapping the notifications returns to this app:
-            Intent localIntent = new Intent(this, typeof(MainActivity));
+            #region Get Extras
+            Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);         
+            string ringtone = intent.GetStringExtra("Uri");
+            int ID = intent.GetIntExtra("Id", 0);
+            int snoozeLength = intent.GetIntExtra("Snooze", 5);
+            string displayTime = intent.GetStringExtra("Time");
+            string displayMeridian = intent.GetStringExtra("Meridian");
+            #endregion
 
-            // Create a PendingIntent; we're only using one PendingIntent (ID = 0):
-            int pendingIntentId = (int)SystemClock.ElapsedRealtime();
-            PendingIntent pendingIntent =
-                PendingIntent.GetActivity(, pendingIntentId, localIntent, PendingIntentFlags.OneShot);
-            
-            //Custom notification layout
-            
+            //Cancel Intent
+            Intent cancel = new Intent("Dismiss");
+            PendingIntent cancelPending = PendingIntent.GetBroadcast(context, ID, cancel, PendingIntentFlags.CancelCurrent);
 
-            //Toast.MakeText(context, "Received intent!", ToastLength.Short).Show();*/
-           // RemoteViews remoteViews = new RemoteViews(getPackageName(),AlarmNotification.xml);
+            #region Pass parameters to AlarmActivity so it can have same settings for snooze refire.
+            Intent alarmIntent = new Intent(context, typeof(AlarmActivity));
+            alarmIntent.PutExtra("SNOOZE", snoozeLength);
+            alarmIntent.PutExtra("VIBRATE", vibrate);
+            alarmIntent.PutExtra("URI", ringtone);
+            alarmIntent.PutExtra("ID", ID);
+            alarmIntent.PutExtra("TIME", displayTime);
+            alarmIntent.PutExtra("MERIDIAN", displayMeridian);
+            #endregion
+            PendingIntent pendingAlarmIntent = PendingIntent.GetActivity(context, ID, alarmIntent, PendingIntentFlags.OneShot);
+     
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-
-            builder.SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
-                    .SetCategory(Notification.CategoryAlarm)
+            #region Build Notification
+            builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
-                    //.SetContent(remoteViews)
-                    .SetContentTitle("NapChat Alarm")
-                    .SetContentText("Time to wake up!")
-                    //.AddAction(Resource.Drawable.Icon, "Snooze", pendingIntent)
-                    //.AddAction(Resource.Drawable.Icon, "Dismiss", pendingIntent)
+                    .SetFullScreenIntent(pendingAlarmIntent, true)
+                    .SetContentIntent(pendingAlarmIntent)
+                    .SetContentTitle("Napchat Alarm")
+                    .SetContentText("Open Alarm")
+                    //.AddAction(Resource.Drawable.ic_mr_button_connected_00_dark, "Dismiss", cancelPending)
                     .SetVisibility((int)NotificationVisibility.Public)
-                    .SetContentInfo("Info");
+                    .SetPriority((int)NotificationPriority.Max);
+            #endregion
 
-                    //.SetContentIntent(pendingIntent);
-            //to set ringtone to default or set sound
-            builder.SetSound (RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
-            //builder.SetSound (RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
+            #region Setting Alarm Ringtone
+            if (ringtone == "default")
+            {
+                builder.SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Alarm));
+            }
+            else {
+                Android.Net.Uri uri = Android.Net.Uri.Parse(ringtone);
+                builder.SetSound(uri);
+            }
+            #endregion
 
-           
+            #region Setting Vibrate 
+            if (vibrate == true)
+            {
+                /*Vibrate pattern is in milliseconds. First number indicates the time to wait
+                 * to start vibrating when notification fires. Second number is the time to vibrate
+                 * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
+                  */
+               // builder.SetVibrate(new long[] { 0 , 1000 , 500 , 1000 , 500 , 1000, 500, 1000 });
+                builder.SetDefaults((int)NotificationDefaults.Vibrate);
+                builder.SetDefaults((int)NotificationDefaults.Vibrate);
+            }
+            #endregion
+
+
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
-            manager.Notify(1, builder.Build());
+            manager.Notify(ID, builder.Build());
+            
+        }
+
+        /// <summary>
+        /// Cancels a current notification alarm from continuing to fire. Used to dismiss as well.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="context"></param>
+        public void Cancel(int ID, Context context)
+        {
+            NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
+            manager.Cancel(ID);
+
         }
     }
 }

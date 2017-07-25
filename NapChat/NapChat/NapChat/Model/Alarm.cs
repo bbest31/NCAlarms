@@ -9,77 +9,133 @@ namespace NapChat.Model
     /// </summary>
     public class Alarm
     {
+        #region Attributes
+        private TimeSpan triggerTime { get; set; }
+        private string ringtoneURI { get; set; }
+        private Boolean vibrateOnAlarm { get; set; }
+        private Boolean isActive { get; set; }
+        private int snoozeLength { get; set; }
+        private int ID { get; set; }
+        #endregion
+        #region Constructor
         /// <summary>
         /// Constructor for Alarm object.
         /// </summary>
         /// <param name="time"></param>
         /// <param name="triggerTime"></param>
         /// <param name="vibrate"></param>
-        public Alarm(/*TimeSpan time, long triggerTime, Boolean vibrate*/)
+        public Alarm(TimeSpan time, int snooze , Boolean vibrate,string ringtone)
         {
-            this.alarmTime = DateTime.Now;
-            this.timeDisplay = alarmTime.ToString();
-            this.vibrateOnAlarm = false;
+            this.triggerTime = time;
+            this.snoozeLength = snooze;
+            this.vibrateOnAlarm = vibrate;
+            this.isActive = false;
+            this.ID = this.GetHashCode();
+            this.ringtoneURI = ringtone;
 
         }
-
-        public String timeDisplay { get; set; }
-
+        #endregion
+        #region Setters
+        //=====SETTERS=======
         /// <summary>
-        /// Will be the alarm length by getting the set alarm time from the TimerPicker and then comparing to the current time.
+        /// Sets the Ringtone Uri of the alarm.
         /// </summary>
-        private long triggerTime;
-
-        /// <summary>
-        /// Alarm time set by the User.
-        /// Could be receieved by friends if we want to just display text that says when they set the alarm for.
-        /// </summary>
-        public DateTime alarmTime { get; set; }
-
-        /// <summary>
-        /// Indicates whether the alarm will also vibrate on trigger.
-        /// </summary>
-        private Boolean vibrateOnAlarm;
-         
-        /// <summary>
-        /// Returns the trigger time of the alarm.
-        /// </summary>
-        /// <returns>long triggerTime</returns>
-        public long getTriggerTime()
+        /// <param name="ringtone"></param>
+        public void setRingtone(string ringtone)
         {
-            return triggerTime;
+            this.ringtoneURI = ringtone;
         }
         /// <summary>
-        /// Returns the alarm time of type DateTime for the TimePicker to display.
+        /// Sets boolean indicator to true.
         /// </summary>
-        /// <returns>DateTime alarmTime</returns>
-        public DateTime getDateTime()
+        public void Activate()
         {
-            return alarmTime;
+            this.isActive = true;
+        }
+        /// <summary>
+        /// Sets boolean indicator to false.
+        /// </summary>
+        public void Deactivate()
+        {
+            this.isActive = false;
+        }
+        /// <summary>
+        /// Sets the time the Alarm triggers at.
+        /// </summary>
+        /// <param name="newTime"></param>
+        public void setTime(TimeSpan newTime)
+        {
+            this.triggerTime = newTime;
         }
 
         /// <summary>
-        /// Toggles the state of whether or not the vibrate is on when alarm is triggered.
+        /// Sets whether the alarm vibrates on activation or not.
         /// </summary>
-        public void toggleVibrate()
+        /// <param name="vibr"></param>
+        public void setVibrateSettings(Boolean vibr)
         {
-            if(vibrateOnAlarm == true)
-            {
-                vibrateOnAlarm = false;
-            }else
-            {
-                vibrateOnAlarm = true;
-            }
+            this.vibrateOnAlarm = vibr;
         }
+
         /// <summary>
-        /// Returns the vibration inidicating boolean.
+        /// Sets the time length of the snooze in minutes.
+        /// </summary>
+        /// <param name="snooze"></param>
+        public void setSnooze(int snooze)
+        {
+            this.snoozeLength = snooze;
+        }
+        #endregion
+        #region Getters
+        //=======GETTERS==========
+        /// <summary>
+        /// Returns the ringtone uri as a string.
         /// </summary>
         /// <returns></returns>
-        public Boolean getVibrate()
+        public string getRingTone()
         {
-            return vibrateOnAlarm;
+            return this.ringtoneURI;
         }
-
-
+        /// <summary>
+        /// Returns integer hash code that identifies this alarm.
+        /// </summary>
+        /// <returns></returns>
+        public int getID()
+        {
+            return this.ID;
+        }
+        /// <summary>
+        /// Returns a boolean to indicate whether the alarm is currently active or not.
+        /// </summary>
+        /// <returns></returns>
+        public Boolean getState()
+        {
+            return this.isActive;
+        }
+        /// <summary>
+        /// Returns trigger time of alarm as a TimeSpan type.
+        /// </summary>
+        /// <returns></returns>
+        public TimeSpan getTriggerTime()
+        {
+            return this.triggerTime;
+        }
+        /// <summary>
+        /// Returns a boolean indicating whether the alarm vibrates on activation or not.
+        /// </summary>
+        /// <returns></returns>
+        public Boolean getVibrateSettings()
+        {
+            return this.vibrateOnAlarm;
+        }
+        /// <summary>
+        /// Returns the time length of the alarm snooze for minutes as an integer.
+        /// </summary>
+        /// <returns></returns>
+        public int getSnoozeLength()
+        {
+            return this.snoozeLength;
+        }
+        #endregion
     }
 }

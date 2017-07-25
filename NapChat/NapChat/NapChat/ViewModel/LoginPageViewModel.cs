@@ -16,8 +16,7 @@ namespace NapChat.ViewModel
             Title = "NapChat";
             LoginCommand = new Command(async () => await ExecuteLoginCommand());
         }
-         //Command loginCmd;
-        // public Command LoginCommand => loginCmd ?? (loginCmd = new Command(async () => await ExecuteLoginCommand().ConfigureAwait(false)));
+         
         public Command LoginCommand { get; }
 
         async Task ExecuteLoginCommand()
@@ -31,7 +30,8 @@ namespace NapChat.ViewModel
                 //using = NapChatSingletons.CloudService; breaks auth for some reason.
                 var cloudService = new AzureCloudService();
                 await cloudService.LoginAsync();
-                Application.Current.MainPage = new NavigationPage(new HomePage());
+                
+                Application.Current.MainPage = new NavigationPage(new AlarmPage());
             }
 
             catch(Exception ex)

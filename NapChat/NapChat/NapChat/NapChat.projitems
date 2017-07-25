@@ -9,35 +9,43 @@
     <Import_RootNamespace>NapChat</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IAlarmController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICloudTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ILoginProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IRingtoneList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\TableData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NapAlertFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NapChatSingletons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Vibrations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\WeekDayChoice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\WeekDayList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Alarm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AppServiceIdentity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Friend.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Group.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\NapAlert.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\RepeatingAlarm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\User.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.xaml.cs">
+      <DependentUpon>AlarmPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\CreateAlarmPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\NapTimerPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\RingtonePage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RenderedViews\CustomTimePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudTable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\AlarmPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BaseViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\HomePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewTemplates\WeekdayListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)GettingStarted.Xamarin" />
@@ -49,7 +57,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\HomePage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\AlarmPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
