@@ -38,14 +38,14 @@ namespace NapChat.Droid.Services
 
             //Gets the time of day that the alarm fires as a string to display on the alarm activity.
             DateTime Dtime = DateTime.Today + alarm.getTriggerTime();
-            string Meridian = "AM";
+            string meridian = "AM";
             if (Dtime.Hour > 12)
             {
                 DateTime Twelve_Hours = new DateTime().AddHours(12);
                 Dtime.Subtract(Twelve_Hours);
-                Meridian = "PM";
+                meridian = "PM";
             }
-            string time = Dtime.Hour.ToString() + ":" + Dtime.Minute.ToString()+Meridian;
+            string time = Dtime.Hour.ToString() + ":" + Dtime.Minute.ToString();
 
             AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
             Intent myIntent = new Intent(context, typeof(AlarmReceiver));
@@ -57,6 +57,7 @@ namespace NapChat.Droid.Services
             myIntent.PutExtra("Id", alarm.getID());
             myIntent.PutExtra("Snooze", alarm.getSnoozeLength());
             myIntent.PutExtra("Time", time);
+            myIntent.PutExtra("Meridian", meridian);
            // System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
             myIntent.PutExtra("Uri", alarm.getRingTone());
 

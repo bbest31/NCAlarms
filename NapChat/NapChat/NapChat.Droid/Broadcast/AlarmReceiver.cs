@@ -45,6 +45,7 @@ namespace NapChat.Droid.Broadcast
             int ID = intent.GetIntExtra("Id", 0);
             int snoozeLength = intent.GetIntExtra("Snooze", 5);
             string displayTime = intent.GetStringExtra("Time");
+            string displayMeridian = intent.GetStringExtra("Meridian");
 
             //Pass parameters to AlarmActivity so it can have same settings for snooze refire.
             Intent alarmIntent = new Intent(context, typeof(AlarmActivity));
@@ -53,6 +54,7 @@ namespace NapChat.Droid.Broadcast
             alarmIntent.PutExtra("URI", ringtone);
             alarmIntent.PutExtra("ID", ID);
             alarmIntent.PutExtra("TIME", displayTime);
+            alarmIntent.PutExtra("MERIDIAN", displayMeridian);
 
             PendingIntent pendingAlarmIntent = PendingIntent.GetActivity(context, ID, alarmIntent, PendingIntentFlags.OneShot);
 

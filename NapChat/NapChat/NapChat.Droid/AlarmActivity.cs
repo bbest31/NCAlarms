@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,15 +37,16 @@ namespace NapChat.Droid
             int ID = this.Intent.GetIntExtra("ID",0);
             bool vibrate = this.Intent.GetBooleanExtra("VIBRATE", false);
             string ringtoneURI = this.Intent.GetStringExtra("URI");
-            
-            string meridian = ringtoneURI[];
+            string meridianDisplayString = this.Intent.GetStringExtra("MERIDIAN");
+            //string meridian = ringtoneURI[];
 
             timeDisplayString = this.Intent.GetStringExtra("TIME");
             #endregion
 
             //Displays the Alarm time in the TextView
             timeDisplay.SetText(timeDisplayString,TextView.BufferType.Normal);
-            meridianDisplay.SetText();
+
+            meridianDisplay.SetText(meridianDisplayString, TextView.BufferType.Normal);
             
         }
 
