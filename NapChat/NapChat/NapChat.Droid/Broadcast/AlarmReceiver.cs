@@ -24,30 +24,16 @@ namespace NapChat.Droid.Broadcast
         public override void OnReceive(Context context, Intent intent)
         {
 
-            /*//Make the notification link to a certain page in the app
-            // Set up an intent so that tapping the notifications returns to this app:
-            Intent localIntent = new Intent(this, typeof(MainActivity));
-
-            // Create a PendingIntent; we're only using one PendingIntent (ID = 0):
-            int pendingIntentId = (int)SystemClock.ElapsedRealtime();
-            PendingIntent pendingIntent =
-                PendingIntent.GetActivity(, pendingIntentId, localIntent, PendingIntentFlags.OneShot);
-            
-            //Custom notification layout
-            
-
-            */
-            //Get Extras
-            Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);
-            //System.Diagnostics.Debug.WriteLine("Vibrate Bool Given to AlarmReceiver: " + vibrate);
+            #region Get Extras
+            Boolean vibrate = intent.GetBooleanExtra("Vibrate", false);         
             string ringtone = intent.GetStringExtra("Uri");
-            //System.Diagnostics.Debug.WriteLine("Ringtone Given to AlarmReceiver: " + ringtone);
             int ID = intent.GetIntExtra("Id", 0);
             int snoozeLength = intent.GetIntExtra("Snooze", 5);
             string displayTime = intent.GetStringExtra("Time");
             string displayMeridian = intent.GetStringExtra("Meridian");
+            #endregion
 
-            //Pass parameters to AlarmActivity so it can have same settings for snooze refire.
+            #region Pass parameters to AlarmActivity so it can have same settings for snooze refire.
             Intent alarmIntent = new Intent(context, typeof(AlarmActivity));
             alarmIntent.PutExtra("SNOOZE", snoozeLength);
             alarmIntent.PutExtra("VIBRATE", vibrate);
@@ -55,13 +41,12 @@ namespace NapChat.Droid.Broadcast
             alarmIntent.PutExtra("ID", ID);
             alarmIntent.PutExtra("TIME", displayTime);
             alarmIntent.PutExtra("MERIDIAN", displayMeridian);
-
+            #endregion
             PendingIntent pendingAlarmIntent = PendingIntent.GetActivity(context, ID, alarmIntent, PendingIntentFlags.OneShot);
-
-           // Notification.Action action = new Notification.Action.Builder(Resource.Drawable.Icon, "Dismiss", null).Build();      
+     
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-
+            #region Build Notification
             builder.SetCategory(Notification.CategoryAlarm)
                     .SetSmallIcon(Resource.Drawable.Icon)
                     .SetFullScreenIntent(pendingAlarmIntent, true)
@@ -70,7 +55,7 @@ namespace NapChat.Droid.Broadcast
                     .SetContentText("Open Alarm")    
                     .SetVisibility((int)NotificationVisibility.Public)
                     .SetPriority((int)NotificationPriority.Max);
-          
+            #endregion
 
             #region Setting Alarm Ringtone
             if (ringtone == "default")
