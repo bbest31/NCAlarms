@@ -22,14 +22,15 @@ namespace NapChat.Droid
         bool vibrate;
         string ringtoneURI;
         string meridianDisplayString;
-
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Window.AddFlags(WindowManagerFlags.TurnScreenOn);
             Window.AddFlags(WindowManagerFlags.ShowWhenLocked);
-            Window.AddFlags(WindowManagerFlags.DismissKeyguard);
-
+            //Window.AddFlags(WindowManagerFlags.DismissKeyguard);
+            Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+            Window.AddFlags(WindowManagerFlags.AllowLockWhileScreenOn);
             SetContentView(Resource.Layout.alarmlayout);
 
             #region Reference Activity Views

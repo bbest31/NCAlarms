@@ -57,7 +57,7 @@ namespace NapChat.Droid.Broadcast
                     .SetContentIntent(pendingAlarmIntent)
                     .SetContentTitle("Napchat Alarm")
                     .SetContentText("Open Alarm")
-                    .AddAction(Resource.Drawable.ic_mr_button_connected_00_dark, "Dismiss", cancelPending)
+                    //.AddAction(Resource.Drawable.ic_mr_button_connected_00_dark, "Dismiss", cancelPending)
                     .SetVisibility((int)NotificationVisibility.Public)
                     .SetPriority((int)NotificationPriority.Max);
             #endregion
@@ -93,14 +93,13 @@ namespace NapChat.Droid.Broadcast
         }
 
         /// <summary>
-        /// Cancels a current alarm.
+        /// Cancels a current notification alarm from continuing to fire. Used to dismiss as well.
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="context"></param>
         public void Cancel(int ID, Context context)
         {
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
-
             manager.Cancel(ID);
 
         }

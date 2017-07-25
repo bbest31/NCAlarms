@@ -38,7 +38,6 @@ namespace NapChat.Droid.Services
 
             //Gets the time of day that the alarm fires as a string to display on the alarm activity.
             DateTime Dtime = DateTime.Today + alarm.getTriggerTime();
-
             string[] time = TimeDisplayFormat(Dtime);
 
             AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
@@ -134,7 +133,7 @@ namespace NapChat.Droid.Services
 
 
 
-            manager.SetExact(AlarmType.RtcWakeup,  (long)newTS.TotalMilliseconds + snooze*60000 , pendingIntent);
+            manager.SetExact(AlarmType.RtcWakeup,  (long)newTS.TotalMilliseconds + snooze + 60000 , pendingIntent);
             
         }
 
@@ -148,11 +147,11 @@ namespace NapChat.Droid.Services
             string meridian = "AM";
             if (Dtime.Hour > 12)
             {
-                DateTime Twelve_Hours = new DateTime().AddHours(12);
-                Dtime.Subtract(Twelve_Hours);
+               // DateTime Twelve_Hours = new DateTime().AddHours(12);
+                //Dtime = Dtime..Subtract(Twelve_Hours);
                 meridian = "PM";
             }
-            string[] time = { Dtime.Hour.ToString() + ":" + Dtime.Minute.ToString(),meridian };
+            string[] time = { Dtime.ToString("h:mm"),meridian };
             return time;
         }
     }
