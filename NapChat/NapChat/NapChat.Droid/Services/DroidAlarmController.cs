@@ -38,14 +38,8 @@ namespace NapChat.Droid.Services
 
             //Gets the time of day that the alarm fires as a string to display on the alarm activity.
             DateTime Dtime = DateTime.Today + alarm.getTriggerTime();
-            string meridian = "AM";
-            if (Dtime.Hour > 12)
-            {
-                DateTime Twelve_Hours = new DateTime().AddHours(12);
-                Dtime.Subtract(Twelve_Hours);
-                meridian = "PM";
-            }
-            string time = Dtime.Hour.ToString() + ":" + Dtime.Minute.ToString();
+
+            string[] time = TimeDisplayFormat(Dtime);
 
             AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
             Intent myIntent = new Intent(context, typeof(AlarmReceiver));
@@ -56,8 +50,8 @@ namespace NapChat.Droid.Services
             myIntent.PutExtra("Vibrate", alarm.getVibrateSettings());
             myIntent.PutExtra("Id", alarm.getID());
             myIntent.PutExtra("Snooze", alarm.getSnoozeLength());
-            myIntent.PutExtra("Time", time);
-            myIntent.PutExtra("Meridian", meridian);
+            myIntent.PutExtra("Time", time[0]);
+            myIntent.PutExtra("Meridian", time[1]);
            // System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
             myIntent.PutExtra("Uri", alarm.getRingTone());
 
@@ -99,10 +93,62 @@ namespace NapChat.Droid.Services
             return (long)newTS.TotalMilliseconds;
         }
         
-        public void cancelAlarm(Alarm alarm)
+        public void cancelAlarm(int ID)
         {
+            //Alarm alarm = user.GetAlarm(ID);
+            //alarm.Deactivate();
             AlarmReceiver alarmReceiver = new AlarmReceiver();
-            alarmReceiver.Cancel(alarm, context);
+            alarmReceiver.Cancel(ID, context);
+        }
+
+        /// <summary>
+        /// Snoozes the alarm for the intended snooze time.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="vibrate"></param>
+        /// <param name="snooze"></param>
+        /// <param name="ringtone"></param>
+        public void snoozeAlarm(int ID,bool vibrate,int snooze,string ringtone)
+        {
+            DateTime Dtime = DateTime.Now.AddMinutes(snooze);
+            string[] timedisplay = TimeDisplayFormat(Dtime);
+
+            AlarmManager manager = ((AlarmManager)context.GetSystemService(Context.AlarmService));
+            Intent myIntent = new Intent(context, typeof(AlarmReceiver));
+
+            myIntent.PutExtra("Vibrate", vibrate);
+            myIntent.PutExtra("Id", ID);
+            myIntent.PutExtra("Snooze", snooze);
+            myIntent.PutExtra("Time", timedisplay[0]);
+            myIntent.PutExtra("Meridian", timedisplay[1]);
+            // System.Diagnostics.Debug.WriteLine("Ringtone Stored on Pass: " + alarm.getRingTone());
+            myIntent.PutExtra("Uri", ringtone);
+
+            PendingIntent pendingIntent;
+            pendingIntent = PendingIntent.GetBroadcast(context, 0, myIntent, PendingIntentFlags.UpdateCurrent);
+
+
+
+
+            manager.SetExact(AlarmType.RtcWakeup, SystemClock.CurrentThreadTimeMillis() + 20000 , pendingIntent);
+        }
+
+        /// <summary>
+        /// Formats the trigger time for display.
+        /// </summary>
+        /// <param name="Dtime"></param>
+        /// <returns></returns>
+        private string[] TimeDisplayFormat(DateTime Dtime)
+        {
+            string meridian = "AM";
+            if (Dtime.Hour > 12)
+            {
+                DateTime Twelve_Hours = new DateTime().AddHours(12);
+                Dtime.Subtract(Twelve_Hours);
+                meridian = "PM";
+            }
+            string[] time = { Dtime.Hour.ToString() + ":" + Dtime.Minute.ToString(),meridian };
+            return time;
         }
     }
 }

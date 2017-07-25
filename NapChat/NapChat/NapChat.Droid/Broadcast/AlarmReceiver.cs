@@ -87,11 +87,16 @@ namespace NapChat.Droid.Broadcast
             
         }
 
-        public void Cancel(Alarm alarm, Context context)
+        /// <summary>
+        /// Cancels a current alarm.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="context"></param>
+        public void Cancel(int ID, Context context)
         {
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
 
-            manager.Cancel(alarm.getID());
+            manager.Cancel(ID);
 
         }
     }

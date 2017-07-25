@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using NapChat.Droid.Services;
 
 namespace NapChat.Droid
 {
@@ -16,6 +17,12 @@ namespace NapChat.Droid
     public class AlarmActivity : Activity
     {
         string timeDisplayString;
+        int ID;
+        int snoozeLength;
+        bool vibrate;
+        string ringtoneURI;
+        string meridianDisplayString;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,13 +39,16 @@ namespace NapChat.Droid
             TextView meridianDisplay = (TextView)FindViewById(Resource.Id.merdian_textView);
             #endregion
 
+            dismissButton.Click += DismissButton_Click;
+            snoozeButton.Click += SnoozeButton_Click;
+
             #region Grabs alarm info for snooze reschedule
-            int snoozeLength = this.Intent.GetIntExtra("SNOOZE", 5);
-            int ID = this.Intent.GetIntExtra("ID",0);
-            bool vibrate = this.Intent.GetBooleanExtra("VIBRATE", false);
-            string ringtoneURI = this.Intent.GetStringExtra("URI");
-            string meridianDisplayString = this.Intent.GetStringExtra("MERIDIAN");
-            //string meridian = ringtoneURI[];
+            snoozeLength = this.Intent.GetIntExtra("SNOOZE", 5);
+            ID = this.Intent.GetIntExtra("ID",0);
+            vibrate = this.Intent.GetBooleanExtra("VIBRATE", false);
+            ringtoneURI = this.Intent.GetStringExtra("URI");
+            meridianDisplayString = this.Intent.GetStringExtra("MERIDIAN");
+            
 
             timeDisplayString = this.Intent.GetStringExtra("TIME");
             #endregion
@@ -51,10 +61,30 @@ namespace NapChat.Droid
             
         }
 
-        [Java.Interop.Export("dismissAlarm")]
-        public void dismissAlarm(View v){
+        /// <summary>
+        /// Click method for Snooze Button that snoozes the alarm for the indicated time.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SnoozeButton_Click(object sender, EventArgs e)
+        {
+            DroidAlarmController controller = new DroidAlarmController();
+            controller.snoozeAlarm(ID, vibrate, snoozeLength, ringtoneURI);
             Finish();
         }
+
+        /// <summary>
+        /// Click method for Dismiss Button that dismiss' the current alarm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DismissButton_Click(object sender, EventArgs e)
+        {
+            DroidAlarmController controller = new DroidAlarmController();
+            controller.cancelAlarm(ID);
+            Finish();
+        }
+
 
     }
 }
