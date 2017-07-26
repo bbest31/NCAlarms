@@ -44,11 +44,11 @@ namespace NapChat.iOS
 
 			});
 
-            // //Get current notification settings
-            //UNUserNotificationCenter.Current.GetNotificationSettings((settings) =>
-            //{
-            //	var alertsAllowed = (settings.AlertSetting == UNNotificationSetting.Enabled);
-            //});
+           /* // //Get current notification settings
+            UNUserNotificationCenter.Current.GetNotificationSettings(( settings) =>
+            {
+            	var alertsAllowed = (settings.AlertSetting == UNNotificationSetting.Enabled);
+            });*/
 
             // Watch for notifications while the app is active
             UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
