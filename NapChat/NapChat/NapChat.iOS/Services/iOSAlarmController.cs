@@ -92,7 +92,7 @@ namespace NapChat.iOS.Services
 				}
                 else
                 {
-                    Debug.WriteLine("Notification Scheduled, {0}", request);
+                    
                 }
 			});
         }
