@@ -27,14 +27,14 @@ namespace NapChat.iOS.Services
 
         public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
-            switch (response.Notification.Request.Identifier)
+            if (response.ActionIdentifier == "open"){
+                Debug.WriteLine("Action \"Open\"");
+            }
+            else if(response.IsDefaultAction)
             {
-                case "snooze":
-                    Debug.WriteLine("Snoo Snoo click snooze");
-                    break;
-                case "dismiss":
-                    Debug.WriteLine("Dismiss was clicked bitch.");
-                    break;
+                //App.Current.MainPage = new;
+
+                Debug.WriteLine("Is Default Action");
             }
 
             completionHandler();

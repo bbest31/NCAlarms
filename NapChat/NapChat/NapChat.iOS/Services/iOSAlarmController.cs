@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +23,20 @@ namespace NapChat.iOS.Services
         public void scheduleAlarm(Alarm alarm)
         {
             ////Notifications Actions
+
+            var OpenActionId = "open";
+            var OpenTitle = "Open";
+            var OpenAction = UNNotificationAction.FromIdentifier(OpenActionId, OpenTitle, UNNotificationActionOptions.None);
+
+            var AlarmCategoryID = "alarm";
+            var actions = new UNNotificationAction[] { OpenAction};
+            var intentIDs = new string[] { };
+            var categoryOptions = new UNNotificationCategoryOptions[] { };
+            var category = UNNotificationCategory.FromIdentifier(AlarmCategoryID, actions, intentIDs, UNNotificationCategoryOptions.None);
+
+            var categories = new UNNotificationCategory[] { category };
+            UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories));
+
             //var DismissActionId = "dismiss";
             //var DismissTitle = "Dismiss";
             //var DismissAction = UNNotificationAction.FromIdentifier(DismissActionId, DismissTitle, UNNotificationActionOptions.Foreground);
@@ -50,8 +64,6 @@ namespace NapChat.iOS.Services
 			nsDate.Hour = ts.Hours;
 			nsDate.Minute = ts.Minutes;
 
- 
-
             var timeDisplay = new DateTime(ts.Ticks).ToString("h:mm tt");
 
 			var content = new UNMutableNotificationContent();
@@ -60,7 +72,7 @@ namespace NapChat.iOS.Services
 			//content.Subtitle = "Notification Subtitle";
 			content.Body = "Open Alarm.";
 			content.Badge = 1;
-            content.CategoryIdentifier = "AlarmButtons";
+            content.CategoryIdentifier = "alarm";
 
             if (alarm.getRingTone() == "default")
             {
@@ -71,10 +83,6 @@ namespace NapChat.iOS.Services
             }
 
            
-
-
- 
-
 
 			// trigger time
 			var trigger = UNCalendarNotificationTrigger.CreateTrigger(nsDate ,false);
