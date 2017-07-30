@@ -2,6 +2,7 @@
 using UserNotifications;
 using System.Diagnostics;
 using ObjCRuntime;
+using NapChat.Pages;
 
 namespace NapChat.iOS.Services
 {
@@ -32,7 +33,8 @@ namespace NapChat.iOS.Services
             }
             else if(response.IsDefaultAction)
             {
-                //App.Current.MainPage = new;
+                App.Current.MainPage = new AlarmView();
+                
 
                 Debug.WriteLine("Is Default Action");
             }

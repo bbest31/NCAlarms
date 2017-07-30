@@ -37,25 +37,7 @@ namespace NapChat.iOS.Services
             var categories = new UNNotificationCategory[] { category };
             UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories));
 
-            //var DismissActionId = "dismiss";
-            //var DismissTitle = "Dismiss";
-            //var DismissAction = UNNotificationAction.FromIdentifier(DismissActionId, DismissTitle, UNNotificationActionOptions.Foreground);
-
-            //var SnoozeActionId = "snooze";
-            //var SnoozeTitle = "Snooze";
-            //var SnoozeAction = UNNotificationAction.FromIdentifier(SnoozeActionId, SnoozeTitle, UNNotificationActionOptions.None);
-
-            ////Category of Actions
-            //var ActionCategoryID = "AlarmButtons";
-            //var actions = new UNNotificationAction[] { DismissAction, SnoozeAction };
-            //var intentIDs = new string[] { };
-            //var ActionCategoryOptions = new UNNotificationCategoryOptions[] { UNNotificationCategoryOptions.CustomDismissAction};
-            //var ActionCategory = UNNotificationCategory.FromIdentifier(ActionCategoryID, actions, intentIDs, ActionCategoryOptions[0]);
-
-            ////Register Category
-            //var ActionCategories = new UNNotificationCategory[] { ActionCategory };
-
-            //UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(ActionCategories));
+            
 
 
             var nsDate = new NSDateComponents();
