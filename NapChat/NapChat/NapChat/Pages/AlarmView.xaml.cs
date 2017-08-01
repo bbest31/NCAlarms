@@ -12,9 +12,14 @@ namespace NapChat.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AlarmView : ContentPage
 	{
+        String TimeDisplayText = "hi";
+
 		public AlarmView ()
 		{
 			InitializeComponent ();
+            this.BindingContext = TimeDisplayText;
 		}
+
+
 	}
 }
