@@ -62,6 +62,7 @@ namespace NapChat.iOS.Services
             }else
             {
                 content.Sound = UNNotificationSound.GetSound(alarm.getRingTone());
+                
             }
 
            
