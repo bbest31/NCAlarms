@@ -35,7 +35,7 @@ namespace NapChat.iOS.Services
             {
                 //Should pass in the alarm to the AlarmView page in order to display the time and dismiss/snooze the right alarm.
                 App.Current.MainPage = new AlarmView();
-                
+
 
                 Debug.WriteLine("Is Default Action");
             }
