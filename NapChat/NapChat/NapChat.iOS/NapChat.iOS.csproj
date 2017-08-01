@@ -90,7 +90,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Pages\AlarmView.cs" />
     <Compile Include="Renderers\CustomTimePickerRenderer.cs" />
     <Compile Include="Services\iOSAlarmController.cs" />
     <Compile Include="Services\iOSLoginProvider.cs" />
@@ -205,7 +204,9 @@
     </Reference>
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\" />
+  </ItemGroup>
   <ItemGroup />
   <Import Project="..\NapChat\NapChat.projitems" Label="Shared" Condition="Exists('..\NapChat\NapChat.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
