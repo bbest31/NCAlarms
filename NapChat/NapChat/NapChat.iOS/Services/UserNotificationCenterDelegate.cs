@@ -20,20 +20,27 @@ namespace NapChat.iOS.Services
 		{
 			// Do something with the notification
 			Debug.WriteLine("Active Notification: {0}", notification);
-
 			// Tell system to display the notification anyway or use
 			// `None` to say we have handled the display locally.
 			completionHandler(UNNotificationPresentationOptions.Alert);
 		}
 
-        public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        public override async void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
-            if (response.ActionIdentifier == "open"){
+            if (response.ActionIdentifier == "open")
+            {
                 Debug.WriteLine("Action \"Open\"");
             }
-            else if(response.IsDefaultAction)
+            else if (response.IsDefaultAction)
             {
+
                 //Should pass in the alarm to the AlarmView page in order to display the time and dismiss/snooze the right alarm.
+                UNNotification[] notifications = await center.GetDeliveredNotificationsAsync();
+                Debug.WriteLine(notifications.ToString());
+                UNNotification ncnotification = notifications[0];
+                UNNotificationRequest request = ncnotification.Request;
+                Debug.WriteLine(request.Identifier.ToString());
+
                 App.Current.MainPage = new AlarmView();
 
 

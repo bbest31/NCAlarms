@@ -93,10 +93,21 @@ namespace NapChat.iOS.Services
 
         }
 
-        public void unscheduleAlarm(Alarm alarm)
+        public void unscheduleAlarm(string[] alarmID)
         {
-			var requests = new string[] { alarm.getID().ToString() };
-			UNUserNotificationCenter.Current.RemovePendingNotificationRequests(requests);
+			
+			UNUserNotificationCenter.Current.RemovePendingNotificationRequests(alarmID);
+        }
+
+        public void dismissAlarm(string[] alarmID)
+        {
+
+            UNUserNotificationCenter.Current.RemoveDeliveredNotifications(alarmID);
+        }
+
+        public void snoozeAlarm(Alarm alarm)
+        {
+
         }
     }
 }
