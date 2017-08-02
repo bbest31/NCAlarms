@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using UserNotifications;
 using System.Diagnostics;
 using ObjCRuntime;
@@ -39,7 +39,7 @@ namespace NapChat.iOS.Services
                 Debug.WriteLine("Notification array"+notifications.ToString());
                 UNNotification ncnotification = notifications[0];
                 UNNotificationRequest request = ncnotification.Request;
-                Debug.WriteLine("Request Identifier for first notification"+request.Identifier.ToString());
+                Debug.WriteLine("Request Identifier for first notification"+request.Identifier.ToString() + "Notification Title: " + request.Content.Title);
                 string[] identifier = { "random" };
                 App.Current.MainPage = new AlarmView(identifier);
 
