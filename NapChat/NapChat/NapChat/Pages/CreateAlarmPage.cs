@@ -396,7 +396,7 @@ namespace NapChat.Pages
             //Debug.WriteLine("Ringtone Recieved Before Creation: " + ringToneURI);
             //create alarm by passing in the alarm attributes
             var alarm = new Alarm(pickerTime, SnoozeLengthInt, isVibrate, ringToneURI);
-
+            Debug.WriteLine("Alarm ID: " + alarm.getID().ToString());
             //Schedule alarm with AlarmController
             //TODO: Group, NapMessage, messageTime 
             alarmController.scheduleAlarm(alarm);
