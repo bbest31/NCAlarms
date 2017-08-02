@@ -36,12 +36,12 @@ namespace NapChat.iOS.Services
 
                 //Should pass in the alarm to the AlarmView page in order to display the time and dismiss/snooze the right alarm.
                 UNNotification[] notifications = await center.GetDeliveredNotificationsAsync();
-                Debug.WriteLine(notifications.ToString());
+                Debug.WriteLine("Notification array"+notifications.ToString());
                 UNNotification ncnotification = notifications[0];
                 UNNotificationRequest request = ncnotification.Request;
-                Debug.WriteLine(request.Identifier.ToString());
-
-                App.Current.MainPage = new AlarmView();
+                Debug.WriteLine("Request Identifier for first notification"+request.Identifier.ToString());
+                string[] identifier = { "random" };
+                App.Current.MainPage = new AlarmView(identifier);
 
 
                 Debug.WriteLine("Is Default Action");

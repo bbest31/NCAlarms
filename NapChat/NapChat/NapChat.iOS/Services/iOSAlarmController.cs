@@ -101,8 +101,8 @@ namespace NapChat.iOS.Services
 
         public void dismissAlarm(string[] alarmID)
         {
-
-            UNUserNotificationCenter.Current.RemoveDeliveredNotifications(alarmID);
+            Debug.WriteLine("What dismiss method is receiving"+alarmID.ToString());
+            //UNUserNotificationCenter.Current.RemoveDeliveredNotifications(alarmID);
         }
 
         public void snoozeAlarm(Alarm alarm)

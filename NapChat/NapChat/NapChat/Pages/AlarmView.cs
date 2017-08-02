@@ -18,9 +18,11 @@ namespace NapChat.Pages
         #endregion
 
         String TimeDisplayText = "HI";
+        String[] alarmID;
 
-		public AlarmView ()
+		public AlarmView (string[] identifier)
 		{
+            alarmID = identifier;
             TimeDisplayText = System.DateTime.Now.ToString("h:mm tt");
 
             timeDisplayLabel = new Label()
@@ -73,7 +75,7 @@ namespace NapChat.Pages
         {
             NapChat.iOS.Services.iOSAlarmController alarmController = new iOS.Services.iOSAlarmController();
 
-            alarmController.dismissAlarm();
+            alarmController.dismissAlarm(alarmID);
         }
 #endif
     }
