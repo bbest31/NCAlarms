@@ -72,7 +72,10 @@ namespace NapChat.iOS.Services
 
             // Notification ID for updates
 			var requestID = alarm.getID().ToString();
+
 			var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
+
+            Debug.WriteLine("From AlarmController: " + request.Identifier);
                                                 
 			UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
 			{

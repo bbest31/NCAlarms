@@ -386,7 +386,7 @@ namespace NapChat.Pages
         /// <param name="e"></param>
         private void CreateAndActivateButton_Clicked(object sender, EventArgs e)
         {
-            
+                
 #if __ANDROID__
             MessagingCenter.Unsubscribe<NapChat.Droid.MainActivity, string>(this, "URI");
 #endif

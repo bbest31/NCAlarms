@@ -33,16 +33,9 @@ namespace NapChat.iOS.Services
             }
             else if (response.IsDefaultAction)
             {
+				String[] identifier = { response.Notification.Request.Identifier };
 
-                //Should pass in the alarm to the AlarmView page in order to display the time and dismiss/snooze the right alarm.
-                UNNotification[] notifications = await center.GetDeliveredNotificationsAsync();
-                Debug.WriteLine("Notification array"+notifications.ToString());
-                UNNotification ncnotification = notifications[0];
-                UNNotificationRequest request = ncnotification.Request;
-                Debug.WriteLine("Request Identifier for first notification"+request.Identifier.ToString() + "Notification Title: " + request.Content.Title);
-                string[] identifier = { "random" };
-                App.Current.MainPage = new AlarmView(identifier);
-
+				App.Current.MainPage = new AlarmView(identifier);
 
                 Debug.WriteLine("Is Default Action");
             }
