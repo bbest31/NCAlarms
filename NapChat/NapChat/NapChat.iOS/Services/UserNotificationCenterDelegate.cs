@@ -25,7 +25,7 @@ namespace NapChat.iOS.Services
 			completionHandler(UNNotificationPresentationOptions.Alert);
 		}
 
-        public override async void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        public override  void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
             if (response.ActionIdentifier == "open")
             {
@@ -33,9 +33,9 @@ namespace NapChat.iOS.Services
             }
             else if (response.IsDefaultAction)
             {
-				String[] identifier = { response.Notification.Request.Identifier };
+				
 
-				App.Current.MainPage = new AlarmView(identifier);
+				App.Current.MainPage = new AlarmView(response.Notification.Request);
 
                 Debug.WriteLine("Is Default Action");
             }

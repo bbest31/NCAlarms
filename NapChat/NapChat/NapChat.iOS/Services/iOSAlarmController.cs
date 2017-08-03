@@ -102,15 +102,57 @@ namespace NapChat.iOS.Services
 			UNUserNotificationCenter.Current.RemovePendingNotificationRequests(alarmID);
         }
 
-        public void dismissAlarm(string[] alarmID)
+        public void dismissAlarm(string alarmID)
         {
-            Debug.WriteLine("What dismiss method is receiving"+alarmID.ToString());
-            //UNUserNotificationCenter.Current.RemoveDeliveredNotifications(alarmID);
+            //UNUserNotifcationCenter.Current.RemoveDelieveredNotifications(alarmID);
+            //If alarm is not repeating, deactivate
+            
         }
 
-        public void snoozeAlarm(Alarm alarm)
+        /// <summary>
+        /// Takes in the original UNNotificationRequest and makes a new one to schedule.
+        /// </summary>
+        /// <param name="request"></param>
+        public void snoozeAlarm(UNNotificationRequest request)
         {
+            var OpenActionId = "open";
+            var OpenTitle = "Open";
+            var OpenAction = UNNotificationAction.FromIdentifier(OpenActionId, OpenTitle, UNNotificationActionOptions.None);
 
+            var AlarmCategoryID = "alarm";
+            var actions = new UNNotificationAction[] { OpenAction };
+            var intentIDs = new string[] { };
+            var categoryOptions = new UNNotificationCategoryOptions[] { };
+            var category = UNNotificationCategory.FromIdentifier(AlarmCategoryID, actions, intentIDs, UNNotificationCategoryOptions.None);
+
+            var categories = new UNNotificationCategory[] { category };
+            UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories));
+
+            //BREAKS HERE
+            NSDateComponents nsDate = new NSDateComponents();
+            DateTime dt = DateTime.Now;
+            nsDate.Hour = dt.Hour;
+            nsDate.Minute = dt.Minute+1;
+            //
+
+            UNCalendarNotificationTrigger trigger = UNCalendarNotificationTrigger.CreateTrigger(nsDate,false);
+            
+            string snoozeRequestID = "snooze" + request.Identifier;
+  
+            var snoozeRequest = UNNotificationRequest.FromIdentifier(snoozeRequestID,request.Content,trigger);
+
+            UNUserNotificationCenter.Current.AddNotificationRequest(snoozeRequest, (err) =>
+            {
+                if (err != null)
+                {
+                    Debug.WriteLine("error, {0}", err);
+                    // Do something with error
+                }
+                else
+                {
+
+                }
+            });
         }
     }
 }

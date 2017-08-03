@@ -17,12 +17,19 @@ namespace NapChat.Pages
         StackLayout alarmViewStackLayout;
         #endregion
 
-        String TimeDisplayText = "HI";
-        String[] alarmID;
+        String TimeDisplayText;
+      
+#if __IOS__
+        UserNotifications.UNNotificationRequest request;
+#endif
 
-		public AlarmView (string[] identifier)
+        public AlarmView (
+#if __IOS__
+            UserNotifications.UNNotificationRequest request
+
+            )
 		{
-            alarmID = identifier;
+           
             TimeDisplayText = System.DateTime.Now.ToString("h:mm tt");
 
             timeDisplayLabel = new Label()
@@ -51,9 +58,9 @@ namespace NapChat.Pages
             };
 
             snoozeBtn.Clicked += SnoozeBtn_Clicked;
-#if __IOS__
+
             dismissBtn.Clicked += DismissBtn_Clicked;
-#endif
+
             alarmViewStackLayout = new StackLayout()
             {
                 Children = {
@@ -63,19 +70,34 @@ namespace NapChat.Pages
                 }
             };
             Content = alarmViewStackLayout;
-			
-		}
-
-        private void SnoozeBtn_Clicked(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+#endif   
         }
+
 #if __IOS__
+        /// <summary>
+        /// Snooze button click method.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private  void SnoozeBtn_Clicked(object sender, EventArgs e)
+        {
+            NapChat.iOS.Services.iOSAlarmController alarmController = new iOS.Services.iOSAlarmController();
+            //Get alarm by id so we can grab the set snooze length.
+            alarmController.snoozeAlarm(request);
+            Navigation.PopAsync();
+
+        }
+        /// <summary>
+        /// Dismiss button click method.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DismissBtn_Clicked(object sender, EventArgs e)
         {
             NapChat.iOS.Services.iOSAlarmController alarmController = new iOS.Services.iOSAlarmController();
 
-            alarmController.dismissAlarm(alarmID);
+            alarmController.dismissAlarm(request.Identifier);
+            Navigation.PopAsync();
         }
 #endif
     }
