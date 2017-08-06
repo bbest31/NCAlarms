@@ -18,5 +18,9 @@ namespace NapChat.Model
 
         public List<Friend> FriendList { get; set; }
 
+        public List<Group> GroupList { get; set; }
+
+        public List<RepeatingAlarm> repeatingAlarmList { get; set; }
+
     }
 }

@@ -26,10 +26,10 @@ namespace NapChat.Pages
         public AlarmView (
 #if __IOS__
             UserNotifications.UNNotificationRequest request
-
+#endif
             )
 		{
-           
+#if __IOS__
             TimeDisplayText = System.DateTime.Now.ToString("h:mm tt");
 
             timeDisplayLabel = new Label()
