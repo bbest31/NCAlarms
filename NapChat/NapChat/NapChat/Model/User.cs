@@ -10,8 +10,9 @@ namespace NapChat.Model
     /// </summary>
     public class User : TableData
     {
-        public string username { get; set; }
+        public string Username { get; set; }
 
+        /*
         public List<Alarm> alarmList { get; set; }
 
         public List<NapAlert> napAlerts { get; set; }
@@ -21,6 +22,6 @@ namespace NapChat.Model
         public List<Group> GroupList { get; set; }
 
         public List<RepeatingAlarm> repeatingAlarmList { get; set; }
-
+        */
     }
 }

@@ -28,8 +28,8 @@ namespace NapChatService
 
 
             // Use Entity Framework Code First to create database tables based on your DbContext
-           // Database.SetInitializer(new NapChatInitializer());
-            var migrator = new DbMigrator(new Migrations.Configuration());
+           Database.SetInitializer( new NapChatInitializer());
+           // var migrator = new DbMigrator(new Migrations.Configuration());
             // To prevent Entity Framework from modifying your database schema, use a null database initializer
             // Database.SetInitializer<NapChatContext>(null);
 
@@ -51,14 +51,14 @@ namespace NapChatService
         }
     }
 
-   /* public class NapChatInitializer : CreateDatabaseIfNotExists<NapChatContext>
+    public class NapChatInitializer : CreateDatabaseIfNotExists<NapChatContext>
     {
         protected override void Seed(NapChatContext context)
         {
             List<User> userList = new List<User>
             {
-                new User { Id = Guid.NewGuid().ToString(), username = "First item" },
-                new User { Id = Guid.NewGuid().ToString(), username = "Second item" },
+                new User { Id = Guid.NewGuid().ToString(), Username = "Brandon Best" },
+                new User { Id = Guid.NewGuid().ToString(), Username = "Willy Liao" },
             };
 
             foreach (User user in userList)
@@ -68,6 +68,6 @@ namespace NapChatService
 
             base.Seed(context);
         }
-    }*/
+    }
 }
 

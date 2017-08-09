@@ -21,32 +21,32 @@ namespace NapChat.Services
         }
 
         #region ICloudTable implementation
-        public async Task<T> CreateItemAsync(T item)
+        public async Task<T> CreateUserAsync(T user)
         {
-            await table.InsertAsync(item);
-            return item;
+            await table.InsertAsync(user);
+            return user;
         }
 
         //Short hand example: public async Task DeleteItemAsync(T item) => await table.DeleteAsync(item);
-        public async Task DeleteItemAsync(T item)
+        public async Task DeleteUserAsync(T user)
         {
-            await table.DeleteAsync(item);
+            await table.DeleteAsync(user);
         }
 
-        public async Task<ICollection<T>> ReadAllItemsAsync()
+        public async Task<ICollection<T>> ReadAllUsersAsync()
         {
             return await table.ToListAsync();
         }
 
-        public async Task<T> ReadItemAsync(string id)
+        public async Task<T> ReadUserAsync(string id)
         {
             return await table.LookupAsync(id);
         }
 
-        public async Task<T> UpdateItemAsync(T item)
+        public async Task<T> UpdateUserAsync(T user)
         {
-            await table.UpdateAsync(item);
-            return item;
+            await table.UpdateAsync(user);
+            return user;
         }
         #endregion
     }

@@ -8,11 +8,12 @@ namespace NapChat.Abstractions
 {
    public interface ICloudTable<T> where T : TableData
     {
-        Task<T> CreateItemAsync(T item);
-        Task<T> ReadItemAsync(string id);
-        Task<T> UpdateItemAsync(T item);
-        Task DeleteItemAsync(T item);
+        Task<T> CreateUserAsync(T user);
+        Task<T> ReadUserAsync(string id);
+        Task<T> UpdateUserAsync(T user);
+        Task DeleteUserAsync(T user);
 
-        Task<ICollection<T>> ReadAllItemsAsync();
+        //May remove this
+        Task<ICollection<T>> ReadAllUsersAsync();
     }
 }
