@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">NapChat Alarms Android</string>
     <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create Account</string>
+    <string name="surname">Surname:</string>
+    <string name="first_name">First Name:</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
 </resources>
