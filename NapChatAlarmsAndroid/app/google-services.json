@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "747826833878",
+    "firebase_url": "https://napchat-alarms.firebaseio.com",
+    "project_id": "napchat-alarms",
+    "storage_bucket": "napchat-alarms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747826833878:android:e3c8eddca990f845",
+        "android_client_info": {
+          "package_name": "com.napchatalarms.napchatalarmsandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747826833878-mrm8lvkjkuunagndt8g4mdftvbudp3bt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjhiGHtFIBTRHmDZNPiB19nWvEZ948a9E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

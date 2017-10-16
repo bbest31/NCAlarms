@@ -10,13 +10,14 @@ using NapChatService.Models;
 namespace NapChatService.Controllers
 {   //makes viewing the table only possible if authenticated.
     [Authorize]
+    [EnableQuery(PageSize =25)]
     public class UserController : TableController<User>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
             NapChatContext context = new NapChatContext();
-            DomainManager = new EntityDomainManager<User>(context, Request);
+            DomainManager = new EntityDomainManager<User>(context, Request, enableSoftDelete: true);
         }
 
         // GET tables/User
