@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.napchatalarms.napchatalarmsandroid.LoginActivity">
 
+
     <Button
         android:id="@+id/signUp_btn"
         android:layout_width="88dp"
@@ -16,4 +17,5 @@
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="320dp"
         tools:ignore="MissingConstraints" />
+
 </android.support.constraint.ConstraintLayout>
