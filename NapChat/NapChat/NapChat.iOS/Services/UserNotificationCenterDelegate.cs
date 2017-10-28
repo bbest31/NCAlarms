@@ -1,7 +1,8 @@
-﻿using System;
+﻿﻿using System;
 using UserNotifications;
 using System.Diagnostics;
 using ObjCRuntime;
+using NapChat.Pages;
 
 namespace NapChat.iOS.Services
 {
@@ -19,22 +20,24 @@ namespace NapChat.iOS.Services
 		{
 			// Do something with the notification
 			Debug.WriteLine("Active Notification: {0}", notification);
-
 			// Tell system to display the notification anyway or use
 			// `None` to say we have handled the display locally.
 			completionHandler(UNNotificationPresentationOptions.Alert);
 		}
 
-        public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        public override  void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
-            switch (response.Notification.Request.Identifier)
+            if (response.ActionIdentifier == "open")
             {
-                case "snooze":
-                    Debug.WriteLine("Snoo Snoo click snooze");
-                    break;
-                case "dismiss":
-                    Debug.WriteLine("Dismiss was clicked bitch.");
-                    break;
+                Debug.WriteLine("Action \"Open\"");
+            }
+            else if (response.IsDefaultAction)
+            {
+				
+
+				App.Current.MainPage = new AlarmView(response.Notification.Request);
+
+                Debug.WriteLine("Is Default Action");
             }
 
             completionHandler();

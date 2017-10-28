@@ -51,6 +51,7 @@ namespace NapChat.Droid.Services
                         {
                             client.CurrentUser = new MobileServiceUser(acct.Username);
                             client.CurrentUser.MobileServiceAuthenticationToken = token;
+                            System.Diagnostics.Debug.WriteLine("User object from LoginAsync using facebook = User Id: " + client.CurrentUser.UserId + ", MobileServiceToken: " + client.CurrentUser.MobileServiceAuthenticationToken);
                             return;
                         }
                     }
@@ -59,7 +60,7 @@ namespace NapChat.Droid.Services
             
             //Breaks HERE
             var user = await client.LoginAsync(context, MobileServiceAuthenticationProvider.Facebook);
-            
+            System.Diagnostics.Debug.WriteLine("User object from LoginAsync using facebook = "+user.ToString()+", User Id: "+user.UserId+", MobileServiceToken: "+user.MobileServiceAuthenticationToken);
 
             // Store the new token within the store
             var account = new Account(client.CurrentUser.UserId);

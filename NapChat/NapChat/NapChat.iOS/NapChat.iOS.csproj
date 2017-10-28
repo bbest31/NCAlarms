@@ -103,6 +103,9 @@
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <None Include="packages.config" />
     <Compile Include="Services\UserNotificationCenterDelegate.cs" />
+    <None Include="Sounds\Bubbles.m4a" />
+    <None Include="Sounds\Chaos.m4a" />
+    <None Include="Sounds\Seaside Swing.m4a" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -200,6 +203,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\NapChat\NapChat.projitems" Label="Shared" Condition="Exists('..\NapChat\NapChat.projitems')" />

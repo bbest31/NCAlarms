@@ -46,6 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewTemplates\WeekdayListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\AlarmView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)GettingStarted.Xamarin" />

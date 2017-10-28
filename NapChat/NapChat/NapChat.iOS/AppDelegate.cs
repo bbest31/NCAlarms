@@ -1,6 +1,7 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 using Foundation;
 using UIKit;
@@ -24,6 +25,8 @@ namespace NapChat.iOS
 		//
 		// You have 17 seconds to return from this method, or iOS will terminate your application.
 		//
+
+
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
@@ -32,6 +35,7 @@ namespace NapChat.iOS
 
             var settings = UIUserNotificationSettings.GetSettingsForTypes(
             UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
+            
             UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
 
 			UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) =>
@@ -40,16 +44,19 @@ namespace NapChat.iOS
 
 			});
 
-            // //Get current notification settings
-            //UNUserNotificationCenter.Current.GetNotificationSettings((settings) =>
-            //{
-            //	var alertsAllowed = (settings.AlertSetting == UNNotificationSetting.Enabled);
-            //});
+           /* // //Get current notification settings
+            UNUserNotificationCenter.Current.GetNotificationSettings(( settings) =>
+            {
+            	var alertsAllowed = (settings.AlertSetting == UNNotificationSetting.Enabled);
+            });*/
 
             // Watch for notifications while the app is active
             UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
 
+
 			//return true;
+
+            Debug.WriteLine("hello");
 
             return base.FinishedLaunching (app, options);
 		}
@@ -59,9 +66,9 @@ namespace NapChat.iOS
             
             //reset our badge
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+			Debug.WriteLine("hello received");
 
             //base.ReceivedLocalNotification(application, notification);
-
-        }
+		}
     }
 }

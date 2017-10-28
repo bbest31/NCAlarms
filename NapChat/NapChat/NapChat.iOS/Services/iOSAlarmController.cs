@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,26 +22,22 @@ namespace NapChat.iOS.Services
     {
         public void scheduleAlarm(Alarm alarm)
         {
-            //Notifications Actions
-            var DismissActionId = "dismiss";
-            var DismissTitle = "Dismiss";
-            var DismissAction = UNNotificationAction.FromIdentifier(DismissActionId, DismissTitle, UNNotificationActionOptions.Foreground);
+            ////Notifications Actions
 
-            var SnoozeActionId = "snooze";
-            var SnoozeTitle = "Snooze";
-            var SnoozeAction = UNNotificationAction.FromIdentifier(SnoozeActionId, SnoozeTitle, UNNotificationActionOptions.None);
+            var OpenActionId = "open";
+            var OpenTitle = "Open";
+            var OpenAction = UNNotificationAction.FromIdentifier(OpenActionId, OpenTitle, UNNotificationActionOptions.None);
 
-            //Category of Actions
-            var ActionCategoryID = "AlarmButtons";
-            var actions = new UNNotificationAction[] { DismissAction, SnoozeAction };
+            var AlarmCategoryID = "alarm";
+            var actions = new UNNotificationAction[] { OpenAction};
             var intentIDs = new string[] { };
-            var ActionCategoryOptions = new UNNotificationCategoryOptions[] { UNNotificationCategoryOptions.CustomDismissAction};
-            var ActionCategory = UNNotificationCategory.FromIdentifier(ActionCategoryID, actions, intentIDs, ActionCategoryOptions[0]);
+            var categoryOptions = new UNNotificationCategoryOptions[] { };
+            var category = UNNotificationCategory.FromIdentifier(AlarmCategoryID, actions, intentIDs, UNNotificationCategoryOptions.None);
 
-            //Register Category
-            var ActionCategories = new UNNotificationCategory[] { ActionCategory };
+            var categories = new UNNotificationCategory[] { category };
+            UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories));
 
-            UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(ActionCategories));
+            
 
 
             var nsDate = new NSDateComponents();
@@ -50,23 +46,15 @@ namespace NapChat.iOS.Services
 			nsDate.Hour = ts.Hours;
 			nsDate.Minute = ts.Minutes;
 
-            string meridiem;
-            if (nsDate.Hour >= 0 && nsDate.Hour < 12)
-            {
-                meridiem = " AM";
-            }
-            else
-            {
-                meridiem = " PM";
-            }
-
+            var timeDisplay = new DateTime(ts.Ticks).ToString("h:mm tt");
 
 			var content = new UNMutableNotificationContent();
-			content.Title = nsDate.Hour.ToString() + ":" + nsDate.Minute.ToString() + meridiem;
+
+			content.Title = timeDisplay;
 			//content.Subtitle = "Notification Subtitle";
-			content.Body = "Time to wake up!";
+			content.Body = "Open Alarm.";
 			content.Badge = 1;
-            content.CategoryIdentifier = "AlarmButtons";
+            content.CategoryIdentifier = "alarm";
 
             if (alarm.getRingTone() == "default")
             {
@@ -74,20 +62,20 @@ namespace NapChat.iOS.Services
             }else
             {
                 content.Sound = UNNotificationSound.GetSound(alarm.getRingTone());
+                
             }
 
            
-
-
- 
-
 
 			// trigger time
 			var trigger = UNCalendarNotificationTrigger.CreateTrigger(nsDate ,false);
 
             // Notification ID for updates
 			var requestID = alarm.getID().ToString();
+
 			var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
+
+            Debug.WriteLine("From AlarmController: " + request.Identifier);
                                                 
 			UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
 			{
@@ -98,7 +86,7 @@ namespace NapChat.iOS.Services
 				}
                 else
                 {
-                    Debug.WriteLine("Notification Scheduled, {0}", request);
+                    
                 }
 			});
         }
@@ -108,10 +96,63 @@ namespace NapChat.iOS.Services
 
         }
 
-        public void unscheduleAlarm(Alarm alarm)
+        public void unscheduleAlarm(string[] alarmID)
         {
-			var requests = new string[] { alarm.getID().ToString() };
-			UNUserNotificationCenter.Current.RemovePendingNotificationRequests(requests);
+			
+			UNUserNotificationCenter.Current.RemovePendingNotificationRequests(alarmID);
+        }
+
+        public void dismissAlarm(string alarmID)
+        {
+            //UNUserNotifcationCenter.Current.RemoveDelieveredNotifications(alarmID);
+            //If alarm is not repeating, deactivate
+            
+        }
+
+        /// <summary>
+        /// Takes in the original UNNotificationRequest and makes a new one to schedule.
+        /// </summary>
+        /// <param name="request"></param>
+        public void snoozeAlarm(UNNotificationRequest request)
+        {
+            var OpenActionId = "open";
+            var OpenTitle = "Open";
+            var OpenAction = UNNotificationAction.FromIdentifier(OpenActionId, OpenTitle, UNNotificationActionOptions.None);
+
+            var AlarmCategoryID = "alarm";
+            var actions = new UNNotificationAction[] { OpenAction };
+            var intentIDs = new string[] { };
+            var categoryOptions = new UNNotificationCategoryOptions[] { };
+            var category = UNNotificationCategory.FromIdentifier(AlarmCategoryID, actions, intentIDs, UNNotificationCategoryOptions.None);
+
+            var categories = new UNNotificationCategory[] { category };
+            UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories));
+
+            //BREAKS HERE
+            NSDateComponents nsDate = new NSDateComponents();
+            DateTime dt = DateTime.Now;
+            nsDate.Hour = dt.Hour;
+            nsDate.Minute = dt.Minute+1;
+            //
+
+            UNCalendarNotificationTrigger trigger = UNCalendarNotificationTrigger.CreateTrigger(nsDate,false);
+            
+            string snoozeRequestID = "snooze" + request.Identifier;
+  
+            var snoozeRequest = UNNotificationRequest.FromIdentifier(snoozeRequestID,request.Content,trigger);
+
+            UNUserNotificationCenter.Current.AddNotificationRequest(snoozeRequest, (err) =>
+            {
+                if (err != null)
+                {
+                    Debug.WriteLine("error, {0}", err);
+                    // Do something with error
+                }
+                else
+                {
+
+                }
+            });
         }
     }
 }
