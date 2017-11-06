@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +17,12 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private Button createAccountButton;
+    private EditText firstNameEditText;
+    private EditText surNameEditText;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText passwordRentryEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +30,29 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
+        //Initialize views.
+        createAccountButton = (Button)findViewById(R.id.createaccount_btn);
+        firstNameEditText = (EditText)findViewById(R.id.firstname_editText);
+        surNameEditText = (EditText)findViewById(R.id.surname_editText);
+        emailEditText = (EditText)findViewById(R.id.email_editText);
+        passwordEditText = (EditText)findViewById(R.id.password_editText);
+        //passwordRentryEditText = (EditText)findViewById(R.id.pass_rentry_editText);
+
     }
 
+    /**
+     * This method grabs the necessary credentials from the TextViews and passes them
+     * to the createNewUser() method.
+     */
+    //TODO:Grab credentials. Make sure proper format of credentials (non-empty, character restrictions, existing email ).
+    public void signUp(){
 
+    }
     /**
      * This method takes in the new users email, password, surname and first name in order to create
      * a new account for them and log them in using their entered credentials.
      * **/
-    //TODO: Grab strings from TextViews
-    public void signUpNewUser(String email, String password, String surname, String firstName){
+    public void createNewUser(String email, String password, String surname, String firstName){
 
 
         mAuth.createUserWithEmailAndPassword(email, password)
