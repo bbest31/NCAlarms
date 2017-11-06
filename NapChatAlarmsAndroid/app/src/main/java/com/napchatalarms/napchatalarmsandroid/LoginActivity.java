@@ -46,26 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                           // Log.d( "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            loginNavigationOnSuccess(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w("signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            loginNavigationOnSuccess(null);
-                        }
 
-                        // ...
-                    }
-                });
     }
 
     @Override
@@ -85,14 +66,45 @@ public class LoginActivity extends AppCompatActivity {
      * This method is called if the user is successfully signed in and will navigate
      * to the Home Activity by confirming the FirebaseUser object for the current user
      * is a non-null object.**/
+    //TODO: Should pass some information about the user to the HomeActivity, in order to load necessary information.
     public void loginNavigationOnSuccess(FirebaseUser currentUser){
 
         if(currentUser != null){
-            //Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
-            //startActivity(homeIntent);
+            Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(homeIntent);
         }
 
     }
+
+    /**
+     * This method will grab the credentials entered into the TextViews and assign their values to the
+     * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
+     */
+    //TODO: Grab credentials from TextViews.
+    public void login(){
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            // Log.d( "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            loginNavigationOnSuccess(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //Log.w("signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            loginNavigationOnSuccess(null);
+                        }
+
+                        // ...
+                    }
+                });
+    }
+}
 
 
 

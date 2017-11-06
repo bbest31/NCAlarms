@@ -27,8 +27,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     /**
      * This method takes in the new users email, password, surname and first name in order to create
-     * a new account for them and log them in using thier entered credentials.
+     * a new account for them and log them in using their entered credentials.
      * **/
+    //TODO: Grab strings from TextViews
     public void signUpNewUser(String email, String password, String surname, String firstName){
 
 
