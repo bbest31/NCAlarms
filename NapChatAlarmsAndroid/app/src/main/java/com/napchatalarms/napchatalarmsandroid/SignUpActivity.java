@@ -1,11 +1,14 @@
 package com.napchatalarms.napchatalarmsandroid;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,18 +20,23 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private Button createAccountButton;
-    private EditText firstNameEditText;
-    private EditText surNameEditText;
-    private EditText emailEditText;
-    private EditText passwordEditText;
-    private EditText passwordRentryEditText;
+    Button createAccountButton;
+    EditText firstNameEditText;
+    EditText surNameEditText;
+    EditText emailEditText;
+    EditText passwordEditText;
+    EditText passwordRentryEditText;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+    TextView firstnameErrorText;
+    TextView surNameErrorText;
+    TextView emailErrorText;
+    TextView passwordErrorText;
+    TextView passwordReentryErrorText;
 
+    /**
+     * Initialize views for the activity.
+    **/
+    public void initialize(){
         mAuth = FirebaseAuth.getInstance();
         //Initialize views.
         createAccountButton = (Button)findViewById(R.id.createaccount_btn);
@@ -36,16 +44,87 @@ public class SignUpActivity extends AppCompatActivity {
         surNameEditText = (EditText)findViewById(R.id.surname_editText);
         emailEditText = (EditText)findViewById(R.id.email_editText);
         passwordEditText = (EditText)findViewById(R.id.password_editText);
-        //passwordRentryEditText = (EditText)findViewById(R.id.pass_rentry_editText);
+        //passwordReentryEditText = (EditText)findViewById(R.id.pass_rentry_editText);
+
+        firstnameErrorText = (TextView)findViewById(R.id.firstNameErrorText);
+        surNameErrorText = (TextView)findViewById(R.id.surnameErrorText);
+        emailErrorText = (TextView)findViewById(R.id.emailErrorText);
+        passwordErrorText = (TextView)findViewById(R.id.passwordErrorText);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up);
+
+
+        initialize();
+
+        //Click method for the Create Account button.
+        createAccountButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                signUp();
+            }
+        });
 
     }
+
 
     /**
      * This method grabs the necessary credentials from the TextViews and passes them
      * to the createNewUser() method.
      */
-    //TODO:Grab credentials. Make sure proper format of credentials (non-empty, character restrictions, existing email ).
+    //TODO:Password Re-entry field.
     public void signUp(){
+
+        Boolean validCredentails = Boolean.TRUE;
+
+        String email = emailEditText.getText().toString();
+        //TODO:reinforce email format.
+        if(email.isEmpty()){
+            emailErrorText.setVisibility(View.VISIBLE);
+            validCredentails = Boolean.FALSE;
+        }
+
+        String password = passwordEditText.getText().toString();
+        //TODO: make sure no invalid characters are used.
+        if(password.isEmpty() | password.length() < 8){
+            passwordErrorText.setVisibility(View.VISIBLE);
+            validCredentails = Boolean.FALSE;
+
+        }
+
+        String surname = surNameEditText.getText().toString();
+        if(surname.isEmpty()){
+            surNameErrorText.setVisibility(View.VISIBLE);
+            validCredentails = Boolean.FALSE;
+
+        }
+
+        String firstname = firstNameEditText.getText().toString();
+        if(firstname.isEmpty()){
+            firstnameErrorText.setVisibility(View.VISIBLE);
+            validCredentails = Boolean.FALSE;
+
+        }
+
+        //calls the firebase method to create the valid new user.
+        if(validCredentails = Boolean.TRUE){
+            //gets rid of previously shown error texts.
+            //Might be irrelevant since we navigate to another activity and this one is destroyed.
+            //TODO:May be able to remove this block.
+            emailErrorText.setVisibility(View.GONE);
+            passwordErrorText.setVisibility(View.GONE);
+            surNameErrorText.setVisibility(View.GONE);
+            firstnameErrorText.setVisibility(View.GONE);
+
+            createNewUser(email,password,surname,firstname);
+        } else{
+            //clears password for reentry.
+            passwordEditText.setText(' ');
+        }
 
     }
     /**
@@ -81,9 +160,12 @@ public class SignUpActivity extends AppCompatActivity {
     public void signUpNavigationOnSuccess(FirebaseUser currentUser){
 
         if(currentUser != null){
-
+            Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
+            startActivity(intent);
         }
 
     }
+
+
 
 }

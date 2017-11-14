@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,9 +26,15 @@ public class LoginActivity extends AppCompatActivity {
 
     /**Button used to navigate to the SignUpActivity.**/
     Button signUpButton;
+    EditText emailEditText;
+    EditText passwordEditText;
 
-    public void initializeViews(){
+    public void initialize()
+    {
         signUpButton = (Button) findViewById(R.id.signUp_btn);
+        emailEditText = (EditText)findViewById(R.id.login_emailEditText);
+        passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_login);
 
-        initializeViews();
+        initialize();
 
         signUpButton.setOnClickListener(new View.OnClickListener(){
         @Override
@@ -80,29 +87,49 @@ public class LoginActivity extends AppCompatActivity {
      * This method will grab the credentials entered into the TextViews and assign their values to the
      * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
      */
-    //TODO: Grab credentials from TextViews.
+    //TODO:Reinforce email format.
     public void login(){
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        Boolean validcreds = Boolean.TRUE;
+
+        email = emailEditText.getText().toString();
+        if(email.isEmpty()){
+            //Handle Error
+            validcreds = Boolean.FALSE;
+        }
+
+        password = passwordEditText.getText().toString();
+        if(password.isEmpty()){
+            //Handle Error
+            validcreds = Boolean.FALSE;
+        }
+
+        if(validcreds = Boolean.TRUE)
+        {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            // Log.d( "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            loginNavigationOnSuccess(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w("signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            loginNavigationOnSuccess(null);
-                        }
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                // Log.d( "signInWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                loginNavigationOnSuccess(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                //Log.w("signInWithEmail:failure", task.getException());
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                loginNavigationOnSuccess(null);
+                            }
 
-                        // ...
-                    }
+                            // ...
+                        }
                 });
+        }
+        else{
+            //HANDLE ERROR
+        }
     }
 }
 

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/surname"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="112dp"
+        tools:layout_editor_absoluteY="131dp"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -30,8 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/first_name"
-        tools:layout_editor_absoluteY="34dp"
-        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="41dp"
+        tools:layout_editor_absoluteX="16dp"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="@string/email"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="186dp"
+        tools:layout_editor_absoluteY="217dp"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="@string/password"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="270dp"
+        tools:layout_editor_absoluteY="315dp"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -59,7 +59,7 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="203dp"
+        tools:layout_editor_absoluteY="234dp"
         tools:ignore="LabelFor,MissingConstraints" />
 
     <EditText
@@ -70,7 +70,7 @@
         android:inputType="textPassword"
         tools:ignore="LabelFor,MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="287dp" />
+        tools:layout_editor_absoluteY="332dp" />
 
     <EditText
         android:id="@+id/firstname_editText"
@@ -90,5 +90,54 @@
         android:inputType="textPersonName"
         tools:ignore="LabelFor,MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="129dp" />
+        tools:layout_editor_absoluteY="148dp" />
+
+    <TextView
+        android:id="@+id/firstNameErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/this_must_not_be_empty"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="97dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/surnameErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/this_must_not_be_empty"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="191dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/emailErrorText"
+        android:layout_width="216dp"
+        android:layout_height="30dp"
+        android:text="@string/email_error_message"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="279dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/passwordErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="@string/password_format_error"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteY="375dp"
+        tools:ignore="MissingConstraints,RtlHardcoded" />
 </android.support.constraint.ConstraintLayout>

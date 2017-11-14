@@ -12,5 +12,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="logout">Logout</string>
+    <string name="this_must_not_be_empty">* This must not be empty.</string>
+    <string name="password_format_error">Password must be atleast 8 characters with A-z, 0-9 only.</string>
+    <string name="email_error_message">Please enter a valid email address i.e. johndoe@email.com</string>
+    <string name="janedoe_email_com">janedoe@email.com</string>
 
 </resources>

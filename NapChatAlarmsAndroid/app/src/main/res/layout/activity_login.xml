@@ -18,4 +18,29 @@
         tools:layout_editor_absoluteY="320dp"
         tools:ignore="MissingConstraints" />
 
+    <EditText
+        android:id="@+id/login_passwordEditText"
+        android:layout_width="249dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="258dp"
+        tools:ignore="LabelFor,MissingConstraints" />
+
+    <EditText
+        android:id="@+id/login_emailEditText"
+        android:layout_width="291dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:hint="@string/janedoe_email_com"
+        android:inputType="textEmailAddress"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="LabelFor,MissingConstraints"
+        tools:layout_editor_absoluteY="198dp" />
+
 </android.support.constraint.ConstraintLayout>
