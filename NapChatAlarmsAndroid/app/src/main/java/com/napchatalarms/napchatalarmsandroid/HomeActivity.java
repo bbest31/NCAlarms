@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
-    private Button logoutButton;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -29,6 +30,8 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
+                    Intent optionsIntent = new Intent(HomeActivity.this,OptionsActivity.class);
+                    startActivity(optionsIntent);
                     return true;
             }
             return false;
@@ -46,10 +49,5 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    /**
-    Logout method uses Firebase to log the user out and then return to the LoginActivity.
-     **/
-    public void logout(){
 
-    }
 }

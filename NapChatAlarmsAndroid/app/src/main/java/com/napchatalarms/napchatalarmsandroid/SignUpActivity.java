@@ -160,12 +160,23 @@ public class SignUpActivity extends AppCompatActivity {
     public void signUpNavigationOnSuccess(FirebaseUser currentUser){
 
         if(currentUser != null){
+            //sendEmailVerification();
             Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
             startActivity(intent);
         }
 
     }
 
-
+    public void sendEmailVerification(){
+        mAuth.getCurrentUser().sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(SignUpActivity.this,"Email verifications email sent.",Toast.LENGTH_SHORT);
+                        }
+                    }
+                });
+    }
 
 }

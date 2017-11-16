@@ -28,9 +28,11 @@ public class LoginActivity extends AppCompatActivity {
     Button signUpButton;
     EditText emailEditText;
     EditText passwordEditText;
+    Button loginButton;
 
     public void initialize()
     {
+        loginButton = (Button)findViewById(R.id.login_btn);
         signUpButton = (Button) findViewById(R.id.signUp_btn);
         emailEditText = (EditText)findViewById(R.id.login_emailEditText);
         passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
@@ -44,6 +46,12 @@ public class LoginActivity extends AppCompatActivity {
 
         initialize();
 
+        loginButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                login();
+            }
+        });
         signUpButton.setOnClickListener(new View.OnClickListener(){
         @Override
             public void onClick(View v){
@@ -87,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
      * This method will grab the credentials entered into the TextViews and assign their values to the
      * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
      */
-    //TODO:Reinforce email format.
+    //TODO:Reinforce email format. Display Error messages.
     public void login(){
 
         Boolean validcreds = Boolean.TRUE;

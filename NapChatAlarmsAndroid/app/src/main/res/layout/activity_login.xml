@@ -14,9 +14,10 @@
         android:background="@android:color/transparent"
         android:text="@string/sign_up"
         android:textColor="@android:color/holo_blue_bright"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="320dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="350dp"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/login_passwordEditText"
@@ -42,5 +43,17 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:ignore="LabelFor,MissingConstraints"
         tools:layout_editor_absoluteY="198dp" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/login"
+        android:textColor="@android:color/holo_purple"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="302dp" />
 
 </android.support.constraint.ConstraintLayout>
