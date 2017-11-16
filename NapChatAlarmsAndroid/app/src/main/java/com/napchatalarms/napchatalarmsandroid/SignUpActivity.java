@@ -61,7 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         initialize();
 
-        //Click method for the Create Account button.
+        //========onClick methods===============
         createAccountButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -110,7 +110,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
 
-        //calls the firebase method to create the valid new user.
+        //calls the Firebase method to create the valid new user.
         if(validCredentails = Boolean.TRUE){
             //gets rid of previously shown error texts.
             //Might be irrelevant since we navigate to another activity and this one is destroyed.
@@ -160,7 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void signUpNavigationOnSuccess(FirebaseUser currentUser){
 
         if(currentUser != null){
-            //sendEmailVerification();
+            sendEmailVerification();
             Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
             startActivity(intent);
         }

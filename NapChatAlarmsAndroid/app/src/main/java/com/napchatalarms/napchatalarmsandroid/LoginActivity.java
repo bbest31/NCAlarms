@@ -24,19 +24,23 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
     private String password;
 
-    /**Button used to navigate to the SignUpActivity.**/
+    //Views
     Button signUpButton;
     EditText emailEditText;
     EditText passwordEditText;
     Button loginButton;
+    Button forgotPasswordButton;
 
+    /**
+     * Initializing function for the views.
+     * **/
     public void initialize()
     {
         loginButton = (Button)findViewById(R.id.login_btn);
         signUpButton = (Button) findViewById(R.id.signUp_btn);
         emailEditText = (EditText)findViewById(R.id.login_emailEditText);
         passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
-
+        forgotPasswordButton = (Button)findViewById(R.id.forgotPass_btn);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +50,15 @@ public class LoginActivity extends AppCompatActivity {
 
         initialize();
 
+        //===============OnClick methods====================
+
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 login();
             }
         });
+
         signUpButton.setOnClickListener(new View.OnClickListener(){
         @Override
             public void onClick(View v){
@@ -61,6 +68,12 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+            ForgotPassDialog fgtpassDialog = new ForgotPassDialog(LoginActivity.this);
+            }
+        });
 
     }
 
