@@ -24,6 +24,11 @@
     <string name="Send">Send</string>
     <string name="verified_email">Verified Email</string>
     <string name="Resend">Resend</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_name">Change Name</string>
+    <string name="Save">Save</string>
+    <string name="FirstName">First Name</string>
+    <string name="SurName">Surname</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->

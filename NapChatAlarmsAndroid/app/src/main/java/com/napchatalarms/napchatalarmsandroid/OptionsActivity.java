@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +20,11 @@ public class OptionsActivity extends AppCompatActivity {
 
     public Button logoutButton;
     public Button resendEmailVerificationButton;
+    public Button changeEmailButton;
+    public Button changeNameButton;
+    public EditText changeEmailEditText;
+    public EditText changeFirstNameEditText;
+    public EditText changeSurnameEditText;
     public CheckedTextView verifiedEmailTextView;
 
 
@@ -29,6 +36,11 @@ public class OptionsActivity extends AppCompatActivity {
         logoutButton = (Button)findViewById(R.id.logout_btn);
         resendEmailVerificationButton = (Button)findViewById(R.id.resend_verficiationemail_btn);
         verifiedEmailTextView = (CheckedTextView)findViewById(R.id.verified_email_check);
+        changeEmailButton = (Button)findViewById(R.id.change_email_btn);
+        changeNameButton = (Button)findViewById(R.id.change_name_btn);
+        changeEmailEditText = (EditText)findViewById(R.id.change_email_edittext);
+        changeFirstNameEditText = (EditText)findViewById(R.id.change_firstname_edittext);
+        changeSurnameEditText = (EditText)findViewById(R.id.change_surname_edittext);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +60,7 @@ public class OptionsActivity extends AppCompatActivity {
             resendEmailVerificationButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                resendVerificaitonEmail();
+                resendVerificationEmail();
                 }
             });
         } else{
@@ -70,13 +82,34 @@ public class OptionsActivity extends AppCompatActivity {
         //finish();
     }
 
-    public void resendVerificaitonEmail(){
+    public void resendVerificationEmail(){
         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(OptionsActivity.this,"Verification email sent.",Toast.LENGTH_SHORT);
+                        }
+                    }
+                });
+    }
+
+    //TODO Finish
+    public void changeUserName(){
+
+    }
+
+    //TODO Finish; Grab entered email.
+    public void changeUserEmail(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.updateEmail("user@example.com")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //Log.d(TAG, "User email address updated.");
                         }
                     }
                 });
