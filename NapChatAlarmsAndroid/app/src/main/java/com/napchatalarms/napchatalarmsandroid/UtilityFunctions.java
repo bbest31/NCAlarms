@@ -24,6 +24,7 @@ public class UtilityFunctions {
 
     /**
      * Returns a boolean to indicate whether the password has only alphabetic and numeric characters.
+     * SOURCE: https://stackoverflow.com/questions/10344493/android-how-to-set-acceptable-numbers-and-characters-in-edittext
      * */
     public final static boolean isValidPassword(String password){
 

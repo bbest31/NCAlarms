@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+// SOURCES: https://firebase.google.com/docs/auth/android
+
 public class OptionsActivity extends AppCompatActivity {
 
     public Button logoutButton;
