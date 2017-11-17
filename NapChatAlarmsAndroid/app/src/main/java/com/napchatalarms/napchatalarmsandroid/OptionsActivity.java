@@ -1,6 +1,8 @@
 package com.napchatalarms.napchatalarmsandroid;
 
 import android.content.Intent;
+import android.nfc.Tag;
+import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class OptionsActivity extends AppCompatActivity {
 
@@ -67,14 +70,36 @@ public class OptionsActivity extends AppCompatActivity {
             resendEmailVerificationButton.setVisibility(View.GONE);
         }
 
+        //==========OnClick Methods================
+
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
             logout();
             }
         });
+
+        changeNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeUserName();
+            }
+        });
+
+        changeEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeUserEmail();
+            }
+        });
+
+
     }
 
+    //========Method Definitions=============
+    /**
+     * Gets the current FirbaseAuth instance and signs the user out and returns to the Login Activity.
+     * */
     public void logout(){
         FirebaseAuth.getInstance().signOut();
         Intent loginIntent = new Intent(OptionsActivity.this,LoginActivity.class);
@@ -82,36 +107,70 @@ public class OptionsActivity extends AppCompatActivity {
         //finish();
     }
 
+
+    /**
+     * Gets the current user and resend a verification email to the user email address.
+     * */
     public void resendVerificationEmail(){
         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(OptionsActivity.this,"Verification email sent.",Toast.LENGTH_SHORT);
+                            Log.d("Options Activity","Resent Verification Email successfully");
                         }
                     }
                 });
     }
 
-    //TODO Finish
+
     public void changeUserName(){
+        //TODO:Assert name format: 1)Alphabetic 2)No spaces 3)Non-empty
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String newName = changeFirstNameEditText.getText().toString();
+        newName.concat(" ");
+        newName.concat(changeSurnameEditText.getText().toString());
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(newName)
+                .build();
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Log.d("Options Activity","The User's name has been updated successfully");
+                        }
+                    }
+                });
 
     }
 
-    //TODO Finish; Grab entered email.
+    /**
+     * This method updates the user's email given the new email entered in the corresponding
+     * EditText.
+     * */
     public void changeUserEmail(){
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        user.updateEmail("user@example.com")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            //Log.d(TAG, "User email address updated.");
+        String newEmail = changeEmailEditText.getText().toString();
+
+        if(UtilityFunctions.isValidEmail(newEmail)) {
+            user.updateEmail(newEmail)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("Options Activity", "User email address updated.");
+                            }
                         }
-                    }
-                });
+                    });
+        } else{
+            //Display Error Text
+        }
     }
+
+
 }

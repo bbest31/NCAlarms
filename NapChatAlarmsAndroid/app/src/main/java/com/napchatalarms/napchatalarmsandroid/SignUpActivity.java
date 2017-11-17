@@ -82,15 +82,13 @@ public class SignUpActivity extends AppCompatActivity {
         Boolean validCredentails = Boolean.TRUE;
 
         String email = emailEditText.getText().toString();
-        //TODO:reinforce email format.
-        if(email.isEmpty()){
+        if(!UtilityFunctions.isValidEmail(email)){
             emailErrorText.setVisibility(View.VISIBLE);
             validCredentails = Boolean.FALSE;
         }
 
         String password = passwordEditText.getText().toString();
-        //TODO: make sure no invalid characters are used.
-        if(password.isEmpty() | password.length() < 8){
+        if(password.isEmpty() | password.length() < 8 | !UtilityFunctions.isValidPassword(password)){
             passwordErrorText.setVisibility(View.VISIBLE);
             validCredentails = Boolean.FALSE;
 
@@ -145,9 +143,7 @@ public class SignUpActivity extends AppCompatActivity {
                             signUpNavigationOnSuccess(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                           // Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Log.w("SignUp Activity", "createUserWithEmail:failure", task.getException());
                             signUpNavigationOnSuccess(null);
                         }
 
@@ -173,7 +169,8 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(SignUpActivity.this,"Email verifications email sent.",Toast.LENGTH_SHORT);
+                            Log.w("SignUp Activity","Email verification sent.");
+                            
                         }
                     }
                 });

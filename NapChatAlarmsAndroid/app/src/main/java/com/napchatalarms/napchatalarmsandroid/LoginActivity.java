@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    //=======Methods======
 
     /**
      * This method is called if the user is successfully signed in and will navigate
@@ -108,14 +109,15 @@ public class LoginActivity extends AppCompatActivity {
      * This method will grab the credentials entered into the TextViews and assign their values to the
      * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
      */
-    //TODO:Reinforce email format. Display Error messages.
+    //TODO:Display Error messages.
     public void login(){
 
         Boolean validcreds = Boolean.TRUE;
 
         email = emailEditText.getText().toString();
-        if(email.isEmpty()){
-            //Handle Error
+        if(!UtilityFunctions.isValidEmail(email)){
+            //Display Error Text HERE
+            //...
             validcreds = Boolean.FALSE;
         }
 
