@@ -19,6 +19,7 @@ import static android.content.ContentValues.TAG;
 
 /**Java class for the Forgot Password Dialog Box to send a password reset email, to the entered email address
  * if it indeed exists with an account.
+ * SOURCE:
  * Created by brandon best on 11/16/2017.
  */
 
@@ -64,6 +65,9 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
         dismiss();
     }
 
+    /**
+     * This method sends a password reset email entered into the edit text field.
+     * */
     public void sendResetPasswordEmail(){
         FirebaseAuth auth = FirebaseAuth.getInstance();
 

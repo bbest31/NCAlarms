@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class SignUpActivity extends AppCompatActivity {
 
+    //=====VIEWS=====
     private FirebaseAuth mAuth;
     Button createAccountButton;
     EditText firstNameEditText;
@@ -62,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         initialize();
 
-        //========onClick methods===============
+        //=====ONCLICK METHODS=====
         createAccountButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -73,6 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    //=====METHODS=====
     /**
      * This method grabs the necessary credentials from the TextViews and passes them
      * to the createNewUser() method.
@@ -128,7 +130,9 @@ public class SignUpActivity extends AppCompatActivity {
     }
     /**
      * This method takes in the new users email, password, surname and first name in order to create
-     * a new account for them and log them in using their entered credentials.
+     * a new account for them and log them in using their entered credentials. If the sign up process
+     * is successful then the method to send a verification email to their account is called
+     * and appropriate UI navigation upon success/failure.
      * **/
     public void createNewUser(String email, String password, String surname, String firstName){
 
@@ -139,8 +143,9 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "createUserWithEmail:success");
+                            Log.d("Signup Activity: signup", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            sendEmailVerification();
                             signUpNavigationOnSuccess(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -154,16 +159,20 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Navigation on successfuly sign up to the HomeActivity.
+     * */
     public void signUpNavigationOnSuccess(FirebaseUser currentUser){
 
         if(currentUser != null){
-            sendEmailVerification();
             Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
             startActivity(intent);
         }
 
     }
 
+    /**Firebase encapsulated method to send a verification email to the user's email.
+     * */
     public void sendEmailVerification(){
         mAuth.getCurrentUser().sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

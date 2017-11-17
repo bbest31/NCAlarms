@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-//TODO:Implement Access User Information method from Firebase Android Guide.
+//TODO:Implement Access User Information method from Firebase and initialize a User singleton.
 public class HomeActivity extends AppCompatActivity {
 
     private TextView mTextMessage;

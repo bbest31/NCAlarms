@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText passwordEditText;
     Button loginButton;
     Button forgotPasswordButton;
+    //TextView errorText;
 
     /**
      * Initializing function for the views.
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = (EditText)findViewById(R.id.login_emailEditText);
         passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
         forgotPasswordButton = (Button)findViewById(R.id.forgotPass_btn);
+        //errorText = (TextView)findViewById(R.id.login_error_text);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,21 +112,17 @@ public class LoginActivity extends AppCompatActivity {
      * This method will grab the credentials entered into the TextViews and assign their values to the
      * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
      */
-    //TODO:Display Error messages.
     public void login(){
 
         Boolean validcreds = Boolean.TRUE;
 
         email = emailEditText.getText().toString();
         if(!UtilityFunctions.isValidEmail(email)){
-            //Display Error Text HERE
-            //...
             validcreds = Boolean.FALSE;
         }
 
         password = passwordEditText.getText().toString();
         if(password.isEmpty()){
-            //Handle Error
             validcreds = Boolean.FALSE;
         }
 
@@ -141,9 +139,8 @@ public class LoginActivity extends AppCompatActivity {
                                 loginNavigationOnSuccess(user);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                //Log.w("signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+                                Log.w("signInWithEmail:failure", task.getException());
+                                //errorText.setVisibility(View.VISIBLE);
                                 loginNavigationOnSuccess(null);
                             }
 
@@ -152,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
         }
         else{
-            //HANDLE ERROR
+            //errorText.setVisbility(View.VISIBLE);
         }
     }
 }

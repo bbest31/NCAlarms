@@ -23,6 +23,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class OptionsActivity extends AppCompatActivity {
 
+    //=====VIEWS=====
     public Button logoutButton;
     public Button resendEmailVerificationButton;
     public Button changeEmailButton;
@@ -72,7 +73,7 @@ public class OptionsActivity extends AppCompatActivity {
             resendEmailVerificationButton.setVisibility(View.GONE);
         }
 
-        //==========OnClick Methods================
+        //=====ONCLICK METHODS=====
 
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,7 +99,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     }
 
-    //========Method Definitions=============
+    //=====METHODS=====
     /**
      * Gets the current FirbaseAuth instance and signs the user out and returns to the Login Activity.
      * */
@@ -126,27 +127,35 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * This method asserts the new first and surname are of correct format and updates the users name.
+     * */
     public void changeUserName(){
-        //TODO:Assert name format: 1)Alphabetic 2)No spaces 3)Non-empty
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        String newName = changeFirstNameEditText.getText().toString();
-        newName.concat(" ");
-        newName.concat(changeSurnameEditText.getText().toString());
+        if(!changeSurnameEditText.getText().toString().isEmpty()
+                && !changeFirstNameEditText.getText().toString().isEmpty() &&
+                UtilityFunctions.isValidName(changeFirstNameEditText.getText().toString()) &&
+                UtilityFunctions.isValidName(changeSurnameEditText.getText().toString())
+                ) {
 
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(newName)
-                .build();
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Log.d("Options Activity","The User's name has been updated successfully");
+            String newName = changeFirstNameEditText.getText().toString();
+            newName.concat(" ");
+            newName.concat(changeSurnameEditText.getText().toString());
+
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(newName)
+                    .build();
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("Options Activity", "The User's name has been updated successfully");
+                            }
                         }
-                    }
-                });
-
+                    });
+        }
     }
 
     /**
