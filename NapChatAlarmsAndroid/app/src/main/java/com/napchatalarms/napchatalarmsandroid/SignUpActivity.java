@@ -98,14 +98,14 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         String surname = surNameEditText.getText().toString();
-        if(surname.isEmpty()){
+        if(surname.isEmpty() | !UtilityFunctions.isValidName(surname)){
             surNameErrorText.setVisibility(View.VISIBLE);
             validCredentails = Boolean.FALSE;
 
         }
 
         String firstname = firstNameEditText.getText().toString();
-        if(firstname.isEmpty()){
+        if(firstname.isEmpty() | UtilityFunctions.isValidName(firstname)){
             firstnameErrorText.setVisibility(View.VISIBLE);
             validCredentails = Boolean.FALSE;
 

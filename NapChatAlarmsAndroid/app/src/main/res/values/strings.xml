@@ -29,6 +29,8 @@
     <string name="Save">Save</string>
     <string name="FirstName">First Name</string>
     <string name="SurName">Surname</string>
+    <string name="LoginError">*Username or password does not exists.</string>
+    <string name="ResetPassword">Change password by sending a reset password email:</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->

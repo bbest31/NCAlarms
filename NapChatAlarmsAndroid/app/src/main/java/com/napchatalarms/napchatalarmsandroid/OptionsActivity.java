@@ -32,10 +32,12 @@ public class OptionsActivity extends AppCompatActivity {
     public EditText changeFirstNameEditText;
     public EditText changeSurnameEditText;
     public CheckedTextView verifiedEmailTextView;
+    public Button resetPassButton;
+    User currentUser;
 
 
     /**
-     * Initializes views for the activity.
+     * Initializes views/variables/objects for the activity.
      * */
     public void initialize(){
 
@@ -47,6 +49,8 @@ public class OptionsActivity extends AppCompatActivity {
         changeEmailEditText = (EditText)findViewById(R.id.change_email_edittext);
         changeFirstNameEditText = (EditText)findViewById(R.id.change_firstname_edittext);
         changeSurnameEditText = (EditText)findViewById(R.id.change_surname_edittext);
+        resetPassButton = (Button)findViewById(R.id.reset_password_btn);
+        currentUser = User.getInstance();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +100,21 @@ public class OptionsActivity extends AppCompatActivity {
             }
         });
 
+        resetPassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetPassword();
+            }
+        });
 
     }
 
     //=====METHODS=====
     /**
-     * Gets the current FirbaseAuth instance and signs the user out and returns to the Login Activity.
+     * Gets the current FirebaseAuth instance and signs the user out and returns to the Login Activity.
      * */
     public void logout(){
+
         FirebaseAuth.getInstance().signOut();
         Intent loginIntent = new Intent(OptionsActivity.this,LoginActivity.class);
         startActivity(loginIntent);
@@ -139,7 +150,7 @@ public class OptionsActivity extends AppCompatActivity {
                 UtilityFunctions.isValidName(changeSurnameEditText.getText().toString())
                 ) {
 
-            String newName = changeFirstNameEditText.getText().toString();
+            final String newName = changeFirstNameEditText.getText().toString();
             newName.concat(" ");
             newName.concat(changeSurnameEditText.getText().toString());
 
@@ -151,6 +162,7 @@ public class OptionsActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                currentUser.setName(newName);
                                 Log.d("Options Activity", "The User's name has been updated successfully");
                             }
                         }
@@ -166,7 +178,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        String newEmail = changeEmailEditText.getText().toString();
+        final String newEmail = changeEmailEditText.getText().toString();
 
         if(UtilityFunctions.isValidEmail(newEmail)) {
             user.updateEmail(newEmail)
@@ -175,6 +187,7 @@ public class OptionsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.d("Options Activity", "User email address updated.");
+                                currentUser.setEmail(newEmail);
                             }
                         }
                     });
@@ -184,4 +197,8 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
 
+
+    public void resetPassword(){
+    //TODO: FINISH
+    }
 }

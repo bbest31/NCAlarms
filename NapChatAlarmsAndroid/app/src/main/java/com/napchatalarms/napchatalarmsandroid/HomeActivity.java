@@ -9,11 +9,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-//TODO:Implement Access User Information method from Firebase and initialize a User singleton.
 public class HomeActivity extends AppCompatActivity {
 
+    //=====ATTRIBUTES=====
     private TextView mTextMessage;
-
+    User currentUser;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -43,6 +43,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //Initialize User singleton
+        currentUser = User.getInstance();
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

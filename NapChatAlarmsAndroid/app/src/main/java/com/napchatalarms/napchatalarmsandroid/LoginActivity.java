@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText passwordEditText;
     Button loginButton;
     Button forgotPasswordButton;
-    //TextView errorText;
+    TextView errorText;
 
     /**
      * Initializing function for the views.
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = (EditText)findViewById(R.id.login_emailEditText);
         passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
         forgotPasswordButton = (Button)findViewById(R.id.forgotPass_btn);
-        //errorText = (TextView)findViewById(R.id.login_error_text);
+        errorText = (TextView)findViewById(R.id.login_error_text);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
      * This method is called if the user is successfully signed in and will navigate
      * to the Home Activity by confirming the FirebaseUser object for the current user
      * is a non-null object.**/
-    //TODO: Should pass some information about the user to the HomeActivity, in order to load necessary information.
     public void loginNavigationOnSuccess(FirebaseUser currentUser){
 
         if(currentUser != null){
@@ -134,13 +134,13 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                // Log.d( "signInWithEmail:success");
+                                 Log.d( "Login Activity","signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 loginNavigationOnSuccess(user);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("signInWithEmail:failure", task.getException());
-                                //errorText.setVisibility(View.VISIBLE);
+                                errorText.setVisibility(View.VISIBLE);
                                 loginNavigationOnSuccess(null);
                             }
 
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
         }
         else{
-            //errorText.setVisbility(View.VISIBLE);
+            errorText.setVisibility(View.VISIBLE);
         }
     }
 }
