@@ -196,9 +196,20 @@ public class OptionsActivity extends AppCompatActivity {
         }
     }
 
-
-
+    /**This method sends a reset password email in order to change the users password.
+     * */
     public void resetPassword(){
-    //TODO: FINISH
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String emailAddress = currentUser.getEmail();
+
+        auth.sendPasswordResetEmail(emailAddress)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Options Activity", "Email sent.");
+                        }
+                    }
+                });
     }
 }
