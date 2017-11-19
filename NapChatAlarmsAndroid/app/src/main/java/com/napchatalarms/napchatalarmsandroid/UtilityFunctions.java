@@ -46,9 +46,9 @@ public class UtilityFunctions {
         return true;
     }
 
-    public final static boolean isValidName(String name){
+    public final static boolean isValidUsername(String name){
         for(int i = 0; i< name.length();i++){
-            if(!Character.isLetter(name.charAt(i))){
+            if(!Character.isLetterOrDigit(name.charAt(i))){
                 return false;
             }
         }

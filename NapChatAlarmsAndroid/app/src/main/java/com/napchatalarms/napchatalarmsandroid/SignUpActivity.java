@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class SignUpActivity extends AppCompatActivity {
@@ -23,14 +24,12 @@ public class SignUpActivity extends AppCompatActivity {
     //=====VIEWS=====
     private FirebaseAuth mAuth;
     Button createAccountButton;
-    EditText firstNameEditText;
-    EditText surNameEditText;
+    EditText UsernameEditText;
     EditText emailEditText;
     EditText passwordEditText;
     EditText passwordRentryEditText;
 
-    TextView firstnameErrorText;
-    TextView surNameErrorText;
+    TextView UsernameErrorText;
     TextView emailErrorText;
     TextView passwordErrorText;
     TextView passwordReentryErrorText;
@@ -42,14 +41,14 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //Initialize views.
         createAccountButton = (Button)findViewById(R.id.createaccount_btn);
-        firstNameEditText = (EditText)findViewById(R.id.firstname_editText);
-        surNameEditText = (EditText)findViewById(R.id.surname_editText);
+        UsernameEditText = (EditText)findViewById(R.id.username_editText);
+        //surNameEditText = (EditText)findViewById(R.id.surname_editText);
         emailEditText = (EditText)findViewById(R.id.email_editText);
         passwordEditText = (EditText)findViewById(R.id.password_editText);
         //passwordReentryEditText = (EditText)findViewById(R.id.pass_rentry_editText);
 
-        firstnameErrorText = (TextView)findViewById(R.id.firstNameErrorText);
-        surNameErrorText = (TextView)findViewById(R.id.surnameErrorText);
+        UsernameErrorText = (TextView)findViewById(R.id.firstNameErrorText);
+        //surNameErrorText = (TextView)findViewById(R.id.surnameErrorText);
         emailErrorText = (TextView)findViewById(R.id.emailErrorText);
         passwordErrorText = (TextView)findViewById(R.id.passwordErrorText);
     }
@@ -97,16 +96,10 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
 
-        String surname = surNameEditText.getText().toString();
-        if(surname.isEmpty() | !UtilityFunctions.isValidName(surname)){
-            surNameErrorText.setVisibility(View.VISIBLE);
-            validCredentails = Boolean.FALSE;
 
-        }
-
-        String firstname = firstNameEditText.getText().toString();
-        if(firstname.isEmpty() | UtilityFunctions.isValidName(firstname)){
-            firstnameErrorText.setVisibility(View.VISIBLE);
+        String username = UsernameEditText.getText().toString();
+        if(username.isEmpty() | !UtilityFunctions.isValidUsername(username)){
+            UsernameErrorText.setVisibility(View.VISIBLE);
             validCredentails = Boolean.FALSE;
 
         }
@@ -118,10 +111,10 @@ public class SignUpActivity extends AppCompatActivity {
             //TODO:May be able to remove this block.
             emailErrorText.setVisibility(View.GONE);
             passwordErrorText.setVisibility(View.GONE);
-            surNameErrorText.setVisibility(View.GONE);
-            firstnameErrorText.setVisibility(View.GONE);
+            //surNameErrorText.setVisibility(View.GONE);
+            UsernameErrorText.setVisibility(View.GONE);
 
-            createNewUser(email,password,surname,firstname);
+            createNewUser(email,password,username);
         } else{
             //clears password for reentry.
             passwordEditText.setText(' ');
@@ -134,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
      * is successful then the method to send a verification email to their account is called
      * and appropriate UI navigation upon success/failure.
      * **/
-    public void createNewUser(String email, String password, String surname, String firstName){
+    public void createNewUser(String email, String password, final String username){
 
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -145,6 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Signup Activity: signup", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            initProfile(user,username);
                             sendEmailVerification();
                             signUpNavigationOnSuccess(user);
                         } else {
@@ -186,4 +180,19 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
+    public void initProfile(FirebaseUser user, String username){
+
+        UserProfileChangeRequest initializeProfile = new UserProfileChangeRequest.Builder()
+                .setDisplayName(username)
+                .build();
+        user.updateProfile(initializeProfile)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Log.d("Login Activity","User Profile initialized.");
+                        }
+                    }
+                });
+    }
 }

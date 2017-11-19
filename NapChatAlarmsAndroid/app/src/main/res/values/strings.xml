@@ -34,7 +34,8 @@
     <string name="Delete_Account">Delete Account</string>
     <string name="Reauthenticate">Please re-enter credentials to delete account.</string>
     <string name="confirm">Confirm</string>
-    <string name="title_activity_settings">Settings</string>
+
+    <string name="username">Username:</string>
 
     <!-- Strings related to Settings -->
 

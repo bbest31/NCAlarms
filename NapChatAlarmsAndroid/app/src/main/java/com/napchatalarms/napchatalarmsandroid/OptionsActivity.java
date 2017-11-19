@@ -29,8 +29,7 @@ public class OptionsActivity extends AppCompatActivity {
     public Button changeEmailButton;
     public Button changeNameButton;
     public EditText changeEmailEditText;
-    public EditText changeFirstNameEditText;
-    public EditText changeSurnameEditText;
+    public EditText changeUsernameEditText;
     public CheckedTextView verifiedEmailTextView;
     public Button resetPassButton;
     public Button deleteAccountButton;
@@ -48,8 +47,7 @@ public class OptionsActivity extends AppCompatActivity {
         changeEmailButton = (Button)findViewById(R.id.change_email_btn);
         changeNameButton = (Button)findViewById(R.id.change_name_btn);
         changeEmailEditText = (EditText)findViewById(R.id.change_email_edittext);
-        changeFirstNameEditText = (EditText)findViewById(R.id.change_firstname_edittext);
-        changeSurnameEditText = (EditText)findViewById(R.id.change_surname_edittext);
+        changeUsernameEditText = (EditText)findViewById(R.id.change_username_edittext);
         resetPassButton = (Button)findViewById(R.id.reset_password_btn);
         deleteAccountButton = (Button)findViewById(R.id.delete_account_btn);
         currentUser = User.getInstance();
@@ -91,7 +89,7 @@ public class OptionsActivity extends AppCompatActivity {
         changeNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeUserName();
+                changeUsername();
             }
         });
 
@@ -143,18 +141,13 @@ public class OptionsActivity extends AppCompatActivity {
     /**
      * This method asserts the new first and surname are of correct format and updates the users name.
      * */
-    public void changeUserName(){
+    public void changeUsername(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(!changeSurnameEditText.getText().toString().isEmpty()
-                && !changeFirstNameEditText.getText().toString().isEmpty() &&
-                UtilityFunctions.isValidName(changeFirstNameEditText.getText().toString()) &&
-                UtilityFunctions.isValidName(changeSurnameEditText.getText().toString())
-                ) {
+        if(!changeUsernameEditText.getText().toString().isEmpty() &&
+                UtilityFunctions.isValidUsername(changeUsernameEditText.getText().toString())) {
 
-            final String newName = changeFirstNameEditText.getText().toString();
-            newName.concat(" ");
-            newName.concat(changeSurnameEditText.getText().toString());
+            final String newName = changeUsernameEditText.getText().toString();
 
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
@@ -165,7 +158,7 @@ public class OptionsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 currentUser.setName(newName);
-                                Log.d("Options Activity", "The User's name has been updated successfully");
+                                Log.d("Options Activity", "The User's username has been updated successfully");
                             }
                         }
                     });

@@ -65,28 +65,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/change_username_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/change_firstname_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/FirstName" />
-
-            <EditText
-                android:id="@+id/change_surname_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/SurName" />
-
-        </LinearLayout>
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/username" />
 
         <Button
             android:id="@+id/change_name_btn"
