@@ -2,37 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffff"
+    android:background="#ffffff"
     android:gravity="top|center_vertical"
     android:orientation="vertical">
 
-
     <TextView
-        android:id="@+id/Forgot_Pass_Dialog_Title"
+        android:id="@+id/delete_account_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:text="@string/Forgot_Pass"
+        android:text="@string/Delete_Account"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/frgt_pass_email_text"
+        android:id="@+id/delete_account_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/forgot_pass_message" />
+        android:text="@string/Reauthenticate" />
 
     <EditText
-        android:id="@+id/password_reset_email_entry"
+        android:id="@+id/del_accnt_email_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:singleLine="true"
-        android:textAlignment="viewStart"
-        android:textSize="14sp" />
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/del_accnt_pass_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,18 +43,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/fgtpass_send_btn"
+            android:id="@+id/del_accnt_confirm_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Send" />
+            android:text="@string/confirm" />
 
         <Button
-            android:id="@+id/fgtpass_cancel_btn"
+            android:id="@+id/del_accnt_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/Cancel" />
     </LinearLayout>
-
 </LinearLayout>

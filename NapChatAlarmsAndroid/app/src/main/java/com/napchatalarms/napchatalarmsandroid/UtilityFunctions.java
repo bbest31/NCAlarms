@@ -1,6 +1,15 @@
 package com.napchatalarms.napchatalarmsandroid;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.Patterns;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**Class to hold all functions that may be useful by a multitude of classes.
  * Created by bbest on 17/11/17.
@@ -45,4 +54,6 @@ public class UtilityFunctions {
         }
         return true;
     }
+
+
 }

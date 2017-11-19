@@ -33,6 +33,7 @@ public class OptionsActivity extends AppCompatActivity {
     public EditText changeSurnameEditText;
     public CheckedTextView verifiedEmailTextView;
     public Button resetPassButton;
+    public Button deleteAccountButton;
     User currentUser;
 
 
@@ -50,6 +51,7 @@ public class OptionsActivity extends AppCompatActivity {
         changeFirstNameEditText = (EditText)findViewById(R.id.change_firstname_edittext);
         changeSurnameEditText = (EditText)findViewById(R.id.change_surname_edittext);
         resetPassButton = (Button)findViewById(R.id.reset_password_btn);
+        deleteAccountButton = (Button)findViewById(R.id.delete_account_btn);
         currentUser = User.getInstance();
     }
     @Override
@@ -212,4 +214,5 @@ public class OptionsActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

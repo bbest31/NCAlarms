@@ -31,6 +31,9 @@
     <string name="SurName">Surname</string>
     <string name="LoginError">*Username or password does not exists.</string>
     <string name="ResetPassword">Change password by sending a reset password email:</string>
+    <string name="Delete_Account">Delete Account</string>
+    <string name="Reauthenticate">Please re-enter credentials to delete account.</string>
+    <string name="confirm">Confirm</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
