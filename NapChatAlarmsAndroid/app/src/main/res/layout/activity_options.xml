@@ -11,7 +11,7 @@
         android:id="@+id/verified_email_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_green_dark"
+        android:background="@color/verified_green"
         android:checkMark="@android:drawable/checkbox_on_background"
         android:checked="true"
         android:text="@string/verified_email"
