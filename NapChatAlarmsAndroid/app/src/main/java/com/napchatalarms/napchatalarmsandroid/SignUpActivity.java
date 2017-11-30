@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,12 +26,12 @@ public class SignUpActivity extends AppCompatActivity {
     EditText UsernameEditText;
     EditText emailEditText;
     EditText passwordEditText;
-    EditText passwordRentryEditText;
+
 
     TextView UsernameErrorText;
     TextView emailErrorText;
     TextView passwordErrorText;
-    TextView passwordReentryErrorText;
+
 
     /**
      * Initialize views for the activity.
@@ -40,17 +39,17 @@ public class SignUpActivity extends AppCompatActivity {
     public void initialize(){
         mAuth = FirebaseAuth.getInstance();
         //Initialize views.
-        createAccountButton = (Button)findViewById(R.id.createaccount_btn);
+        createAccountButton = (Button)findViewById(R.id.create_account_btn);
         UsernameEditText = (EditText)findViewById(R.id.username_editText);
-        //surNameEditText = (EditText)findViewById(R.id.surname_editText);
+
         emailEditText = (EditText)findViewById(R.id.email_editText);
         passwordEditText = (EditText)findViewById(R.id.password_editText);
-        //passwordReentryEditText = (EditText)findViewById(R.id.pass_rentry_editText);
 
-        UsernameErrorText = (TextView)findViewById(R.id.firstNameErrorText);
-        //surNameErrorText = (TextView)findViewById(R.id.surnameErrorText);
-        emailErrorText = (TextView)findViewById(R.id.emailErrorText);
-        passwordErrorText = (TextView)findViewById(R.id.passwordErrorText);
+
+        UsernameErrorText = (TextView)findViewById(R.id.username_error_text);
+
+        emailErrorText = (TextView)findViewById(R.id.email_error_text);
+        passwordErrorText = (TextView)findViewById(R.id.password_error_text);
     }
 
 
@@ -80,19 +79,18 @@ public class SignUpActivity extends AppCompatActivity {
      */
     //TODO:Password Re-entry field.
     public void signUp(){
-
-        Boolean validCredentails = Boolean.TRUE;
+        Boolean validCredentials = true;
 
         String email = emailEditText.getText().toString();
         if(!UtilityFunctions.isValidEmail(email)){
             emailErrorText.setVisibility(View.VISIBLE);
-            validCredentails = Boolean.FALSE;
+            validCredentials = false;
         }
 
         String password = passwordEditText.getText().toString();
         if(password.isEmpty() | password.length() < 8 | !UtilityFunctions.isValidPassword(password)){
             passwordErrorText.setVisibility(View.VISIBLE);
-            validCredentails = Boolean.FALSE;
+            validCredentials = false;
 
         }
 
@@ -100,12 +98,12 @@ public class SignUpActivity extends AppCompatActivity {
         String username = UsernameEditText.getText().toString();
         if(username.isEmpty() | !UtilityFunctions.isValidUsername(username)){
             UsernameErrorText.setVisibility(View.VISIBLE);
-            validCredentails = Boolean.FALSE;
+            validCredentials = false;
 
         }
 
         //calls the Firebase method to create the valid new user.
-        if(validCredentails = Boolean.TRUE){
+        if(validCredentials == true){
             //gets rid of previously shown error texts.
             //Might be irrelevant since we navigate to another activity and this one is destroyed.
             //TODO:May be able to remove this block.
@@ -115,9 +113,10 @@ public class SignUpActivity extends AppCompatActivity {
             UsernameErrorText.setVisibility(View.GONE);
 
             createNewUser(email,password,username);
-        } else{
+        }
+        if(validCredentials == false){
             //clears password for reentry.
-            passwordEditText.setText(' ');
+            passwordEditText.setText("");
         }
 
     }
@@ -161,6 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
         if(currentUser != null){
             Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
             startActivity(intent);
+            finish();
         }
 
     }

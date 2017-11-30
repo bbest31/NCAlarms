@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,8 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     {
         loginButton = (Button)findViewById(R.id.login_btn);
         signUpButton = (Button) findViewById(R.id.signUp_btn);
-        emailEditText = (EditText)findViewById(R.id.login_emailEditText);
-        passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
+        emailEditText = (EditText)findViewById(R.id.login_email_editText);
+        passwordEditText = (EditText)findViewById(R.id.login_password_editText);
         forgotPasswordButton = (Button)findViewById(R.id.forgotPass_btn);
         errorText = (TextView)findViewById(R.id.login_error_text);
     }
@@ -76,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
             ForgotPassDialog fgtpassDialog = new ForgotPassDialog(LoginActivity.this);
+            fgtpassDialog.show();
             }
         });
 
@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         if(currentUser != null){
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);
+            finish();
         }
 
     }

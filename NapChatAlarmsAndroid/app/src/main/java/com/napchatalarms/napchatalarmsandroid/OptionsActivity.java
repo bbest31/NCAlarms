@@ -1,8 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid;
 
 import android.content.Intent;
-import android.nfc.Tag;
-import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,7 +63,8 @@ public class OptionsActivity extends AppCompatActivity {
         if(!user.isEmailVerified()){
 
             verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
-            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.red));
+            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
+            verifiedEmailTextView.setVisibility(View.VISIBLE);
 
             resendEmailVerificationButton.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -96,7 +95,8 @@ public class OptionsActivity extends AppCompatActivity {
         changeEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeUserEmail();
+                ChangeEmailDialog changeEmailDialog = new ChangeEmailDialog(OptionsActivity.this);
+                changeEmailDialog.show();
             }
         });
 
@@ -107,8 +107,32 @@ public class OptionsActivity extends AppCompatActivity {
             }
         });
 
+        deleteAccountButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(OptionsActivity.this);
+                deleteAccountDialog.show();
+            }
+        });
+
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user.isEmailVerified()) {
+
+            verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
+            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.verified_green));
+            resendEmailVerificationButton.setVisibility(View.GONE);
+        } else{
+            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
+            resendEmailVerificationButton.setVisibility(View.VISIBLE);
+        }
+    }
     //=====METHODS=====
     /**
      * Gets the current FirebaseAuth instance and signs the user out and returns to the Login Activity.
@@ -120,7 +144,6 @@ public class OptionsActivity extends AppCompatActivity {
         startActivity(loginIntent);
         //finish();
     }
-
 
     /**
      * Gets the current user and resend a verification email to the user email address.
@@ -158,38 +181,18 @@ public class OptionsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 currentUser.setName(newName);
+                                changeUsernameEditText.setText("");
+                                Toast.makeText(OptionsActivity.this,"Username successfully changed!",Toast.LENGTH_LONG).show();
                                 Log.d("Options Activity", "The User's username has been updated successfully");
+                            } else{
+                                Toast.makeText(OptionsActivity.this,"Could not update username!",Toast.LENGTH_LONG).show();
                             }
                         }
                     });
         }
     }
 
-    /**
-     * This method updates the user's email given the new email entered in the corresponding
-     * EditText.
-     * */
-    public void changeUserEmail(){
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        final String newEmail = changeEmailEditText.getText().toString();
-
-        if(UtilityFunctions.isValidEmail(newEmail)) {
-            user.updateEmail(newEmail)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d("Options Activity", "User email address updated.");
-                                currentUser.setEmail(newEmail);
-                            }
-                        }
-                    });
-        } else{
-            //Display Error Text
-        }
-    }
 
     /**This method sends a reset password email in order to change the users password.
      * */
@@ -202,6 +205,7 @@ public class OptionsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            Toast.makeText(OptionsActivity.this,"Verification email sent!",Toast.LENGTH_LONG).show();
                             Log.d("Options Activity", "Email sent.");
                         }
                     }

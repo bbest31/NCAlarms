@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +55,6 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
         switch (v.getId()) {
             case R.id.fgtpass_send_btn:
                 sendResetPasswordEmail();
-                c.finish();
                 break;
             case R.id.fgtpass_cancel_btn:
                 dismiss();
@@ -78,9 +78,11 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Email sent.");
+                            Log.d("ForgotPassDialog", "Email sent.");
+
                         }else{
                             //Email may not exists with an account so we should display some kind of error
+                            Log.d("ForgotPassDialog","Email could not be sent!");
                         }
                     }
                 });

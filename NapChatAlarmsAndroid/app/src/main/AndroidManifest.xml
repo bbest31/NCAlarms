@@ -20,9 +20,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+
         <activity android:name=".OptionsActivity" />
         <activity
             android:name=".AlarmActivity"
@@ -30,6 +28,7 @@
             android:label="@string/title_activity_alarm"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".CreateAlarmActivity"></activity>
+
     </application>
 
 </manifest>
