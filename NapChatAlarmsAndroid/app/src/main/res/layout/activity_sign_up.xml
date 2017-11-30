@@ -27,6 +27,18 @@
         tools:layout_editor_absoluteY="58dp" />
 
     <TextView
+        android:id="@+id/username_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/this_must_not_be_empty"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="97dp" />
+
+    <TextView
         android:id="@+id/email_txtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,6 +58,18 @@
         tools:layout_editor_absoluteY="147dp" />
 
     <TextView
+        android:id="@+id/email_error_text"
+        android:layout_width="216dp"
+        android:layout_height="30dp"
+        android:text="@string/email_error_message"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="279dp" />
+
+    <TextView
         android:id="@+id/password_txtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,8 +86,20 @@
         android:inputType="textPassword"
         tools:ignore="LabelFor,MissingConstraints" />
 
+    <TextView
+        android:id="@+id/password_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_format_error"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:ignore="MissingConstraints,RtlHardcoded"
+        tools:layout_editor_absoluteY="375dp" />
+
     <Button
-        android:id="@+id/createaccount_btn"
+        android:id="@+id/create_account_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_purple"
@@ -73,39 +109,4 @@
         tools:layout_editor_absoluteX="132dp"
         tools:layout_editor_absoluteY="432dp" />
 
-    <TextView
-        android:id="@+id/firstNameErrorText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/this_must_not_be_empty"
-        android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="97dp"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/emailErrorText"
-        android:layout_width="216dp"
-        android:layout_height="30dp"
-        android:text="@string/email_error_message"
-        android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="279dp"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/passwordErrorText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/password_format_error"
-        android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="375dp"
-        tools:ignore="MissingConstraints,RtlHardcoded" />
 </LinearLayout>

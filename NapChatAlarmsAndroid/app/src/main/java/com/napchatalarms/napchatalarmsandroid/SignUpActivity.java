@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,17 +39,17 @@ public class SignUpActivity extends AppCompatActivity {
     public void initialize(){
         mAuth = FirebaseAuth.getInstance();
         //Initialize views.
-        createAccountButton = (Button)findViewById(R.id.createaccount_btn);
+        createAccountButton = (Button)findViewById(R.id.create_account_btn);
         UsernameEditText = (EditText)findViewById(R.id.username_editText);
 
         emailEditText = (EditText)findViewById(R.id.email_editText);
         passwordEditText = (EditText)findViewById(R.id.password_editText);
 
 
-        UsernameErrorText = (TextView)findViewById(R.id.firstNameErrorText);
+        UsernameErrorText = (TextView)findViewById(R.id.username_error_text);
 
-        emailErrorText = (TextView)findViewById(R.id.emailErrorText);
-        passwordErrorText = (TextView)findViewById(R.id.passwordErrorText);
+        emailErrorText = (TextView)findViewById(R.id.email_error_text);
+        passwordErrorText = (TextView)findViewById(R.id.password_error_text);
     }
 
 
@@ -161,6 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
         if(currentUser != null){
             Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
             startActivity(intent);
+            finish();
         }
 
     }

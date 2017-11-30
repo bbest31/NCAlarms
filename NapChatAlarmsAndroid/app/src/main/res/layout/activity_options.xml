@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/janedoe_email_com"
             android:inputType="textEmailAddress"
             android:singleLine="true" />
 
@@ -71,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/username" />
+            android:hint="@string/new_username"
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/change_name_btn"
@@ -86,13 +87,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/reset_password_text"
+        android:id="@+id/reset_password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/reset_password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

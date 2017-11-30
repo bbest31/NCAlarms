@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/login_emailEditText"
+        android:id="@+id/login_email_editText"
         android:layout_width="291dp"
         android:layout_height="46dp"
         android:layout_marginBottom="16dp"
@@ -18,7 +18,7 @@
         android:ems="10"
         android:hint="@string/janedoe_email_com"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/login_passwordEditText"
+        app:layout_constraintBottom_toTopOf="@+id/login_password_editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -27,7 +27,7 @@
         tools:ignore="LabelFor,MissingConstraints" />
 
     <EditText
-        android:id="@+id/login_passwordEditText"
+        android:id="@+id/login_password_editText"
         android:layout_width="249dp"
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
@@ -67,12 +67,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/LoginError"
-        android:textColor="@color/red"
+        android:textColor="@color/unverified_red"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/login_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_passwordEditText"
+        app:layout_constraintTop_toBottomOf="@+id/login_password_editText"
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout

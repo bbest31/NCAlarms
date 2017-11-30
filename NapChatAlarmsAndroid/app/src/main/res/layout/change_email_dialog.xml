@@ -7,22 +7,22 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/delete_account_text"
+        android:id="@+id/change_email_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Delete_Account"
+        android:text="@string/change_email"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/delete_account_msg"
+        android:id="@+id/change_email_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Reauthenticate" />
+        android:text="@string/change_email_msg" />
 
     <EditText
-        android:id="@+id/delete_account_email_editText"
+        android:id="@+id/change_email_email_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -30,7 +30,7 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/delete_account_pass_editText"
+        android:id="@+id/change_email_pass_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -43,14 +43,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/delete_account_confirm_btn"
+            android:id="@+id/change_email_confirm_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/confirm" />
 
         <Button
-            android:id="@+id/delete_account_cancel_btn"
+            android:id="@+id/change_email_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
