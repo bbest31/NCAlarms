@@ -92,7 +92,7 @@ public class AlarmActivity extends AppCompatActivity {
      * */
     public void snoozeAlarm(){
         AlarmController alarmController = AlarmController.getInstance();
-        alarmController.cancelAlarm(this.getApplicationContext(),ID);
+        alarmController.cancelOneTimeAlarm(this.getApplicationContext(),ID);
         alarmController.snoozeAlarm(this.getApplicationContext(),ID,vibrate,snoozeLength,ringtoneURI);
         finish();
 
@@ -105,7 +105,7 @@ public class AlarmActivity extends AppCompatActivity {
     //one-time alarms need to be deactivated as well. Should get the alarm by id and check to see if it's repeating.
     public void dismissAlarm(){
         AlarmController alarmController = AlarmController.getInstance();
-        alarmController.cancelAlarm(this.getApplicationContext(),ID);
+        alarmController.cancelOneTimeAlarm(this.getApplicationContext(),ID);
         finish();
     }
 }

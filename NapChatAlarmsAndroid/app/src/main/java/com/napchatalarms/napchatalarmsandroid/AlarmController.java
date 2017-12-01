@@ -1,14 +1,12 @@
 package com.napchatalarms.napchatalarmsandroid;
 
 import android.app.AlarmManager;
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -30,30 +28,31 @@ public class AlarmController {
     }
 
     //=====METHODS=====
-    public void scheduleAlarm(Alarm alarm, Context context){
-        alarm.Activate();
+    public void scheduleOneTimeAlarm(SingleAlarm singleAlarm, Context context){
+        singleAlarm.Activate();
 
         //Get the time in string format with the meridian
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
-        String timeString = timeFormatter.format(new Date(alarm.getTime()));
+        String timeString = timeFormatter.format(new Date(singleAlarm.getTime()));
         SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
-        String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
+        String meridianString = meridianFormatter.format(new Date(singleAlarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Provide Settings
-        intent.putExtra("Vibrate",alarm.getVibrateOn());
-        intent.putExtra("Id",alarm.getId());
-        intent.putExtra("Snooze",alarm.getSnoozeLength());
+        intent.putExtra("Vibrate", singleAlarm.getVibrateOn());
+        intent.putExtra("Id", singleAlarm.getId());
+        intent.putExtra("Snooze", singleAlarm.getSnoozeLength());
         intent.putExtra("Time",timeString);
         intent.putExtra("Meridian",meridianString);
-        intent.putExtra("Uri",alarm.getRingtoneURI());
+        intent.putExtra("Uri", singleAlarm.getRingtoneURI());
+        //intent.putExtra("Interval", 0);
 
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP,alarm.getTime(),pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, singleAlarm.getTime(),pendingIntent);
 
         Toast.makeText(context,"Alarm Created!",Toast.LENGTH_SHORT).show();
     }
@@ -62,12 +61,12 @@ public class AlarmController {
 
     }
 
-    public void cancelAlarm(Context context,int ID){
+    public void cancelOneTimeAlarm(Context context, int ID){
         AlarmReceiver alarmReceiver = new AlarmReceiver();
         alarmReceiver.Cancel(context,ID);
     }
 
-    public void cancelAndDecativate(Context context, int ID){
+    public void cancelAndDeactivateOneTime(Context context, int ID){
         AlarmReceiver alarmReceiver = new AlarmReceiver();
         alarmReceiver.Cancel(context,ID);
 
@@ -79,9 +78,13 @@ public class AlarmController {
         User user = User.getInstance();
     }
 
-    public void addAlarm(Alarm alarm){
+    public void cancelRepeating(Context context, int ID){}
+
+    public void cancelAndDeactivateRepeating(Context context,int ID){}
+
+    public void addSingleAlarm(SingleAlarm SingleAlarm){
         User user = User.getInstance();
-        user.addAlarm(alarm);
+        user.addAlarm(SingleAlarm);
     }
 
     public void deleteAlarm(int Id){
@@ -121,4 +124,15 @@ public class AlarmController {
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, newTriggerTime, pendingIntent);
     }
+    //TODO:implement
+    public void addRepeatingAlarm(){}
+
+    public void deleteRepeatingAlarm(){}
+
+    public void updateRepeatingAlarm(){}
+
+    public void saveRepeatingAlarm(){}
+
+    //May not need this at all
+    public void snoozeRepeatingAlarm(){}
 }
