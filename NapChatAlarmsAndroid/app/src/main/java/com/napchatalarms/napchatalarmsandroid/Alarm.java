@@ -26,6 +26,8 @@ public class Alarm {
      * */
     public Alarm(int time, int snooze, Boolean vibrate, String ringtone){
 
+        //TODO:May need to format string depending on what we get from the clock view.
+
         this.id = this.hashCode();
         setTime(time);
         setRingtoneURI(ringtone);

@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 /**
+ * AlarmReceiver builds the local notifications and creates the AlarmActivity Intent that will launch
+ * when the alarm goes off.
  * Created by bbest on 30/11/17.
  */
 
@@ -44,6 +46,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
+        //TODO:Get small icon
         //Build Notification
         builder.setCategory(Notification.CATEGORY_ALARM)
                 //.setSmallIcon()

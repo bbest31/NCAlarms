@@ -7,9 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
+ * Controller singleton that uses the AlarmManager to schedule, cancel and snooze alarms.
  * Created by bbest on 30/11/17.
  */
 
@@ -30,8 +33,11 @@ public class AlarmController {
     public void scheduleAlarm(Alarm alarm, Context context){
         alarm.Activate();
 
-        //TODO: store trigger time as a string to display to the AlarmActivty
-
+        //Get the time in string format with the meridian
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        String timeString = timeFormatter.format(new Date(alarm.getTime()));
+        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -40,8 +46,8 @@ public class AlarmController {
         intent.putExtra("Vibrate",alarm.getVibrateOn());
         intent.putExtra("Id",alarm.getId());
         intent.putExtra("Snooze",alarm.getSnoozeLength());
-        //intent.putExtra("Time",time[0]);
-        //intent.putExtra("Meridian",time[1]);
+        intent.putExtra("Time",timeString);
+        intent.putExtra("Meridian",meridianString);
         intent.putExtra("Uri",alarm.getRingtoneURI());
 
         PendingIntent pendingIntent;
@@ -63,7 +69,15 @@ public class AlarmController {
 
     public void snoozeAlarm(Context context,int ID, boolean vibrate,int snooze, String ringtone){
 
-        //TODO:add the desired minutes to the current time
+        long currentTime = System.currentTimeMillis();
+        long newTriggerTime = currentTime + snooze * 1000;
+
+        //Get the time in string format with the meridian
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        String timeString = timeFormatter.format(new Date(newTriggerTime));
+        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        String meridianString = meridianFormatter.format(new Date(newTriggerTime));
+
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -71,13 +85,13 @@ public class AlarmController {
         intent.putExtra("Vibrate",vibrate);
         intent.putExtra("Id",ID);
         intent.putExtra("Snooze",snooze);
-        //intent.putExtra("Time",time[0]);
-        //intent.putExtra("Meridian",time[1]);
+        intent.putExtra("Time",timeString);
+        intent.putExtra("Meridian",meridianString);
         intent.putExtra("Uri", ringtone);
 
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, newTriggerTime, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, newTriggerTime, pendingIntent);
     }
 }

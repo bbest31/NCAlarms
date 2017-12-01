@@ -6,4 +6,5 @@
     <color name="white">#FFFFFF</color>
     <color name="unverified_red">#ff0000</color>
     <color name="verified_green">#00FF00</color>
+    <color name="black">#000000</color>
 </resources>
