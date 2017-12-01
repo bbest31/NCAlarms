@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -29,6 +30,10 @@ public class AlarmActivity extends AppCompatActivity {
      * */
     public void initialize(){
 
+        dismissButton = findViewById(R.id.dismiss_btn);
+        snoozeButton = findViewById(R.id.snooze_btn);
+        timeDisplay = findViewById(R.id.time_display_text);
+        meridianDisplay = findViewById(R.id.meridan_display_text);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,23 @@ public class AlarmActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_alarm);
 
-        //Reference xml layout views
 
+        initialize();
 
         //=====ONCLICK METHODS=====
+        dismissButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismissAlarm();
+            }
+        });
 
+        snoozeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snoozeAlarm();
+            }
+        });
 
         //Get alarm attributes for snooze reschedule
         Intent intent = this.getIntent();

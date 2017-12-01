@@ -1,6 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid;
 
-import java.sql.Time;
+
 
 /**
  * Alarm object that holds all the necessary information for an alarm.

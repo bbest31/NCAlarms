@@ -76,7 +76,7 @@ public class AlarmReceiver extends BroadcastReceiver {
              * Vibrate pattern is in milliseconds. First number indicates the time to wait
              * to start vibrating when notification fires. Second number is the time to vibrate
              * and then turn off. Subsequent numbers indicate times that the vibrateion is off,on,off,etc.
-             * */
+             * **/
             //TODO:grab custom vibrate patterns from a model class
             builder.setDefaults(Notification.DEFAULT_VIBRATE);
         }
