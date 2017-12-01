@@ -20,11 +20,13 @@ public class User {
 
     /**Private Constructor
      * */
-    //TODO: read stored alarms from file and if their username matches current user then add to AlarmList
+
     private User() {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         this.name =  fUser.getDisplayName();
         this.email = fUser.getEmail();
+
+        //TODO: read stored alarms from file and if their username matches current user then add to AlarmList
     }
 
     /**Instance method*/
@@ -38,12 +40,33 @@ public class User {
     //=====METHODS=====
     public void addAlarm(Alarm alarm){ this.alarmList.add(alarm);}
 
-    //public Alarm getAlarmById(int Id){}
+    /**
+     * This method will return an Alarm if an alarm with the provided Id exists, otherwise return null.
+     * */
+    public Alarm getAlarmById(int Id){
 
-    public void deleteAlarm(int Id){}
+        for(int i = 0; i < this.alarmList.size();i++){
+            Alarm alarm = this.alarmList.get(i);
+            if(alarm.getId() == Id){
+                return alarm;
+            }
+        }
+        return null;
+    }
 
+    /**The alarm in the User's alarm list is deleted that matches the given Id.
+     * */
+    public void deleteAlarm(int Id){
 
-    public void updateAlarm(Alarm alarm){}
+        for(int i = 0; i < this.alarmList.size();i++){
+            Alarm alarm = this.alarmList.get(i);
+            if(alarm.getId() == Id){
+                this.alarmList.remove(i);
+
+            }
+        }
+
+    }
 
 
     //=====GETTERS & SETTERS=====

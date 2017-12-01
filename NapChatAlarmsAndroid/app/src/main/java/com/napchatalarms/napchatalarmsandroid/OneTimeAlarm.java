@@ -1,56 +1,46 @@
 package com.napchatalarms.napchatalarmsandroid;
 
 
-
+//TODO: Shift any shared attributes between this and RepeatingAlarm to Alarm abstraction
 /**
  * Alarm object that holds all the necessary information for an alarm.
  * Created by bbest on 30/11/17.
  */
 
-public class SingleAlarm extends Alarm{
+public class OneTimeAlarm extends Alarm{
 
     //=====ATTRIBUTES=====
     /**
      * Trigger time of alarm needs to be in UTC milliseconds.
      * */
-    private int triggerTime;
+    private long triggerTime;
     private String ringtoneURI;
     private Boolean vibrateOn;
-    private Boolean isActive;
     private int snoozeLength;
-    private int id;
     private int interval;
 
     //=====METHODS=====
     /**
      * Public constructor
      * */
-    public SingleAlarm(int time, int interval, int snooze, Boolean vibrate, String ringtone){
+    public OneTimeAlarm(long time, int snooze, Boolean vibrate, String ringtone){
 
-        //TODO:May need to format string depending on what we get from the clock view.
-
-        this.id = this.hashCode();
+        super();
         setTime(time);
         setRingtoneURI(ringtone);
         setVibrate(vibrate);
         setSnoozeLength(snooze);
-        setInterval(interval);
+        setInterval(0);
         Activate();
     }
 
 
     //=====METHODS=====
 
-    public void Activate(){
-        this.isActive = true;
-    }
 
-    public void Deactivate(){
-        this.isActive = false;
-    }
 
     //=====GETTERS=====
-    public int getTime(){
+    public long getTime(){
         return this.triggerTime;
     }
 
@@ -62,22 +52,14 @@ public class SingleAlarm extends Alarm{
         return this.vibrateOn;
     }
 
-    public Boolean getStatus(){
-        return this.isActive;
-    }
-
     public int getSnoozeLength(){
         return this.snoozeLength;
-    }
-
-    public int getId(){
-        return this.id;
     }
 
     public int getInterval(){return this.interval;}
 
     //=====SETTERS=====
-    public void setTime(int time){
+    public void setTime(long time){
         this.triggerTime = time;
     }
 

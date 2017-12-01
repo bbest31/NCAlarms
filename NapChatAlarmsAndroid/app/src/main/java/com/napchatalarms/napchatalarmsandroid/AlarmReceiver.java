@@ -89,9 +89,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     /**
      * Cancels a current notification alarm from continuing to fire. Used to dismiss as well/.
      * */
-    public void Cancel(Context context, int ID){
+    public void Cancel(Context context, int Id){
 
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(ID);
+        manager.cancel(Id);
     }
 }
