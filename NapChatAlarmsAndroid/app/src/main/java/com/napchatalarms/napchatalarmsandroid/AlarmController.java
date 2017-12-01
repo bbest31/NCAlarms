@@ -67,6 +67,33 @@ public class AlarmController {
         alarmReceiver.Cancel(context,ID);
     }
 
+    public void cancelAndDecativate(Context context, int ID){
+        AlarmReceiver alarmReceiver = new AlarmReceiver();
+        alarmReceiver.Cancel(context,ID);
+
+        //TODO:Get alarm by ID and deactivate.
+    }
+
+    //TODO: implement methods
+    public void getAlarmById(int Id){
+        User user = User.getInstance();
+    }
+
+    public void addAlarm(Alarm alarm){
+        User user = User.getInstance();
+        user.addAlarm(alarm);
+    }
+
+    public void deleteAlarm(int Id){
+        User user = User.getInstance();
+    }
+
+    public void updateAlarm(){
+        User user = User.getInstance();
+    }
+
+    public void saveAlarm(){}
+
     public void snoozeAlarm(Context context,int ID, boolean vibrate,int snooze, String ringtone){
 
         long currentTime = System.currentTimeMillis();
