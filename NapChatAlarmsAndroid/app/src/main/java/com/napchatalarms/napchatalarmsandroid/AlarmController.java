@@ -105,7 +105,16 @@ public class AlarmController {
 
     }
 
+    /***/
+    public void dismissAlarm(Context context, int Id){
+        Alarm alarm = this.getAlarmById(Id);
 
+        if(alarm.getClass() == OneTimeAlarm.class){
+            cancelAndDeactivateOneTime(context,Id);
+        }else{
+            cancelRepeatingAlarm(context,Id);
+        }
+    }
 
 
     //==ONETIME METHODS==
@@ -149,9 +158,9 @@ public class AlarmController {
     }
 
 
-    public void cancelOneTimeAlarm(Context context, int ID){
+    public void cancelOneTimeAlarm(Context context, int Id){
         AlarmReceiver alarmReceiver = new AlarmReceiver();
-        alarmReceiver.Cancel(context,ID);
+        alarmReceiver.Cancel(context,Id);
     }
 
 

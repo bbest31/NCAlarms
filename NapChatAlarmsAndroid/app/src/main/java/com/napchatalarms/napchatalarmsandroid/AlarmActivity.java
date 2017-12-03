@@ -101,11 +101,9 @@ public class AlarmActivity extends AppCompatActivity {
     /**
      *Dismisses the current alarm from sounding off.
      * */
-    //TODO: Need to discern when we are dismissing a one time alarm vs repeating alarm
-    //one-time alarms need to be deactivated as well. Should get the alarm by id and check to see if it's repeating.
     public void dismissAlarm(){
         AlarmController alarmController = AlarmController.getInstance();
-        alarmController.cancelOneTimeAlarm(this.getApplicationContext(),ID);
+        alarmController.dismissAlarm(this.getApplicationContext(),ID);
         finish();
     }
 }
