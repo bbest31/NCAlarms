@@ -68,7 +68,6 @@ public class User {
 
     }
 
-
     //=====GETTERS & SETTERS=====
     public String getName(){ return this.name;}
     public String getEmail(){return this.email;}

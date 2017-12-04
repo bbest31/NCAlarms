@@ -14,7 +14,7 @@ public class OneTimeAlarm extends Alarm{
      * */
     public OneTimeAlarm(long time, int snooze, Boolean vibrate, String ringtone){
 
-        super(time,0,snooze,vibrate,ringtone);
+        super(time,snooze,vibrate,ringtone);
     }
 
 }

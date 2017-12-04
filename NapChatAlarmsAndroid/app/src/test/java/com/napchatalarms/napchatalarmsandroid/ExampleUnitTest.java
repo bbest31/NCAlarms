@@ -2,6 +2,8 @@ package com.napchatalarms.napchatalarmsandroid;
 
 import org.junit.Test;
 
+import java.util.Calendar;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,6 +14,9 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+//        Calendar cal = Calendar.getInstance();
+//        int day = cal.get(Calendar.DAY_OF_WEEK);
+//        cal.set(Calendar.DAY_OF_WEEK,day+7);
+//        assertEquals(1, cal.get(Calendar.DAY_OF_WEEK));
     }
 }
