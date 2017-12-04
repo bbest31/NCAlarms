@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid;
 
+import java.util.Calendar;
+
 /**Base(Super) Alarm Class.
  * Created by bbest on 01/12/17.
  */
@@ -26,10 +28,24 @@ public class Alarm {
 
     }
 
-    //TODO:print override for testing.
+
     //=====METHODS=====
     public void Activate(){
         this.isActive = true;
+    }
+
+    @Override
+    public String toString(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(this.getTime());
+        String alarm = "Alarm[Id: "+this.getId()+
+                " Trigger: "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+
+                " Interval:"+this.getInterval()+
+                " Snooze Length: "+this.getSnoozeLength()+
+                " Vibrate: "+this.getVibrateOn()+
+                "RingtoneURI: "+this.getRingtoneURI()+
+                "isActive: "+this.getStatus();
+        return alarm;
     }
 
     public void Deactivate(){

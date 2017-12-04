@@ -74,7 +74,16 @@ public class RepeatingAlarm extends Alarm {
 
     }
 
-    //TODO: Do an override of the print function in order to verify the constructor is working.
+
+    public void printOut(){
+        System.out.println("ID: "+this.getId());
+        System.out.println("<Sub-Alarms>");
+        for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
+        {
+            System.out.println(entry.getKey() + "/" + entry.getValue().toString());
+        }
+        System.out.println("</Sub-Alarms>");
+    }
 
     //=====GETTERS=====
 
