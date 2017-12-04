@@ -3,6 +3,8 @@ package com.napchatalarms.napchatalarmsandroid;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 /**Singleton Class for the current user.
  * Created by brand on 11/17/2017.
  */
@@ -14,13 +16,17 @@ public class User {
     //=====ATTRIBUTES=====
     private String name;
     private String email;
+    private ArrayList<Alarm> alarmList;
 
     /**Private Constructor
      * */
+
     private User() {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         this.name =  fUser.getDisplayName();
         this.email = fUser.getEmail();
+
+        //TODO: read stored alarms from file and if their username matches current user then add to AlarmList
     }
 
     /**Instance method*/
@@ -31,7 +37,37 @@ public class User {
         return instance;
     }
 
-    //TODO:Could replace all getters and setters with a single method called update that just reattains the info from the FirebaseUser object
+    //=====METHODS=====
+    public void addAlarm(Alarm alarm){ this.alarmList.add(alarm);}
+
+    /**
+     * This method will return an Alarm if an alarm with the provided Id exists, otherwise return null.
+     * */
+    public Alarm getAlarmById(int Id){
+
+        for(int i = 0; i < this.alarmList.size();i++){
+            Alarm alarm = this.alarmList.get(i);
+            if(alarm.getId() == Id){
+                return alarm;
+            }
+        }
+        return null;
+    }
+
+    /**The alarm in the User's alarm list is deleted that matches the given Id.
+     * */
+    public void deleteAlarm(int Id){
+
+        for(int i = 0; i < this.alarmList.size();i++){
+            Alarm alarm = this.alarmList.get(i);
+            if(alarm.getId() == Id){
+                this.alarmList.remove(i);
+
+            }
+        }
+
+    }
+
     //=====GETTERS & SETTERS=====
     public String getName(){ return this.name;}
     public String getEmail(){return this.email;}

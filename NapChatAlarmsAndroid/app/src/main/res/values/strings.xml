@@ -36,6 +36,10 @@
     <string name="confirm">Confirm</string>
     <string name="new_username">username123</string>
     <string name="change_email_msg">Please re-authenticate to change email</string>
+    <string name="default_time">00:00</string>
+    <string name="default_meridian">AM</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="snooze">Snooze</string>
 
 
     <string name="username">Username:</string>
@@ -111,5 +115,9 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>
