@@ -4,12 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
     tools:context="com.napchatalarms.napchatalarmsandroid.CreateAlarmActivity">
 
 
     <TimePicker
         android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="359dp"
+        android:layout_weight="1"
+        android:headerBackground="@android:color/holo_purple"
+        android:numbersSelectorColor="@android:color/holo_purple"
+        android:paddingBottom="5dp" />
+
+    <Switch
+        android:id="@+id/vibrate_switch"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/pref_title_vibrate"
+        android:thumbTint="@android:color/holo_purple"
+        android:trackTint="@color/black" />
+
+    <Button
+        android:id="@+id/ringtone_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/pref_title_ringtone"
+        android:textAlignment="viewStart" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/repeat_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/repeat" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/snooze_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/snooze"
+            android:textColor="@color/black" />
+
+        <Spinner
+            android:id="@+id/snooze_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/create_alarm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:text="@string/create"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/create_activate_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/create_activate"
+        android:textColor="@android:color/holo_blue_dark" />
+
 </LinearLayout>

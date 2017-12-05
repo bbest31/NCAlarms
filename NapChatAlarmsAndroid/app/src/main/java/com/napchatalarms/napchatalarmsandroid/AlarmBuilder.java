@@ -1,12 +1,12 @@
 package com.napchatalarms.napchatalarmsandroid;
 
-/**
+/**Builder pattern class to build the different types of alarms.
  * Created by brand on 12/3/2017.
  */
 //TODO: May need to implement this into the mix.
 public class AlarmBuilder {
 
-//    private static final AlarmBuilder ourInstance = new AlarmBuilder();
+    private static final AlarmBuilder ourInstance = new AlarmBuilder();
 //
 //    private final long trigger;
 //    private long interval;
@@ -16,10 +16,10 @@ public class AlarmBuilder {
 //    private int[] repeatDays;
 //
 //
-//    public static AlarmBuilder getInstance() {
-//
-//        return ourInstance;
-//    }
+    public static AlarmBuilder getInstance() {
+
+        return ourInstance;
+    }
 //
 //    private AlarmBuilder(long triggerTime,int snoozeLength,Boolean vibrateSetting, String ringtoneUri) {
 //

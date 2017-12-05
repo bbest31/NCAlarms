@@ -92,7 +92,6 @@ public class AlarmActivity extends AppCompatActivity {
      * */
     public void snoozeAlarm(){
         AlarmController alarmController = AlarmController.getInstance();
-        alarmController.cancelOneTimeAlarm(this.getApplicationContext(),ID);
         alarmController.snoozeAlarm(this.getApplicationContext(),ID,vibrate,snoozeLength,ringtoneURI);
         finish();
 

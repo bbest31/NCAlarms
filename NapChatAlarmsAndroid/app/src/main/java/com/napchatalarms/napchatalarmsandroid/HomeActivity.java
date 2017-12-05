@@ -17,6 +17,7 @@ public class HomeActivity extends AppCompatActivity {
     User currentUser;
 
 
+    //TODO: Make icons for bottom nav items
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -28,6 +29,8 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
+                    Intent createAlarmIntent = new Intent(HomeActivity.this,CreateAlarmActivity.class);
+                    startActivity(createAlarmIntent);
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
