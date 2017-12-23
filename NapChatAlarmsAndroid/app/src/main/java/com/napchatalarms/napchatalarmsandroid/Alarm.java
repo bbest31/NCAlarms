@@ -18,14 +18,9 @@ public class Alarm {
     /**604,800,000:per week, 86,400,000:everyday,*/
     private long interval;
 
-    public Alarm(long time, int snooze, Boolean vibrate, String ringtone){
+    public Alarm(){
 
         this.id = this.hashCode();
-        setTime(time);
-        setRingtoneURI(ringtone);
-        setVibrate(vibrate);
-        setSnoozeLength(snooze);
-
     }
 
 

@@ -233,7 +233,7 @@ public class AlarmController {
 
         return pendingIntent;
     }
-    //TODO: May need one for repeating alarms as well.
+
     public void snoozeAlarm(Context context,int ID, boolean vibrate,int snooze, String ringtone){
 
         long currentTime = System.currentTimeMillis();
@@ -342,8 +342,5 @@ public class AlarmController {
         deleteAlarm(context,alarm.getId());
         this.addAlarm(alarm);
     }
-
-    //May not need this at all
-    public void snoozeRepeatingAlarm(){}
 
 }

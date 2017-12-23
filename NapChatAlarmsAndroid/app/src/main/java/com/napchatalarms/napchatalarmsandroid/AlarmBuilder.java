@@ -3,39 +3,41 @@ package com.napchatalarms.napchatalarmsandroid;
 /**Builder pattern class to build the different types of alarms.
  * Created by brand on 12/3/2017.
  */
-//TODO: May need to implement this into the mix.
+
 public class AlarmBuilder {
 
-    private static final AlarmBuilder ourInstance = new AlarmBuilder();
-//
-//    private final long trigger;
-//    private long interval;
-//    private final int snooze;
-//    private final String ringtone;
-//    private final Boolean vibrate;
-//    private int[] repeatDays;
-//
-//
-    public static AlarmBuilder getInstance() {
+    private Alarm alarm;
 
-        return ourInstance;
+    public AlarmBuilder(){
+        alarm = new Alarm();
     }
-//
-//    private AlarmBuilder(long triggerTime,int snoozeLength,Boolean vibrateSetting, String ringtoneUri) {
-//
-//        this.trigger = triggerTime;
-//        this.snooze = snoozeLength;
-//        this.vibrate = vibrateSetting;
-//        this.ringtone = ringtoneUri;
-//
-//    }
-//
-//    public void interval(int intrvl){this.interval = intrvl;}
-//
-//    public void repeateDays(int[] days){this.repeatDays = days;}
 
-    //Return the finally constructed Alarm object
-    //public Alarm build() {}
+    public Alarm build(){
+        return alarm;
+    }
 
+    public AlarmBuilder setTime(final long triggerTime){
+        alarm.setTime(triggerTime);
+        return this;
+    }
 
+    public AlarmBuilder setRingtoneURI(final String uri){
+        alarm.setRingtoneURI(uri);
+        return this;
+    }
+
+    public AlarmBuilder setVibrate(final boolean vibrate){
+        alarm.setVibrate(vibrate);
+        return this;
+    }
+
+    public AlarmBuilder setSnooze(final int length){
+        alarm.setSnoozeLength(length);
+        return this;
+    }
+
+    public AlarmBuilder setInterval(final long interval){
+        alarm.setInterval(interval);
+        return this;
+    }
 }

@@ -62,7 +62,7 @@ public class UtilityFunctions {
      * Take in the hour and minute of a time and make a UTC milliseconds such that the
      * returning value is in the future.
      * **/
-    public long UTCMilliseconds(int hour,int minute){
+    public final static long UTCMilliseconds(int hour,int minute){
 
         //Gets the current date/time
         Calendar cal = Calendar.getInstance();

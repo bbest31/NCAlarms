@@ -84,12 +84,4 @@
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/create_activate_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/create_activate"
-        android:textColor="@android:color/holo_blue_dark" />
-
 </LinearLayout>
