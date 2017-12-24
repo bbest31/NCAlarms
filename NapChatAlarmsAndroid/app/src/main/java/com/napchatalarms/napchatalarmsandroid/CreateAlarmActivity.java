@@ -2,6 +2,7 @@ package com.napchatalarms.napchatalarmsandroid;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -68,8 +69,12 @@ public class CreateAlarmActivity extends AppCompatActivity {
     /**Uses the Alarm building classes to build the alarm.**/
     //TODO:finish repeating alarm creation.
     public void createAlarm(){
-        if(repeatDays.length == 0) {
+        if(repeatDays == null) {
             OneTimeBuilder builder = new OneTimeBuilder();
+            Log.d("CREATE ALARM ACTIVITY:","TIME PICKER TIME:"+timePicker.getHour()+":"+timePicker.getMinute());
+            Log.d("CREATE ALARM ACTIVITY:","Vibrate settings: "+vibrate);
+            Log.d("CREATE ALARM ACTIVITY:","Ringtone: "+ringtone);
+            Log.d("CREATE ALARM ACTIVITY:","Snooze:"+snoozeLength);
             builder.setTime(UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute()))
                     .setVibrate(vibrate)
                     .setRingtoneURI(ringtone)
@@ -77,6 +82,8 @@ public class CreateAlarmActivity extends AppCompatActivity {
 
             OneTimeAlarm alarm = builder.build();
 
+            Log.d("Created ALARM:",alarm.toString());
+            
             //add alarm to user list with the controller
             alarmController.addAlarm(alarm);
             //schedule alarm with the controller

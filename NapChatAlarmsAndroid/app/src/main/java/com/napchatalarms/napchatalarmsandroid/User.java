@@ -25,8 +25,8 @@ public class User {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         this.name =  fUser.getDisplayName();
         this.email = fUser.getEmail();
-
         //TODO: read stored alarms from file and if their username matches current user then add to AlarmList
+        this.alarmList = new ArrayList<Alarm>();
     }
 
     /**Instance method*/

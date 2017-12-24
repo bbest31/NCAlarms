@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomeActivity extends AppCompatActivity {
 
     //=====ATTRIBUTES=====
@@ -49,10 +51,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //Initialize User singleton
-        currentUser = User.getInstance();
+        currentUser = currentUser.getInstance();
 
         Log.d("HomeActivity:","Username: "+User.getInstance().getName().toString());
         Log.d("HomeActivity:","Email: "+User.getInstance().getEmail().toString());
+
+        //Load stored alarms that match the current users credentials.
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
