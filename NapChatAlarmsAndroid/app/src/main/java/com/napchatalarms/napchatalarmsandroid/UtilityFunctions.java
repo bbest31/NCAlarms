@@ -91,4 +91,5 @@ public class UtilityFunctions {
 
     }
 
+    //TODO:custom Vibration patterns.
 }

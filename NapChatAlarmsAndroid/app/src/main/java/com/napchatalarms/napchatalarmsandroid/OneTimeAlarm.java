@@ -24,7 +24,7 @@ public class OneTimeAlarm extends Alarm{
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(this.getTime());
         String alarm = "Alarm[Id: "+this.getId()+
-                " Trigger: "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+
+                " Trigger: "+this.getTime()+
                 " Snooze Length: "+this.getSnoozeLength()+
                 " Vibrate: "+this.getVibrateOn()+
                 "RingtoneURI: "+this.getRingtoneURI()+

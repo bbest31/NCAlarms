@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -46,16 +47,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        //TODO:Get small icon
         //Build Notification
         builder.setCategory(Notification.CATEGORY_ALARM)
-                //.setSmallIcon()
+                .setSmallIcon(R.drawable.ic_home_black_24dp)
                 .setFullScreenIntent(pendingAlarmIntent,true)
                 .setContentIntent(pendingAlarmIntent)
                 .setContentTitle("NapChat Alarm")
                 .setContentText("Open Alarm")
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setPriority(Notification.PRIORITY_MAX);
+                .setPriority(Notification.PRIORITY_MAX)
+        /*.setChannelId()*/;
 
         //Setting Alarm Ringtone
         if(ringtoneURI == "default"){

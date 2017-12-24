@@ -19,7 +19,6 @@ public class Alarm {
     private long interval;
 
     public Alarm(){
-
         this.id = this.hashCode();
     }
 
@@ -29,12 +28,12 @@ public class Alarm {
         this.isActive = true;
     }
 
-    @Override
+
     public String toString(){
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(this.getTime());
         String alarm = "Alarm[Id: "+this.getId()+
-                " Trigger: "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+
+                " Trigger: "+this.getTime()+
                 " Interval:"+this.getInterval()+
                 " Snooze Length: "+this.getSnoozeLength()+
                 " Vibrate: "+this.getVibrateOn()+

@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -54,7 +55,7 @@ public class AlarmController {
      * */
     public void scheduleAlarm(Context context,Alarm alarm){
         if(alarm.getClass() == OneTimeAlarm.class){
-
+            Log.d("Schedule Alarm","Identified alarm as OneTimeAlarm.");
             scheduleOneTimeAlarm(context,(OneTimeAlarm) alarm);
         }else{
             scheduleRepeatingAlarm(context,(RepeatingAlarm)alarm);
@@ -72,7 +73,6 @@ public class AlarmController {
             deleteOneTime(context,(OneTimeAlarm)alarm);
 
         } else {
-
             //Delete if Repeating type
             deleteRepeating(context,(RepeatingAlarm)alarm);
         }
@@ -162,9 +162,7 @@ public class AlarmController {
         intent.putExtra("Meridian",meridianString);
         intent.putExtra("Uri", oneTimeAlarm.getRingtoneURI());
 
-
-        PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, oneTimeAlarm.getTime(),pendingIntent);
 

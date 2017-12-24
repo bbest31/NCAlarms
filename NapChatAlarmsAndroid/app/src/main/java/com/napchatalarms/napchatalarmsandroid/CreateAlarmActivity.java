@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid;
 
+import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +53,8 @@ public class CreateAlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createAlarm();
+                //TODO:May need to create this intent with set result so Home knows to refresh alarm list.
+                finish();
             }
         });
 
@@ -71,23 +74,22 @@ public class CreateAlarmActivity extends AppCompatActivity {
     public void createAlarm(){
         if(repeatDays == null) {
             OneTimeBuilder builder = new OneTimeBuilder();
-            Log.d("CREATE ALARM ACTIVITY:","TIME PICKER TIME:"+timePicker.getHour()+":"+timePicker.getMinute());
-            Log.d("CREATE ALARM ACTIVITY:","Vibrate settings: "+vibrate);
-            Log.d("CREATE ALARM ACTIVITY:","Ringtone: "+ringtone);
-            Log.d("CREATE ALARM ACTIVITY:","Snooze:"+snoozeLength);
-            builder.setTime(UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute()))
+            long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
+            builder.setTime(trigger)
                     .setVibrate(vibrate)
                     .setRingtoneURI(ringtone)
                     .setSnooze(snoozeLength);
 
             OneTimeAlarm alarm = builder.build();
 
-            Log.d("Created ALARM:",alarm.toString());
-            
+            //Affirm attributes of alarm.
+            Log.d("Created ALARM",alarm.toString());
+
             //add alarm to user list with the controller
             alarmController.addAlarm(alarm);
             //schedule alarm with the controller
-            alarmController.scheduleAlarm(this,alarm);
+            alarmController.scheduleAlarm(getApplicationContext(),alarm);
+
         } else{
 
         }
