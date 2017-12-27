@@ -1,4 +1,6 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Services;
+
+import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
 
 /**Builder pattern class to build the different types of alarms.
  * Created by brand on 12/3/2017.

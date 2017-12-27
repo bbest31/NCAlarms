@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.napchatalarms.napchatalarmsandroid.Services.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.R;
 
 
 public class AlarmActivity extends AppCompatActivity {
@@ -30,10 +33,10 @@ public class AlarmActivity extends AppCompatActivity {
      * */
     public void initialize(){
 
-        dismissButton = findViewById(R.id.dismiss_btn);
-        snoozeButton = findViewById(R.id.snooze_btn);
-        timeDisplay = findViewById(R.id.time_display_text);
-        meridianDisplay = findViewById(R.id.meridan_display_text);
+        dismissButton = (Button) findViewById(R.id.dismiss_btn);
+        snoozeButton = (Button) findViewById(R.id.snooze_btn);
+        timeDisplay = (TextView) findViewById(R.id.time_display_text);
+        meridianDisplay = (TextView) findViewById(R.id.meridan_display_text);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

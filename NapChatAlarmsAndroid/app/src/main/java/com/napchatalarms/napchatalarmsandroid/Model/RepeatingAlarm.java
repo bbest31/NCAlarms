@@ -1,9 +1,8 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Model;
 
-import java.util.ArrayList;
+import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
+
 import java.util.Calendar;
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -14,6 +13,7 @@ public class RepeatingAlarm extends Alarm {
 
     //=====ATTRIBUTES=====
     private int[] repeatDays;
+
     /**Map carrying the different sub alarms for each day that needs a repeating alarm.
      * The key integer is the Id of the sub-Alarm. */
     private Map<Integer,Alarm> subAlarms;
@@ -43,7 +43,7 @@ public class RepeatingAlarm extends Alarm {
         //Alarm is for a day other than the intended day.
         {
             while(cal.get(Calendar.DAY_OF_WEEK) != day){
-                cal.set(Calendar.DAY_OF_WEEK,alarmDay+1);
+                cal.set(Calendar.DAY_OF_WEEK,(alarmDay+1)%7);
             }
             return cal.getTimeInMillis();
         }

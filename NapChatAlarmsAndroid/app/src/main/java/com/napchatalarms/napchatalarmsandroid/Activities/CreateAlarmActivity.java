@@ -1,6 +1,5 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Activities;
 
-import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +8,12 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
+
+import com.napchatalarms.napchatalarmsandroid.Services.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.Model.OneTimeAlarm;
+import com.napchatalarms.napchatalarmsandroid.Services.OneTimeBuilder;
+import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.Utility.UtilityFunctions;
 
 public class CreateAlarmActivity extends AppCompatActivity {
 
@@ -30,12 +35,12 @@ public class CreateAlarmActivity extends AppCompatActivity {
      * */
     public void initialize(){
         alarmController = AlarmController.getInstance();
-        timePicker = findViewById(R.id.timePicker);
-        vibrateSwitch = findViewById(R.id.vibrate_switch);
-        ringtoneButton = findViewById(R.id.ringtone_btn);
-        repeatButton = findViewById(R.id.repeat_btn);
-        snoozeSpinner = findViewById(R.id.snooze_spinner);
-        createAlarmButton = findViewById(R.id.create_alarm_btn);
+        timePicker = (TimePicker) findViewById(R.id.timePicker);
+        vibrateSwitch = (Switch) findViewById(R.id.vibrate_switch);
+        ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
+        repeatButton = (Button) findViewById(R.id.repeat_btn);
+        snoozeSpinner = (Spinner) findViewById(R.id.snooze_spinner);
+        createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
         ringtone = "default";
         vibrate = vibrateSwitch.isChecked();
         repeatDays = null;

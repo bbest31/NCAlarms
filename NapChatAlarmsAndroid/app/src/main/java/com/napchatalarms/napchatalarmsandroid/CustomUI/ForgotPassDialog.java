@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.CustomUI;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.napchatalarms.napchatalarmsandroid.R;
 
 import static android.content.ContentValues.TAG;
 

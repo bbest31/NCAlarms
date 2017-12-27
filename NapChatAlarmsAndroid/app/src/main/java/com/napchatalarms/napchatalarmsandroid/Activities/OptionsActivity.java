@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.napchatalarms.napchatalarmsandroid.CustomUI.ChangeEmailDialog;
+import com.napchatalarms.napchatalarmsandroid.CustomUI.DeleteAccountDialog;
+import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.Model.User;
+import com.napchatalarms.napchatalarmsandroid.Utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
 

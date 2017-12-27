@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.Utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class SignUpActivity extends AppCompatActivity {

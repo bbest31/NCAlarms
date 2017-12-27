@@ -7,7 +7,7 @@
     android:gravity="top"
     android:isScrollContainer="true"
     android:orientation="vertical"
-    tools:context="com.napchatalarms.napchatalarmsandroid.CreateAlarmActivity">
+    tools:context="com.napchatalarms.napchatalarmsandroid.Activities.CreateAlarmActivity">
 
 
     <TimePicker

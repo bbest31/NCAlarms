@@ -1,11 +1,17 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Services;
 
 import android.app.AlarmManager;
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
+
+import com.napchatalarms.napchatalarmsandroid.Utility.AlarmReceiver;
+import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.Model.OneTimeAlarm;
+import com.napchatalarms.napchatalarmsandroid.Model.RepeatingAlarm;
+import com.napchatalarms.napchatalarmsandroid.Model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,7 +61,6 @@ public class AlarmController {
      * */
     public void scheduleAlarm(Context context,Alarm alarm){
         if(alarm.getClass() == OneTimeAlarm.class){
-            Log.d("Schedule Alarm","Identified alarm as OneTimeAlarm.");
             scheduleOneTimeAlarm(context,(OneTimeAlarm) alarm);
         }else{
             scheduleRepeatingAlarm(context,(RepeatingAlarm)alarm);

@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Utility;
 
 import android.support.annotation.NonNull;
 import android.util.Log;

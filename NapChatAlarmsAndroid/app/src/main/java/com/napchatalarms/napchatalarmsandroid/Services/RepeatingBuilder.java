@@ -1,4 +1,7 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Services;
+
+import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.Model.RepeatingAlarm;
 
 import java.util.Map;
 

@@ -1,5 +1,7 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Model;
 
+
+import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
 
 import java.util.Calendar;
 
@@ -8,7 +10,7 @@ import java.util.Calendar;
  * Created by bbest on 30/11/17.
  */
 
-public class OneTimeAlarm extends Alarm{
+public class OneTimeAlarm extends Alarm {
 
     /**
      * Public constructor

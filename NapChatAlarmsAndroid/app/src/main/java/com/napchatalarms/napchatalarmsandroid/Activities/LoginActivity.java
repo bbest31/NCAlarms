@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.Activities;
 
 
 import android.content.Intent;
@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.napchatalarms.napchatalarmsandroid.CustomUI.ForgotPassDialog;
+import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.Utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class LoginActivity extends AppCompatActivity {
