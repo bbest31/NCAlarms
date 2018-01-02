@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.Utility.AlarmReceiver;
@@ -169,9 +170,10 @@ public class AlarmController {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Log.d("AlarmController","Intent made and alarm about to be scheduled with time "+oneTimeAlarm.getTime());
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, oneTimeAlarm.getTime(),pendingIntent);
 
-        Toast.makeText(context,"Alarm Created!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Alarm Created!",Toast.LENGTH_LONG).show();
     }
 
     /**Delete one-time alarm from user list and the current scheduling.
