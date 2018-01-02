@@ -82,7 +82,7 @@ public class AlarmReceiver extends BroadcastReceiver {
              * and then turn off. Subsequent numbers indicate times that the vibrateion is off,on,off,etc.
              * **/
             //TODO:grab custom vibrate patterns from a model class
-            builder.setDefaults(Notification.DEFAULT_VIBRATE);
+            builder.setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
         }
 
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
