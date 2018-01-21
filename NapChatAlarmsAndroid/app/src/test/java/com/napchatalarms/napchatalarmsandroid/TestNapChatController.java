@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.Model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.Model.User;
 import com.napchatalarms.napchatalarmsandroid.Services.NapChatController;
 
@@ -49,13 +50,20 @@ public class TestNapChatController {
         alarm4.setRingtoneURI("ringtone4");
         alarm4.setSnoozeLength(4);
 
+        OneTimeAlarm alarm5 = new OneTimeAlarm();
+        alarm5.setTime(5000);
+        alarm5.setVibrate(false);
+        alarm5.setRingtoneURI("ringtone5");
+        alarm5.setSnoozeLength(5);
+
         alarmArrayList.add(alarm1);
         alarmArrayList.add(alarm2);
         alarmArrayList.add(alarm3);
         alarmArrayList.add(alarm4);
+        alarmArrayList.add(alarm5);
 
         for(Alarm a : alarmArrayList) {
-            System.out.print(a.toString()+"\n");
+            System.out.print(a.writeFormat()+"\n");
         }
     }
 }

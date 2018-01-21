@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.Services.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.Utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
@@ -79,7 +80,6 @@ public class SignUpActivity extends AppCompatActivity {
      * This method grabs the necessary credentials from the TextViews and passes them
      * to the createNewUser() method.
      */
-    //TODO:Password Re-entry field.
     public void signUp(){
         Boolean validCredentials = true;
 
@@ -141,6 +141,12 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             initProfile(user,username);
                             sendEmailVerification();
+                            //Create new files directory for user in internal storage
+                            NapChatController controller = NapChatController.getInstance();
+                            controller.createUserDirectory(getApplicationContext());
+                            controller.createUserAlarmFile(getApplicationContext());
+                            controller.createUserSettingsFile(getApplicationContext());
+
                             signUpNavigationOnSuccess(user);
                         } else {
                             // If sign in fails, display a message to the user.

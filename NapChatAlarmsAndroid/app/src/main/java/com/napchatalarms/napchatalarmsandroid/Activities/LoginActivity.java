@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.CustomUI.ForgotPassDialog;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.Services.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.Utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
@@ -61,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                login();
+                login(getApplicationContext());
             }
         });
 
@@ -116,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
      * This method will grab the credentials entered into the TextViews and assign their values to the
      * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
      */
-    public void login(){
+    public void login(final Context context){
 
         Boolean validcreds = Boolean.TRUE;
 
@@ -140,6 +142,10 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                  Log.d( "Login Activity","signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                //Load user data.
+                                NapChatController controller = NapChatController.getInstance();
+                                controller.loadUser(context);
+
                                 loginNavigationOnSuccess(user);
                             } else {
                                 // If sign in fails, display a message to the user.

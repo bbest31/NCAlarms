@@ -2,6 +2,7 @@ package com.napchatalarms.napchatalarmsandroid.Model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.napchatalarms.napchatalarmsandroid.Services.NapChatController;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,6 @@ public class User {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         this.name =  fUser.getDisplayName();
         this.email = fUser.getEmail();
-        //TODO: read stored alarms from file and if their username matches current user then add to AlarmList
         this.alarmList = new ArrayList<Alarm>();
     }
 

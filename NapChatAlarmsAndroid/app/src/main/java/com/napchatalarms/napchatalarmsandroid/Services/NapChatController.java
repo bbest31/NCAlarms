@@ -2,15 +2,19 @@ package com.napchatalarms.napchatalarmsandroid.Services;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.Model.User;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 
 
 /**
@@ -40,7 +44,8 @@ public class NapChatController {
     public void createUserSettingsFile(Context context){
 
         User user  = User.getInstance();
-        String path = formatEmail(user.getEmail()) + "DIR\\";
+
+        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR\\";
         String filename = "SETT";
         File alarmFile = new File(path,filename);
 
@@ -50,7 +55,7 @@ public class NapChatController {
     public void createUserAlarmFile(Context context){
 
         User user  = User.getInstance();
-        String path = formatEmail(user.getEmail()) + "DIR\\";
+        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR\\";
         String filename = "ALRM";
         File alarmFile = new File(path,filename);
 
@@ -65,14 +70,10 @@ public class NapChatController {
 
     public void saveUserSettings(){}
 
-    public void loadUserAlarms(){}
-
     public void saveUserAlarms(Context context){
         try {
             User user = User.getInstance();
             String userFile = formatEmail(user.getEmail()) + "ALARMS";
-            //TODO:Get the alarm attributes in string format and write each to file
-            String alarms = "ALARMS";
             //gets users directory
             FileOutputStream outputStream;
             outputStream = context.openFileOutput(userFile, Context.MODE_PRIVATE);
@@ -80,11 +81,31 @@ public class NapChatController {
 
             for(Alarm a: user.getAlarmList()) {
 
-                outputStream.write(a.toString().getBytes());
+                outputStream.write(a.writeFormat().getBytes());
             }
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    //TODO:load user file (if exists) and read the alarms listed line by line.
+    public void loadUserAlarms(Context context){
+        try{
+            User user = User.getInstance();
+            FileInputStream file = context.openFileInput(formatEmail(user.getEmail())+"DIR\\ALRM");
+
+            //file.read();
+            BufferedReader br = new BufferedReader(new FileReader(formatEmail(user.getEmail())+"DIR\\ALRM"));
+            String line;
+            StringBuilder text = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close() ;
+            Log.d("User Alarm file: ",text.toString());
+        } catch(Exception e){
+            System.out.println("No directory with that user email or no file exists: "+e.getMessage());
         }
     }
 
@@ -98,6 +119,12 @@ public class NapChatController {
         }
         context.deleteFile(path);
 
+    }
+
+    public void loadUser(Context context){
+        loadUserSettings();
+        loadUserAlarms(context);
+        //loadUserFriends();
     }
 
     private String formatEmail(String email){

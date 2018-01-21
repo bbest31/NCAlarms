@@ -36,6 +36,7 @@ public class OneTimeAlarm extends Alarm {
     public String writeFormat(){
         String alarm = this.getId()+
                 "|"+this.getTime()+
+                "|null"+ //interval = null indicates it is a OneTime alarm.
                 "|"+this.getSnoozeLength()+
                 "|"+this.getVibrateOn()+
                 "|"+this.getRingtoneURI()+

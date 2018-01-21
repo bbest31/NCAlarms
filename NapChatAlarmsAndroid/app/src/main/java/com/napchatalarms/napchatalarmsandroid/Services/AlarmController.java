@@ -40,8 +40,12 @@ public class AlarmController {
 
     //=====METHODS=====
 
-    //TODO:save User alarm list to internal file storage.
-    public void saveAlarms(){}
+
+    public void saveAlarms(Context context){
+        NapChatController controller = NapChatController.getInstance();
+
+        controller.saveUserAlarms(context);
+    }
     //==HIGH-LVL==
 
     public Alarm getAlarmById(int Id){
@@ -52,10 +56,10 @@ public class AlarmController {
 
     /**Adds the created alarm to the User list in order to be saved.
      * */
-    public void addAlarm(Alarm alarm){
+    public void addAlarm(Alarm alarm, Context context){
         User user = User.getInstance();
         user.addAlarm(alarm);
-        saveAlarms();
+        saveAlarms(context);
     }
 
     /**Schedules an alarm to fire at its programmed time.
@@ -82,7 +86,7 @@ public class AlarmController {
             //Delete if Repeating type
             deleteRepeating(context,(RepeatingAlarm)alarm);
         }
-        saveAlarms();
+        saveAlarms(context);
     }
 
     /**De-schedule and alarm and set its Active status to False.
@@ -95,6 +99,7 @@ public class AlarmController {
         }else{
             cancelAndDeactivateRepeating(context,(RepeatingAlarm)alarm);
         }
+        saveAlarms(context);
     }
 
     /**Update the attributes of an alarm.
@@ -106,7 +111,7 @@ public class AlarmController {
         }else{
             updateRepeatingAlarm(context,(RepeatingAlarm)alarm);
         }
-        saveAlarms();
+        saveAlarms(context);
     }
 
     /**Stop the current sounding alarm from firing.
@@ -212,7 +217,7 @@ public class AlarmController {
      * */
     public void updateOneTimeAlarm(Context context,OneTimeAlarm alarm){
         deleteAlarm(context,alarm.getId());
-        this.addAlarm(alarm);
+        this.addAlarm(alarm,context);
     }
 
     public PendingIntent oneTimePendingIntent(Context context,OneTimeAlarm alarm){
@@ -345,7 +350,7 @@ public class AlarmController {
      * */
     public void updateRepeatingAlarm(Context context, RepeatingAlarm alarm){
         deleteAlarm(context,alarm.getId());
-        this.addAlarm(alarm);
+        this.addAlarm(alarm,context);
     }
 
 }
