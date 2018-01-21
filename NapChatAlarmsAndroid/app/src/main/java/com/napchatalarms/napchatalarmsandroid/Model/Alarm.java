@@ -30,17 +30,26 @@ public class Alarm {
 
 
     public String toString(){
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(this.getTime());
-        String alarm = "Alarm[Id: "+this.getId()+
+
+        String alarm = "Id: "+this.getId()+
                 " Trigger: "+this.getTime()+
                 " Interval:"+this.getInterval()+
                 " Snooze Length: "+this.getSnoozeLength()+
                 " Vibrate: "+this.getVibrateOn()+
-                "RingtoneURI: "+this.getRingtoneURI()+
-                "isActive: "+this.getStatus();
+                " RingtoneURI: "+this.getRingtoneURI()+
+                " isActive: "+this.getStatus();
         return alarm;
     }
+
+    public String writeFormat(){
+        String alarm = this.getId()+
+                "|"+this.getTime()+
+                "|"+this.getInterval()+
+                "|"+this.getSnoozeLength()+
+                "|"+this.getVibrateOn()+
+                "|"+this.getRingtoneURI()+
+                "|"+this.getStatus();
+        return alarm;    }
 
     public void Deactivate(){
         this.isActive = false;
@@ -54,7 +63,7 @@ public class Alarm {
         return this.id;
     }
 
-    //=====GETTERS=====
+    //=====GETTERS=====printOutprintOut
     public long getTime(){
         return this.triggerTime;
     }

@@ -50,15 +50,23 @@ public class RepeatingAlarm extends Alarm {
 
     }
 
-
-    public void printOut(){
-        System.out.println("ID: "+this.getId());
-        System.out.println("<Sub-Alarms>");
+    @Override
+    public String toString(){
+        String alarm = "ID: "+this.getId() + " <Sub-Alarms> ";
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
-            System.out.println(entry.getKey() + "/" + entry.getValue().toString());
+            alarm = alarm + entry.getValue().toString();
         }
-        System.out.println("</Sub-Alarms>");
+        alarm = alarm.concat("</Sub-Alarms>");
+
+        return  alarm;
+    }
+
+    @Override
+    public String writeFormat(){
+        String alarm = "";
+
+        return alarm;
     }
 
     //=====GETTERS=====

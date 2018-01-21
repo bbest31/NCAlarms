@@ -23,9 +23,8 @@ public class OneTimeAlarm extends Alarm {
 
     @Override
     public String toString(){
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(this.getTime());
-        String alarm = "Alarm[Id: "+this.getId()+
+
+        String alarm = "Id: "+this.getId()+
                 " Trigger: "+this.getTime()+
                 " Snooze Length: "+this.getSnoozeLength()+
                 " Vibrate: "+this.getVibrateOn()+
@@ -33,4 +32,13 @@ public class OneTimeAlarm extends Alarm {
                 "isActive: "+this.getStatus();
         return alarm;
     }
+    @Override
+    public String writeFormat(){
+        String alarm = this.getId()+
+                "|"+this.getTime()+
+                "|"+this.getSnoozeLength()+
+                "|"+this.getVibrateOn()+
+                "|"+this.getRingtoneURI()+
+                "|"+this.getStatus();
+        return alarm;    }
 }

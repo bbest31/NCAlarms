@@ -73,4 +73,5 @@ public class User {
     public String getEmail(){return this.email;}
     public void setName(String newName){this.name = newName;}
     public void setEmail(String newEmail){this.email = newEmail;}
+    public ArrayList<Alarm> getAlarmList() {return alarmList;}
 }
