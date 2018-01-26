@@ -1,12 +1,7 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.services;
 
-import android.app.Application;
-import android.content.Context;
-
-import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
-import com.napchatalarms.napchatalarmsandroid.Model.OneTimeAlarm;
-import com.napchatalarms.napchatalarmsandroid.Model.User;
-import com.napchatalarms.napchatalarmsandroid.Services.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 
 import org.junit.Test;
 
@@ -16,7 +11,7 @@ import java.util.ArrayList;
  * Created by bbest on 20/01/18.
  */
 
-public class TestNapChatController {
+public class NapChatControllerTest {
     @Test
     public void directoryCreation() throws Exception{
 

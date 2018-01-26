@@ -1,12 +1,10 @@
-package com.napchatalarms.napchatalarmsandroid.Model;
-
-import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
+package com.napchatalarms.napchatalarmsandroid.model;
 
 import java.util.Calendar;
 import java.util.Map;
 
 /**
- * Created by bbest on 01/12/17.
+ * @author bbest
  */
 
 public class RepeatingAlarm extends Alarm {
@@ -28,8 +26,8 @@ public class RepeatingAlarm extends Alarm {
 
     /**Takes an integer to indicate the day of the week and time in milliseconds we need to set the
      * next trigger time for.
+     * @see Calendar
      * */
-
     public long calculateTrigger(int day, long triggerTime){
         Calendar cal = Calendar.getInstance();
         //Sets the calendar to the trigger time of the alarm.
@@ -71,25 +69,48 @@ public class RepeatingAlarm extends Alarm {
 
     //=====GETTERS=====
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer,Alarm> getSubList(){return this.subAlarms;}
 
+    /**
+     *
+     * @param Id
+     * @return
+     */
     public Alarm getSubAlarmById(int Id){
         return this.subAlarms.get(Id);
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getRepeatDays() {
         return repeatDays;
     }
 
     //=====SETTERS=====
 
-
+    /**
+     *
+     * @param repeatDays
+     */
     public void setRepeatDays(int[] repeatDays) {
         this.repeatDays = repeatDays;
     }
 
-
+    /**
+     *
+     * @param alarm
+     */
     public void addSubAlarm(Alarm alarm){this.subAlarms.put(alarm.getId(),alarm);}
 
+    /**
+     *
+     * @param alarm
+     */
     public void removeSubAlarm(Alarm alarm){this.subAlarms.remove(alarm.getId());}
 }

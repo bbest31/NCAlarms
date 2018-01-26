@@ -1,21 +1,11 @@
-package com.napchatalarms.napchatalarmsandroid.Utility;
+package com.napchatalarms.napchatalarmsandroid.utility;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.util.Patterns;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Calendar;
-import java.util.Date;
 
 /**Class to hold all functions that may be useful by a multitude of classes.
- * Created by bbest on 17/11/17.
+ * @author bbest
  */
 
 public class UtilityFunctions {
@@ -49,6 +39,11 @@ public class UtilityFunctions {
         return true;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public final static boolean isValidUsername(String name){
         for(int i = 0; i< name.length();i++){
             if(!Character.isLetterOrDigit(name.charAt(i))){

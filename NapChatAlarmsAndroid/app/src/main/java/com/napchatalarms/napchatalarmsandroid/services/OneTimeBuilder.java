@@ -1,9 +1,9 @@
-package com.napchatalarms.napchatalarmsandroid.Services;
+package com.napchatalarms.napchatalarmsandroid.services;
 
-import com.napchatalarms.napchatalarmsandroid.Model.OneTimeAlarm;
+import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 
 /**Concrete Builder class for the OneTimeAlarm class.
- * Created by brand on 12/23/2017.
+ *@author bbest
  */
 
 public class OneTimeBuilder extends AlarmBuilder {

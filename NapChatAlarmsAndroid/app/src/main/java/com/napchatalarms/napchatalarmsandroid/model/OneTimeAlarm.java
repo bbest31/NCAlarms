@@ -1,13 +1,9 @@
-package com.napchatalarms.napchatalarmsandroid.Model;
+package com.napchatalarms.napchatalarmsandroid.model;
 
-
-import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
-
-import java.util.Calendar;
 
 /**
  * Alarm object that holds all the necessary information for a one-time alarm.
- * Created by bbest on 30/11/17.
+ * @author bbest
  */
 
 public class OneTimeAlarm extends Alarm {
@@ -16,9 +12,7 @@ public class OneTimeAlarm extends Alarm {
      * Public constructor
      * */
     public OneTimeAlarm(){
-
         super();
-
     }
 
     @Override
@@ -32,6 +26,7 @@ public class OneTimeAlarm extends Alarm {
                 "isActive: "+this.getStatus();
         return alarm;
     }
+
     @Override
     public String writeFormat(){
         String alarm = this.getId()+

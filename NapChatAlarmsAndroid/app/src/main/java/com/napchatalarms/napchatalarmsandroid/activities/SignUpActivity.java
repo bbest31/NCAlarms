@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.Activities;
+package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,9 +17,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.Services.NapChatController;
-import com.napchatalarms.napchatalarmsandroid.Utility.UtilityFunctions;
+import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
+import java.io.IOException;
+
+/**
+ * Activity that allows potential users to sign up using
+ * email, password and username.
+ * @author bbest
+ */
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class SignUpActivity extends AppCompatActivity {
 
@@ -78,7 +85,8 @@ public class SignUpActivity extends AppCompatActivity {
     //=====METHODS=====
     /**
      * This method grabs the necessary credentials from the TextViews and passes them
-     * to the createNewUser() method.
+     * to the <code>createNewUser()</code> method.
+     * @see UtilityFunctions
      */
     public void signUp(){
         Boolean validCredentials = true;
@@ -123,11 +131,16 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
     /**
-     * This method takes in the new users email, password, surname and first name in order to create
-     * a new account for them and log them in using their entered credentials. If the sign up process
-     * is successful then the method to send a verification email to their account is called
-     * and appropriate UI navigation upon success/failure.
-     * **/
+     * This method takes in the new users email, password and username in order to create
+     * a new account for them and log them in using their entered credentials.
+     * <P>
+     *     If the sign up process is successful then the method sends a verification email to their inbox.
+     *     The <code>NapChatController</code> then is called to create a new file directory to store the
+     *     users local settings and alarm files. Finally the appropriate UI navigation upon success/failure.
+     * </P>
+     * @see FirebaseAuth
+     * @see NapChatController
+     * */
     public void createNewUser(String email, String password, final String username){
 
 
@@ -141,11 +154,15 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             initProfile(user,username);
                             sendEmailVerification();
-                            //Create new files directory for user in internal storage
+                            try {
+//                            //Create new files directory for user in internal storage
                             NapChatController controller = NapChatController.getInstance();
                             controller.createUserDirectory(getApplicationContext());
                             controller.createUserAlarmFile(getApplicationContext());
                             controller.createUserSettingsFile(getApplicationContext());
+                            }catch(IOException e){
+
+                            }
 
                             signUpNavigationOnSuccess(user);
                         } else {

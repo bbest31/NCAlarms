@@ -1,19 +1,21 @@
-package com.napchatalarms.napchatalarmsandroid.Services;
+package com.napchatalarms.napchatalarmsandroid.services;
 
-import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
-import com.napchatalarms.napchatalarmsandroid.Model.RepeatingAlarm;
+import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 
 import java.util.Map;
 
 /**
- * Created by brand on 12/23/2017.
+ * @author bbest
  */
 
 public class RepeatingBuilder extends AlarmBuilder {
 
     private RepeatingAlarm alarm;
 
-
+    /**
+     *
+     */
     public RepeatingBuilder(){ alarm = new RepeatingAlarm();}
 
     @Override
@@ -78,7 +80,10 @@ public class RepeatingBuilder extends AlarmBuilder {
         return this;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public RepeatingBuilder setInterval(){
         Map<Integer,Alarm> subAlarms = alarm.getSubList();
         int[] repeatDays = alarm.getRepeatDays();

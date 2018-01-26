@@ -1,26 +1,26 @@
-package com.napchatalarms.napchatalarmsandroid.Services;
+package com.napchatalarms.napchatalarmsandroid.services;
 
 import android.app.AlarmManager;
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.napchatalarms.napchatalarmsandroid.Utility.AlarmReceiver;
-import com.napchatalarms.napchatalarmsandroid.Model.Alarm;
-import com.napchatalarms.napchatalarmsandroid.Model.OneTimeAlarm;
-import com.napchatalarms.napchatalarmsandroid.Model.RepeatingAlarm;
-import com.napchatalarms.napchatalarmsandroid.Model.User;
+import com.napchatalarms.napchatalarmsandroid.utility.AlarmReceiver;
+import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
+import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
 /**
  * Controller singleton that uses the AlarmManager to schedule, cancel and snooze alarms.
- * Created by bbest on 30/11/17.
+ * @author bbest
  */
 
 public class AlarmController {
@@ -29,25 +29,44 @@ public class AlarmController {
 
     private final AlarmReceiver alarmReceiver;
 
+    /**
+     *
+     * @return
+     */
     public static AlarmController getInstance() {
 
         return ourInstance;
     }
 
+    /**
+     *
+     */
     private AlarmController() {
         this.alarmReceiver = new AlarmReceiver();
     }
 
     //=====METHODS=====
 
-
+    /**
+     *
+     * @param context
+     */
     public void saveAlarms(Context context){
-        NapChatController controller = NapChatController.getInstance();
-
-        controller.saveUserAlarms(context);
+        try {
+            NapChatController controller = NapChatController.getInstance();
+            controller.saveUserAlarms(context);
+        } catch(IOException e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
     //==HIGH-LVL==
 
+    /**
+     *
+     * @param Id
+     * @return
+     */
     public Alarm getAlarmById(int Id){
 
         User user = User.getInstance();
@@ -59,7 +78,7 @@ public class AlarmController {
     public void addAlarm(Alarm alarm, Context context){
         User user = User.getInstance();
         user.addAlarm(alarm);
-        saveAlarms(context);
+        //saveAlarms(context);
     }
 
     /**Schedules an alarm to fire at its programmed time.
@@ -86,7 +105,7 @@ public class AlarmController {
             //Delete if Repeating type
             deleteRepeating(context,(RepeatingAlarm)alarm);
         }
-        saveAlarms(context);
+        //saveAlarms(context);
     }
 
     /**De-schedule and alarm and set its Active status to False.
@@ -99,7 +118,7 @@ public class AlarmController {
         }else{
             cancelAndDeactivateRepeating(context,(RepeatingAlarm)alarm);
         }
-        saveAlarms(context);
+        //saveAlarms(context);
     }
 
     /**Update the attributes of an alarm.
@@ -111,7 +130,7 @@ public class AlarmController {
         }else{
             updateRepeatingAlarm(context,(RepeatingAlarm)alarm);
         }
-        saveAlarms(context);
+        //saveAlarms(context);
     }
 
     /**Stop the current sounding alarm from firing.
@@ -244,6 +263,14 @@ public class AlarmController {
         return pendingIntent;
     }
 
+    /**
+     *
+     * @param context
+     * @param ID
+     * @param vibrate
+     * @param snooze
+     * @param ringtone
+     */
     public void snoozeAlarm(Context context,int ID, boolean vibrate,int snooze, String ringtone){
 
         long currentTime = System.currentTimeMillis();
@@ -274,7 +301,8 @@ public class AlarmController {
 
 
     //==REPEATING METHODS==
-    /***/
+    /**
+     * */
     public void scheduleRepeatingAlarm(Context context, RepeatingAlarm alarm){
 
         alarm.Activate();

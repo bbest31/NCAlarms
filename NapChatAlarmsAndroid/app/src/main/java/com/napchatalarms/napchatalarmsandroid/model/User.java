@@ -1,15 +1,13 @@
-package com.napchatalarms.napchatalarmsandroid.Model;
+package com.napchatalarms.napchatalarmsandroid.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.napchatalarms.napchatalarmsandroid.Services.NapChatController;
 
 import java.util.ArrayList;
 
-/**Singleton Class for the current user.
- * Created by brand on 11/17/2017.
+/**Singleton class for the current user.
+ * @author bbest
  */
-
 public class User {
 
     private static User instance = null;
@@ -21,7 +19,6 @@ public class User {
 
     /**Private Constructor
      * */
-
     private User() {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         this.name =  fUser.getDisplayName();
@@ -38,6 +35,11 @@ public class User {
     }
 
     //=====METHODS=====
+
+    /**
+     *
+     * @param alarm
+     */
     public void addAlarm(Alarm alarm){ this.alarmList.add(alarm);}
 
     /**
@@ -69,9 +71,34 @@ public class User {
     }
 
     //=====GETTERS & SETTERS=====
+
+    /**
+     *
+     * @return
+     */
     public String getName(){ return this.name;}
+
+    /**
+     *
+     * @return
+     */
     public String getEmail(){return this.email;}
+
+    /**
+     *
+     * @param newName
+     */
     public void setName(String newName){this.name = newName;}
+
+    /**
+     *
+     * @param newEmail
+     */
     public void setEmail(String newEmail){this.email = newEmail;}
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<Alarm> getAlarmList() {return alarmList;}
 }

@@ -1,6 +1,5 @@
-package com.napchatalarms.napchatalarmsandroid.Utility;
+package com.napchatalarms.napchatalarmsandroid.utility;
 
-import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,13 +10,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
-import com.napchatalarms.napchatalarmsandroid.Activities.AlarmActivity;
+import com.napchatalarms.napchatalarmsandroid.activities.AlarmActivity;
 import com.napchatalarms.napchatalarmsandroid.R;
 
 /**
  * AlarmReceiver builds the local notifications and creates the AlarmActivity Intent that will launch
  * when the alarm goes off.
- * Created by bbest on 30/11/17.
+ * @author bbest
  */
 
 public class AlarmReceiver extends BroadcastReceiver {

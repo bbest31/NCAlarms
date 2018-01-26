@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.CustomUI;
+package com.napchatalarms.napchatalarmsandroid.customui;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,20 +9,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.R;
 
-import static android.content.ContentValues.TAG;
-
 
 /**Java class for the Forgot Password Dialog Box to send a password reset email, to the entered email address
  * if it indeed exists with an account.
- * SOURCE:
- * Created by brandon best on 11/16/2017.
+ * @author bbest
  */
 
 public class ForgotPassDialog extends Dialog implements android.view.View.OnClickListener {
@@ -32,6 +28,10 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
     public Button send, cancel;
     public EditText emailEntry;
 
+    /**
+     * Public constructor taking in the <code>Activity</code> to appear over.
+     * @param a - Activity to appear over.
+     */
     public ForgotPassDialog(Activity a) {
         super(a);
         // TODO Auto-generated constructor stub
@@ -68,6 +68,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
 
     /**
      * This method sends a password reset email entered into the edit text field.
+     * @see FirebaseAuth
      * */
     public void sendResetPasswordEmail(){
         FirebaseAuth auth = FirebaseAuth.getInstance();
