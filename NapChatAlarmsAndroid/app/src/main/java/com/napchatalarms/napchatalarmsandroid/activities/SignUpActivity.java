@@ -20,8 +20,6 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-import java.io.IOException;
-
 /**
  * Activity that allows potential users to sign up using
  * email, password and username.
@@ -154,15 +152,15 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             initProfile(user,username);
                             sendEmailVerification();
-                            try {
+//                            try {
 //                            //Create new files directory for user in internal storage
                             NapChatController controller = NapChatController.getInstance();
-                            controller.createUserDirectory(getApplicationContext());
-                            controller.createUserAlarmFile(getApplicationContext());
-                            controller.createUserSettingsFile(getApplicationContext());
-                            }catch(IOException e){
-
-                            }
+//                            controller.createUserDirectory(getApplicationContext());
+//                            controller.createUserAlarmFile(getApplicationContext());
+//                            controller.createUserSettingsFile(getApplicationContext());
+//                            }catch(IOException e){
+//
+//                            }
 
                             signUpNavigationOnSuccess(user);
                         } else {

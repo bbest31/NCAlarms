@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                                  Log.d( "Login Activity","signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //Load user data.
-//                                NapChatController controller = NapChatController.getInstance();
+                                NapChatController controller = NapChatController.getInstance();
 //                                controller.loadUser(context);
 
                                 loginNavigationOnSuccess(user);

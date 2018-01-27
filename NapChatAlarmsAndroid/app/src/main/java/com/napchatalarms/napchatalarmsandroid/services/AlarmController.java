@@ -274,7 +274,7 @@ public class AlarmController {
     public void snoozeAlarm(Context context,int ID, boolean vibrate,int snooze, String ringtone){
 
         long currentTime = System.currentTimeMillis();
-        long newTriggerTime = currentTime + snooze * 1000;
+        long newTriggerTime = currentTime + snooze * 60000;
 
         //Get the time in string format with the meridian
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");

@@ -58,19 +58,29 @@ public class UtilityFunctions {
      * returning value is in the future.
      * **/
     public final static long UTCMilliseconds(int hour,int minute){
-
+        Long timeMilli = null;
         //Gets the current date/time
         Calendar cal = Calendar.getInstance();
         //If the time set is later that day
-        if(hour > cal.get(Calendar.HOUR_OF_DAY) && minute > cal.get(Calendar.MINUTE)){
+        if(hour > cal.get(Calendar.HOUR_OF_DAY)){
 
             cal.set(Calendar.HOUR_OF_DAY,hour);
             cal.set(Calendar.MINUTE,minute);
             cal.set(Calendar.SECOND,0);
             cal.set(Calendar.MILLISECOND,0);
 
-            return cal.getTimeInMillis();
-        } else {
+            timeMilli = cal.getTimeInMillis();
+        } else if(hour == cal.get(Calendar.HOUR_OF_DAY) && minute > cal.get(Calendar.MINUTE)) {
+            //If the time is earlier than the current time we increase the day by 1.
+            int day = cal.get(Calendar.DATE);
+
+            cal.set(Calendar.HOUR_OF_DAY,hour);
+            cal.set(Calendar.MINUTE,minute);
+            cal.set(Calendar.SECOND,0);
+            cal.set(Calendar.MILLISECOND,0);
+
+            timeMilli =  cal.getTimeInMillis();
+        } else if(hour == cal.get(Calendar.HOUR_OF_DAY) && minute < cal.get(Calendar.MINUTE)){
             //If the time is earlier than the current time we increase the day by 1.
             int day = cal.get(Calendar.DATE);
 
@@ -80,10 +90,22 @@ public class UtilityFunctions {
             cal.set(Calendar.SECOND,0);
             cal.set(Calendar.MILLISECOND,0);
 
-            return cal.getTimeInMillis();
+            timeMilli = cal.getTimeInMillis();
+        }
+        else if(hour < cal.get(Calendar.HOUR_OF_DAY)) {
+            //If the time is earlier than the current time we increase the day by 1.
+            int day = cal.get(Calendar.DATE);
+
+            cal.set(Calendar.DATE, day+1);
+            cal.set(Calendar.HOUR_OF_DAY,hour);
+            cal.set(Calendar.MINUTE,minute);
+            cal.set(Calendar.SECOND,0);
+            cal.set(Calendar.MILLISECOND,0);
+
+            timeMilli = cal.getTimeInMillis();
         }
 
-
+        return  timeMilli;
     }
 
     //TODO:custom Vibration patterns.

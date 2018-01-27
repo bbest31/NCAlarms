@@ -1,8 +1,13 @@
 package com.napchatalarms.napchatalarmsandroid.services;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.napchatalarms.napchatalarmsandroid.Manifest;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
@@ -12,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.Permission;
 
 
 /**
@@ -25,6 +31,7 @@ public class NapChatController {
     public static NapChatController getInstance(){
         return instance;
     }
+
 
     private NapChatController(){}
 
@@ -177,11 +184,9 @@ public class NapChatController {
         return newEmail;
     }
 
-    /**
-     *
-     */
-    private void checkPermissions(){
 
-    }
+
+
+
 
 }
