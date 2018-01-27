@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
 import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
@@ -84,20 +86,8 @@ public class CreateAlarmActivity extends AppCompatActivity {
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-
-                builder.setTitle(R.string.ringtones);
-
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-
-                builder.setView(R.layout.ringtone_menu);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                RingtoneDialog ringtoneDialog = new RingtoneDialog(CreateAlarmActivity.this);
+                ringtoneDialog.show();
 
             }
         });
