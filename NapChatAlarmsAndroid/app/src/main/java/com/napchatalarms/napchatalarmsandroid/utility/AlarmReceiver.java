@@ -58,31 +58,30 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentText("Open Alarm")
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setPriority(Notification.PRIORITY_MAX)
-        /*.setChannelId()*/;
+                .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
 
         //Setting Alarm Ringtone
-        if(ringtoneURI == "default"){
+        if(Uri.parse(ringtoneURI) == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)){
 
             builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-        }
-        else{
+        } else{
 
             Uri uri = Uri.parse(ringtoneURI);
             builder.setSound(uri);
         }
 
         //Setting vibrate settings
-
-        if(vibrate == true){
-
-            /**
-             * Vibrate pattern is in milliseconds. First number indicates the time to wait
-             * to start vibrating when notification fires. Second number is the time to vibrate
-             * and then turn off. Subsequent numbers indicate times that the vibrateion is off,on,off,etc.
-             * **/
-            //TODO:grab custom vibrate patterns from a model class
-            builder.setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
-        }
+//
+//        if(vibrate == true){
+//
+//            /**
+//             * Vibrate pattern is in milliseconds. First number indicates the time to wait
+//             * to start vibrating when notification fires. Second number is the time to vibrate
+//             * and then turn off. Subsequent numbers indicate times that the vibrateion is off,on,off,etc.
+//             * **/
+//            //TODO:grab custom vibrate patterns from a model class
+//            builder.setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
+//        }
 
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(id,builder.build());
