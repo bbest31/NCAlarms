@@ -2,6 +2,8 @@ package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.support.design.widget.Snackbar;
@@ -53,6 +55,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         vibrateSwitch = (Switch) findViewById(R.id.vibrate_switch);
         ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
+        ringtoneButton.setText("Ringtone: Default");
         repeatButton = (Button) findViewById(R.id.repeat_btn);
         snoozeSpinner = (Spinner) findViewById(R.id.snooze_spinner);
         createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
@@ -81,7 +84,21 @@ public class CreateAlarmActivity extends AppCompatActivity {
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO:need a custom dialog box for ringtone options (Music, Device Ringtones, NapChat Ringtones)
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+
+                builder.setTitle(R.string.ringtones);
+
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+                builder.setView(R.layout.ringtone_menu);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
 

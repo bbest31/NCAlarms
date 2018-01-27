@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent cancel = new Intent("Dismiss");
         PendingIntent cancelPending = PendingIntent.getBroadcast(context,id,cancel,PendingIntent.FLAG_CANCEL_CURRENT);
 
-        //Pass parameters to AlarmActivity so it can have same settings for snooze refire.
+        //Pass parameters to AlarmActivity so it can have same settings for snooze re-fire.
         Intent alarmIntent = new Intent(context,AlarmActivity.class);
         alarmIntent.putExtra("SNOOZE",snoozeLength);
         alarmIntent.putExtra("VIBRATE",vibrate);

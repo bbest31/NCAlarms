@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/defaultRingtoneButton"
+        android:text="@string/default_menu_string" />
+
+    <Button
+        android:id="@+id/deviceRingtoneButton"
+        android:text="@string/device" />
+
+    <Button
+        android:id="@+id/musicRingtoneButton"
+        android:text="@string/music" />
+
+    <Button
+        android:id="@+id/napchatRingtoneButton"
+        android:text="@string/napchat" />
+
+
+</android.support.constraint.LinearLayout>
