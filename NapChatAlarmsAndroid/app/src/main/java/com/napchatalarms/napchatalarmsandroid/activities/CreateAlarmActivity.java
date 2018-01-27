@@ -32,7 +32,7 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
  * Activity used to create new alarms.
  * @author bbest
  */
-public class CreateAlarmActivity extends AppCompatActivity {
+public class CreateAlarmActivity extends AppCompatActivity  {
 
     //=====ATTRIBUTES=====
     TimePicker timePicker;
@@ -128,6 +128,24 @@ public class CreateAlarmActivity extends AppCompatActivity {
         }
     }
 
+    public void setRingtone(String uri, String name){
+        ringtone = uri;
+        ringtoneButton.setText("Ringtone: "+name);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 1:
+                    ringtone = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    System.out.println(ringtone);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
 
 }
