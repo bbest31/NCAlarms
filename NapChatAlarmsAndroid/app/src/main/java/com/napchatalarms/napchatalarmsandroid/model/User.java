@@ -23,7 +23,7 @@ public class User {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         this.name =  fUser.getDisplayName();
         this.email = fUser.getEmail();
-        this.alarmList = new ArrayList<Alarm>();
+        this.alarmList = new ArrayList<>();
     }
 
     /**Instance method*/
@@ -58,17 +58,18 @@ public class User {
 
     /**The alarm in the User's alarm list is deleted that matches the given Id.
      * */
-    public void deleteAlarm(int Id){
+    public void deleteAlarm(int id){
 
         for(int i = 0; i < this.alarmList.size();i++){
             Alarm alarm = this.alarmList.get(i);
-            if(alarm.getId() == Id){
+            if(alarm.getId() == id){
                 this.alarmList.remove(i);
 
             }
         }
 
     }
+
 
     //=====GETTERS & SETTERS=====
 

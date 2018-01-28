@@ -14,15 +14,37 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
 
 /**
+ * The type Ringtone dialog.
+ *
  * @author bbest
  */
-
 public class RingtoneDialog extends Dialog implements android.view.View.OnClickListener{
 
+    /**
+     * The C.
+     */
     public CreateAlarmActivity c;
+    /**
+     * The D.
+     */
     public Dialog d;
+    /**
+     * The Cancel.
+     */
     public Button cancel;
-    public Button defaultBtn, deviceBtn, musicBtn, ncBtn;
+    /**
+     * The Default btn.
+     */
+    public Button defaultBtn, /**
+     * The Device btn.
+     */
+    deviceBtn, /**
+     * The Music btn.
+     */
+    musicBtn, /**
+     * The Nc btn.
+     */
+    ncBtn;
 
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
@@ -35,6 +57,9 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
             this.c=a;
             }
 
+    /**
+     * Initialize.
+     */
     public void initialize(){
         cancel=(Button)findViewById(R.id.cancel_ringtone_btn);
         cancel.setOnClickListener(this);

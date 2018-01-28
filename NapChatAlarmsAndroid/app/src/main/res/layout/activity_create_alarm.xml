@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="top"
     android:isScrollContainer="true"
     android:orientation="vertical"
@@ -50,29 +50,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/repeat" />
+
     </LinearLayout>
 
-    <LinearLayout
+    <NumberPicker
+        android:id="@+id/snooze_length_picker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="85dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/snooze_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/snooze"
-            android:textColor="@color/black" />
-
-        <Spinner
-            android:id="@+id/snooze_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/create_alarm_btn"

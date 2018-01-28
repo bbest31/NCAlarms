@@ -29,7 +29,7 @@ public class Alarm {
      *
      */
     public void Activate(){
-        this.isActive = true;
+        this.isActive = Boolean.TRUE;
     }
 
 
@@ -64,7 +64,7 @@ public class Alarm {
      *
      */
     public void Deactivate(){
-        this.isActive = false;
+        this.isActive = Boolean.FALSE;
     }
 
     /**

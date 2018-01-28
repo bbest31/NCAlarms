@@ -13,7 +13,6 @@ import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -46,39 +45,32 @@ public class AlarmController {
     }
 
     //=====METHODS=====
-
+    public void createAlarm(Context context, Alarm alarm){
+        alarm.Activate();
+        addAlarmToUser(alarm,context);
+        scheduleAlarm(context,alarm);
+    }
     /**
      *
      * @param context
      */
     public void saveAlarms(Context context){
-        try {
-            NapChatController controller = NapChatController.getInstance();
-            controller.saveUserAlarms(context);
-        } catch(IOException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
+//        try {
+//            NapChatController controller = NapChatController.getInstance();
+//            controller.saveUserAlarms(context);
+//        } catch(IOException e){
+//            System.err.println(e.getMessage());
+//            e.printStackTrace();
+//        }
     }
     //==HIGH-LVL==
 
-    /**
-     *
-     * @param Id
-     * @return
-     */
-    public Alarm getAlarmById(int Id){
-
-        User user = User.getInstance();
-        return user.getAlarmById(Id);
-    }
-
     /**Adds the created alarm to the User list in order to be saved.
      * */
-    public void addAlarm(Alarm alarm, Context context){
+    public void addAlarmToUser(Alarm alarm, Context context){
         User user = User.getInstance();
         user.addAlarm(alarm);
-        //saveAlarms(context);
+        saveAlarms(context);
     }
 
     /**Schedules an alarm to fire at its programmed time.
@@ -91,58 +83,71 @@ public class AlarmController {
         }
     }
 
+    /**
+     *
+     * @param context
+     * @param Id
+     */
+    public void activateAlarm(Context context,int Id){
+        Alarm alarm = User.getInstance().getAlarmById(Id);
+        scheduleAlarm(context,alarm);
+        alarm.Activate();
+        saveAlarms(context);
+    }
+
     /**Delete an alarm based on its Id and de-schedule it, this method handles both OneTime and Repeating Alarms.
      * */
-    public void deleteAlarm(Context context,int Id){
-        Alarm alarm = this.getAlarmById(Id);
+    public void deleteAlarm(Context context,int id){
 
-        //Delete based on OneTimeAlarm class
-        if(alarm.getClass() == OneTimeAlarm.class){
+        Alarm alarm = User.getInstance().getAlarmById(id);
 
-            deleteOneTime(context,(OneTimeAlarm)alarm);
-
+        //Alarm is currently Active
+        if(alarm.getStatus()){
+           cancelAlarm(context,id);
         } else {
-            //Delete if Repeating type
-            deleteRepeating(context,(RepeatingAlarm)alarm);
+
         }
-        //saveAlarms(context);
+
+        User.getInstance().deleteAlarm(id);
+        saveAlarms(context);
     }
 
     /**De-schedule and alarm and set its Active status to False.
      * */
-    public void cancelAndDeactivate(Context context, int Id){
-        Alarm alarm = this.getAlarmById(Id);
+    public void cancelAlarm(Context context, int id){
+        Alarm alarm = User.getInstance().getAlarmById(id);
         if(alarm.getClass() == OneTimeAlarm.class){
 
             cancelOneTime(context,(OneTimeAlarm)alarm);
         }else{
-            cancelAndDeactivateRepeating(context,(RepeatingAlarm)alarm);
+            cancelRepeating(context,(RepeatingAlarm)alarm);
         }
-        //saveAlarms(context);
+        alarm.Deactivate();
     }
 
     /**Update the attributes of an alarm.
      * */
-    public void updateAlarm(Context context,Alarm alarm){
+    public void editAlarm(Context context, Alarm alarm){
 
         if(alarm.getClass() == OneTimeAlarm.class){
-            updateOneTimeAlarm(context,(OneTimeAlarm)alarm);
+            editOneTime(context,(OneTimeAlarm)alarm);
         }else{
-            updateRepeatingAlarm(context,(RepeatingAlarm)alarm);
+            editRepeatingAlarm(context,(RepeatingAlarm)alarm);
         }
-        //saveAlarms(context);
+        saveAlarms(context);
     }
 
     /**Stop the current sounding alarm from firing.
      * */
     public void dismissAlarm(Context context, int Id){
-        Alarm alarm = this.getAlarmById(Id);
+        Alarm alarm = User.getInstance().getAlarmById(Id);
 
         if(alarm.getClass() == OneTimeAlarm.class){
             dismissOneTime(context,Id);
         }else{
             dismissRepeatingAlarm(context,Id);
         }
+        alarm.Deactivate();
     }
 
     public PendingIntent AlarmPendingIntent(Context context,Alarm alarm){
@@ -168,12 +173,12 @@ public class AlarmController {
 
         return pendingIntent;
     }
+
     //==ONETIME METHODS==
 
-    /**Schedule a one-time-alarm and set its status to Active.
+    /**Schedule a one-time-alarm with the system.
      * */
     public void scheduleOneTimeAlarm(Context context, OneTimeAlarm oneTimeAlarm){
-        oneTimeAlarm.Activate();
 
         //Get the time in string format with the meridian
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
@@ -200,24 +205,11 @@ public class AlarmController {
         Toast.makeText(context,"Alarm Created!",Toast.LENGTH_LONG).show();
     }
 
-    /**Delete one-time alarm from user list and the current scheduling.
-     * */
-    public void deleteOneTime(Context context, OneTimeAlarm alarm){
-        User user = User.getInstance();
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        alarmManager.cancel(oneTimePendingIntent(context,alarm));
-        user.deleteAlarm(alarm.getId());
-    }
-
     /**Dismiss the alarm and set its Active status to False.
      * */
     public void dismissOneTime(Context context, int Id){
 
         alarmReceiver.Cancel(context,Id);
-
-        Alarm alarm = User.getInstance().getAlarmById(Id);
-        alarm.Deactivate();
     }
 
     /**This method is used when an active one-time-alarm is set to de-active
@@ -228,15 +220,14 @@ public class AlarmController {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.cancel(oneTimePendingIntent(context,alarm));
-        alarm.Deactivate();
     }
 
     /**Removes the old version of the alarm from the User list and the current scheduling.
      * Then we add the new version to the User list.
      * */
-    public void updateOneTimeAlarm(Context context,OneTimeAlarm alarm){
+    public void editOneTime(Context context, OneTimeAlarm alarm){
         deleteAlarm(context,alarm.getId());
-        this.addAlarm(alarm,context);
+        this.addAlarmToUser(alarm,context);
     }
 
     public PendingIntent oneTimePendingIntent(Context context,OneTimeAlarm alarm){
@@ -305,8 +296,6 @@ public class AlarmController {
      * */
     public void scheduleRepeatingAlarm(Context context, RepeatingAlarm alarm){
 
-        alarm.Activate();
-
         //Get the time in string format with the meridian
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
@@ -345,10 +334,9 @@ public class AlarmController {
     }
 
 
-    /**De-schedules the sub-Alarms and sets the status of Active
-     *  to False for the RepeatingAlarm.isActive attribute.
+    /**De-schedules the sub-Alarms
      * */
-    public void cancelAndDeactivateRepeating(Context context,RepeatingAlarm alarm){
+    public void cancelRepeating(Context context, RepeatingAlarm alarm){
 
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
@@ -356,29 +344,16 @@ public class AlarmController {
             alarmManager.cancel(AlarmPendingIntent(context,entry.getValue()));
         }
 
-        alarm.Deactivate();
+
     }
 
-    /**Uses the Id's of all the sub-Alarms to cancels their scheduling with the AlarmReceiver.
-     * Then removes the RepeatingAlarm from the User list.
-     * */
-    public void deleteRepeating(Context context,RepeatingAlarm alarm){
-        User user = User.getInstance();
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-
-        for (Map.Entry<Integer,Alarm> entry : alarm.getSubList().entrySet()) {
-            alarmManager.cancel(AlarmPendingIntent(context,entry.getValue()));
-        }
-
-        user.deleteAlarm(alarm.getId());
-    }
     /**Takes in a new instance of the repeating alarm with the same Id. We delete
      * the old version from the User list and de-schedule it before we add the new version
      * to the User list.
      * */
-    public void updateRepeatingAlarm(Context context, RepeatingAlarm alarm){
+    public void editRepeatingAlarm(Context context, RepeatingAlarm alarm){
         deleteAlarm(context,alarm.getId());
-        this.addAlarm(alarm,context);
+        this.addAlarmToUser(alarm,context);
     }
 
 }

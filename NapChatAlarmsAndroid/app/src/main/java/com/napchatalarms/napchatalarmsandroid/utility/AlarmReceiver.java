@@ -57,8 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentTitle("NapChat Alarm")
                 .setContentText("Open Alarm")
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setPriority(Notification.PRIORITY_MAX)
-                .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
+                .setPriority(Notification.PRIORITY_MAX);
 
         //Setting Alarm Ringtone
         if(Uri.parse(ringtoneURI) == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)){
@@ -71,17 +70,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
 
         //Setting vibrate settings
-//
-//        if(vibrate == true){
-//
-//            /**
-//             * Vibrate pattern is in milliseconds. First number indicates the time to wait
-//             * to start vibrating when notification fires. Second number is the time to vibrate
-//             * and then turn off. Subsequent numbers indicate times that the vibrateion is off,on,off,etc.
-//             * **/
-//            //TODO:grab custom vibrate patterns from a model class
-//            builder.setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
-//        }
+
+        if(vibrate == true){
+
+            /**
+             * Vibrate pattern is in milliseconds. First number indicates the time to wait
+             * to start vibrating when notification fires. Second number is the time to vibrate
+             * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
+             * **/
+            //TODO:grab custom vibrate patterns from a model class
+            builder.setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
+        }
 
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(id,builder.build());

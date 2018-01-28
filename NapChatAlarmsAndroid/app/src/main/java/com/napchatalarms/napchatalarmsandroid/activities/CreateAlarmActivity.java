@@ -1,57 +1,81 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.CompoundButton;
+import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
 import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
-import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 /**
  * Activity used to create new alarms.
+ *
  * @author bbest
  */
 public class CreateAlarmActivity extends AppCompatActivity  {
 
-    //=====ATTRIBUTES=====
+    /**
+     * The Time picker.
+     */
+//=====ATTRIBUTES=====
     TimePicker timePicker;
+    /**
+     * The Vibrate switch.
+     */
     Switch vibrateSwitch;
+    /**
+     * The Ringtone button.
+     */
     Button ringtoneButton;
+    /**
+     * The Repeat button.
+     */
     Button repeatButton;
-    Spinner snoozeSpinner;
+    /**
+     * The Snooze spinner.
+     */
+    NumberPicker snoozeSelector;
+    /**
+     * The Create alarm button.
+     */
     Button createAlarmButton;
+    /**
+     * The Alarm controller.
+     */
     AlarmController alarmController;
+    /**
+     * The Ringtone.
+     */
     String ringtone;
-    boolean vibrate;
-    int[] repeatDays;
-    int snoozeLength;
+    /**
+     * The Vibrate.
+     */
+    Boolean vibrate;
+    /**
+     * The Repeat days.
+     */
+    Integer[] repeatDays;
+    /**
+     * The Snooze length.
+     */
+    Integer snoozeLength;
 
 
-
-
-    /**Declaration of view references.
-     * */
+    /**
+     * Declaration of view references.
+     */
     public void initialize(){
         alarmController = AlarmController.getInstance();
         timePicker = (TimePicker) findViewById(R.id.timePicker);
@@ -59,7 +83,10 @@ public class CreateAlarmActivity extends AppCompatActivity  {
         ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
         ringtoneButton.setText("Ringtone: Default");
         repeatButton = (Button) findViewById(R.id.repeat_btn);
-        snoozeSpinner = (Spinner) findViewById(R.id.snooze_spinner);
+        snoozeSelector = (NumberPicker) findViewById(R.id.snooze_length_picker);
+        snoozeSelector.setMaxValue(60);
+        snoozeSelector.setMinValue(1);
+        snoozeSelector.canScrollHorizontally(1);
         createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
         ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
         vibrate = vibrateSwitch.isChecked();
@@ -92,21 +119,31 @@ public class CreateAlarmActivity extends AppCompatActivity  {
             }
         });
 
+        vibrateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                vibrate = isChecked;
+            }
+        });
+
+
     }
 
     //=====METHODS=====
 
-    /**Calls the <code>AlarmBuilder</code> class depending on whether there are repeating days or not.
+    /**
+     * Calls the <code>AlarmBuilder</code> class depending on whether there are repeating days or not.
      * If the <code>repeatDays</code> equals null then it identifies it as a <Code>OneTimeAlarm</Code>.
+     *
      * @see com.napchatalarms.napchatalarmsandroid.services.AlarmBuilder
      * @see OneTimeBuilder
      * @see com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder
-     * */
-    //TODO:finish repeating alarm creation.
+     */
+//TODO:finish repeating alarm creation.
     public void createAlarm(){
         if(repeatDays == null) {
             OneTimeBuilder builder = new OneTimeBuilder();
-            long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
+            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
             builder.setTime(trigger)
                     .setVibrate(vibrate)
                     .setRingtoneURI(ringtone)
@@ -114,13 +151,7 @@ public class CreateAlarmActivity extends AppCompatActivity  {
 
             OneTimeAlarm alarm = builder.build();
 
-            //Affirm attributes of alarm.
-            Log.d("Created ALARM",alarm.toString());
-
-            //add alarm to user list with the controller
-            alarmController.addAlarm(alarm, getApplicationContext());
-            //schedule alarm with the controller
-            alarmController.scheduleAlarm(getApplicationContext(),alarm);
+            alarmController.createAlarm(getApplicationContext(),alarm);
 
         } else{
             //build repeating alarm
@@ -128,6 +159,12 @@ public class CreateAlarmActivity extends AppCompatActivity  {
         }
     }
 
+    /**
+     * Set ringtone.
+     *
+     * @param uri  the uri
+     * @param name the name
+     */
     public void setRingtone(String uri, String name){
         ringtone = uri;
         ringtoneButton.setText("Ringtone: "+name);
@@ -138,8 +175,9 @@ public class CreateAlarmActivity extends AppCompatActivity  {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 1:
-                    ringtone = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-                    System.out.println(ringtone);
+                    Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    String name = RingtoneManager.getRingtone(getApplicationContext(),uri).getTitle(getApplicationContext());
+                    setRingtone(String.valueOf(uri),name);
                     break;
                 default:
                     break;

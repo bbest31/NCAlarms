@@ -105,6 +105,17 @@ public class UtilityFunctions {
             cal.set(Calendar.MILLISECOND, 0);
 
             timeMilli = cal.getTimeInMillis();
+        } else if (hour == cal.get(Calendar.HOUR_OF_DAY) && minute == cal.get(Calendar.MINUTE)) {
+            //If the time is exactly the current time we increase the day by 1.
+            int day = cal.get(Calendar.DATE);
+
+            cal.set(Calendar.DATE, day + 1);
+            cal.set(Calendar.HOUR_OF_DAY, hour);
+            cal.set(Calendar.MINUTE, minute);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+
+            timeMilli = cal.getTimeInMillis();
         }
 
         return timeMilli;
@@ -117,51 +128,16 @@ public class UtilityFunctions {
      */
     public final static String[] generatePermissionList(Activity a) {
 
-//        int vibratePermission = checkVibratePermission(a);
         int alarmPermission = checkAlarmPermission(a);
-//        int wakeLockPermission = checkWakeLockPermission(a);
         String[] permissions = null;
-//
-//         if(vibratePermission == -1 && alarmPermission ==- 1 && wakeLockPermission== -1){
-//             permissions = new String[]{Manifest.permission.VIBRATE,Manifest.permission.SET_ALARM,Manifest.permission.WAKE_LOCK};
-//
-//         } else if(vibratePermission == 0 && alarmPermission == 0 && wakeLockPermission== 0){
-//            //All permissions granted; return null
-//
-//         } else if(vibratePermission == 0 && alarmPermission == -1 && wakeLockPermission== -1){
-//            permissions = new String[]{Manifest.permission.SET_ALARM,Manifest.permission.WAKE_LOCK};
-//
-//         } else if(vibratePermission == 0 && alarmPermission == 0 && wakeLockPermission== -1){
-//             permissions = new String[]{Manifest.permission.WAKE_LOCK};
-//
-//         } else if(vibratePermission == -1 && alarmPermission == 0 && wakeLockPermission== -1){
-//             permissions = new String[]{Manifest.permission.VIBRATE,Manifest.permission.WAKE_LOCK};
-//
-//         } else
+
           if(alarmPermission == -1){
              permissions = new String[]{Manifest.permission.SET_ALARM};}
-//
-//         } else if(vibratePermission == -1 && alarmPermission == 0 && wakeLockPermission== 0){
-//             permissions = new String[]{Manifest.permission.VIBRATE};
-//
-//         } else if(vibratePermission == -1 && alarmPermission == -1 && wakeLockPermission== 0){
-//             permissions = new String[]{Manifest.permission.VIBRATE,Manifest.permission.SET_ALARM};
-//         }
 
          return permissions;
 
     }
 
-    /**
-     *
-     * @param a
-     * @return
-     */
-    private static int checkVibratePermission(Activity a){
-        // Assume thisActivity is the current activity
-        return  ContextCompat.checkSelfPermission(a,
-                android.Manifest.permission.VIBRATE);
-    }
 
     /**
      *
@@ -174,16 +150,6 @@ public class UtilityFunctions {
                 android.Manifest.permission.SET_ALARM);
     }
 
-    /**
-     *
-     * @param a
-     * @return
-     */
-    private static int checkWakeLockPermission(Activity a){
-        // Assume thisActivity is the current activity
-        return  ContextCompat.checkSelfPermission(a,
-                android.Manifest.permission.WAKE_LOCK);
-    }
 
 
 
