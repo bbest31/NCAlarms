@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.R;
 
+/**
+ * Activity shown when an alarm triggers.
+ * @author bbest
+ */
 public class AlarmActivity extends AppCompatActivity {
 
     //=====ATTRIBUTES=====
@@ -30,11 +36,12 @@ public class AlarmActivity extends AppCompatActivity {
      * */
     public void initialize(){
 
-        dismissButton = findViewById(R.id.dismiss_btn);
-        snoozeButton = findViewById(R.id.snooze_btn);
-        timeDisplay = findViewById(R.id.time_display_text);
-        meridianDisplay = findViewById(R.id.meridan_display_text);
+        dismissButton = (Button) findViewById(R.id.dismiss_btn);
+        snoozeButton = (Button) findViewById(R.id.snooze_btn);
+        timeDisplay = (TextView) findViewById(R.id.time_display_text);
+        meridianDisplay = (TextView) findViewById(R.id.meridan_display_text);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,18 +95,21 @@ public class AlarmActivity extends AppCompatActivity {
     //=====METHODS=====
 
     /**
-     *
+     *Calls the <code>AlarmController</code> and snoozes this alarm
+     * based on the <code>snoozeLength</code> attribute. It also passes in the necessary information
+     * for the follow up alarm to have the same behaviour.
+     * @see AlarmController
      * */
     public void snoozeAlarm(){
         AlarmController alarmController = AlarmController.getInstance();
-        alarmController.cancelOneTimeAlarm(this.getApplicationContext(),ID);
         alarmController.snoozeAlarm(this.getApplicationContext(),ID,vibrate,snoozeLength,ringtoneURI);
         finish();
 
     }
 
     /**
-     *Dismisses the current alarm from sounding off.
+     *Dismisses the current alarm from sounding off and closes the <code>AlarmActivity</code>
+     * @see AlarmController
      * */
     public void dismissAlarm(){
         AlarmController alarmController = AlarmController.getInstance();

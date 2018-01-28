@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.utility;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -10,10 +10,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import com.napchatalarms.napchatalarmsandroid.activities.AlarmActivity;
+import com.napchatalarms.napchatalarmsandroid.R;
+
 /**
  * AlarmReceiver builds the local notifications and creates the AlarmActivity Intent that will launch
  * when the alarm goes off.
- * Created by bbest on 30/11/17.
+ * @author bbest
  */
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -33,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent cancel = new Intent("Dismiss");
         PendingIntent cancelPending = PendingIntent.getBroadcast(context,id,cancel,PendingIntent.FLAG_CANCEL_CURRENT);
 
-        //Pass parameters to AlarmActivity so it can have same settings for snooze refire.
+        //Pass parameters to AlarmActivity so it can have same settings for snooze re-fire.
         Intent alarmIntent = new Intent(context,AlarmActivity.class);
         alarmIntent.putExtra("SNOOZE",snoozeLength);
         alarmIntent.putExtra("VIBRATE",vibrate);
@@ -46,10 +49,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        //TODO:Get small icon
         //Build Notification
         builder.setCategory(Notification.CATEGORY_ALARM)
-                //.setSmallIcon()
+                .setSmallIcon(R.drawable.ic_home_black_24dp)
                 .setFullScreenIntent(pendingAlarmIntent,true)
                 .setContentIntent(pendingAlarmIntent)
                 .setContentTitle("NapChat Alarm")
@@ -58,11 +60,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setPriority(Notification.PRIORITY_MAX);
 
         //Setting Alarm Ringtone
-        if(ringtoneURI == "default"){
+        if(Uri.parse(ringtoneURI) == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)){
 
             builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-        }
-        else{
+        } else{
 
             Uri uri = Uri.parse(ringtoneURI);
             builder.setSound(uri);
@@ -75,10 +76,10 @@ public class AlarmReceiver extends BroadcastReceiver {
             /**
              * Vibrate pattern is in milliseconds. First number indicates the time to wait
              * to start vibrating when notification fires. Second number is the time to vibrate
-             * and then turn off. Subsequent numbers indicate times that the vibrateion is off,on,off,etc.
+             * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
              * **/
             //TODO:grab custom vibrate patterns from a model class
-            builder.setDefaults(Notification.DEFAULT_VIBRATE);
+            builder.setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
         }
 
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);

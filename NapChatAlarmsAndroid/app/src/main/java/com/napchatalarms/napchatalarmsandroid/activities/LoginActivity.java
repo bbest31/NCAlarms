@@ -1,6 +1,7 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +17,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.napchatalarms.napchatalarmsandroid.customui.ForgotPassDialog;
+import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
+
+/**
+ * Activity that allows the users to sign in using email and password.
+ * <P>
+ *     There are also options to reset password as well sign up.
+ * </P>
+ * @author bbest
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -58,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                login();
+                login(getApplicationContext());
             }
         });
 
@@ -97,8 +110,11 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * This method is called if the user is successfully signed in and will navigate
-     * to the Home Activity by confirming the FirebaseUser object for the current user
-     * is a non-null object.**/
+     * to the Home Activity by confirming the <code>FirebaseUser</code> object for the current user
+     * is a non-null object.
+     * @see FirebaseUser
+     * */
+
     public void loginNavigationOnSuccess(FirebaseUser currentUser){
 
         if(currentUser != null){
@@ -112,8 +128,9 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * This method will grab the credentials entered into the TextViews and assign their values to the
      * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
+     * @see UtilityFunctions
      */
-    public void login(){
+    public void login(final Context context){
 
         Boolean validcreds = Boolean.TRUE;
 
@@ -137,6 +154,10 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                  Log.d( "Login Activity","signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                //Load user data.
+                                NapChatController controller = NapChatController.getInstance();
+//                                controller.loadUser(context);
+
                                 loginNavigationOnSuccess(user);
                             } else {
                                 // If sign in fails, display a message to the user.

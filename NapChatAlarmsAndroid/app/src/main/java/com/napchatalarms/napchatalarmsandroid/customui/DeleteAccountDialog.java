@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.customui;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -17,12 +17,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
+import com.napchatalarms.napchatalarmsandroid.R;
 
 /**
  * Dialog Box to re-authenticate the User in order to confirm identity before deleting the account.
- * Created by brand on 11/19/2017.
+ * @author bbest
  */
-
 public class DeleteAccountDialog extends Dialog implements android.view.View.OnClickListener{
 
     public Activity c;
@@ -31,6 +32,10 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
     public EditText emailEntry;
     public EditText passEntry;
 
+    /**
+     * Public constructor taking in the <code>Activity</code> to appear over.
+     * @param a - Activity to appear over.
+     */
     public DeleteAccountDialog(Activity a) {
         super(a);
         this.c = a;
@@ -67,6 +72,8 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
     }
     /**
      * Re-authenticates the user before performing the delete account action.
+     * @see FirebaseUser
+     * @see AuthCredential
      * */
     public void reAuth(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -94,6 +101,10 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
 
     }
 
+    /**
+     * Deletes the user account and proceeds to the <code>LoginActivity</code>
+     * @see FirebaseAuth
+     */
     public void deleteAccount(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

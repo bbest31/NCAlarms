@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,9 +16,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.napchatalarms.napchatalarmsandroid.customui.ChangeEmailDialog;
+import com.napchatalarms.napchatalarmsandroid.customui.DeleteAccountDialog;
+import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.model.User;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
 
+/**Activity where users can logout, verify email, change email/password/name, delete account
+ * and upgrade to paid version.
+ * @author bbest
+ */
 public class OptionsActivity extends AppCompatActivity {
 
     //=====VIEWS=====
@@ -35,7 +44,7 @@ public class OptionsActivity extends AppCompatActivity {
 
 
     /**
-     * Initializes views/variables/objects for the activity.
+     * Initializes views to variables.
      * */
     public void initialize(){
 
@@ -50,6 +59,7 @@ public class OptionsActivity extends AppCompatActivity {
         deleteAccountButton = (Button)findViewById(R.id.delete_account_btn);
         currentUser = User.getInstance();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,7 +145,12 @@ public class OptionsActivity extends AppCompatActivity {
     }
     //=====METHODS=====
     /**
-     * Gets the current FirebaseAuth instance and signs the user out and returns to the Login Activity.
+     * Gets the current FirebaseAuth instance and logs the <code>User</code> out.
+     * <P>
+     *     Before logging out the NapChatController saves the user alarms and settings.
+     * </P>
+     * @see FirebaseAuth
+     * @see com.napchatalarms.napchatalarmsandroid.services.NapChatController
      * */
     public void logout(){
 
@@ -147,6 +162,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     /**
      * Gets the current user and resend a verification email to the user email address.
+     * @see FirebaseAuth
      * */
     public void resendVerificationEmail(){
         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
@@ -163,6 +179,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     /**
      * This method asserts the new first and surname are of correct format and updates the users name.
+     * @see UtilityFunctions
      * */
     public void changeUsername(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -195,6 +212,7 @@ public class OptionsActivity extends AppCompatActivity {
 
 
     /**This method sends a reset password email in order to change the users password.
+     * @see FirebaseAuth
      * */
     public void resetPassword(){
         FirebaseAuth auth = FirebaseAuth.getInstance();

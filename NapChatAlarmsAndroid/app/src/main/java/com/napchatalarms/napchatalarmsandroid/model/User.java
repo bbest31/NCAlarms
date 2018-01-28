@@ -1,14 +1,13 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
-/**Singleton Class for the current user.
- * Created by brand on 11/17/2017.
+/**Singleton class for the current user.
+ * @author bbest
  */
-
 public class User {
 
     private static User instance = null;
@@ -20,13 +19,11 @@ public class User {
 
     /**Private Constructor
      * */
-
     private User() {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         this.name =  fUser.getDisplayName();
         this.email = fUser.getEmail();
-
-        //TODO: read stored alarms from file and if their username matches current user then add to AlarmList
+        this.alarmList = new ArrayList<>();
     }
 
     /**Instance method*/
@@ -38,6 +35,11 @@ public class User {
     }
 
     //=====METHODS=====
+
+    /**
+     *
+     * @param alarm
+     */
     public void addAlarm(Alarm alarm){ this.alarmList.add(alarm);}
 
     /**
@@ -56,11 +58,11 @@ public class User {
 
     /**The alarm in the User's alarm list is deleted that matches the given Id.
      * */
-    public void deleteAlarm(int Id){
+    public void deleteAlarm(int id){
 
         for(int i = 0; i < this.alarmList.size();i++){
             Alarm alarm = this.alarmList.get(i);
-            if(alarm.getId() == Id){
+            if(alarm.getId() == id){
                 this.alarmList.remove(i);
 
             }
@@ -68,9 +70,36 @@ public class User {
 
     }
 
+
     //=====GETTERS & SETTERS=====
+
+    /**
+     *
+     * @return
+     */
     public String getName(){ return this.name;}
+
+    /**
+     *
+     * @return
+     */
     public String getEmail(){return this.email;}
+
+    /**
+     *
+     * @param newName
+     */
     public void setName(String newName){this.name = newName;}
+
+    /**
+     *
+     * @param newEmail
+     */
     public void setEmail(String newEmail){this.email = newEmail;}
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Alarm> getAlarmList() {return alarmList;}
 }

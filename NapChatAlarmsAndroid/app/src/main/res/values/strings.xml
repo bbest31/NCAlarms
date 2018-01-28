@@ -40,6 +40,13 @@
     <string name="default_meridian">AM</string>
     <string name="dismiss">Dismiss</string>
     <string name="snooze">Snooze</string>
+    <string name="create">Create</string>
+    <string name="create_activate">Create and Activate</string>
+    <string name="cancel">Cancel</string>
+    <string name="repeat">Repeat</string>
+    <string name="ringtones">Ringtones</string>
+    <string name="blanktime">00:00 AM</string>
+
 
 
     <string name="username">Username:</string>
@@ -119,5 +126,9 @@
     <string name="title_activity_alarm">AlarmActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="default_menu_string">Default</string>
+    <string name="device">Device</string>
+    <string name="music">Music</string>
+    <string name="napchat">NapChat</string>
 
 </resources>

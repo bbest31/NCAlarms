@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.napchatalarms.napchatalarmsandroid">
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
 
     <application
         android:allowBackup="true"
@@ -9,25 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".activities.SignUpActivity" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home" />
 
-        <activity android:name=".OptionsActivity" />
+        <activity android:name=".activities.OptionsActivity" />
         <activity
-            android:name=".AlarmActivity"
+            android:name=".activities.AlarmActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_alarm"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".CreateAlarmActivity"></activity>
+        <activity android:name=".activities.CreateAlarmActivity"></activity>
+        <receiver android:name=".utility.AlarmReceiver"></receiver>
 
     </application>
 

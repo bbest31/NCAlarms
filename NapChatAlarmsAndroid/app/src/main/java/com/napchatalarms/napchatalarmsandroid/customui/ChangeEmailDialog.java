@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.customui;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,9 +16,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.napchatalarms.napchatalarmsandroid.R;
 
 /**
- * Created by brand on 11/29/2017.
+ * Dialog which users enter a new email to be associated with their account.
+ * @author bbest
  */
 
 public class ChangeEmailDialog extends Dialog implements android.view.View.OnClickListener {
@@ -31,6 +32,10 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
     public EditText passEntry;
     public EditText newemailEditText;
 
+    /**
+     * Public constructor taking in the <code>Activity</code> to appear over.
+     * @param a - Activity the dialog appears over
+     */
     public ChangeEmailDialog(Activity a) {
         super(a);
         this.c = a;
@@ -68,6 +73,8 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
 
     /**
      * Re-authenticates the user before performing the delete account action.
+     * @see FirebaseUser
+     * @see AuthCredential
      * */
     public void reAuth(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -98,6 +105,10 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
 
     }
 
+    /**
+     * Updates the email associated with the account.
+     * @param newEmail - new email to associate that user account with.
+     */
     //TODO:get new email entered from OptionsActivity
     public void changeEmail(String newEmail){
 
