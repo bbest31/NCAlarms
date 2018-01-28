@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class AlarmAdapter extends ArrayAdapter<Alarm> {
     Context context;
+    TextView alarmId;
     public AlarmAdapter(Context context, ArrayList<Alarm> alarmList){
         super(context, R.layout.alarm_layout, alarmList);
         this.context =context;
@@ -47,8 +48,9 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
         timeText.setText(sdf.format(alarm.getTime()));
 
         //Set hidden id reference
-        final TextView alarmId = (TextView)convertView.findViewById(R.id.hidden_alarm_id);
-        alarmId.setText(alarm.getId());
+        alarmId = (TextView)convertView.findViewById(R.id.hidden_alarm_id);
+
+        alarmId.setText(String.valueOf(alarm.getId()));
 
         //Set the status of the alarm
         Switch statusSwitch = (Switch) convertView.findViewById(R.id.activate_alarm_switch);
@@ -64,6 +66,13 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
                     //Deactivate alarm
                     AlarmController.getInstance().cancelAlarm(context,Integer.parseInt(alarmId.getText().toString()));
                 }
+            }
+        });
+
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
             }
         });
 
