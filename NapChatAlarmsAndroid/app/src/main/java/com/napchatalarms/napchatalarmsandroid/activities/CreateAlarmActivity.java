@@ -6,9 +6,12 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
@@ -24,7 +27,7 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
  *
  * @author bbest
  */
-public class CreateAlarmActivity extends AppCompatActivity  {
+public class CreateAlarmActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     /**
      * The Time picker.
@@ -46,7 +49,7 @@ public class CreateAlarmActivity extends AppCompatActivity  {
     /**
      * The Snooze spinner.
      */
-    NumberPicker snoozeSelector;
+    Spinner snoozeSelector;
     /**
      * The Create alarm button.
      */
@@ -83,15 +86,18 @@ public class CreateAlarmActivity extends AppCompatActivity  {
         ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
         ringtoneButton.setText("Ringtone: Default");
         repeatButton = (Button) findViewById(R.id.repeat_btn);
-        snoozeSelector = (NumberPicker) findViewById(R.id.snooze_length_picker);
-        snoozeSelector.setMaxValue(60);
-        snoozeSelector.setMinValue(1);
-        snoozeSelector.canScrollHorizontally(1);
+
+        snoozeSelector = (Spinner)findViewById(R.id.snooze_spinner);
+        ArrayAdapter<CharSequence> snoozeAdapter = ArrayAdapter.createFromResource(this
+                ,R.array.snooze_array
+                ,R.layout.support_simple_spinner_dropdown_item);
+        snoozeAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        snoozeSelector.setAdapter(snoozeAdapter);
+        snoozeSelector.setOnItemSelectedListener(this);
         createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
         ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
         vibrate = vibrateSwitch.isChecked();
         repeatDays = null;
-        snoozeLength = 5;
     }
 
     @Override
@@ -105,7 +111,6 @@ public class CreateAlarmActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 createAlarm();
-                //TODO:May need to create this intent with set result so Home knows to refresh alarm list.
                 finish();
             }
         });
@@ -184,6 +189,23 @@ public class CreateAlarmActivity extends AppCompatActivity  {
             }
         }
     }
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        try {
+            snoozeLength = Integer.valueOf(String.valueOf(parent.getItemAtPosition(pos)));
+        }catch(NumberFormatException e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+        snoozeLength = 5;
+    }
+
 
 
 }

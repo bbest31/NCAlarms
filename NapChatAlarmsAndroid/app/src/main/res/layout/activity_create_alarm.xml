@@ -53,12 +53,12 @@
 
     </LinearLayout>
 
-    <NumberPicker
-        android:id="@+id/snooze_length_picker"
+    <Spinner
+        android:id="@+id/snooze_spinner"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:visibility="gone" />
+        android:padding="20dp" />
 
     <Button
         android:id="@+id/create_alarm_btn"

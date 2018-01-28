@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,8 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
  *     Bottom navigation bar holds:
  *     Home, Friends, Options, NapFacts.
  * </P>
+ * @todo order alarms from earliest to latest time.
+ * @todo to edit and delete alarms it should be swipe right and left respectfully. Unless android can only do long click.
  * @author bbest
  */
 public class HomeActivity extends AppCompatActivity {
@@ -86,9 +89,17 @@ public class HomeActivity extends AppCompatActivity {
 
         //Load stored alarms that match the current users credentials.
 
+        alarmListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                return false;
+            }
+        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
 
     /**
@@ -131,10 +142,5 @@ public class HomeActivity extends AppCompatActivity {
         updateAlarmList();
 
     }
-
-    public void clearViews(){
-
-    }
-
 
 }
