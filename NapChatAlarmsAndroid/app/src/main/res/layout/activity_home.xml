@@ -8,18 +8,25 @@
     android:orientation="vertical"
     tools:context="com.napchatalarms.napchatalarmsandroid.activities.HomeActivity">
 
+    <Button
+        android:id="@+id/add_alarm_btn"
+        android:layout_width="47dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@drawable/ic_action_name" />
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <ListView
+        <com.baoyz.swipemenulistview.SwipeMenuListView
             android:id="@+id/alarm_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="true"
-            tools:listitem="@layout/alarm_layout"></ListView>
+            tools:listitem="@layout/alarm_layout"></com.baoyz.swipemenulistview.SwipeMenuListView>
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView

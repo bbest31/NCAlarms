@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NapChat Alarms Android</string>
+    <string name="app_name">NapChat</string>
 
     <string name="sign_up">Sign Up</string>
     <string name="create_account">Create Account</string>

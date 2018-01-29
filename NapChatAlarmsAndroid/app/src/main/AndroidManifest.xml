@@ -23,7 +23,8 @@
         <activity android:name=".activities.SignUpActivity" />
         <activity
             android:name=".activities.HomeActivity"
-            android:label="@string/title_activity_home" />
+            android:label="@string/title_activity_home"
+            />
 
         <activity android:name=".activities.OptionsActivity" />
         <activity

@@ -1,13 +1,16 @@
 package com.napchatalarms.napchatalarmsandroid.customui;
 
 import android.content.Context;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
@@ -21,7 +24,7 @@ import java.util.ArrayList;
  * @author bbest
  */
 
-public class AlarmAdapter extends ArrayAdapter<Alarm> {
+public class AlarmAdapter extends ArrayAdapter<Alarm>  {
     Context context;
     TextView alarmId;
     public AlarmAdapter(Context context, ArrayList<Alarm> alarmList){
@@ -69,16 +72,8 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
             }
         });
 
-        convertView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
-            }
-        });
-
         return convertView;
     }
 
-
-
 }
+
