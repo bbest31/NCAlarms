@@ -157,7 +157,7 @@ public class OptionsActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Intent loginIntent = new Intent(OptionsActivity.this,LoginActivity.class);
         startActivity(loginIntent);
-        //finish();
+        finish();
     }
 
     /**

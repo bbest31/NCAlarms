@@ -6,25 +6,34 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
 import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
+import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Activity used to create new alarms.
  *
  * @author bbest
  */
-public class CreateAlarmActivity extends AppCompatActivity  {
+public class CreateAlarmActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     /**
      * The Time picker.
@@ -46,11 +55,12 @@ public class CreateAlarmActivity extends AppCompatActivity  {
     /**
      * The Snooze spinner.
      */
-    NumberPicker snoozeSelector;
+    Spinner snoozeSelector;
     /**
      * The Create alarm button.
      */
     Button createAlarmButton;
+    Button editAlarmButton;
     /**
      * The Alarm controller.
      */
@@ -78,20 +88,85 @@ public class CreateAlarmActivity extends AppCompatActivity  {
      */
     public void initialize(){
         alarmController = AlarmController.getInstance();
+
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         vibrateSwitch = (Switch) findViewById(R.id.vibrate_switch);
         ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
-        ringtoneButton.setText("Ringtone: Default");
         repeatButton = (Button) findViewById(R.id.repeat_btn);
-        snoozeSelector = (NumberPicker) findViewById(R.id.snooze_length_picker);
-        snoozeSelector.setMaxValue(60);
-        snoozeSelector.setMinValue(1);
-        snoozeSelector.canScrollHorizontally(1);
-        createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
-        ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-        vibrate = vibrateSwitch.isChecked();
-        repeatDays = null;
-        snoozeLength = 5;
+
+        snoozeSelector = (Spinner)findViewById(R.id.snooze_spinner);
+        ArrayAdapter<CharSequence> snoozeAdapter = ArrayAdapter.createFromResource(this
+                ,R.array.snooze_array
+                ,R.layout.support_simple_spinner_dropdown_item);
+        snoozeAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        snoozeSelector.setAdapter(snoozeAdapter);
+        snoozeSelector.setOnItemSelectedListener(this);
+
+        //Get id indicator to see if this is a brand new alarm or if we are editing one.
+        Intent intent = this.getIntent();
+        int id = intent.getIntExtra("ID",0);
+
+        //If we are getting an alarm Id we grab the alarm and populate the views with its attributes.
+        if (id !=0) {
+            final Alarm alarm = User.getInstance().getAlarmById(id);
+            editAlarmButton = (Button)findViewById(R.id.edit_alarm_btn);
+            editAlarmButton.setVisibility(View.VISIBLE);
+
+            //Set TimePicker time.
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(alarm.getTime());
+            timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+            timePicker.setMinute(calendar.get(Calendar.MINUTE));
+
+            //Set ringtone name
+            Uri uri = Uri.parse(alarm.getRingtoneURI());
+            if(uri.toString() == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()){
+                ringtoneButton.setText("Ringtone: Default");
+            } else {
+                String uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
+                ringtoneButton.setText("Ringtone: " + uriName);
+            }
+            ringtone = alarm.getRingtoneURI();
+
+            //Set vibrate
+            vibrateSwitch.setChecked(alarm.getVibrateOn());
+            vibrate = vibrateSwitch.isChecked();
+
+            // set snooze
+            int pos = snoozeAdapter.getPosition(String.valueOf(alarm.getSnoozeLength()));
+            snoozeSelector.setSelection(pos);
+            snoozeLength = Integer.valueOf(snoozeSelector.getSelectedItem().toString());
+
+            //Set repeat day selection
+            if(alarm.getClass() == RepeatingAlarm.class){
+                //initialize repeat day selection.
+            }
+
+            editAlarmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editAlarm(alarm);
+                    finish();
+                }
+            });
+
+        } else {
+            createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
+            createAlarmButton.setVisibility(View.VISIBLE);
+            ringtoneButton.setText("Ringtone: Default");
+            ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+            vibrate = vibrateSwitch.isChecked();
+            repeatDays = null;
+
+            createAlarmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createAlarm();
+                    finish();
+                }
+            });
+
+        }
     }
 
     @Override
@@ -101,14 +176,6 @@ public class CreateAlarmActivity extends AppCompatActivity  {
         initialize();
 
         //=====ONCLICK METHODS=====
-        createAlarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createAlarm();
-                //TODO:May need to create this intent with set result so Home knows to refresh alarm list.
-                finish();
-            }
-        });
 
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +226,41 @@ public class CreateAlarmActivity extends AppCompatActivity  {
         }
     }
 
+    public void editAlarm(Alarm alarm){
+
+
+        if(alarm.getClass() == OneTimeAlarm.class && repeatDays != null){
+            //onetime to repeating alarm conversion
+            //TODO: onetime to repeating alarm conversion
+
+
+        } else if(alarm.getClass()==RepeatingAlarm.class && repeatDays == null){
+            //Change repeating alarm to onetime
+            //TODO:repeating alarm to onetime conversion
+
+        } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays == null){
+            //Onetime alarm staying the same type
+            alarm.setRingtoneURI(ringtone);
+            alarm.setSnoozeLength(snoozeLength);
+            alarm.setVibrate(vibrate);
+            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
+            alarm.setTime(trigger);
+
+        } else{
+            //TODO: finish
+            //repeating stays repeating
+            alarm.setRingtoneURI(ringtone);
+            alarm.setSnoozeLength(snoozeLength);
+            alarm.setVibrate(vibrate);
+            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
+            alarm.setTime(trigger);
+            //alarm.setInterval();
+            //repeatdays = ...
+        }
+
+        alarmController.scheduleAlarm(getApplicationContext(),alarm);
+    }
+
     /**
      * Set ringtone.
      *
@@ -184,6 +286,23 @@ public class CreateAlarmActivity extends AppCompatActivity  {
             }
         }
     }
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        try {
+            snoozeLength = Integer.valueOf(String.valueOf(parent.getItemAtPosition(pos)));
+        }catch(NumberFormatException e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+        snoozeLength = 5;
+    }
+
 
 
 }

@@ -131,6 +131,7 @@ public class NapChatController {
             String line;
             StringBuilder text = new StringBuilder();
             while ((line = br.readLine()) != null) {
+                //Process alarms
                 text.append(line);
                 text.append('\n');
             }
@@ -164,7 +165,7 @@ public class NapChatController {
      */
     public void loadUser(Context context){
         try {
-            loadUserSettings();
+            //loadUserSettings();
             loadUserAlarms(context);
             //loadUserFriends();
         } catch (IOException e){

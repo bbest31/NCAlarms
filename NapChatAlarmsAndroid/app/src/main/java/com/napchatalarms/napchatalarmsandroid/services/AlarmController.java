@@ -13,6 +13,7 @@ import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -55,13 +56,12 @@ public class AlarmController {
      * @param context
      */
     public void saveAlarms(Context context){
-//        try {
-//            NapChatController controller = NapChatController.getInstance();
-//            controller.saveUserAlarms(context);
-//        } catch(IOException e){
-//            System.err.println(e.getMessage());
-//            e.printStackTrace();
-//        }
+        try {
+            NapChatController.getInstance().saveUserAlarms(context);
+        } catch(IOException e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
     //==HIGH-LVL==
 
@@ -144,6 +144,7 @@ public class AlarmController {
 
         if(alarm.getClass() == OneTimeAlarm.class){
             dismissOneTime(context,Id);
+            saveAlarms(context);
         }else{
             dismissRepeatingAlarm(context,Id);
         }
