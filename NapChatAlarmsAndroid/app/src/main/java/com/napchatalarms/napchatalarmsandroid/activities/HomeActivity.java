@@ -33,6 +33,7 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
+import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
@@ -91,6 +92,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent createAlarmIntent = new Intent(HomeActivity.this,CreateAlarmActivity.class);
+                createAlarmIntent.putExtra("ID",0);
                 startActivity(createAlarmIntent);
             }
         });
@@ -146,14 +148,21 @@ public class HomeActivity extends AppCompatActivity {
                 switch (index) {
                     case 0:
                         // Edit
-                        //Intent intent = new Intent(HomeActivity.this, EditAlarmActivity.class);
-                        //startActivity(intent);
+                        Alarm editAlarm = alarmAdapter.getItem(position);
+                        Intent intent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
+                        try {
+                            intent.putExtra("ID", editAlarm.getId());
+                            startActivity(intent);
+                            updateAlarmList();
+                        } catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
                         break;
                     case 1:
                         // delete
-                        //SwipeMenuItem item = (SwipeMenuItem) alarmListView.getItemAtPosition(position);
-                        //AlarmController.getInstance().deleteAlarm(getApplicationContext(),id);
-                        //alarmListView.removeViewAt(position);
+                        Alarm deleteAlarm = alarmAdapter.getItem(position);
+                        AlarmController.getInstance().deleteAlarm(getApplicationContext(),deleteAlarm.getId());
+                        updateAlarmList();
                         break;
                 }
                 // false : close the menu; true : not close the menu

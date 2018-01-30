@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.services;
 
+import android.content.Context;
+
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 
@@ -13,9 +15,10 @@ import java.util.ArrayList;
 
 public class NapChatControllerTest {
     @Test
-    public void directoryCreation() throws Exception{
+    public void saveUserAlarmsTest() throws Exception{
 
         ArrayList<Alarm> alarmArrayList = new ArrayList<Alarm>();
+        NapChatController controller = NapChatController.getInstance();
 
         Alarm alarm1 = new Alarm();
         alarm1.setTime(1000);
@@ -60,5 +63,7 @@ public class NapChatControllerTest {
         for(Alarm a : alarmArrayList) {
             System.out.print(a.writeFormat()+"\n");
         }
+
+
     }
 }

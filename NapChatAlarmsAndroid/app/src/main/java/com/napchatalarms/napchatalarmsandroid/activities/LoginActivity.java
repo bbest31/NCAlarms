@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         //Navigate to Home Activity if currentUser is already signed in.
-        loginNavigationOnSuccess(currentUser);
+        loginNavigationOnSuccess(currentUser,getApplicationContext());
 
 
     }
@@ -115,9 +115,12 @@ public class LoginActivity extends AppCompatActivity {
      * @see FirebaseUser
      * */
 
-    public void loginNavigationOnSuccess(FirebaseUser currentUser){
+    public void loginNavigationOnSuccess(FirebaseUser currentUser, final Context context){
 
         if(currentUser != null){
+            //Load user data.
+            NapChatController controller = NapChatController.getInstance();
+            controller.loadUser(context);
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);
             finish();
@@ -154,16 +157,13 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                  Log.d( "Login Activity","signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                //Load user data.
-                                NapChatController controller = NapChatController.getInstance();
-//                                controller.loadUser(context);
 
-                                loginNavigationOnSuccess(user);
+                                loginNavigationOnSuccess(user,context);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("signInWithEmail:failure", task.getException());
                                 errorText.setVisibility(View.VISIBLE);
-                                loginNavigationOnSuccess(null);
+                                loginNavigationOnSuccess(null,context);
                             }
 
                             // ...

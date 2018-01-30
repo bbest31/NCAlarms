@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
+
+import java.io.IOException;
 
 /**
  * Dialog Box to re-authenticate the User in order to confirm identity before deleting the account.
@@ -94,6 +97,11 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                         Log.d("Re-Authentication", "User re-authenticated.");
                         if(task.isSuccessful()){
                         deleteAccount();
+                            try {
+                                NapChatController.getInstance().deleteFiles(getContext());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });

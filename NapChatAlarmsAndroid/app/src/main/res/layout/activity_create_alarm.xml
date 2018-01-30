@@ -68,6 +68,15 @@
         android:background="@color/colorPrimary"
         android:text="@string/create"
         android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/edit_alarm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@android:string/ok"
+        android:visibility="gone" />
 
 </LinearLayout>
