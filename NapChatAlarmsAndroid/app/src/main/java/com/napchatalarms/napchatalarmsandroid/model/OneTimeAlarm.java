@@ -1,12 +1,14 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
 
+import java.io.Serializable;
+
 /**
  * Alarm object that holds all the necessary information for a one-time alarm.
  * @author bbest
  */
 
-public class OneTimeAlarm extends Alarm {
+public class OneTimeAlarm extends Alarm implements Serializable {
 
     /**
      * Public constructor
@@ -27,14 +29,4 @@ public class OneTimeAlarm extends Alarm {
         return alarm;
     }
 
-    @Override
-    public String writeFormat(){
-        String alarm = this.getId()+
-                "|"+this.getTime()+
-                "|null"+ //interval = null indicates it is a OneTime alarm.
-                "|"+this.getSnoozeLength()+
-                "|"+this.getVibrateOn()+
-                "|"+this.getRingtoneURI()+
-                "|"+this.getStatus();
-        return alarm;    }
 }

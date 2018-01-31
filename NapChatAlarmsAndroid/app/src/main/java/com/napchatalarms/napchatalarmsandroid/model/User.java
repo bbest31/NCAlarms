@@ -102,4 +102,6 @@ public class User {
      * @return
      */
     public ArrayList<Alarm> getAlarmList() {return alarmList;}
+
+    public void setAlarmList(ArrayList<Alarm> list){this.alarmList = list;}
 }

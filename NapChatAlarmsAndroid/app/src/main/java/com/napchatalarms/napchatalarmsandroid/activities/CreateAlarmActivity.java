@@ -76,7 +76,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     /**
      * The Repeat days.
      */
-    Integer[] repeatDays;
+    int[] repeatDays;
     /**
      * The Snooze length.
      */
@@ -113,7 +113,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             editAlarmButton.setVisibility(View.VISIBLE);
 
             //Set TimePicker time.
-            Calendar calendar = Calendar.getInstance();
+            final Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(alarm.getTime());
             timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
             timePicker.setMinute(calendar.get(Calendar.MINUTE));
@@ -145,7 +145,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             editAlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editAlarm(alarm);
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.HOUR_OF_DAY,timePicker.getHour());
+                    cal.set(Calendar.MINUTE,timePicker.getMinute());
+
+                    editAlarm(alarm.getId(),vibrate,cal.getTimeInMillis(),ringtone,snoozeLength,repeatDays);
                     finish();
                 }
             });
@@ -153,14 +158,18 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         } else {
             createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
             createAlarmButton.setVisibility(View.VISIBLE);
+
             ringtoneButton.setText("Ringtone: Default");
             ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+
             vibrate = vibrateSwitch.isChecked();
+
             repeatDays = null;
 
             createAlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    
                     createAlarm();
                     finish();
                 }
@@ -226,39 +235,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
-    public void editAlarm(Alarm alarm){
-
-
-        if(alarm.getClass() == OneTimeAlarm.class && repeatDays != null){
-            //onetime to repeating alarm conversion
-            //TODO: onetime to repeating alarm conversion
-
-
-        } else if(alarm.getClass()==RepeatingAlarm.class && repeatDays == null){
-            //Change repeating alarm to onetime
-            //TODO:repeating alarm to onetime conversion
-
-        } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays == null){
-            //Onetime alarm staying the same type
-            alarm.setRingtoneURI(ringtone);
-            alarm.setSnoozeLength(snoozeLength);
-            alarm.setVibrate(vibrate);
-            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
-            alarm.setTime(trigger);
-
-        } else{
-            //TODO: finish
-            //repeating stays repeating
-            alarm.setRingtoneURI(ringtone);
-            alarm.setSnoozeLength(snoozeLength);
-            alarm.setVibrate(vibrate);
-            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
-            alarm.setTime(trigger);
-            //alarm.setInterval();
-            //repeatdays = ...
-        }
-
-        alarmController.scheduleAlarm(getApplicationContext(),alarm);
+    public void editAlarm(int id, Boolean vibrate, Long trigger,String ringtone,int snooze,  int[] repeat ){
+        alarmController.editAlarm(getApplicationContext(),id,vibrate,trigger,ringtone,snooze,repeat);
+        alarmController.saveAlarms(getApplicationContext());
     }
 
     /**

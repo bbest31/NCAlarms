@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import java.util.Map;
  * @author bbest
  */
 
-public class RepeatingAlarm extends Alarm {
+public class RepeatingAlarm extends Alarm implements Serializable {
 
     //=====ATTRIBUTES=====
     private int[] repeatDays;
@@ -16,7 +17,7 @@ public class RepeatingAlarm extends Alarm {
      * The key integer is the Id of the sub-Alarm. */
     private Map<Integer,Alarm> subAlarms;
 
-    /**Contructor determines the number of sub-Alarms it needs to make based on
+    /**Constructor determines the number of sub-Alarms it needs to make based on
      * the integer list days, each integer in days corresponds to what day of the week (1-7, 0:everyday).
      * */
     public RepeatingAlarm(){
@@ -60,13 +61,6 @@ public class RepeatingAlarm extends Alarm {
         return  alarm;
     }
 
-    @Override
-    public String writeFormat(){
-        String alarm = "";
-
-        return alarm;
-    }
-
     //=====GETTERS=====
 
     /**
@@ -94,6 +88,9 @@ public class RepeatingAlarm extends Alarm {
 
     //=====SETTERS=====
 
+    public void setSubAlarms(Map<Integer, Alarm> subAlarms) {
+        this.subAlarms = subAlarms;
+    }
     /**
      *
      * @param repeatDays

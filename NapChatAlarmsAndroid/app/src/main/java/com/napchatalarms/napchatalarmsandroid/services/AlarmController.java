@@ -12,6 +12,7 @@ import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -127,12 +128,36 @@ public class AlarmController {
 
     /**Update the attributes of an alarm.
      * */
-    public void editAlarm(Context context, Alarm alarm){
+    public void editAlarm(Context context, int id, Boolean vibrate, Long trigger, String ringtone, int snooze, int[] repeatDays){
+        Alarm alarm = User.getInstance().getAlarmById(id);
 
-        if(alarm.getClass() == OneTimeAlarm.class){
-            editOneTime(context,(OneTimeAlarm)alarm);
-        }else{
-            editRepeatingAlarm(context,(RepeatingAlarm)alarm);
+        if(alarm.getClass() == OneTimeAlarm.class && repeatDays != null){
+            //onetime to repeating alarm conversion
+            //TODO: onetime to repeating alarm conversion
+
+
+        } else if(alarm.getClass()==RepeatingAlarm.class && repeatDays == null){
+            //Change repeating alarm to onetime
+            //TODO:repeating alarm to onetime conversion
+
+        } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays == null){
+            //Onetime alarm staying the same type
+            alarm.setRingtoneURI(ringtone);
+            alarm.setSnoozeLength(snoozeLength);
+            alarm.setVibrate(vibrate);
+            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
+            alarm.setTime(trigger);
+
+        } else{
+            //TODO: finish
+            //repeating stays repeating
+            alarm.setRingtoneURI(ringtone);
+            alarm.setSnoozeLength(snoozeLength);
+            alarm.setVibrate(vibrate);
+            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
+            alarm.setTime(trigger);
+            //alarm.setInterval();
+            //repeatdays = ...
         }
         saveAlarms(context);
     }

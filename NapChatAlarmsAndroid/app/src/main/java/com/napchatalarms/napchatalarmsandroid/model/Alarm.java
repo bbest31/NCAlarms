@@ -1,9 +1,11 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
+import java.io.Serializable;
+
 /**Base(Super) Alarm class holding the base attributes for an alarm.
  * @author bbest
  */
-public class Alarm {
+public class Alarm implements Serializable {
 
     //=====ATTRIBUTES=====
     private long triggerTime;

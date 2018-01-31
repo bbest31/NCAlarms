@@ -7,6 +7,8 @@ import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -63,6 +65,8 @@ public class NapChatControllerTest {
         for(Alarm a : alarmArrayList) {
             System.out.print(a.writeFormat()+"\n");
         }
+
+        File file = new File("ALARM");
 
 
     }

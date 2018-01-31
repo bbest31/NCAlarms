@@ -14,10 +14,14 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.security.Permission;
+import java.util.ArrayList;
 
 
 /**
@@ -59,7 +63,7 @@ public class NapChatController {
 
         User user  = User.getInstance();
 
-        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR\\";
+        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR/";
         String filename = "SETT";
         File alarmFile = new File(path,filename);
 
@@ -73,8 +77,8 @@ public class NapChatController {
     public void createUserAlarmFile(Context context) throws IOException{
 
         User user  = User.getInstance();
-        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR\\";
-        String filename = "ALRM";
+        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR/";
+        String filename = "ALRM.ser";
         File alarmFile = new File(path,filename);
 
     }
@@ -99,16 +103,16 @@ public class NapChatController {
     public void saveUserAlarms(Context context) throws IOException{
         try {
             User user = User.getInstance();
-            String userFile = formatEmail(user.getEmail()) + "ALARMS";
             //gets users directory
             FileOutputStream outputStream;
-            outputStream = context.openFileOutput(userFile, Context.MODE_PRIVATE);
+            outputStream = context.openFileOutput(formatEmail(user.getEmail())+"DIR/ALRM.ser", Context.MODE_PRIVATE);
             outputStream.flush();
 
-            for(Alarm a: user.getAlarmList()) {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
-                outputStream.write(a.writeFormat().getBytes());
-            }
+            objectOutputStream.writeObject(user.getAlarmList());
+
+            objectOutputStream.close();
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,25 +124,21 @@ public class NapChatController {
      * @param context
      * @throws IOException
      */
-    //TODO:load user file (if exists) and read the alarms listed line by line.
     public void loadUserAlarms(Context context) throws IOException{
         try{
             User user = User.getInstance();
-            FileInputStream file = context.openFileInput(formatEmail(user.getEmail())+"DIR\\ALRM");
+            FileInputStream file = context.openFileInput(formatEmail(user.getEmail())+"DIR/ALRM.ser");
+            ObjectInputStream inputStream = new ObjectInputStream(file);
+            ArrayList<Alarm> list = (ArrayList<Alarm>) inputStream.readObject();
+            user.setAlarmList(list);
+            inputStream.close();
+            file.close();
 
-            //file.read();
-            BufferedReader br = new BufferedReader(new FileReader(formatEmail(user.getEmail())+"DIR\\ALRM"));
-            String line;
-            StringBuilder text = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                //Process alarms
-                text.append(line);
-                text.append('\n');
-            }
-            br.close() ;
-            Log.d("User Alarm file: ",text.toString());
         } catch(IOException e){
-            System.out.println("No directory with that user email or no file exists: "+e.getMessage());
+            System.err.println("No directory with that user email or no file exists: "+e.getMessage());
+        } catch (ClassNotFoundException c){
+            System.err.println("Class not found exception "+ c.getMessage());
+            c.printStackTrace();
         }
     }
 
@@ -184,10 +184,6 @@ public class NapChatController {
         newEmail = newEmail.replace(".","_");
         return newEmail;
     }
-
-
-
-
 
 
 }
