@@ -146,11 +146,8 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 @Override
                 public void onClick(View v) {
 
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(Calendar.HOUR_OF_DAY,timePicker.getHour());
-                    cal.set(Calendar.MINUTE,timePicker.getMinute());
 
-                    editAlarm(alarm.getId(),vibrate,cal.getTimeInMillis(),ringtone,snoozeLength,repeatDays);
+                    editAlarm(alarm.getId(),vibrate,timePicker.getHour(),timePicker.getMinute(),ringtone,snoozeLength,repeatDays);
                     finish();
                 }
             });
@@ -169,7 +166,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             createAlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    
+
                     createAlarm();
                     finish();
                 }
@@ -235,8 +232,8 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
-    public void editAlarm(int id, Boolean vibrate, Long trigger,String ringtone,int snooze,  int[] repeat ){
-        alarmController.editAlarm(getApplicationContext(),id,vibrate,trigger,ringtone,snooze,repeat);
+    public void editAlarm(int id, Boolean vibrate, int hour, int minute ,String ringtone,int snooze,  int[] repeat ){
+        alarmController.editAlarm(getApplicationContext(),id,vibrate,hour,minute,ringtone,snooze,repeat);
         alarmController.saveAlarms(getApplicationContext());
     }
 

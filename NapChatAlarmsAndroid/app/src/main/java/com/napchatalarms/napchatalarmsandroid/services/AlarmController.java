@@ -128,7 +128,7 @@ public class AlarmController {
 
     /**Update the attributes of an alarm.
      * */
-    public void editAlarm(Context context, int id, Boolean vibrate, Long trigger, String ringtone, int snooze, int[] repeatDays){
+    public void editAlarm(Context context, int id, Boolean vibrate,int hour, int min, String ringtone, int snooze, int[] repeatDays){
         Alarm alarm = User.getInstance().getAlarmById(id);
 
         if(alarm.getClass() == OneTimeAlarm.class && repeatDays != null){
@@ -143,18 +143,18 @@ public class AlarmController {
         } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays == null){
             //Onetime alarm staying the same type
             alarm.setRingtoneURI(ringtone);
-            alarm.setSnoozeLength(snoozeLength);
+            alarm.setSnoozeLength(snooze);
             alarm.setVibrate(vibrate);
-            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
-            alarm.setTime(trigger);
+            Long trig = UtilityFunctions.UTCMilliseconds(hour, min);
+            alarm.setTime(trig);
 
         } else{
             //TODO: finish
             //repeating stays repeating
             alarm.setRingtoneURI(ringtone);
-            alarm.setSnoozeLength(snoozeLength);
+            alarm.setSnoozeLength(snooze);
             alarm.setVibrate(vibrate);
-            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
+            Long trigger = UtilityFunctions.UTCMilliseconds(hour, min);
             alarm.setTime(trigger);
             //alarm.setInterval();
             //repeatdays = ...
