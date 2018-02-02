@@ -155,7 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
                             sendEmailVerification();
                             try {
                             //Create new files directory for user in internal storage
-                            NapChatController.getInstance().createUserDirectory(getApplicationContext());
+                            NapChatController.getInstance().createUserFiles(getApplicationContext());
 
                             }catch(IOException e){
 

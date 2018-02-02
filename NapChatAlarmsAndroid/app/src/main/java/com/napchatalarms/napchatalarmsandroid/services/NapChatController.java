@@ -46,10 +46,8 @@ public class NapChatController {
      * @param context
      * @throws IOException
      */
-    public void createUserDirectory(Context context) throws IOException{
-        User user = User.getInstance();
-        String userDir = formatEmail(user.getEmail()) + "DIR";
-        context.getDir(userDir,Context.MODE_PRIVATE);
+    public void createUserFiles(Context context) throws IOException{
+
         createUserSettingsFile(context);
         createUserAlarmFile(context);
     }
@@ -63,9 +61,9 @@ public class NapChatController {
 
         User user  = User.getInstance();
 
-        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR/";
-        String filename = "SETT";
-        File alarmFile = new File(path,filename);
+        String filename = formatEmail(User.getInstance().getEmail())+"SETT.ser";
+        File settingsFile = new File(context.getFilesDir().getAbsolutePath(),filename);
+
 
     }
 
@@ -76,10 +74,9 @@ public class NapChatController {
      */
     public void createUserAlarmFile(Context context) throws IOException{
 
-        User user  = User.getInstance();
-        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR/";
-        String filename = "ALRM.ser";
-        File alarmFile = new File(path,filename);
+        String filename = formatEmail(User.getInstance().getEmail())+"ALRM.ser";
+        File alarmFile = new File(context.getFilesDir().getAbsolutePath(),filename);
+
 
     }
     /**Loads the file which contains the user settings
