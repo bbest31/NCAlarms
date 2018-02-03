@@ -76,13 +76,12 @@ public class NapChatController {
 
         String filename = formatEmail(User.getInstance().getEmail())+"ALRM.ser";
         File alarmFile = new File(context.getFilesDir().getAbsolutePath(),filename);
-
+        alarmFile.createNewFile();
 
     }
     /**Loads the file which contains the user settings
      * **/
     public void loadUserSettings() throws IOException{
-        User user = User.getInstance();
         //loads file and looks for settings for the matching user name.
         //if none exists we add a space for it.
     }
@@ -102,7 +101,7 @@ public class NapChatController {
             User user = User.getInstance();
             //gets users directory
             FileOutputStream outputStream;
-            outputStream = context.openFileOutput(formatEmail(user.getEmail())+"DIR/ALRM.ser", Context.MODE_PRIVATE);
+            outputStream = context.openFileOutput(formatEmail(user.getEmail())+"ALRM.ser", Context.MODE_PRIVATE);
             outputStream.flush();
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -124,15 +123,18 @@ public class NapChatController {
     public void loadUserAlarms(Context context) throws IOException{
         try{
             User user = User.getInstance();
-            FileInputStream file = context.openFileInput(formatEmail(user.getEmail())+"DIR/ALRM.ser");
+            FileInputStream file = context.openFileInput(formatEmail(user.getEmail())+"ALRM.ser");
             ObjectInputStream inputStream = new ObjectInputStream(file);
             ArrayList<Alarm> list = (ArrayList<Alarm>) inputStream.readObject();
             user.setAlarmList(list);
             inputStream.close();
             file.close();
+            for(Alarm a:list){
 
+                System.out.println(a.toString());
+            }
         } catch(IOException e){
-            System.err.println("No directory with that user email or no file exists: "+e.getMessage());
+            System.err.println("No alarm file exists or no object present: "+e.getMessage());
         } catch (ClassNotFoundException c){
             System.err.println("Class not found exception "+ c.getMessage());
             c.printStackTrace();
@@ -146,26 +148,28 @@ public class NapChatController {
      */
     public void deleteFiles(Context context) throws IOException{
 
-        User user  = User.getInstance();
-        String path = formatEmail(user.getEmail()) + "DIR";
-        File[] dir = context.getDir(path,Context.MODE_PRIVATE).listFiles();
-        for(File file : dir){
-            file.delete();
-        }
-        context.deleteFile(path);
-
+        File dir = context.getFilesDir();
+        File alarmFile = new File(dir,formatEmail(User.getInstance().getEmail())+"ALRM.ser");
+        File settingsFile = new File(dir,formatEmail(User.getInstance().getEmail())+"SETT.ser");
+        alarmFile.delete();
+        settingsFile.delete();
     }
 
     /**
      *
      * @param context
      */
-    public void loadUser(Context context){
+    public void loadUserData(Context context){
         try {
             //loadUserSettings();
             loadUserAlarms(context);
             //loadUserFriends();
         } catch (IOException e){
+            try {
+                createUserFiles(context);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.err.println(e.getMessage());
             e.printStackTrace();
         }

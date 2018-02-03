@@ -124,6 +124,7 @@ public class AlarmController {
             cancelRepeating(context,(RepeatingAlarm)alarm);
         }
         alarm.Deactivate();
+        saveAlarms(context);
     }
 
     /**Update the attributes of an alarm.
@@ -133,12 +134,31 @@ public class AlarmController {
 
         if(alarm.getClass() == OneTimeAlarm.class && repeatDays != null){
             //onetime to repeating alarm conversion
-            //TODO: onetime to repeating alarm conversion
+            RepeatingBuilder builder = new RepeatingBuilder();
+            builder.initialize(repeatDays)
+            .setVibrate(vibrate)
+            .setRingtoneURI(ringtone)
+            .setSnooze(snooze);
+            Long trig = UtilityFunctions.UTCMilliseconds(hour,min);
+            builder.setTime(trig);
+
+            RepeatingAlarm newAlarm = builder.build();
+            deleteAlarm(context,id);
+            createAlarm(context,newAlarm);
 
 
         } else if(alarm.getClass()==RepeatingAlarm.class && repeatDays == null){
             //Change repeating alarm to onetime
-            //TODO:repeating alarm to onetime conversion
+            OneTimeBuilder builder = new OneTimeBuilder();
+            builder.setRingtoneURI(ringtone)
+                    .setVibrate(vibrate)
+                    .setSnooze(snooze);
+            Long trig = UtilityFunctions.UTCMilliseconds(hour,min);
+            builder.setTime(trig);
+
+            OneTimeAlarm newAlarm = builder.build();
+            deleteAlarm(context,id);
+            createAlarm(context,newAlarm);
 
         } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays == null){
             //Onetime alarm staying the same type
@@ -147,19 +167,24 @@ public class AlarmController {
             alarm.setVibrate(vibrate);
             Long trig = UtilityFunctions.UTCMilliseconds(hour, min);
             alarm.setTime(trig);
+            cancelAlarm(context, id);
+            scheduleAlarm(context,alarm);
 
         } else{
-            //TODO: finish
             //repeating stays repeating
-            alarm.setRingtoneURI(ringtone);
-            alarm.setSnoozeLength(snooze);
-            alarm.setVibrate(vibrate);
+            RepeatingBuilder builder = new RepeatingBuilder();
+            builder.initialize(repeatDays)
+                    .setSnooze(snooze)
+                    .setRingtoneURI(ringtone)
+                    .setVibrate(vibrate);
             Long trigger = UtilityFunctions.UTCMilliseconds(hour, min);
-            alarm.setTime(trigger);
-            //alarm.setInterval();
-            //repeatdays = ...
+            builder.setTime(trigger);
+            RepeatingAlarm newAlarm = builder.build();
+
+            deleteAlarm(context,id);
+            createAlarm(context,newAlarm);
         }
-        saveAlarms(context);
+
     }
 
     /**Stop the current sounding alarm from firing.
@@ -248,14 +273,6 @@ public class AlarmController {
         alarmManager.cancel(oneTimePendingIntent(context,alarm));
     }
 
-    /**Removes the old version of the alarm from the User list and the current scheduling.
-     * Then we add the new version to the User list.
-     * */
-    public void editOneTime(Context context, OneTimeAlarm alarm){
-        deleteAlarm(context,alarm.getId());
-        this.addAlarmToUser(alarm,context);
-    }
-
     public PendingIntent oneTimePendingIntent(Context context,OneTimeAlarm alarm){
         Intent intent = new Intent(context, AlarmReceiver.class);
 
@@ -330,7 +347,7 @@ public class AlarmController {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         //For each sub-Alarm schedule it.
-        for(Map.Entry<Integer,Alarm> entry : alarm.getSubList().entrySet()){
+        for(Map.Entry<Integer,Alarm> entry : alarm.getSubAlarms().entrySet()){
 
             Intent intent = new Intent(context, AlarmReceiver.class);
 
@@ -366,20 +383,11 @@ public class AlarmController {
 
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        for (Map.Entry<Integer,Alarm> entry : alarm.getSubList().entrySet()) {
+        for (Map.Entry<Integer,Alarm> entry : alarm.getSubAlarms().entrySet()) {
             alarmManager.cancel(AlarmPendingIntent(context,entry.getValue()));
         }
 
 
-    }
-
-    /**Takes in a new instance of the repeating alarm with the same Id. We delete
-     * the old version from the User list and de-schedule it before we add the new version
-     * to the User list.
-     * */
-    public void editRepeatingAlarm(Context context, RepeatingAlarm alarm){
-        deleteAlarm(context,alarm.getId());
-        this.addAlarmToUser(alarm,context);
     }
 
 }

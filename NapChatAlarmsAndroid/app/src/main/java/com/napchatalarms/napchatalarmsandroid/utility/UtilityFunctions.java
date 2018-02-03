@@ -122,24 +122,6 @@ public class UtilityFunctions {
     }
 
     /**
-     *@todo change this to behave differently based on the activity passing into it.
-     * @param a
-     * @return
-     */
-    public final static String[] generatePermissionList(Activity a) {
-
-        int alarmPermission = checkAlarmPermission(a);
-        String[] permissions = null;
-
-          if(alarmPermission == -1){
-             permissions = new String[]{Manifest.permission.SET_ALARM};}
-
-         return permissions;
-
-    }
-
-
-    /**
      *
      * @param a
      * @return

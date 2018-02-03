@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.content.Intent;
+import android.media.MediaActionSound;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import com.napchatalarms.napchatalarmsandroid.customui.RepeatDaysDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
@@ -23,6 +25,7 @@ import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.util.Calendar;
@@ -120,7 +123,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             //Set ringtone name
             Uri uri = Uri.parse(alarm.getRingtoneURI());
-            if(uri.toString() == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()){
+            if(uri.toString().equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())){
                 ringtoneButton.setText("Ringtone: Default");
             } else {
                 String uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
@@ -139,7 +142,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             //Set repeat day selection
             if(alarm.getClass() == RepeatingAlarm.class){
-                //initialize repeat day selection.
+
+                RepeatingAlarm repeatingAlarm = (RepeatingAlarm)alarm;
+                repeatDays = repeatingAlarm.getRepeatDays();
+                setRepeatText(repeatDays);
+
             }
 
             editAlarmButton.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +206,14 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
+        repeatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RepeatDaysDialog repeatDaysDialog = new RepeatDaysDialog(CreateAlarmActivity.this);
+                repeatDaysDialog.show();
+            }
+        });
+
 
     }
 
@@ -212,7 +227,6 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * @see OneTimeBuilder
      * @see com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder
      */
-//TODO:finish repeating alarm creation.
     public void createAlarm(){
         if(repeatDays == null) {
             OneTimeBuilder builder = new OneTimeBuilder();
@@ -228,6 +242,16 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
         } else{
             //build repeating alarm
+            RepeatingBuilder builder = new RepeatingBuilder();
+            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(),timePicker.getMinute());
+            builder.setTime(trigger)
+                    .setVibrate(vibrate)
+                    .setRingtoneURI(ringtone)
+                    .setSnooze(snoozeLength);
+
+            RepeatingAlarm alarm = builder.build();
+
+            alarmController.createAlarm(getApplicationContext(),alarm);
 
         }
     }
@@ -248,14 +272,27 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         ringtoneButton.setText("Ringtone: "+name);
     }
 
+    /**
+     *
+     * @param newDays
+     */
+    public void setRepeatDays(int[] newDays){
+        repeatDays = newDays;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 1:
+                    //Return from ringtone dialog
                     Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
                     String name = RingtoneManager.getRingtone(getApplicationContext(),uri).getTitle(getApplicationContext());
                     setRingtone(String.valueOf(uri),name);
+                    break;
+                case 2:
+                    //Return from Music
+
                     break;
                 default:
                     break;
@@ -280,5 +317,36 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     }
 
 
+    public void setRepeatText(int[] repeatDays){
+        //Set the repeat_btn view to reflect the days selected
+        String rptButtonText = "";
+        for(int day:repeatDays){
+            switch (day){
+                case 1:
+                    rptButtonText.concat("Sun,");
+                    break;
+                case 2:
+                    rptButtonText.concat("Mon,");
+                    break;
+                case 3:
+                    rptButtonText.concat("Tues,");
+                    break;
+                case 4:
+                    rptButtonText.concat("Wed,");
+                    break;
+                case 5:
+                    rptButtonText.concat("Thurs,");
+                    break;
+                case 6:
+                    rptButtonText.concat("Fri,");
+                    break;
+                case 7:
+                    rptButtonText.concat("Sat,");
+                    break;
+            }
+        }
+
+        repeatButton.setText("Repeat: "+rptButtonText);
+    }
 
 }

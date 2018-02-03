@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
 public class UtilityFunctionsTest {
     @Test
     public void addition_isCorrect() throws Exception {
-//        Calendar cal = Calendar.getInstance();
-//        int day = cal.get(Calendar.DAY_OF_WEEK);
-//        cal.set(Calendar.DAY_OF_WEEK,day+7);
-//        assertEquals(1, cal.get(Calendar.DAY_OF_WEEK));
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        cal.set(Calendar.DAY_OF_WEEK,day+7);
+        assertEquals(6, cal.get(Calendar.DAY_OF_WEEK));
     }
 }

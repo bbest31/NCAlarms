@@ -22,6 +22,7 @@ import java.util.ArrayList;
 /**
  *
  * @author bbest
+ * @todo display days with repeating alarms.
  */
 
 public class AlarmAdapter extends ArrayAdapter<Alarm>  {
@@ -45,15 +46,15 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>  {
         }
         //sets the widgets to correspond to variables
 
-        //Set the time display string
-        TextView timeText = (TextView) convertView.findViewById(R.id.time_display_text);
-        SimpleDateFormat  sdf = new SimpleDateFormat("hh:mm a");
-        timeText.setText(sdf.format(alarm.getTime()));
-
         //Set hidden id reference
         alarmId = (TextView)convertView.findViewById(R.id.hidden_alarm_id);
 
         alarmId.setText(String.valueOf(alarm.getId()));
+
+        //Set the time display string
+        TextView timeText = (TextView) convertView.findViewById(R.id.time_display_text);
+        SimpleDateFormat  sdf = new SimpleDateFormat("hh:mm a");
+        timeText.setText(sdf.format(alarm.getTime()));
 
         //Set the status of the alarm
         Switch statusSwitch = (Switch) convertView.findViewById(R.id.activate_alarm_switch);
