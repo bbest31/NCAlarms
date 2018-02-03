@@ -21,6 +21,7 @@ public class AlarmActivity extends AppCompatActivity {
     //=====ATTRIBUTES=====
     String timeDisplayString;
     int ID;
+    int subID;
     int snoozeLength;
     Boolean vibrate;
     String ringtoneURI;
@@ -84,6 +85,7 @@ public class AlarmActivity extends AppCompatActivity {
         ringtoneURI = intent.getStringExtra("URI");
         meridianDisplayString = intent.getStringExtra("MERIDIAN");
         timeDisplayString = intent.getStringExtra("TIME");
+        subID = intent.getIntExtra("SUBID",0);
 
 
         timeDisplay.setText(timeDisplayString, TextView.BufferType.NORMAL);
@@ -102,7 +104,7 @@ public class AlarmActivity extends AppCompatActivity {
      * */
     public void snoozeAlarm(){
         AlarmController alarmController = AlarmController.getInstance();
-        alarmController.snoozeAlarm(this.getApplicationContext(),ID,vibrate,snoozeLength,ringtoneURI);
+        alarmController.snoozeAlarm(this.getApplicationContext(),ID,subID,vibrate,snoozeLength,ringtoneURI);
         finish();
 
     }
@@ -113,7 +115,7 @@ public class AlarmActivity extends AppCompatActivity {
      * */
     public void dismissAlarm(){
         AlarmController alarmController = AlarmController.getInstance();
-        alarmController.dismissAlarm(this.getApplicationContext(),ID);
+        alarmController.dismissAlarm(this.getApplicationContext(),ID,subID);
         finish();
     }
 }

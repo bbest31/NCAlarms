@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,12 +24,12 @@ import java.util.ArrayList;
 /**
  *
  * @author bbest
- * @todo display days with repeating alarms.
  */
 
 public class AlarmAdapter extends ArrayAdapter<Alarm>  {
     Context context;
     TextView alarmId;
+    TextView repeatDaysText;
     public AlarmAdapter(Context context, ArrayList<Alarm> alarmList){
         super(context, R.layout.alarm_layout, alarmList);
         this.context =context;
@@ -55,6 +57,18 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>  {
         TextView timeText = (TextView) convertView.findViewById(R.id.time_display_text);
         SimpleDateFormat  sdf = new SimpleDateFormat("hh:mm a");
         timeText.setText(sdf.format(alarm.getTime()));
+
+        //Set the days repeating on
+        repeatDaysText = (TextView)convertView.findViewById(R.id.repeat_days_text);
+        if(alarm.getClass() == RepeatingAlarm.class){
+            String repeatText = UtilityFunctions.generateRepeatText(((RepeatingAlarm)alarm).getRepeatDays());
+            if(repeatText != null){
+                repeatDaysText.setText(repeatText);
+                repeatDaysText.setVisibility(View.VISIBLE);
+            }
+        } else {
+            repeatDaysText.setVisibility(View.GONE);
+        }
 
         //Set the status of the alarm
         Switch statusSwitch = (Switch) convertView.findViewById(R.id.activate_alarm_switch);

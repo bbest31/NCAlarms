@@ -100,8 +100,8 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
                 c.startActivityForResult(deviceToneIntent,1);
                 break;
             case R.id.musicRingtoneButton:
-                Intent musicIntent = new Intent(Intent.CATEGORY_APP_MUSIC);
-                c.startActivityForResult(musicIntent,2);
+//                Intent musicIntent = new Intent(Intent.CATEGORY_APP_MUSIC);
+//                c.startActivityForResult(musicIntent,2);
                 break;
             case R.id.napchatRingtoneButton:
                 break;

@@ -5,9 +5,44 @@
     android:layout_height="match_parent">
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/sunday_checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        android:text="@string/sunday" />
+    <CheckBox
+        android:id="@+id/monday_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/monday" />
+    <CheckBox
+        android:id="@+id/tuesday_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tuesday" />
+    <CheckBox
+        android:id="@+id/wednesday_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wednesday" />
+    <CheckBox
+        android:id="@+id/thursday_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/thursday" />
+    <CheckBox
+        android:id="@+id/friday_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/friday" />
+    <CheckBox
+        android:id="@+id/saturday_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/saturday" />
+    <Button
+        android:id="@+id/repeat_okay_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/okay"/>
 
 </LinearLayout>

@@ -28,8 +28,10 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Activity used to create new alarms.
@@ -79,7 +81,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     /**
      * The Repeat days.
      */
-    int[] repeatDays;
+    List<Integer> repeatDays;
     /**
      * The Snooze length.
      */
@@ -168,7 +170,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             vibrate = vibrateSwitch.isChecked();
 
-            repeatDays = null;
+            repeatDays = new ArrayList<Integer>();
 
             createAlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -206,6 +208,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
+        //TODO pass in repeatDays
         repeatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,7 +231,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * @see com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder
      */
     public void createAlarm(){
-        if(repeatDays == null) {
+        if(repeatDays.size() == 0) {
             OneTimeBuilder builder = new OneTimeBuilder();
             Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
             builder.setTime(trigger)
@@ -244,10 +247,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             //build repeating alarm
             RepeatingBuilder builder = new RepeatingBuilder();
             Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(),timePicker.getMinute());
-            builder.setTime(trigger)
+            builder.initialize(repeatDays)
+                    .setTime(trigger)
                     .setVibrate(vibrate)
                     .setRingtoneURI(ringtone)
-                    .setSnooze(snoozeLength);
+                    .setSnooze(snoozeLength)
+                    .setInterval();
 
             RepeatingAlarm alarm = builder.build();
 
@@ -256,7 +261,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
-    public void editAlarm(int id, Boolean vibrate, int hour, int minute ,String ringtone,int snooze,  int[] repeat ){
+    public void editAlarm(int id, Boolean vibrate, int hour, int minute ,String ringtone,int snooze,  List<Integer> repeat ){
         alarmController.editAlarm(getApplicationContext(),id,vibrate,hour,minute,ringtone,snooze,repeat);
         alarmController.saveAlarms(getApplicationContext());
     }
@@ -276,7 +281,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      *
      * @param newDays
      */
-    public void setRepeatDays(int[] newDays){
+    public void setRepeatDays(List<Integer> newDays){
         repeatDays = newDays;
     }
 
@@ -317,36 +322,15 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     }
 
 
-    public void setRepeatText(int[] repeatDays){
+    public void setRepeatText(List<Integer> repeatDays){
         //Set the repeat_btn view to reflect the days selected
-        String rptButtonText = "";
-        for(int day:repeatDays){
-            switch (day){
-                case 1:
-                    rptButtonText.concat("Sun,");
-                    break;
-                case 2:
-                    rptButtonText.concat("Mon,");
-                    break;
-                case 3:
-                    rptButtonText.concat("Tues,");
-                    break;
-                case 4:
-                    rptButtonText.concat("Wed,");
-                    break;
-                case 5:
-                    rptButtonText.concat("Thurs,");
-                    break;
-                case 6:
-                    rptButtonText.concat("Fri,");
-                    break;
-                case 7:
-                    rptButtonText.concat("Sat,");
-                    break;
-            }
-        }
 
-        repeatButton.setText("Repeat: "+rptButtonText);
+        String text = UtilityFunctions.generateRepeatText(repeatDays);
+        if(text !=null){
+            repeatButton.setText("Repeat: "+text);
+        } else {
+            repeatButton.setText("Repeat");
+        }
     }
 
 }

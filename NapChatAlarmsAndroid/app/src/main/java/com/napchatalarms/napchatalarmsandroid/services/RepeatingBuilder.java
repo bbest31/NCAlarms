@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid.services;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,10 +28,10 @@ public class RepeatingBuilder extends AlarmBuilder {
      *
      * @return the repeating builder
      */
-    public RepeatingBuilder initialize(final int[] days){
+    public RepeatingBuilder initialize(final List<Integer> days){
         alarm.setRepeatDays(days);
         //Initialize the individual alarms for each day.
-        for (int i = 0; i < days.length; i++) {
+        for (Integer i : days) {
             alarm.addSubAlarm(new Alarm());
             }
         return this;
@@ -38,14 +39,14 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setTime(final long triggerTime){
-
+        alarm.setTime(triggerTime);
         Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         int i = 0;
-        int[] repeatDays = alarm.getRepeatDays();
+        List<Integer> repeatDays = alarm.getRepeatDays();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
             Alarm a = entry.getValue();
-            long trig = alarm.calculateTrigger(repeatDays[i],triggerTime);
+            long trig = alarm.calculateTrigger(repeatDays.get(i),triggerTime);
             a.setTime(trig);
             i++;
         }

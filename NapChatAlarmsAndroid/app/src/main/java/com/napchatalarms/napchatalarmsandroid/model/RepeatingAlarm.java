@@ -2,6 +2,9 @@ package com.napchatalarms.napchatalarmsandroid.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,7 +14,7 @@ import java.util.Map;
 public class RepeatingAlarm extends Alarm implements Serializable {
 
     //=====ATTRIBUTES=====
-    private int[] repeatDays;
+    private List<Integer> repeatDays;
 
     /**Map carrying the different sub alarms for each day that needs a repeating alarm.
      * The key integer is the Id of the sub-Alarm. */
@@ -22,6 +25,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      * */
     public RepeatingAlarm(){
         super();
+        subAlarms = new HashMap<Integer, Alarm>();
     }
     //=====METHODS=====
 
@@ -96,7 +100,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      *
      * @return
      */
-    public int[] getRepeatDays() {
+    public List<Integer> getRepeatDays() {
         return repeatDays;
     }
 
@@ -113,7 +117,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      *
      * @param repeatDays
      */
-    public void setRepeatDays(int[] repeatDays) {
+    public void setRepeatDays(List<Integer> repeatDays) {
         this.repeatDays = repeatDays;
     }
 

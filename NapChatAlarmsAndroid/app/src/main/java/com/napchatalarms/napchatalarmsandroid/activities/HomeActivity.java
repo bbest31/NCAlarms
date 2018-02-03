@@ -65,11 +65,6 @@ public class HomeActivity extends AppCompatActivity {
         initialize();
         updateAlarmList();
 
-        for(String f : getApplicationContext().fileList()){
-
-            System.out.println("File: "+f);
-        }
-
     }
 
     @Override
