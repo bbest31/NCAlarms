@@ -70,9 +70,10 @@ public class OptionsActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         //Checks to see if the user has a verified email.
-        if(!user.isEmailVerified()){
+        if(user.isEmailVerified() == false){
 
             verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
+            verifiedEmailTextView.setText("Email Unverified");
             verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
             verifiedEmailTextView.setVisibility(View.VISIBLE);
 
@@ -137,6 +138,7 @@ public class OptionsActivity extends AppCompatActivity {
 
             verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
             verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.verified_green));
+            verifiedEmailTextView.setText("Email Verified");
             resendEmailVerificationButton.setVisibility(View.GONE);
         } else{
             verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
