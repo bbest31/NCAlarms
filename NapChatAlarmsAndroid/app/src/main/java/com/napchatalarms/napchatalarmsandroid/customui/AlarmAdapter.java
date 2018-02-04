@@ -1,16 +1,13 @@
 package com.napchatalarms.napchatalarmsandroid.customui;
 
 import android.content.Context;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
@@ -50,7 +47,6 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>  {
 
         //Set hidden id reference
         alarmId = (TextView)convertView.findViewById(R.id.hidden_alarm_id);
-
         alarmId.setText(String.valueOf(alarm.getId()));
 
         //Set the time display string
@@ -78,6 +74,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>  {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Alarm checkedAlarm = getItem(position);
+
                 if(isChecked){
                     //Activate alarm
                     AlarmController.getInstance().activateAlarm(context,checkedAlarm.getId());
