@@ -28,13 +28,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         Boolean vibrate = intent.getBooleanExtra("Vibrate",false);
         String ringtoneURI = intent.getStringExtra("Uri");
         int id = intent.getIntExtra("Id",0);
+        int subId = intent.getIntExtra("subID",0);
         int snoozeLength = intent.getIntExtra("Snooze",5);
         String displayTime = intent.getStringExtra("Time");
         String displayMeridian = intent.getStringExtra("Meridian");
 
         //If this is an update cancel the original
         Intent cancel = new Intent("Dismiss");
-        PendingIntent cancelPending = PendingIntent.getBroadcast(context,id,cancel,PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent cancelPending;
+        if(subId == 0) {
+            cancelPending = PendingIntent.getBroadcast(context, id, cancel, PendingIntent.FLAG_CANCEL_CURRENT);
+        } else {
+            cancelPending = PendingIntent.getBroadcast(context,subId,cancel,PendingIntent.FLAG_CANCEL_CURRENT);
+        }
 
         //Pass parameters to AlarmActivity so it can have same settings for snooze re-fire.
         Intent alarmIntent = new Intent(context,AlarmActivity.class);
@@ -44,8 +50,16 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmIntent.putExtra("ID",id);
         alarmIntent.putExtra("TIME",displayTime);
         alarmIntent.putExtra("MERIDIAN",displayMeridian);
+        alarmIntent.putExtra("SUBID",subId);
 
-        PendingIntent pendingAlarmIntent = PendingIntent.getActivity(context,id,alarmIntent,PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingAlarmIntent;
+        if(subId != 0){
+            pendingAlarmIntent = PendingIntent.getActivity(context,subId,alarmIntent,PendingIntent.FLAG_ONE_SHOT);
+
+        } else {
+
+            pendingAlarmIntent = PendingIntent.getActivity(context,id,alarmIntent,PendingIntent.FLAG_ONE_SHOT);
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
@@ -61,7 +75,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //Setting Alarm Ringtone
         if(Uri.parse(ringtoneURI) == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)){
-
             builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
         } else{
 
@@ -83,7 +96,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
 
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(id,builder.build());
+        if(subId == 0) {
+            manager.notify(id, builder.build());
+        } else {
+            manager.notify(subId,builder.build());
+        }
 
     }
 

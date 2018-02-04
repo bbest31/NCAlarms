@@ -14,10 +14,14 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.security.Permission;
+import java.util.ArrayList;
 
 
 /**
@@ -42,10 +46,8 @@ public class NapChatController {
      * @param context
      * @throws IOException
      */
-    public void createUserDirectory(Context context) throws IOException{
-        User user = User.getInstance();
-        String userDir = formatEmail(user.getEmail()) + "DIR";
-        context.getDir(userDir,Context.MODE_PRIVATE);
+    public void createUserFiles(Context context) throws IOException{
+
         createUserSettingsFile(context);
         createUserAlarmFile(context);
     }
@@ -59,9 +61,9 @@ public class NapChatController {
 
         User user  = User.getInstance();
 
-        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR\\";
-        String filename = "SETT";
-        File alarmFile = new File(path,filename);
+        String filename = formatEmail(User.getInstance().getEmail())+"SETT.ser";
+        File settingsFile = new File(context.getFilesDir().getAbsolutePath(),filename);
+
 
     }
 
@@ -72,16 +74,14 @@ public class NapChatController {
      */
     public void createUserAlarmFile(Context context) throws IOException{
 
-        User user  = User.getInstance();
-        String path = context.getFilesDir()+formatEmail(user.getEmail()) + "DIR\\";
-        String filename = "ALRM";
-        File alarmFile = new File(path,filename);
+        String filename = formatEmail(User.getInstance().getEmail())+"ALRM.ser";
+        File alarmFile = new File(context.getFilesDir().getAbsolutePath(),filename);
+        alarmFile.createNewFile();
 
     }
     /**Loads the file which contains the user settings
      * **/
     public void loadUserSettings() throws IOException{
-        User user = User.getInstance();
         //loads file and looks for settings for the matching user name.
         //if none exists we add a space for it.
     }
@@ -99,16 +99,16 @@ public class NapChatController {
     public void saveUserAlarms(Context context) throws IOException{
         try {
             User user = User.getInstance();
-            String userFile = formatEmail(user.getEmail()) + "ALARMS";
             //gets users directory
             FileOutputStream outputStream;
-            outputStream = context.openFileOutput(userFile, Context.MODE_PRIVATE);
+            outputStream = context.openFileOutput(formatEmail(user.getEmail())+"ALRM.ser", Context.MODE_PRIVATE);
             outputStream.flush();
 
-            for(Alarm a: user.getAlarmList()) {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
-                outputStream.write(a.writeFormat().getBytes());
-            }
+            objectOutputStream.writeObject(user.getAlarmList());
+
+            objectOutputStream.close();
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,25 +120,24 @@ public class NapChatController {
      * @param context
      * @throws IOException
      */
-    //TODO:load user file (if exists) and read the alarms listed line by line.
     public void loadUserAlarms(Context context) throws IOException{
         try{
             User user = User.getInstance();
-            FileInputStream file = context.openFileInput(formatEmail(user.getEmail())+"DIR\\ALRM");
+            FileInputStream file = context.openFileInput(formatEmail(user.getEmail())+"ALRM.ser");
+            ObjectInputStream inputStream = new ObjectInputStream(file);
+            ArrayList<Alarm> list = (ArrayList<Alarm>) inputStream.readObject();
+            user.setAlarmList(list);
+            inputStream.close();
+            file.close();
+            for(Alarm a:list){
 
-            //file.read();
-            BufferedReader br = new BufferedReader(new FileReader(formatEmail(user.getEmail())+"DIR\\ALRM"));
-            String line;
-            StringBuilder text = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                //Process alarms
-                text.append(line);
-                text.append('\n');
+                System.out.println(a.toString());
             }
-            br.close() ;
-            Log.d("User Alarm file: ",text.toString());
         } catch(IOException e){
-            System.out.println("No directory with that user email or no file exists: "+e.getMessage());
+            System.err.println("No alarm file exists or no object present: "+e.getMessage());
+        } catch (ClassNotFoundException c){
+            System.err.println("Class not found exception "+ c.getMessage());
+            c.printStackTrace();
         }
     }
 
@@ -149,26 +148,28 @@ public class NapChatController {
      */
     public void deleteFiles(Context context) throws IOException{
 
-        User user  = User.getInstance();
-        String path = formatEmail(user.getEmail()) + "DIR";
-        File[] dir = context.getDir(path,Context.MODE_PRIVATE).listFiles();
-        for(File file : dir){
-            file.delete();
-        }
-        context.deleteFile(path);
-
+        File dir = context.getFilesDir();
+        File alarmFile = new File(dir,formatEmail(User.getInstance().getEmail())+"ALRM.ser");
+        File settingsFile = new File(dir,formatEmail(User.getInstance().getEmail())+"SETT.ser");
+        alarmFile.delete();
+        settingsFile.delete();
     }
 
     /**
      *
      * @param context
      */
-    public void loadUser(Context context){
+    public void loadUserData(Context context){
         try {
             //loadUserSettings();
             loadUserAlarms(context);
             //loadUserFriends();
         } catch (IOException e){
+            try {
+                createUserFiles(context);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
@@ -184,10 +185,6 @@ public class NapChatController {
         newEmail = newEmail.replace(".","_");
         return newEmail;
     }
-
-
-
-
 
 
 }

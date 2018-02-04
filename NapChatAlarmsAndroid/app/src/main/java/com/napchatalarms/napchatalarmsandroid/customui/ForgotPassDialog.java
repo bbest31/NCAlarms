@@ -34,7 +34,6 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
      */
     public ForgotPassDialog(Activity a) {
         super(a);
-        // TODO Auto-generated constructor stub
         this.c = a;
     }
 

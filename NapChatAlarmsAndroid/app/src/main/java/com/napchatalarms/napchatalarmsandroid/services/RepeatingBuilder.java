@@ -3,29 +3,35 @@ package com.napchatalarms.napchatalarmsandroid.services;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 
+import java.util.List;
 import java.util.Map;
 
 /**
+ * The type Repeating builder.
+ *
  * @author bbest
  */
-
 public class RepeatingBuilder extends AlarmBuilder {
 
     private RepeatingAlarm alarm;
 
     /**
-     *
+     * Instantiates a new Repeating builder.
      */
     public RepeatingBuilder(){ alarm = new RepeatingAlarm();}
 
     @Override
     public RepeatingAlarm build(){ return alarm;}
 
-    /**This method needs to be called first when building Repeating alarms.**/
-    public RepeatingBuilder initialize(final int[] days){
+    /**
+     * This method needs to be called first when building Repeating alarms. @param days the days
+     *
+     * @return the repeating builder
+     */
+    public RepeatingBuilder initialize(final List<Integer> days){
         alarm.setRepeatDays(days);
         //Initialize the individual alarms for each day.
-        for (int i = 0; i < days.length; i++) {
+        for (Integer i : days) {
             alarm.addSubAlarm(new Alarm());
             }
         return this;
@@ -33,14 +39,14 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setTime(final long triggerTime){
-
-        Map<Integer,Alarm> subAlarms = alarm.getSubList();
+        alarm.setTime(triggerTime);
+        Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         int i = 0;
-        int[] repeatDays = alarm.getRepeatDays();
+        List<Integer> repeatDays = alarm.getRepeatDays();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
             Alarm a = entry.getValue();
-            long trig = alarm.calculateTrigger(repeatDays[i],triggerTime);
+            long trig = alarm.calculateTrigger(repeatDays.get(i),triggerTime);
             a.setTime(trig);
             i++;
         }
@@ -49,7 +55,8 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setRingtoneURI(final String uri){
-        Map<Integer,Alarm> subAlarms = alarm.getSubList();
+        alarm.setRingtoneURI(uri);
+        Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
             Alarm a = entry.getValue();
@@ -60,7 +67,8 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setVibrate(final boolean vibrate){
-        Map<Integer,Alarm> subAlarms = alarm.getSubList();
+        alarm.setVibrate(vibrate);
+        Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
             Alarm a = entry.getValue();
@@ -71,7 +79,8 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setSnooze(final int length){
-        Map<Integer,Alarm> subAlarms = alarm.getSubList();
+        alarm.setSnoozeLength(length);
+        Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
             Alarm a = entry.getValue();
@@ -81,26 +90,17 @@ public class RepeatingBuilder extends AlarmBuilder {
     }
 
     /**
+     * Set interval repeating builder.
      *
-     * @return
+     * @return repeating builder
      */
     public RepeatingBuilder setInterval(){
-        Map<Integer,Alarm> subAlarms = alarm.getSubList();
-        int[] repeatDays = alarm.getRepeatDays();
-        //If the interval should be every week.
-        if(repeatDays[0] != 0) {
+        Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
             for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet()) {
                 Alarm a = entry.getValue();
                 a.setInterval(604800000);
             }
-        }
-        else{
-            //Repeat days indicator is for every day so the interval is different.
-            for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet()) {
-                Alarm a = entry.getValue();
-                a.setInterval(86400000);
-            }
-        }
+
         return this;
     }
 

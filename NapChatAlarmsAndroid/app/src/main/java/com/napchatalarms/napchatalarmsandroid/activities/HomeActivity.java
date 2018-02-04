@@ -45,7 +45,6 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
  *     Home, Friends, Options, NapFacts.
  * </P>
  * @todo order alarms from earliest to latest time.
- * @todo to edit and delete alarms it should be swipe right and left respectfully. Unless android can only do long click.
  * @author bbest
  */
 public class HomeActivity extends AppCompatActivity {
@@ -55,10 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     SwipeMenuListView alarmListView;
     Button addAlarmButton;
     AlarmAdapter alarmAdapter;
-    public static final int ALARM_PERMISSION_REQUEST = 31;
-//    private int REL_SWIPE_MIN_DISTANCE;
-//    private int REL_SWIPE_MAX_OFF_PATH;
-//    private int REL_SWIPE_THRESHOLD_VELOCITY;
+
 
 
     @Override
@@ -68,8 +64,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         initialize();
         updateAlarmList();
-
-
 
     }
 

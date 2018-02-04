@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         if(currentUser != null){
             //Load user data.
             NapChatController controller = NapChatController.getInstance();
-            controller.loadUser(context);
+            controller.loadUserData(context);
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);
             finish();

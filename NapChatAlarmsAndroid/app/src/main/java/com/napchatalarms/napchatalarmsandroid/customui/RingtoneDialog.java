@@ -53,7 +53,6 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
      */
     public RingtoneDialog(CreateAlarmActivity a){
             super(a);
-            // TODO Auto-generated constructor stub
             this.c=a;
             }
 
@@ -80,7 +79,7 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
         initialize();
 
             }
-    //TODO: implement the methods or events that happen when they choose default and device.
+    //TODO: implement the methods or events that happen when they choose music or napchat.
     @Override
     public void onClick(View v){
         switch(v.getId()){
@@ -93,14 +92,16 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
                 break;
             case R.id.deviceRingtoneButton:
                 //Open device alarm page
-                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Ringtone");
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,RingtoneManager.TYPE_ALARM);
-                c.startActivityForResult(intent,1);
+                Intent deviceToneIntent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                deviceToneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Ringtone");
+                deviceToneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+                deviceToneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
+                deviceToneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,RingtoneManager.TYPE_ALARM);
+                c.startActivityForResult(deviceToneIntent,1);
                 break;
             case R.id.musicRingtoneButton:
+//                Intent musicIntent = new Intent(Intent.CATEGORY_APP_MUSIC);
+//                c.startActivityForResult(musicIntent,2);
                 break;
             case R.id.napchatRingtoneButton:
                 break;

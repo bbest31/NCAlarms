@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.Patterns;
 
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**Class to hold all functions that may be useful by a multitude of classes.
  * @author bbest
@@ -122,32 +124,125 @@ public class UtilityFunctions {
     }
 
     /**
-     *@todo change this to behave differently based on the activity passing into it.
-     * @param a
+     *
+     * @param trigger
      * @return
      */
-    public final static String[] generatePermissionList(Activity a) {
+    public final static Long validateOneTimeTrigger(Long trigger){
+        Calendar currTime = Calendar.getInstance();
+        Calendar alarmTime = Calendar.getInstance();
+        currTime.setTimeInMillis(System.currentTimeMillis());
+        alarmTime.setTimeInMillis(trigger);
 
-        int alarmPermission = checkAlarmPermission(a);
-        String[] permissions = null;
+        if(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
+            //The day is a day in the past we so increment until it is the same day
+            while(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
+                alarmTime.add(Calendar.DATE,1);
+            }
+            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is for earlier this day we increase by a day
+                alarmTime.add(Calendar.DATE,1);
+            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is the same day and hour we check the minutes
+                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
+                    alarmTime.add(Calendar.DATE,1);
+                }
+            }
+        }  else if(currTime.get(Calendar.DATE) == alarmTime.get(Calendar.DATE)){
+            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is for earlier this day we increase by a day
+                alarmTime.add(Calendar.DATE,1);
 
-          if(alarmPermission == -1){
-             permissions = new String[]{Manifest.permission.SET_ALARM};}
+            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is the same day and hour we check the minutes
+                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
+                    alarmTime.add(Calendar.DATE,1);
+                }
+            }
+        }
 
-         return permissions;
+        return alarmTime.getTimeInMillis();
+
+    }
+
+    public final static Long validateRepeatTrigger(Long trigger){
+
+        Calendar currTime = Calendar.getInstance();
+        Calendar alarmTime = Calendar.getInstance();
+        currTime.setTimeInMillis(System.currentTimeMillis());
+        alarmTime.setTimeInMillis(trigger);
+
+        if(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
+            while(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
+                alarmTime.add(Calendar.WEEK_OF_YEAR,1);
+            }
+
+            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is for earlier this day we increase by a day
+                alarmTime.add(Calendar.WEEK_OF_YEAR,1);
+
+            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is the same day and hour we check the minutes
+                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
+                    alarmTime.add(Calendar.WEEK_OF_YEAR,1);
+                }
+            }
+
+        } else if(currTime.get(Calendar.DATE) == alarmTime.get(Calendar.DATE)){
+            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is for earlier this day we increase by a day
+                alarmTime.add(Calendar.WEEK_OF_YEAR,1);
+
+            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
+                //if the local alarm time var is the same day and hour we check the minutes
+                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
+                    alarmTime.add(Calendar.WEEK_OF_YEAR,1);
+                }
+            }
+        }
+
+        return alarmTime.getTimeInMillis();
 
     }
 
 
-    /**
-     *
-     * @param a
-     * @return
-     */
-    private static int checkAlarmPermission(Activity a){
-        // Assume thisActivity is the current activity
-        return  ContextCompat.checkSelfPermission(a,
-                android.Manifest.permission.SET_ALARM);
+    //TODO: detect weekends, and weekdays settings.
+    public final static String generateRepeatText(List<Integer> days){
+        String repeatText = "";
+        if(days.size() != 0 && days.size() != 7) {
+            for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext();) {
+                switch (iterator.next()) {
+                    case 1:
+                        repeatText = repeatText.concat("Sun,");
+                        break;
+                    case 2:
+                         repeatText = repeatText.concat("Mon,");
+                        break;
+                    case 3:
+                        repeatText = repeatText.concat("Tues,");
+                        break;
+                    case 4:
+                        repeatText = repeatText.concat("Wed,");
+                        break;
+                    case 5:
+                        repeatText = repeatText.concat("Thurs,");
+                        break;
+                    case 6:
+                        repeatText = repeatText.concat("Fri,");
+                        break;
+                    case 7:
+                         repeatText = repeatText.concat("Sat,");
+                        break;
+                }
+            }
+
+            return repeatText;
+        } else if(days.size() == 7) {
+            repeatText = "Every Day";
+            return repeatText;
+        } else {
+            return null;
+        }
     }
 
 

@@ -12,10 +12,14 @@ import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,21 +82,48 @@ public class AlarmController {
     public void scheduleAlarm(Context context,Alarm alarm){
         if(alarm.getClass() == OneTimeAlarm.class){
             scheduleOneTimeAlarm(context,(OneTimeAlarm) alarm);
-        }else{
+        }else if(alarm.getClass() == RepeatingAlarm.class){
             scheduleRepeatingAlarm(context,(RepeatingAlarm)alarm);
+        } else {
+            rescheduleSubAlarm(context,alarm);
         }
     }
 
     /**
      *
      * @param context
-     * @param Id
+     * @param id
      */
-    public void activateAlarm(Context context,int Id){
-        Alarm alarm = User.getInstance().getAlarmById(Id);
+    public void activateAlarm(Context context,int id){
+        validateTriggerTime(id);
+        Alarm alarm = User.getInstance().getAlarmById(id);
         scheduleAlarm(context,alarm);
         alarm.Activate();
         saveAlarms(context);
+    }
+
+    /**
+     * When an alarm is activated from the home screen we need to
+     * adjust the alarms trigger time to ensure its current one isn't a time in the past.
+     * @param id
+     */
+    public void validateTriggerTime(int id){
+        Alarm alarm = User.getInstance().getAlarmById(id);
+        if(alarm.getClass() == OneTimeAlarm.class){
+
+            Long newTrigger = UtilityFunctions.validateOneTimeTrigger(alarm.getTime());
+            alarm.setTime(newTrigger);
+
+        } else if (alarm.getClass() == RepeatingAlarm.class) {
+
+            for (Map.Entry<Integer, Alarm> entry : ((RepeatingAlarm)alarm).getSubAlarms().entrySet())
+            {
+                Long newTrigger = UtilityFunctions.validateRepeatTrigger(entry.getValue().getTime());
+                entry.getValue().setTime(newTrigger);
+            }
+
+
+        }
     }
 
     /**Delete an alarm based on its Id and de-schedule it, this method handles both OneTime and Repeating Alarms.
@@ -107,7 +138,6 @@ public class AlarmController {
         } else {
 
         }
-
         User.getInstance().deleteAlarm(id);
         saveAlarms(context);
     }
@@ -123,34 +153,92 @@ public class AlarmController {
             cancelRepeating(context,(RepeatingAlarm)alarm);
         }
         alarm.Deactivate();
+        saveAlarms(context);
     }
 
     /**Update the attributes of an alarm.
      * */
-    public void editAlarm(Context context, Alarm alarm){
+    public void editAlarm(Context context, int id, Boolean vibrate,int hour, int min, String ringtone, int snooze, List<Integer> repeatDays){
+        Alarm alarm = User.getInstance().getAlarmById(id);
 
-        if(alarm.getClass() == OneTimeAlarm.class){
-            editOneTime(context,(OneTimeAlarm)alarm);
-        }else{
-            editRepeatingAlarm(context,(RepeatingAlarm)alarm);
+        if(alarm.getClass() == OneTimeAlarm.class && repeatDays.size() != 0){
+            //onetime to repeating alarm conversion
+            RepeatingBuilder builder = new RepeatingBuilder();
+            builder.initialize(repeatDays)
+            .setVibrate(vibrate)
+            .setRingtoneURI(ringtone)
+            .setSnooze(snooze)
+            .setInterval();
+            Long trig = UtilityFunctions.UTCMilliseconds(hour,min);
+            builder.setTime(trig);
+
+            RepeatingAlarm newAlarm = builder.build();
+            deleteAlarm(context,id);
+            createAlarm(context,newAlarm);
+
+
+        } else if(alarm.getClass()==RepeatingAlarm.class && repeatDays.size() == 0){
+            //Change repeating alarm to onetime
+            OneTimeBuilder builder = new OneTimeBuilder();
+            builder.setRingtoneURI(ringtone)
+                    .setVibrate(vibrate)
+                    .setSnooze(snooze);
+            Long trig = UtilityFunctions.UTCMilliseconds(hour,min);
+            builder.setTime(trig);
+
+            OneTimeAlarm newAlarm = builder.build();
+            deleteAlarm(context,id);
+            createAlarm(context,newAlarm);
+
+        } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays.size() == 0){
+            //Onetime alarm staying the same type
+            alarm.setRingtoneURI(ringtone);
+            alarm.setSnoozeLength(snooze);
+            alarm.setVibrate(vibrate);
+            Long trig = UtilityFunctions.UTCMilliseconds(hour, min);
+            alarm.setTime(trig);
+            cancelAlarm(context, id);
+            scheduleAlarm(context,alarm);
+
+        } else{
+            //repeating stays repeating
+            RepeatingBuilder builder = new RepeatingBuilder();
+            builder.initialize(repeatDays)
+                    .setSnooze(snooze)
+                    .setRingtoneURI(ringtone)
+                    .setVibrate(vibrate)
+                    .setInterval();
+            Long trigger = UtilityFunctions.UTCMilliseconds(hour, min);
+            builder.setTime(trigger);
+            RepeatingAlarm newAlarm = builder.build();
+
+            deleteAlarm(context,id);
+            createAlarm(context,newAlarm);
         }
-        saveAlarms(context);
+
     }
 
     /**Stop the current sounding alarm from firing.
      * */
-    public void dismissAlarm(Context context, int Id){
+    public void dismissAlarm(Context context, int Id, int subId){
         Alarm alarm = User.getInstance().getAlarmById(Id);
 
         if(alarm.getClass() == OneTimeAlarm.class){
             dismissOneTime(context,Id);
+            alarm.Deactivate();
             saveAlarms(context);
         }else{
-            dismissRepeatingAlarm(context,Id);
+            dismissRepeatingAlarm(context,Id,subId);
+            saveAlarms(context);
         }
-        alarm.Deactivate();
     }
 
+    /**
+     *
+     * @param context
+     * @param alarm
+     * @return
+     */
     public PendingIntent AlarmPendingIntent(Context context,Alarm alarm){
         Intent intent = new Intent(context, AlarmReceiver.class);
 
@@ -170,10 +258,40 @@ public class AlarmController {
 
 
         PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(context,alarm.getId(),intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         return pendingIntent;
     }
+
+    /**
+     *
+     * @param context
+     * @param alarm
+     */
+    public void rescheduleSubAlarm(Context context, Alarm alarm){
+        //Get the time in string format with the meridian
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        String timeString = timeFormatter.format(new Date(alarm.getTime()));
+        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+
+        //Provide Settings
+        intent.putExtra("Vibrate", alarm.getVibrateOn());
+        intent.putExtra("Id", alarm.getId());
+        intent.putExtra("Snooze", alarm.getSnoozeLength());
+        intent.putExtra("Time",timeString);
+        intent.putExtra("Meridian",meridianString);
+        intent.putExtra("Uri", alarm.getRingtoneURI());
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,alarm.getId(),intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.getTime(),pendingIntent);
+    }
+
 
     //==ONETIME METHODS==
 
@@ -198,9 +316,9 @@ public class AlarmController {
         intent.putExtra("Meridian",meridianString);
         intent.putExtra("Uri", oneTimeAlarm.getRingtoneURI());
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,oneTimeAlarm.getId(),intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Log.d("AlarmController","Intent made and alarm about to be scheduled with time "+oneTimeAlarm.getTime());
+
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, oneTimeAlarm.getTime(),pendingIntent);
 
         Toast.makeText(context,"Alarm Created!",Toast.LENGTH_LONG).show();
@@ -223,14 +341,6 @@ public class AlarmController {
         alarmManager.cancel(oneTimePendingIntent(context,alarm));
     }
 
-    /**Removes the old version of the alarm from the User list and the current scheduling.
-     * Then we add the new version to the User list.
-     * */
-    public void editOneTime(Context context, OneTimeAlarm alarm){
-        deleteAlarm(context,alarm.getId());
-        this.addAlarmToUser(alarm,context);
-    }
-
     public PendingIntent oneTimePendingIntent(Context context,OneTimeAlarm alarm){
         Intent intent = new Intent(context, AlarmReceiver.class);
 
@@ -250,7 +360,7 @@ public class AlarmController {
 
 
         PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(context,alarm.getId(),intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         return pendingIntent;
     }
@@ -263,7 +373,7 @@ public class AlarmController {
      * @param snooze
      * @param ringtone
      */
-    public void snoozeAlarm(Context context,int ID, boolean vibrate,int snooze, String ringtone){
+    public void snoozeAlarm(Context context,int ID,int subId, boolean vibrate,int snooze, String ringtone){
 
         long currentTime = System.currentTimeMillis();
         long newTriggerTime = currentTime + snooze * 60000;
@@ -284,9 +394,14 @@ public class AlarmController {
         intent.putExtra("Time",timeString);
         intent.putExtra("Meridian",meridianString);
         intent.putExtra("Uri", ringtone);
+        intent.putExtra("subID",subId);
 
         PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        if(subId == 0){
+            pendingIntent = PendingIntent.getBroadcast(context,ID,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(context,subId,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, newTriggerTime, pendingIntent);
     }
@@ -305,23 +420,24 @@ public class AlarmController {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         //For each sub-Alarm schedule it.
-        for(Map.Entry<Integer,Alarm> entry : alarm.getSubList().entrySet()){
+        for(Map.Entry<Integer,Alarm> entry : alarm.getSubAlarms().entrySet()){
 
             Intent intent = new Intent(context, AlarmReceiver.class);
 
             //Provide Settings
             intent.putExtra("Vibrate", alarm.getVibrateOn());
-            intent.putExtra("Id", entry.getValue().getId());
+            intent.putExtra("Id", alarm.getId());
             intent.putExtra("Snooze", alarm.getSnoozeLength());
             intent.putExtra("Time",timeString);
             intent.putExtra("Meridian",meridianString);
-            intent.putExtra("Uri", alarm.getRingtoneURI());
+            intent.putExtra("Uri", entry.getValue().getRingtoneURI());
+            intent.putExtra("subID",entry.getValue().getId());
 
 
             PendingIntent pendingIntent;
-            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(context,entry.getValue().getId(),intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, entry.getValue().getTime(),entry.getValue().getInterval(),pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, entry.getValue().getTime(),pendingIntent);
         }
 
         Toast.makeText(context,"Alarm Created!",Toast.LENGTH_SHORT).show();
@@ -330,8 +446,18 @@ public class AlarmController {
 
     /**Stop the current sounding sub-Alarm from firing.
      * */
-    public void dismissRepeatingAlarm(Context context, int id){
-        alarmReceiver.Cancel(context,id);
+    public void dismissRepeatingAlarm(Context context, int id, int subId){
+
+        alarmReceiver.Cancel(context,subId);
+        //reschedule for next week.
+        Alarm alarm = User.getInstance().getAlarmById(id);
+        Alarm subAlarm = ((RepeatingAlarm)alarm).getSubAlarmById(subId);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(subAlarm.getTime());
+        int day = calendar.get(Calendar.DATE);
+        calendar.add(Calendar.DATE,day+7);
+        subAlarm.setTime(calendar.getTimeInMillis());
+        AlarmController.getInstance().scheduleAlarm(context,alarm);
     }
 
 
@@ -341,20 +467,11 @@ public class AlarmController {
 
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        for (Map.Entry<Integer,Alarm> entry : alarm.getSubList().entrySet()) {
+        for (Map.Entry<Integer,Alarm> entry : alarm.getSubAlarms().entrySet()) {
             alarmManager.cancel(AlarmPendingIntent(context,entry.getValue()));
         }
 
 
-    }
-
-    /**Takes in a new instance of the repeating alarm with the same Id. We delete
-     * the old version from the User list and de-schedule it before we add the new version
-     * to the User list.
-     * */
-    public void editRepeatingAlarm(Context context, RepeatingAlarm alarm){
-        deleteAlarm(context,alarm.getId());
-        this.addAlarmToUser(alarm,context);
     }
 
 }

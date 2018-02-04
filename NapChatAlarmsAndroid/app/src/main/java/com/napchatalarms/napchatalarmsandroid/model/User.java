@@ -20,9 +20,14 @@ public class User {
     /**Private Constructor
      * */
     private User() {
-        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-        this.name =  fUser.getDisplayName();
-        this.email = fUser.getEmail();
+        try {
+            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+            this.name =  fUser.getDisplayName();
+            this.email = fUser.getEmail();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
         this.alarmList = new ArrayList<>();
     }
 
@@ -102,4 +107,6 @@ public class User {
      * @return
      */
     public ArrayList<Alarm> getAlarmList() {return alarmList;}
+
+    public void setAlarmList(ArrayList<Alarm> list){this.alarmList = list;}
 }
