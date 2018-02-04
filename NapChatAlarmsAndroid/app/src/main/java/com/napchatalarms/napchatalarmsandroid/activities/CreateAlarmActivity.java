@@ -208,11 +208,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
-        //TODO pass in repeatDays
         repeatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RepeatDaysDialog repeatDaysDialog = new RepeatDaysDialog(CreateAlarmActivity.this);
+                RepeatDaysDialog repeatDaysDialog = new RepeatDaysDialog(CreateAlarmActivity.this,repeatDays);
                 repeatDaysDialog.show();
             }
         });

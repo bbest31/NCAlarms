@@ -37,7 +37,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>  {
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         //Get the data item for this position
         Alarm alarm = getItem(position);
@@ -77,12 +77,13 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>  {
         statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Alarm checkedAlarm = getItem(position);
                 if(isChecked){
                     //Activate alarm
-                    AlarmController.getInstance().activateAlarm(context,Integer.parseInt(alarmId.getText().toString()));
+                    AlarmController.getInstance().activateAlarm(context,checkedAlarm.getId());
                 } else{
                     //Deactivate alarm
-                    AlarmController.getInstance().cancelAlarm(context,Integer.parseInt(alarmId.getText().toString()));
+                    AlarmController.getInstance().cancelAlarm(context,checkedAlarm.getId());
                 }
             }
         });

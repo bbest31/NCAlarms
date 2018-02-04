@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * Created by bbest on 02/02/18.
  */
-//TODO: must be able to grab the current repeating days if some are already set.
 public class RepeatDaysDialog extends Dialog {
 
     public Activity c;
@@ -34,8 +33,9 @@ public class RepeatDaysDialog extends Dialog {
     Button okayBtn;
     List<Integer> repeatDays;
 
-    public RepeatDaysDialog(Activity a){
+    public RepeatDaysDialog(Activity a, List<Integer> days){
         super(a);
+        this.repeatDays = days;
         this.c = a;
     }
 
@@ -48,7 +48,33 @@ public class RepeatDaysDialog extends Dialog {
         friChckBx = (CheckBox)findViewById(R.id.friday_checkBox);
         satChckBx = (CheckBox)findViewById(R.id.saturday_checkBox);
         okayBtn = (Button)findViewById(R.id.repeat_okay_btn);
-        repeatDays = new ArrayList<Integer>();
+
+        for(Iterator<Integer> iterator = repeatDays.listIterator();iterator.hasNext();){
+            switch (iterator.next()){
+                case 1:
+                    sunChckBx.setChecked(true);
+                    break;
+                case 2:
+                    monChckBox.setChecked(true);
+                    break;
+                case 3:
+                    tuesChckBx.setChecked(true);
+                    break;
+                case 4:
+                    wedChckBx.setChecked(true);
+                    break;
+                case 5:
+                    thursChckBx.setChecked(true);
+                    break;
+                case 6:
+                    friChckBx.setChecked(true);
+                    break;
+                case 7:
+                    satChckBx.setChecked(true);
+                    break;
+            }
+        }
+
     }
 
     @Override

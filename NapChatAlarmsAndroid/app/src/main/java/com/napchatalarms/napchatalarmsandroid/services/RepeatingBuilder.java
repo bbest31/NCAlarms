@@ -55,6 +55,7 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setRingtoneURI(final String uri){
+        alarm.setRingtoneURI(uri);
         Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
@@ -66,6 +67,7 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setVibrate(final boolean vibrate){
+        alarm.setVibrate(vibrate);
         Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
@@ -77,6 +79,7 @@ public class RepeatingBuilder extends AlarmBuilder {
 
     @Override
     public RepeatingBuilder setSnooze(final int length){
+        alarm.setSnoozeLength(length);
         Map<Integer,Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
