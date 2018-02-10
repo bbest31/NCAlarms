@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.io.IOException;

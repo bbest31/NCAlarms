@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.customui.ChangeEmailDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.DeleteAccountDialog;
 import com.napchatalarms.napchatalarmsandroid.R;
@@ -152,7 +153,7 @@ public class OptionsActivity extends AppCompatActivity {
      *     Before logging out the NapChatController saves the user alarms and settings.
      * </P>
      * @see FirebaseAuth
-     * @see com.napchatalarms.napchatalarmsandroid.services.NapChatController
+     * @see NapChatController
      * */
     public void logout(){
 

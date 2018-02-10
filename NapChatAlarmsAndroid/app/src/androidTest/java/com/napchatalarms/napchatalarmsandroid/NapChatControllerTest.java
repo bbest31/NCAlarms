@@ -7,7 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
-import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 
 import org.junit.Before;
 import org.junit.Test;

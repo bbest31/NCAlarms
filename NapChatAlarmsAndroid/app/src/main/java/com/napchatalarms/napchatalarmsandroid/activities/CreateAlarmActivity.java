@@ -1,7 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.content.Intent;
-import android.media.MediaActionSound;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
@@ -21,7 +19,7 @@ import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
-import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.R;
@@ -30,7 +28,6 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
