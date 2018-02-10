@@ -1,10 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.dao;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.napchatalarms.napchatalarmsandroid.model.Friend;
 import com.napchatalarms.napchatalarmsandroid.model.FriendRequest;
 import com.napchatalarms.napchatalarmsandroid.model.Group;
@@ -34,16 +31,20 @@ public class FirebaseDAO {
 
     public static  void writeUser(User user){
         dbRef.child("users").child(user.getUid());
-        dbRef.child("users").child(user.getUid()).child("friends").setValue(user.getFriendList());
-        dbRef.child("users").child(user.getUid()).child("groups").setValue(user.getGroupMap());
+        writeFriendsList(user.getFriendList());
+        writeGroups(user.getGroupMap());
+        writeFriendRequest(user.getFriendRequests());
+        writeAlerts(user.getAlerts());
     }
 
     public static void writeAlerts(ArrayList<NapAlerts> alerts){
         //
+        dbRef.child("users").child(User.getInstance().getUid()).child("alerts").setValue(alerts);
     }
 
     public static void writeFriendRequest(ArrayList<FriendRequest> requests){
         //
+        dbRef.child("users").child(User.getInstance().getUid()).child("requests").setValue(requests);
     }
 
 
