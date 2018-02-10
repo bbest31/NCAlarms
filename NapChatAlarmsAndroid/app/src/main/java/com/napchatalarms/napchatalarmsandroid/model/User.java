@@ -21,6 +21,8 @@ public class User {
     private String uid;
     private ArrayList<Friend> friendList;
     private Map<String,Group> groupList;
+    private ArrayList<NapAlerts> alerts;
+    private ArrayList<FriendRequest> friendRequests;
 
     /**Private Constructor
      * */
@@ -137,5 +139,21 @@ public class User {
 
     public void setGroupMap(Map<String,Group> groupList) {
         this.groupList = groupList;
+    }
+
+    public ArrayList<NapAlerts> getAlerts() {
+        return alerts;
+    }
+
+    public void setAlerts(ArrayList<NapAlerts> alerts) {
+        this.alerts = alerts;
+    }
+
+    public ArrayList<FriendRequest> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public void setFriendRequests(ArrayList<FriendRequest> friendRequests) {
+        this.friendRequests = friendRequests;
     }
 }
