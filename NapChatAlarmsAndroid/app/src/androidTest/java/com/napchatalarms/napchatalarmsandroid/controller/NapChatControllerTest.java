@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid;
+package com.napchatalarms.napchatalarmsandroid.controller;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

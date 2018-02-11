@@ -14,7 +14,7 @@ import java.util.Properties;
  * Created by bbest on 11/02/18.
  */
 
-public class RepeatingAlarmBuilderTest {
+public class RepeatingBuilderTest {
     RepeatingAlarm alarm1;
     RepeatingAlarm alarm2;
 

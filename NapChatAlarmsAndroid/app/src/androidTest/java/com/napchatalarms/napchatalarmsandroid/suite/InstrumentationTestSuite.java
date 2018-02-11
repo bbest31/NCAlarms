@@ -10,5 +10,5 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({NapChatController.class})
-public class UnitTestSuite {
+public class InstrumentationTestSuite {
 }

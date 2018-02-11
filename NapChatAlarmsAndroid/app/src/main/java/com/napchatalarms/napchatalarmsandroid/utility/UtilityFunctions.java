@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Patterns;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class UtilityFunctions {
      */
     public final static boolean isValidPassword(String password) {
 
+        if(password.length() < 8 || password.trim().isEmpty() || password.length() >25){
+            return false;
+        }
         for (int i = 0; i < password.length(); i++) {
             if (!Character.isLetterOrDigit(password.charAt(i))) {
                 return false;
@@ -50,6 +54,9 @@ public class UtilityFunctions {
      * @return
      */
     public final static boolean isValidUsername(String name) {
+        if(name.trim().isEmpty() || name.length() < 4 || name.length() > 15){
+            return false;
+        }
         for (int i = 0; i < name.length(); i++) {
             if (!Character.isLetterOrDigit(name.charAt(i))) {
                 return false;
@@ -60,7 +67,7 @@ public class UtilityFunctions {
 
     /**
      * Take in the hour and minute of a time and make a UTC milliseconds such that the
-     * returning value is in the future.
+     * returning value is the next occurrence of that time.
      **/
     public final static long UTCMilliseconds(int hour, int minute) {
         Long timeMilli = null;
@@ -131,33 +138,20 @@ public class UtilityFunctions {
     public final static Long validateOneTimeTrigger(Long trigger){
         Calendar currTime = Calendar.getInstance();
         Calendar alarmTime = Calendar.getInstance();
-        currTime.setTimeInMillis(System.currentTimeMillis());
-        alarmTime.setTimeInMillis(trigger);
+        currTime.setTime(new Date(System.currentTimeMillis()));
+        alarmTime.setTime(new Date(trigger));
 
-        if(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
-            //The day is a day in the past we so increment until it is the same day
-            while(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
-                alarmTime.add(Calendar.DATE,1);
-            }
-            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is for earlier this day we increase by a day
-                alarmTime.add(Calendar.DATE,1);
-            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is the same day and hour we check the minutes
-                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
-                    alarmTime.add(Calendar.DATE,1);
-                }
-            }
-        }  else if(currTime.get(Calendar.DATE) == alarmTime.get(Calendar.DATE)){
-            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is for earlier this day we increase by a day
-                alarmTime.add(Calendar.DATE,1);
+        alarmTime.set(Calendar.YEAR,currTime.get(Calendar.YEAR));
+        alarmTime.set(Calendar.MONTH,currTime.get(Calendar.MONTH));
+        alarmTime.set(Calendar.DATE,currTime.get(Calendar.DATE));
 
-            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is the same day and hour we check the minutes
-                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
-                    alarmTime.add(Calendar.DATE,1);
-                }
+        if(currTime.get(Calendar.HOUR_OF_DAY) > alarmTime.get(Calendar.HOUR_OF_DAY)){
+            //if the local alarm time var is for earlier this day we increase by a day
+            alarmTime.add(Calendar.DATE,1);
+        } else if(currTime.get(Calendar.HOUR_OF_DAY) == alarmTime.get(Calendar.HOUR_OF_DAY)){
+            //if the local alarm time var is the same hour we check the minutes
+            if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
+                alarmTime.add(Calendar.DATE,1);
             }
         }
 
@@ -165,6 +159,11 @@ public class UtilityFunctions {
 
     }
 
+    /**
+     *
+     * @param trigger
+     * @return
+     */
     public final static Long validateRepeatTrigger(Long trigger){
 
         Calendar currTime = Calendar.getInstance();
