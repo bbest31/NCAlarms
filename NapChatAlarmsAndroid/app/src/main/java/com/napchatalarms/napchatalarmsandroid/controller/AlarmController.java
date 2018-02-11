@@ -84,8 +84,6 @@ public class AlarmController {
             scheduleOneTimeAlarm(context,(OneTimeAlarm) alarm);
         }else if(alarm.getClass() == RepeatingAlarm.class){
             scheduleRepeatingAlarm(context,(RepeatingAlarm)alarm);
-        } else {
-            rescheduleSubAlarm(context,alarm);
         }
     }
 
@@ -223,7 +221,7 @@ public class AlarmController {
     public void dismissAlarm(Context context, int Id, int subId){
         Alarm alarm = User.getInstance().getAlarmById(Id);
 
-        if(alarm.getClass() == OneTimeAlarm.class){
+        if(subId == 0){
             dismissOneTime(context,Id);
             alarm.Deactivate();
             saveAlarms(context);
@@ -440,6 +438,7 @@ public class AlarmController {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, entry.getValue().getTime(),pendingIntent);
         }
 
+        System.out.println(alarm.toString());
         Toast.makeText(context,"Alarm Created!",Toast.LENGTH_SHORT).show();
 
     }
@@ -452,12 +451,9 @@ public class AlarmController {
         //reschedule for next week.
         Alarm alarm = User.getInstance().getAlarmById(id);
         Alarm subAlarm = ((RepeatingAlarm)alarm).getSubAlarmById(subId);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(subAlarm.getTime());
-        int day = calendar.get(Calendar.DATE);
-        calendar.add(Calendar.DATE,day+7);
-        subAlarm.setTime(calendar.getTimeInMillis());
-        AlarmController.getInstance().scheduleAlarm(context,alarm);
+        Long newTrigger = UtilityFunctions.validateRepeatTrigger(subAlarm.getTime());
+        subAlarm.setTime(newTrigger);
+        AlarmController.getInstance().rescheduleSubAlarm(context,subAlarm);
     }
 
 

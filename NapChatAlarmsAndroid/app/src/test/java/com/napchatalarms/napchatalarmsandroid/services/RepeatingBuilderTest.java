@@ -31,7 +31,7 @@ public class RepeatingBuilderTest {
         alarm1 = builder.build();
 
 
-        List<Integer> days2 = Arrays.asList(3,6,7);
+        List<Integer> days2 = Arrays.asList(1,3,6,7);
         RepeatingBuilder secondBuilder = new RepeatingBuilder();
         secondBuilder.initialize(days2);
         secondBuilder.setInterval();
@@ -43,7 +43,7 @@ public class RepeatingBuilderTest {
     }
 
     @Test
-    public void properAlarmAttributesTest(){
+    public void properAlarmDateTimeTest(){
         System.out.println(alarm1.toString());
 
         System.out.println(alarm2.toString());
