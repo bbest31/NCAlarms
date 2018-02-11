@@ -171,31 +171,23 @@ public class UtilityFunctions {
         currTime.setTimeInMillis(System.currentTimeMillis());
         alarmTime.setTimeInMillis(trigger);
 
-        if(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
-            while(currTime.get(Calendar.DATE) > alarmTime.get(Calendar.DATE)){
-                alarmTime.add(Calendar.WEEK_OF_YEAR,1);
-            }
+        int dayOfWeek = alarmTime.get(Calendar.DAY_OF_WEEK);
+        alarmTime.set(Calendar.YEAR,currTime.get(Calendar.YEAR));
+        alarmTime.set(Calendar.MONTH,currTime.get(Calendar.MONTH));
+        alarmTime.set(Calendar.DATE,currTime.get(Calendar.DATE));
 
-            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is for earlier this day we increase by a day
-                alarmTime.add(Calendar.WEEK_OF_YEAR,1);
+        //while our alarm is not for the proper day of the week we increase the day.
+        while(alarmTime.get(Calendar.DAY_OF_WEEK) != dayOfWeek){
+            alarmTime.add(Calendar.DATE,1);
+        }
 
-            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is the same day and hour we check the minutes
-                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
-                    alarmTime.add(Calendar.WEEK_OF_YEAR,1);
-                }
-            }
+        if(alarmTime.get(Calendar.DATE) == currTime.get(Calendar.DATE)){
 
-        } else if(currTime.get(Calendar.DATE) == alarmTime.get(Calendar.DATE)){
-            if(currTime.get(Calendar.HOUR) > alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is for earlier this day we increase by a day
-                alarmTime.add(Calendar.WEEK_OF_YEAR,1);
-
-            } else if(currTime.get(Calendar.HOUR) == alarmTime.get(Calendar.HOUR)){
-                //if the local alarm time var is the same day and hour we check the minutes
-                if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
-                    alarmTime.add(Calendar.WEEK_OF_YEAR,1);
+            if(alarmTime.get(Calendar.HOUR_OF_DAY) < currTime.get(Calendar.HOUR_OF_DAY)){
+                alarmTime.add(Calendar.DATE,7);
+            } else if(alarmTime.get(Calendar.HOUR_OF_DAY) == currTime.get(Calendar.HOUR_OF_DAY)){
+                if(alarmTime.get(Calendar.MINUTE) <= currTime.get(Calendar.MINUTE)){
+                    alarmTime.add(Calendar.DATE,7);
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.utility;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -13,6 +14,7 @@ import static org.junit.Assert.*;
  */
 public class UtilityFunctionsTest {
     @Test
+    @Ignore
     public void addition_isCorrect() throws Exception {
         Calendar cal = Calendar.getInstance();
         int day = cal.get(Calendar.DAY_OF_WEEK);
@@ -67,7 +69,17 @@ public class UtilityFunctionsTest {
 
     @Test
     public void validateRepeatingTriggerTest(){
-
+        //Trigger that is already in the future
+        assertTrue(UtilityFunctions.validateRepeatTrigger(System.currentTimeMillis()+60000) > System.currentTimeMillis());
+        //Trigger that is in the past
+        //behind by one day
+        assertTrue(UtilityFunctions.validateRepeatTrigger(System.currentTimeMillis()-86400000) > System.currentTimeMillis());
+        //behind by one week
+        assertTrue(UtilityFunctions.validateRepeatTrigger(System.currentTimeMillis()-604800000) > System.currentTimeMillis());
+        //behind by one month
+        assertTrue(UtilityFunctions.validateRepeatTrigger(System.currentTimeMillis()-(86400000*30)) > System.currentTimeMillis());
+        //Trigger that is the same time as current.
+        assertTrue(UtilityFunctions.validateRepeatTrigger(System.currentTimeMillis()) > System.currentTimeMillis());
 
     }
 }
