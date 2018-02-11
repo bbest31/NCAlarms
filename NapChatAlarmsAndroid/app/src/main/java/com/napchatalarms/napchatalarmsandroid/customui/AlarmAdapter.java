@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
-import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.text.SimpleDateFormat;

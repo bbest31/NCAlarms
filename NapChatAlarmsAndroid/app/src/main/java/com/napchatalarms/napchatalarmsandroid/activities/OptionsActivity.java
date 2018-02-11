@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.customui.ChangeEmailDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.DeleteAccountDialog;
 import com.napchatalarms.napchatalarmsandroid.R;
@@ -70,9 +71,10 @@ public class OptionsActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         //Checks to see if the user has a verified email.
-        if(!user.isEmailVerified()){
+        if(user.isEmailVerified() == false){
 
             verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
+            verifiedEmailTextView.setText("Email Unverified");
             verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
             verifiedEmailTextView.setVisibility(View.VISIBLE);
 
@@ -137,6 +139,7 @@ public class OptionsActivity extends AppCompatActivity {
 
             verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
             verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.verified_green));
+            verifiedEmailTextView.setText("Email Verified");
             resendEmailVerificationButton.setVisibility(View.GONE);
         } else{
             verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
@@ -150,7 +153,7 @@ public class OptionsActivity extends AppCompatActivity {
      *     Before logging out the NapChatController saves the user alarms and settings.
      * </P>
      * @see FirebaseAuth
-     * @see com.napchatalarms.napchatalarmsandroid.services.NapChatController
+     * @see NapChatController
      * */
     public void logout(){
 

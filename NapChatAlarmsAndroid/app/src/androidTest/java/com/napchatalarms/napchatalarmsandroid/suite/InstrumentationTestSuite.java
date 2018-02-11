@@ -1,6 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.suite;
 
-import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -10,5 +10,5 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({NapChatController.class})
-public class UnitTestSuite {
+public class InstrumentationTestSuite {
 }

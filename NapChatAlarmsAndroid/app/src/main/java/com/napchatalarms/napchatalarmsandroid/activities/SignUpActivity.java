@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.services.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.io.IOException;
@@ -98,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         String password = passwordEditText.getText().toString();
-        if(password.isEmpty() | password.length() < 8 | !UtilityFunctions.isValidPassword(password)){
+        if(!UtilityFunctions.isValidPassword(password)){
             passwordErrorText.setVisibility(View.VISIBLE);
             validCredentials = false;
 
@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         String username = UsernameEditText.getText().toString();
-        if(username.isEmpty() | !UtilityFunctions.isValidUsername(username)){
+        if(!UtilityFunctions.isValidUsername(username)){
             UsernameErrorText.setVisibility(View.VISIBLE);
             validCredentials = false;
 

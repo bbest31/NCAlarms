@@ -4,6 +4,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 /**Singleton class for the current user.
  * @author bbest
@@ -16,6 +18,11 @@ public class User {
     private String name;
     private String email;
     private ArrayList<Alarm> alarmList;
+    private String uid;
+    private ArrayList<Friend> friendList;
+    private Map<String,Group> groupList;
+    private ArrayList<NapAlerts> alerts;
+    private ArrayList<FriendRequest> friendRequests;
 
     /**Private Constructor
      * */
@@ -24,6 +31,7 @@ public class User {
             FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
             this.name =  fUser.getDisplayName();
             this.email = fUser.getEmail();
+            this.uid = fUser.getUid();
         } catch (NullPointerException e){
             e.printStackTrace();
         }
@@ -75,7 +83,6 @@ public class User {
 
     }
 
-
     //=====GETTERS & SETTERS=====
 
     /**
@@ -109,4 +116,44 @@ public class User {
     public ArrayList<Alarm> getAlarmList() {return alarmList;}
 
     public void setAlarmList(ArrayList<Alarm> list){this.alarmList = list;}
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public ArrayList<Friend> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(ArrayList<Friend> friendList) {
+        this.friendList = friendList;
+    }
+
+    public Map<String,Group> getGroupMap() {
+        return groupList;
+    }
+
+    public void setGroupMap(Map<String,Group> groupList) {
+        this.groupList = groupList;
+    }
+
+    public ArrayList<NapAlerts> getAlerts() {
+        return alerts;
+    }
+
+    public void setAlerts(ArrayList<NapAlerts> alerts) {
+        this.alerts = alerts;
+    }
+
+    public ArrayList<FriendRequest> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public void setFriendRequests(ArrayList<FriendRequest> friendRequests) {
+        this.friendRequests = friendRequests;
+    }
 }

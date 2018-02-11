@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.napchatalarms.napchatalarmsandroid.services.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.R;
 
 /**

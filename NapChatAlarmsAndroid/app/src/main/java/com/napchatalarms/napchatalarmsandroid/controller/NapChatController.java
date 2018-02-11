@@ -1,26 +1,16 @@
-package com.napchatalarms.napchatalarmsandroid.services;
+package com.napchatalarms.napchatalarmsandroid.controller;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
-import com.napchatalarms.napchatalarmsandroid.Manifest;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.Permission;
 import java.util.ArrayList;
 
 
