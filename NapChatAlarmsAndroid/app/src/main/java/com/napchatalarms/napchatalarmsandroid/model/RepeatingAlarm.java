@@ -67,14 +67,14 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      */
     @Override
     public String toString(){
-        String alarmStr = "ID: "+this.getId() + " <Sub-Alarms> ";
+        String alarmStr = "ID: "+this.getId() + " <Sub-Alarms> \n";
 
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet())
         {
-            alarmStr =  alarmStr + entry.getValue().toString() + "\\n";
+            alarmStr =  alarmStr + entry.getValue().toString() + " \n ";
         }
 
-        alarmStr = alarmStr.concat("</Sub-Alarms>\\n"+repeatDays);
+        alarmStr = alarmStr.concat("</Sub-Alarms>\n"+repeatDays);
 
         return  alarmStr;
     }

@@ -1,6 +1,8 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**Base(Super) Alarm class holding the base attributes for an alarm.
  * @author bbest
@@ -37,9 +39,11 @@ public class Alarm implements Serializable {
 
     @Override
     public String toString(){
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm aa ");
 
         String alarm = "Id: "+this.getId()+
                 " Trigger: "+this.getTime()+
+                " Time: "+sdf.format(new Date(this.getTime()))+
                 " Interval:"+this.getInterval()+
                 " Snooze Length: "+this.getSnoozeLength()+
                 " Vibrate: "+this.getVibrateOn()+
@@ -47,20 +51,6 @@ public class Alarm implements Serializable {
                 " isActive: "+this.getStatus();
         return alarm;
     }
-
-    /**
-     *
-     * @return
-     */
-    public String writeFormat(){
-        String alarm = this.getId()+
-                "|"+this.getTime()+
-                "|"+this.getInterval()+
-                "|"+this.getSnoozeLength()+
-                "|"+this.getVibrateOn()+
-                "|"+this.getRingtoneURI()+
-                "|"+this.getStatus();
-        return alarm;    }
 
     /**
      *
