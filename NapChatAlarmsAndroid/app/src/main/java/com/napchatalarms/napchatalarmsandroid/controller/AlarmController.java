@@ -84,6 +84,8 @@ public class AlarmController {
             scheduleOneTimeAlarm(context,(OneTimeAlarm) alarm);
         }else if(alarm.getClass() == RepeatingAlarm.class){
             scheduleRepeatingAlarm(context,(RepeatingAlarm)alarm);
+        } else {
+            rescheduleSubAlarm(context,alarm);
         }
     }
 
@@ -221,7 +223,7 @@ public class AlarmController {
     public void dismissAlarm(Context context, int Id, int subId){
         Alarm alarm = User.getInstance().getAlarmById(Id);
 
-        if(subId == 0){
+        if(alarm.getClass() == OneTimeAlarm.class){
             dismissOneTime(context,Id);
             alarm.Deactivate();
             saveAlarms(context);
@@ -453,7 +455,8 @@ public class AlarmController {
         Alarm subAlarm = ((RepeatingAlarm)alarm).getSubAlarmById(subId);
         Long newTrigger = UtilityFunctions.validateRepeatTrigger(subAlarm.getTime());
         subAlarm.setTime(newTrigger);
-        AlarmController.getInstance().rescheduleSubAlarm(context,subAlarm);
+        AlarmController.getInstance().scheduleAlarm(context,subAlarm);
+        saveAlarms(context);
     }
 
 
