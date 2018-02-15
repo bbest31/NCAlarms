@@ -2,8 +2,10 @@ package com.napchatalarms.napchatalarmsandroid.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -82,6 +84,19 @@ public class User {
         }
 
     }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("uid", uid);
+        result.put("friends", friendList);
+        result.put("groups", groupList);
+        result.put("alerts", alerts);
+        result.put("requests", friendRequests);
+
+        return result;
+    }
+
 
     //=====GETTERS & SETTERS=====
 

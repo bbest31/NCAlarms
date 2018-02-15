@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.customui.ForgotPassDialog;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
@@ -119,8 +120,9 @@ public class LoginActivity extends AppCompatActivity {
 
         if(currentUser != null){
             //Load user data.
-            NapChatController controller = NapChatController.getInstance();
-            controller.loadUserData(context);
+            NapChatController.getInstance().loadUserData(context);
+            FirebaseDAO.getInstance();
+
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);
             finish();

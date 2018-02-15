@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.io.IOException;
@@ -156,6 +158,8 @@ public class SignUpActivity extends AppCompatActivity {
                             try {
                             //Create new files directory for user in internal storage
                             NapChatController.getInstance().createUserFiles(getApplicationContext());
+                            //Creates user index in database.
+                            FirebaseDAO.getInstance().writeUser(User.getInstance());
 
                             }catch(IOException e){
 

@@ -19,6 +19,7 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
@@ -65,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         currentUser = currentUser.getInstance();
         alarmListView = (SwipeMenuListView)findViewById(R.id.alarm_list_view);
         updateAlarmList();
+
 
         addAlarmButton = (Button)findViewById(R.id.add_alarm_btn);
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
