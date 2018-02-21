@@ -119,10 +119,7 @@ public class NapChatController {
             user.setAlarmList(list);
             inputStream.close();
             file.close();
-            for(Alarm a:list){
 
-                System.out.println(a.toString());
-            }
         } catch(IOException e){
             System.err.println("No alarm file exists or no object present: "+e.getMessage());
         } catch (ClassNotFoundException c){

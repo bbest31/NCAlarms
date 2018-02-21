@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.Exclude;
@@ -36,6 +38,7 @@ public class User {
             this.uid = fUser.getUid();
         } catch (NullPointerException e){
             e.printStackTrace();
+            Log.e("Alarm Controller","Failed to get current User");
         }
 
         this.alarmList = new ArrayList<>();
@@ -68,6 +71,9 @@ public class User {
                 return alarm;
             }
         }
+        Log.e("User.getAlarmById","Could not retrieve alarm with ID = "+Id);
+        Log.e("User","Current User Alarms:"+User.getInstance().getAlarmList());
+        Log.e("User","User Info: "+User.getInstance().toString());
         return null;
     }
 
@@ -170,5 +176,11 @@ public class User {
 
     public void setFriendRequests(ArrayList<FriendRequest> friendRequests) {
         this.friendRequests = friendRequests;
+    }
+
+    @Override
+    public String toString(){
+        String user = "UID: "+this.getUid()+", E: "+this.getEmail()+", username: "+this.getName();
+        return user;
     }
 }

@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+
+import java.io.IOException;
 
 /**
  * Activity shown when an alarm triggers.
@@ -114,8 +118,13 @@ public class AlarmActivity extends AppCompatActivity {
      * @see AlarmController
      * */
     public void dismissAlarm(){
-        AlarmController alarmController = AlarmController.getInstance();
-        alarmController.dismissAlarm(this.getApplicationContext(),ID,subID);
+        try {
+            NapChatController.getInstance().loadUserAlarms(this.getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("AlarmActivity","Could not load user alarms");
+        }
+        AlarmController.getInstance().dismissAlarm(this.getApplicationContext(),ID,subID);
         finish();
     }
 }

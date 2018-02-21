@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
@@ -63,7 +64,7 @@ public class AlarmController {
         try {
             NapChatController.getInstance().saveUserAlarms(context);
         } catch(IOException e){
-            System.err.println(e.getMessage());
+            Log.e("ALRMCNTRL.saveAlarms",e.getMessage());
             e.printStackTrace();
         }
     }
@@ -87,6 +88,7 @@ public class AlarmController {
         } else {
             rescheduleSubAlarm(context,alarm);
         }
+        Log.d("Scheduling Alarm",alarm.toString());
     }
 
     /**
@@ -100,6 +102,7 @@ public class AlarmController {
         scheduleAlarm(context,alarm);
         alarm.Activate();
         saveAlarms(context);
+        Log.d("Activating Alarm",alarm.toString());
     }
 
     /**
@@ -161,7 +164,7 @@ public class AlarmController {
     public void editAlarm(Context context, int id, Boolean vibrate,int hour, int min, String ringtone, int snooze, List<Integer> repeatDays){
         Alarm alarm = User.getInstance().getAlarmById(id);
 
-        if(alarm.getClass() == OneTimeAlarm.class && repeatDays.size() != 0){
+        if(alarm.getClass() == OneTimeAlarm.class && repeatDays != null){
             //onetime to repeating alarm conversion
             RepeatingBuilder builder = new RepeatingBuilder();
             builder.initialize(repeatDays)
@@ -177,7 +180,7 @@ public class AlarmController {
             createAlarm(context,newAlarm);
 
 
-        } else if(alarm.getClass()==RepeatingAlarm.class && repeatDays.size() == 0){
+        } else if(alarm.getClass()==RepeatingAlarm.class && repeatDays == null){
             //Change repeating alarm to onetime
             OneTimeBuilder builder = new OneTimeBuilder();
             builder.setRingtoneURI(ringtone)
@@ -190,7 +193,7 @@ public class AlarmController {
             deleteAlarm(context,id);
             createAlarm(context,newAlarm);
 
-        } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays.size() == 0){
+        } else  if(alarm.getClass() == OneTimeAlarm.class && repeatDays == null){
             //Onetime alarm staying the same type
             alarm.setRingtoneURI(ringtone);
             alarm.setSnoozeLength(snooze);
@@ -223,14 +226,15 @@ public class AlarmController {
     public void dismissAlarm(Context context, int Id, int subId){
         Alarm alarm = User.getInstance().getAlarmById(Id);
 
-        if(alarm.getClass() == OneTimeAlarm.class){
-            dismissOneTime(context,Id);
-            alarm.Deactivate();
-            saveAlarms(context);
-        }else{
-            dismissRepeatingAlarm(context,Id,subId);
-            saveAlarms(context);
-        }
+            if (alarm.getClass() == OneTimeAlarm.class) {
+                dismissOneTime(context, Id);
+                alarm.Deactivate();
+                saveAlarms(context);
+            } else {
+                dismissRepeatingAlarm(context, Id, subId);
+                saveAlarms(context);
+            }
+
     }
 
     /**
@@ -321,6 +325,7 @@ public class AlarmController {
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, oneTimeAlarm.getTime(),pendingIntent);
 
+        Log.v("Controller Sched 1Time",oneTimeAlarm.toString());
         Toast.makeText(context,"Alarm Created!",Toast.LENGTH_LONG).show();
     }
 
@@ -440,7 +445,7 @@ public class AlarmController {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, entry.getValue().getTime(),pendingIntent);
         }
 
-        System.out.println(alarm.toString());
+        Log.v("Controller Sched Repeat",alarm.toString());
         Toast.makeText(context,"Alarm Created!",Toast.LENGTH_SHORT).show();
 
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -57,6 +58,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         updateAlarmList();
+        Log.d("User Info",User.getInstance().toString());
+        Log.d("User Alarms","Alarm List: "+User.getInstance().getAlarmList());
 
     }
 
