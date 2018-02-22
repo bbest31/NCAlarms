@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -173,7 +174,8 @@ public class LoginActivity extends AppCompatActivity {
                 });
         }
         else{
-            errorText.setVisibility(View.VISIBLE);
+            Toast.makeText(this,"Invalid Credentials",Toast.LENGTH_LONG).show();
+            //errorText.setVisibility(View.VISIBLE);
         }
     }
 }

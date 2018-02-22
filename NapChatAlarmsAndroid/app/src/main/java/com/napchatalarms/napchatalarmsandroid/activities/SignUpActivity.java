@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -95,13 +96,15 @@ public class SignUpActivity extends AppCompatActivity {
 
         String email = emailEditText.getText().toString();
         if(!UtilityFunctions.isValidEmail(email)){
-            emailErrorText.setVisibility(View.VISIBLE);
+            Toast.makeText(this,"Invalid Email",Toast.LENGTH_LONG).show();
+            //emailErrorText.setVisibility(View.VISIBLE);
             validCredentials = false;
         }
 
         String password = passwordEditText.getText().toString();
         if(!UtilityFunctions.isValidPassword(password)){
-            passwordErrorText.setVisibility(View.VISIBLE);
+            Toast.makeText(this,"Invalid Password",Toast.LENGTH_LONG).show();
+            //passwordErrorText.setVisibility(View.VISIBLE);
             validCredentials = false;
 
         }
@@ -109,7 +112,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         String username = UsernameEditText.getText().toString();
         if(!UtilityFunctions.isValidUsername(username)){
-            UsernameErrorText.setVisibility(View.VISIBLE);
+            Toast.makeText(this,"Invalid Username",Toast.LENGTH_LONG).show();
+            //UsernameErrorText.setVisibility(View.VISIBLE);
             validCredentials = false;
 
         }
