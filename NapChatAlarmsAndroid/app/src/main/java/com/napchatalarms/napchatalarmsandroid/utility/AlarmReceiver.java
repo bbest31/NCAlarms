@@ -69,7 +69,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentTitle("NapChat Alarm")
                 .setContentText("Open Alarm")
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setPriority(Notification.PRIORITY_MAX);
+                .setPriority(Notification.PRIORITY_MAX)
+                .setOnlyAlertOnce(false);
 
         //Setting Alarm Ringtone
         if(Uri.parse(ringtoneURI) == RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)){
