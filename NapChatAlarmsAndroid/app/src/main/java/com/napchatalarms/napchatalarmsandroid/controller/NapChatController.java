@@ -1,6 +1,12 @@
 package com.napchatalarms.napchatalarmsandroid.controller;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
@@ -12,6 +18,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**
@@ -160,6 +168,27 @@ public class NapChatController {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public void initNotificationChannel(Context context){
+        int buildVerion = Build.VERSION.SDK_INT;
+        if (buildVerion >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(
+                    NOTIFICATION_SERVICE);
+            try{
+                notificationManager.getNotificationChannel("alarm");
+            }catch (RuntimeException e){
+                // Create the NotificationChannel, but only on API 26+ because
+                // the NotificationChannel class is new and not in the support library
+                Log.d("Init Notify Channel","Initializing the alarm Notification Channel");
+                CharSequence name = "alarm channel";
+                String description = "application alarms";
+                NotificationChannel channel = new NotificationChannel("alarm", name, NotificationManager.IMPORTANCE_HIGH);
+                channel.setDescription(description);
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
     }
 
     /**

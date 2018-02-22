@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
 import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
@@ -57,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        NapChatController.getInstance().initNotificationChannel(getApplicationContext());
         updateAlarmList();
         Log.d("User Info",User.getInstance().toString());
         Log.d("User Alarms","Alarm List: "+User.getInstance().getAlarmList());
@@ -82,6 +85,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.inflateMenu(R.menu.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
@@ -169,7 +173,7 @@ public class HomeActivity extends AppCompatActivity {
      *
      */
     //TODO: Make icons for bottom nav items, turn views visible and gone by
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private  BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override

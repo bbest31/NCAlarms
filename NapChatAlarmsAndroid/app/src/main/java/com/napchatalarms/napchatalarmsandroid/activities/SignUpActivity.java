@@ -159,7 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
                             //Create new files directory for user in internal storage
                             NapChatController.getInstance().createUserFiles(getApplicationContext());
                             //Creates user index in database.
-                            FirebaseDAO.getInstance().writeUser(User.getInstance());
+                            //FirebaseDAO.getInstance().writeUser(User.getInstance());
 
                             }catch(IOException e){
 

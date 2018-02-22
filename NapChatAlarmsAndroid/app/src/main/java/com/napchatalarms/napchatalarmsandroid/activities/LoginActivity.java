@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         if(currentUser != null){
             //Load user data.
             NapChatController.getInstance().loadUserData(context);
-            FirebaseDAO.getInstance();
+            //FirebaseDAO.getInstance();
 
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);

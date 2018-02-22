@@ -11,8 +11,6 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.napchatalarms.napchatalarmsandroid.activities.AlarmActivity;
-import com.napchatalarms.napchatalarmsandroid.R;
-
 /**
  * AlarmReceiver builds the local notifications and creates the AlarmActivity Intent that will launch
  * when the alarm goes off.
@@ -61,11 +59,11 @@ public class AlarmReceiver extends BroadcastReceiver {
             pendingAlarmIntent = PendingIntent.getActivity(context,id,alarmIntent,PendingIntent.FLAG_ONE_SHOT);
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"alarm");
 
         //Build Notification
         builder.setCategory(Notification.CATEGORY_ALARM)
-                .setSmallIcon(R.drawable.ic_home_black_24dp)
+                .setSmallIcon(android.R.drawable.ic_dialog_alert)
                 .setFullScreenIntent(pendingAlarmIntent,true)
                 .setContentIntent(pendingAlarmIntent)
                 .setContentTitle("NapChat Alarm")
