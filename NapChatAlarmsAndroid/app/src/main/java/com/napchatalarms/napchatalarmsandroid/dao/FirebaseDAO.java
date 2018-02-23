@@ -109,16 +109,13 @@ public class FirebaseDAO {
     }
 
     public void writeUser(User user) {
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/users/" + user.getUid(), user.toMap());
 
-
-        dbRef.updateChildren(childUpdates);
+        dbRef.child("users").child(user.getUid()).setValue(user);
 
     }
 
     public void writeUserUID(String uid) {
-        dbRef.child("users").setValue(uid);
+        dbRef.child("users").child(uid).setValue(uid);
     }
 
     public void writeAlerts(String uid,ArrayList<NapAlerts> alerts) {

@@ -159,11 +159,11 @@ public class SignUpActivity extends AppCompatActivity {
                                 FirebaseDAO dao = FirebaseDAO.getInstance();
                                 User newUser = User.getInstance();
                                 dao.writeUserUID(newUser.getUid());
-                                dao.writeFriendsList(newUser.getUid(), newUser.getFriendList());
-                                dao.writeAlerts(newUser.getUid(), newUser.getAlerts());
-                                dao.writeGroups(newUser.getUid(), newUser.getGroupMap());
-                                dao.writeFriendRequest(newUser.getUid(), newUser.getFriendRequests());
-
+                                dao.writeUser(newUser);
+//                                dao.writeFriendsList(newUser.getUid(), newUser.getFriendList());
+//                                dao.writeAlerts(newUser.getUid(), newUser.getAlerts());
+//                                dao.writeGroups(newUser.getUid(), newUser.getGroupMap());
+//                                dao.writeFriendRequest(newUser.getUid(), newUser.getFriendRequests());
                             } catch (IOException e) {
 
                             }
