@@ -8,10 +8,11 @@ import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-/**Singleton class for the current user.
+/**
+ * Singleton class for the current user.
+ *
  * @author bbest
  */
 public class User {
@@ -24,29 +25,32 @@ public class User {
     private ArrayList<Alarm> alarmList;
     private String uid;
     private ArrayList<Friend> friendList;
-    private Map<String,Group> groupList;
+    private Map<String, Group> groupList;
     private ArrayList<NapAlerts> alerts;
     private ArrayList<FriendRequest> friendRequests;
 
-    /**Private Constructor
-     * */
+    /**
+     * Private Constructor
+     */
     private User() {
         try {
             FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-            this.name =  fUser.getDisplayName();
+            this.name = fUser.getDisplayName();
             this.email = fUser.getEmail();
             this.uid = fUser.getUid();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
-            Log.e("Alarm Controller","Failed to get current User");
+            Log.e("Alarm Controller", "Failed to get current User");
         }
 
         this.alarmList = new ArrayList<>();
     }
 
-    /**Instance method*/
+    /**
+     * Instance method
+     */
     public static User getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new User();
         }
         return instance;
@@ -55,35 +59,37 @@ public class User {
     //=====METHODS=====
 
     /**
-     *
      * @param alarm
      */
-    public void addAlarm(Alarm alarm){ this.alarmList.add(alarm);}
+    public void addAlarm(Alarm alarm) {
+        this.alarmList.add(alarm);
+    }
 
     /**
      * This method will return an Alarm if an alarm with the provided Id exists, otherwise return null.
-     * */
-    public Alarm getAlarmById(int Id){
+     */
+    public Alarm getAlarmById(int Id) {
 
-        for(int i = 0; i < this.alarmList.size();i++){
+        for (int i = 0; i < this.alarmList.size(); i++) {
             Alarm alarm = this.alarmList.get(i);
-            if(alarm.getId() == Id){
+            if (alarm.getId() == Id) {
                 return alarm;
             }
         }
-        Log.e("User.getAlarmById","Could not retrieve alarm with ID = "+Id);
-        Log.e("User","Current User Alarms:"+User.getInstance().getAlarmList());
-        Log.e("User","User Info: "+User.getInstance().toString());
+        Log.e("User.getAlarmById", "Could not retrieve alarm with ID = " + Id);
+        Log.e("User", "Current User Alarms:" + User.getInstance().getAlarmList());
+        Log.e("User", "User Info: " + User.getInstance().toString());
         return null;
     }
 
-    /**The alarm in the User's alarm list is deleted that matches the given Id.
-     * */
-    public void deleteAlarm(int id){
+    /**
+     * The alarm in the User's alarm list is deleted that matches the given Id.
+     */
+    public void deleteAlarm(int id) {
 
-        for(int i = 0; i < this.alarmList.size();i++){
+        for (int i = 0; i < this.alarmList.size(); i++) {
             Alarm alarm = this.alarmList.get(i);
-            if(alarm.getId() == id){
+            if (alarm.getId() == id) {
                 this.alarmList.remove(i);
 
             }
@@ -107,36 +113,43 @@ public class User {
     //=====GETTERS & SETTERS=====
 
     /**
-     *
      * @return
      */
-    public String getName(){ return this.name;}
+    public String getName() {
+        return this.name;
+    }
 
     /**
-     *
-     * @return
-     */
-    public String getEmail(){return this.email;}
-
-    /**
-     *
      * @param newName
      */
-    public void setName(String newName){this.name = newName;}
+    public void setName(String newName) {
+        this.name = newName;
+    }
 
     /**
-     *
-     * @param newEmail
-     */
-    public void setEmail(String newEmail){this.email = newEmail;}
-
-    /**
-     *
      * @return
      */
-    public ArrayList<Alarm> getAlarmList() {return alarmList;}
+    public String getEmail() {
+        return this.email;
+    }
 
-    public void setAlarmList(ArrayList<Alarm> list){this.alarmList = list;}
+    /**
+     * @param newEmail
+     */
+    public void setEmail(String newEmail) {
+        this.email = newEmail;
+    }
+
+    /**
+     * @return
+     */
+    public ArrayList<Alarm> getAlarmList() {
+        return alarmList;
+    }
+
+    public void setAlarmList(ArrayList<Alarm> list) {
+        this.alarmList = list;
+    }
 
     public String getUid() {
         return uid;
@@ -154,11 +167,11 @@ public class User {
         this.friendList = friendList;
     }
 
-    public Map<String,Group> getGroupMap() {
+    public Map<String, Group> getGroupMap() {
         return groupList;
     }
 
-    public void setGroupMap(Map<String,Group> groupList) {
+    public void setGroupMap(Map<String, Group> groupList) {
         this.groupList = groupList;
     }
 
@@ -179,8 +192,8 @@ public class User {
     }
 
     @Override
-    public String toString(){
-        String user = "UID: "+this.getUid()+", E: "+this.getEmail()+", username: "+this.getName();
+    public String toString() {
+        String user = "UID: " + this.getUid() + ", E: " + this.getEmail() + ", username: " + this.getName();
         return user;
     }
 }

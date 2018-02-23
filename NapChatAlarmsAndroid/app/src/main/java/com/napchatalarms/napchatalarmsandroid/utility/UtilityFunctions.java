@@ -1,9 +1,5 @@
 package com.napchatalarms.napchatalarmsandroid.utility;
 
-import android.Manifest;
-import android.app.Activity;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Patterns;
 
 import java.util.Calendar;
@@ -11,7 +7,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-/**Class to hold all functions that may be useful by a multitude of classes.
+/**
+ * Class to hold all functions that may be useful by a multitude of classes.
+ *
  * @author bbest
  */
 
@@ -37,7 +35,7 @@ public class UtilityFunctions {
      */
     public final static boolean isValidPassword(String password) {
 
-        if(password.length() < 8 || password.trim().isEmpty() || password.length() >25){
+        if (password.length() < 8 || password.trim().isEmpty() || password.length() > 25) {
             return false;
         }
         for (int i = 0; i < password.length(); i++) {
@@ -54,7 +52,7 @@ public class UtilityFunctions {
      * @return
      */
     public final static boolean isValidUsername(String name) {
-        if(name.trim().isEmpty() || name.length() < 4 || name.length() > 15){
+        if (name.trim().isEmpty() || name.length() < 4 || name.length() > 15) {
             return false;
         }
         for (int i = 0; i < name.length(); i++) {
@@ -131,27 +129,26 @@ public class UtilityFunctions {
     }
 
     /**
-     *
      * @param trigger
      * @return
      */
-    public final static Long validateOneTimeTrigger(Long trigger){
+    public final static Long validateOneTimeTrigger(Long trigger) {
         Calendar currTime = Calendar.getInstance();
         Calendar alarmTime = Calendar.getInstance();
         currTime.setTime(new Date(System.currentTimeMillis()));
         alarmTime.setTime(new Date(trigger));
 
-        alarmTime.set(Calendar.YEAR,currTime.get(Calendar.YEAR));
-        alarmTime.set(Calendar.MONTH,currTime.get(Calendar.MONTH));
-        alarmTime.set(Calendar.DATE,currTime.get(Calendar.DATE));
+        alarmTime.set(Calendar.YEAR, currTime.get(Calendar.YEAR));
+        alarmTime.set(Calendar.MONTH, currTime.get(Calendar.MONTH));
+        alarmTime.set(Calendar.DATE, currTime.get(Calendar.DATE));
 
-        if(currTime.get(Calendar.HOUR_OF_DAY) > alarmTime.get(Calendar.HOUR_OF_DAY)){
+        if (currTime.get(Calendar.HOUR_OF_DAY) > alarmTime.get(Calendar.HOUR_OF_DAY)) {
             //if the local alarm time var is for earlier this day we increase by a day
-            alarmTime.add(Calendar.DATE,1);
-        } else if(currTime.get(Calendar.HOUR_OF_DAY) == alarmTime.get(Calendar.HOUR_OF_DAY)){
+            alarmTime.add(Calendar.DATE, 1);
+        } else if (currTime.get(Calendar.HOUR_OF_DAY) == alarmTime.get(Calendar.HOUR_OF_DAY)) {
             //if the local alarm time var is the same hour we check the minutes
-            if(currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)){
-                alarmTime.add(Calendar.DATE,1);
+            if (currTime.get(Calendar.MINUTE) >= alarmTime.get(Calendar.MINUTE)) {
+                alarmTime.add(Calendar.DATE, 1);
             }
         }
 
@@ -160,11 +157,10 @@ public class UtilityFunctions {
     }
 
     /**
-     *
      * @param trigger
      * @return
      */
-    public final static Long validateRepeatTrigger(Long trigger){
+    public final static Long validateRepeatTrigger(Long trigger) {
 
         Calendar currTime = Calendar.getInstance();
         Calendar alarmTime = Calendar.getInstance();
@@ -172,22 +168,22 @@ public class UtilityFunctions {
         alarmTime.setTimeInMillis(trigger);
 
         int dayOfWeek = alarmTime.get(Calendar.DAY_OF_WEEK);
-        alarmTime.set(Calendar.YEAR,currTime.get(Calendar.YEAR));
-        alarmTime.set(Calendar.MONTH,currTime.get(Calendar.MONTH));
-        alarmTime.set(Calendar.DATE,currTime.get(Calendar.DATE));
+        alarmTime.set(Calendar.YEAR, currTime.get(Calendar.YEAR));
+        alarmTime.set(Calendar.MONTH, currTime.get(Calendar.MONTH));
+        alarmTime.set(Calendar.DATE, currTime.get(Calendar.DATE));
 
         //while our alarm is not for the proper day of the week we increase the day.
-        while(alarmTime.get(Calendar.DAY_OF_WEEK) != dayOfWeek){
-            alarmTime.add(Calendar.DATE,1);
+        while (alarmTime.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
+            alarmTime.add(Calendar.DATE, 1);
         }
 
-        if(alarmTime.get(Calendar.DATE) == currTime.get(Calendar.DATE)){
+        if (alarmTime.get(Calendar.DATE) == currTime.get(Calendar.DATE)) {
 
-            if(alarmTime.get(Calendar.HOUR_OF_DAY) < currTime.get(Calendar.HOUR_OF_DAY)){
-                alarmTime.add(Calendar.DATE,7);
-            } else if(alarmTime.get(Calendar.HOUR_OF_DAY) == currTime.get(Calendar.HOUR_OF_DAY)){
-                if(alarmTime.get(Calendar.MINUTE) <= currTime.get(Calendar.MINUTE)){
-                    alarmTime.add(Calendar.DATE,7);
+            if (alarmTime.get(Calendar.HOUR_OF_DAY) < currTime.get(Calendar.HOUR_OF_DAY)) {
+                alarmTime.add(Calendar.DATE, 7);
+            } else if (alarmTime.get(Calendar.HOUR_OF_DAY) == currTime.get(Calendar.HOUR_OF_DAY)) {
+                if (alarmTime.get(Calendar.MINUTE) <= currTime.get(Calendar.MINUTE)) {
+                    alarmTime.add(Calendar.DATE, 7);
                 }
             }
         }
@@ -198,16 +194,16 @@ public class UtilityFunctions {
 
 
     //TODO: detect weekends, and weekdays settings.
-    public final static String generateRepeatText(List<Integer> days){
+    public final static String generateRepeatText(List<Integer> days) {
         String repeatText = "";
-        if(days.size() != 0 && days.size() != 7) {
-            for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext();) {
+        if (days.size() != 0 && days.size() != 7) {
+            for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext(); ) {
                 switch (iterator.next()) {
                     case 1:
                         repeatText = repeatText.concat("Sun,");
                         break;
                     case 2:
-                         repeatText = repeatText.concat("Mon,");
+                        repeatText = repeatText.concat("Mon,");
                         break;
                     case 3:
                         repeatText = repeatText.concat("Tues,");
@@ -222,21 +218,19 @@ public class UtilityFunctions {
                         repeatText = repeatText.concat("Fri,");
                         break;
                     case 7:
-                         repeatText = repeatText.concat("Sat,");
+                        repeatText = repeatText.concat("Sat,");
                         break;
                 }
             }
 
             return repeatText;
-        } else if(days.size() == 7) {
+        } else if (days.size() == 7) {
             repeatText = "Every Day";
             return repeatText;
         } else {
             return null;
         }
     }
-
-
 
 
     //TODO:custom Vibration patterns.

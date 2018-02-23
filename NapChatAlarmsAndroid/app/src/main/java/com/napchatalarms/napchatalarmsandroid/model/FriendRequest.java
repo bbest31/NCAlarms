@@ -7,7 +7,7 @@ package com.napchatalarms.napchatalarmsandroid.model;
 
 public class FriendRequest {
 
-    public FriendRequest(){
+    public FriendRequest() {
     }
 
 }

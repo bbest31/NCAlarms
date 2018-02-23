@@ -20,6 +20,7 @@ import com.napchatalarms.napchatalarmsandroid.R;
 
 /**
  * Dialog which users enter a new email to be associated with their account.
+ *
  * @author bbest
  */
 
@@ -34,6 +35,7 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
 
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
+     *
      * @param a - Activity the dialog appears over
      */
     public ChangeEmailDialog(Activity a) {
@@ -48,8 +50,8 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
         setContentView(R.layout.change_email_dialog);
         confirm = (Button) findViewById(R.id.change_email_confirm_btn);
         cancel = (Button) findViewById(R.id.change_email_cancel_btn);
-        emailEntry = (EditText)findViewById(R.id.change_email_email_edittext);
-        passEntry = (EditText)findViewById(R.id.change_email_pass_editText);
+        emailEntry = (EditText) findViewById(R.id.change_email_email_edittext);
+        passEntry = (EditText) findViewById(R.id.change_email_pass_editText);
         newemailEditText = (EditText) c.findViewById(R.id.change_email_edittext);
         confirm.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -73,10 +75,11 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
 
     /**
      * Re-authenticates the user before performing the delete account action.
+     *
      * @see FirebaseUser
      * @see AuthCredential
-     * */
-    public void reAuth(){
+     */
+    public void reAuth() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = emailEntry.getText().toString();
         String pass = passEntry.getText().toString();
@@ -93,7 +96,7 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Log.d("Re-Authentication", "User re-authenticated.");
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
 
                             String newEmail = newemailEditText.getText().toString();
                             changeEmail(newEmail);
@@ -107,10 +110,11 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
 
     /**
      * Updates the email associated with the account.
+     *
      * @param newEmail - new email to associate that user account with.
      */
     //TODO:get new email entered from OptionsActivity
-    public void changeEmail(String newEmail){
+    public void changeEmail(String newEmail) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

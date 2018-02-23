@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**Data access object that connects and reads/writes to the Firebase Realtime Database.
+/**
+ * Data access object that connects and reads/writes to the Firebase Realtime Database.
  * Created by bbest on 10/02/18.
  */
 
@@ -27,7 +28,7 @@ public class FirebaseDAO {
     private static FirebaseDAO instance = null;
 
     public static FirebaseDAO getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new FirebaseDAO();
         }
         return instance;
@@ -37,77 +38,77 @@ public class FirebaseDAO {
      * This constructor initializes all the event listeners for the different children of the user
      * in the database. We seperate them in order to properly construct the objects store inside once we read them.
      */
-    private FirebaseDAO(){
+    private FirebaseDAO() {
 
-        ValueEventListener groupEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Group> groups = dataSnapshot.getValue(ArrayList.class);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        ValueEventListener friendEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        ValueEventListener alertEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        ValueEventListener requestsEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        dbRef.addValueEventListener(groupEventListener);
-        dbRef.addValueEventListener(friendEventListener);
-        dbRef.addValueEventListener(alertEventListener);
-        dbRef.addValueEventListener(requestsEventListener);
+//        ValueEventListener groupEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                ArrayList<Group> groups = dataSnapshot.getValue(ArrayList.class);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
+//
+//        ValueEventListener friendEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
+//
+//        ValueEventListener alertEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
+//
+//        ValueEventListener requestsEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
+//
+//        dbRef.addValueEventListener(groupEventListener);
+//        dbRef.addValueEventListener(friendEventListener);
+//        dbRef.addValueEventListener(alertEventListener);
+//        dbRef.addValueEventListener(requestsEventListener);
     }
 
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private static DatabaseReference dbRef = database.getReference();
 
-    public  void writeFriendsList(ArrayList<Friend> friends){
-        dbRef.child("users").child(User.getInstance().getUid()).child("friends").setValue(friends);
+    public void writeFriendsList(String uid,ArrayList<Friend> friends) {
+        dbRef.child("users").child(uid).child("friends").setValue(friends);
     }
 
-    public  void writeGroups(Map<String,Group> groupMap){
+    public void writeGroups(String uid,Map<String, Group> groupMap) {
 
-        dbRef.child("users").child(User.getInstance().getUid()).child("groups").setValue(groupMap);
+        dbRef.child("users").child(uid).child("groups").setValue(groupMap);
     }
 
-    public   void writeUser(User user){
+    public void writeUser(User user) {
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/users/" + user.getUid(), user.toMap());
 
@@ -116,14 +117,18 @@ public class FirebaseDAO {
 
     }
 
-    public void writeAlerts(ArrayList<NapAlerts> alerts){
-        //
-        dbRef.child("users").child(User.getInstance().getUid()).child("alerts").setValue(alerts);
+    public void writeUserUID(String uid) {
+        dbRef.child("users").setValue(uid);
     }
 
-    public void writeFriendRequest(ArrayList<FriendRequest> requests){
+    public void writeAlerts(String uid,ArrayList<NapAlerts> alerts) {
         //
-        dbRef.child("users").child(User.getInstance().getUid()).child("requests").setValue(requests);
+        dbRef.child("users").child(uid).child("alerts").setValue(alerts);
+    }
+
+    public void writeFriendRequest(String uid,ArrayList<FriendRequest> requests) {
+        //
+        dbRef.child("users").child(uid).child("requests").setValue(requests);
     }
 
 
@@ -136,12 +141,13 @@ public class FirebaseDAO {
         return dbRef;
     }
 
-    public void loadUser(){
+    public void loadUser() {
 
     }
 
+    public void readUserUID() {
 
-
+    }
 
 
 }

@@ -3,8 +3,8 @@ package com.napchatalarms.napchatalarmsandroid.activities;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,15 +14,15 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.customui.RepeatDaysDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
-import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
-import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
-import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
@@ -88,7 +88,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     /**
      * Declaration of view references.
      */
-    public void initialize(){
+    public void initialize() {
         alarmController = AlarmController.getInstance();
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
@@ -96,22 +96,22 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
         repeatButton = (Button) findViewById(R.id.repeat_btn);
 
-        snoozeSelector = (Spinner)findViewById(R.id.snooze_spinner);
+        snoozeSelector = (Spinner) findViewById(R.id.snooze_spinner);
         ArrayAdapter<CharSequence> snoozeAdapter = ArrayAdapter.createFromResource(this
-                ,R.array.snooze_array
-                ,R.layout.support_simple_spinner_dropdown_item);
+                , R.array.snooze_array
+                , R.layout.support_simple_spinner_dropdown_item);
         snoozeAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         snoozeSelector.setAdapter(snoozeAdapter);
         snoozeSelector.setOnItemSelectedListener(this);
 
         //Get id indicator to see if this is a brand new alarm or if we are editing one.
         Intent intent = this.getIntent();
-        int id = intent.getIntExtra("ID",0);
+        int id = intent.getIntExtra("ID", 0);
 
         //If we are getting an alarm Id we grab the alarm and populate the views with its attributes.
-        if (id !=0) {
+        if (id != 0) {
             final Alarm alarm = User.getInstance().getAlarmById(id);
-            editAlarmButton = (Button)findViewById(R.id.edit_alarm_btn);
+            editAlarmButton = (Button) findViewById(R.id.edit_alarm_btn);
             editAlarmButton.setVisibility(View.VISIBLE);
 
             //Set TimePicker time.
@@ -122,7 +122,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             //Set ringtone name
             Uri uri = Uri.parse(alarm.getRingtoneURI());
-            if(uri.toString().equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())){
+            if (uri.toString().equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())) {
                 ringtoneButton.setText("Ringtone: Default");
             } else {
                 String uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
@@ -140,12 +140,14 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             snoozeLength = Integer.valueOf(snoozeSelector.getSelectedItem().toString());
 
             //Set repeat day selection
-            if(alarm.getClass() == RepeatingAlarm.class){
+            if (alarm.getClass() == RepeatingAlarm.class) {
 
-                RepeatingAlarm repeatingAlarm = (RepeatingAlarm)alarm;
+                RepeatingAlarm repeatingAlarm = (RepeatingAlarm) alarm;
                 repeatDays = repeatingAlarm.getRepeatDays();
                 setRepeatText(repeatDays);
 
+            } else {
+                repeatDays = new ArrayList<>();
             }
 
             editAlarmButton.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +155,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 public void onClick(View v) {
 
 
-                    editAlarm(alarm.getId(),vibrate,timePicker.getHour(),timePicker.getMinute(),ringtone,snoozeLength,repeatDays);
+                    editAlarm(alarm.getId(), vibrate, timePicker.getHour(), timePicker.getMinute(), ringtone, snoozeLength, repeatDays);
                     finish();
                 }
             });
@@ -167,7 +169,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             vibrate = vibrateSwitch.isChecked();
 
-            repeatDays = new ArrayList<Integer>();
+            repeatDays = new ArrayList<>();
 
             createAlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -208,7 +210,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         repeatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RepeatDaysDialog repeatDaysDialog = new RepeatDaysDialog(CreateAlarmActivity.this,repeatDays);
+                RepeatDaysDialog repeatDaysDialog = new RepeatDaysDialog(CreateAlarmActivity.this, repeatDays);
                 repeatDaysDialog.show();
             }
         });
@@ -226,8 +228,8 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * @see OneTimeBuilder
      * @see com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder
      */
-    public void createAlarm(){
-        if(repeatDays.size() == 0) {
+    public void createAlarm() {
+        if (repeatDays.size() == 0) {
             OneTimeBuilder builder = new OneTimeBuilder();
             Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
             builder.setTime(trigger)
@@ -237,12 +239,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             OneTimeAlarm alarm = builder.build();
 
-            alarmController.createAlarm(getApplicationContext(),alarm);
+            alarmController.createAlarm(getApplicationContext(), alarm);
 
-        } else{
+        } else {
             //build repeating alarm
             RepeatingBuilder builder = new RepeatingBuilder();
-            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(),timePicker.getMinute());
+            Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
             builder.initialize(repeatDays)
                     .setTime(trigger)
                     .setVibrate(vibrate)
@@ -252,13 +254,13 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             RepeatingAlarm alarm = builder.build();
 
-            alarmController.createAlarm(getApplicationContext(),alarm);
+            alarmController.createAlarm(getApplicationContext(), alarm);
 
         }
     }
 
-    public void editAlarm(int id, Boolean vibrate, int hour, int minute ,String ringtone,int snooze,  List<Integer> repeat ){
-        alarmController.editAlarm(getApplicationContext(),id,vibrate,hour,minute,ringtone,snooze,repeat);
+    public void editAlarm(int id, Boolean vibrate, int hour, int minute, String ringtone, int snooze, List<Integer> repeat) {
+        alarmController.editAlarm(getApplicationContext(), id, vibrate, hour, minute, ringtone, snooze, repeat);
         alarmController.saveAlarms(getApplicationContext());
     }
 
@@ -268,16 +270,15 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * @param uri  the uri
      * @param name the name
      */
-    public void setRingtone(String uri, String name){
+    public void setRingtone(String uri, String name) {
         ringtone = uri;
-        ringtoneButton.setText("Ringtone: "+name);
+        ringtoneButton.setText("Ringtone: " + name);
     }
 
     /**
-     *
      * @param newDays
      */
-    public void setRepeatDays(List<Integer> newDays){
+    public void setRepeatDays(List<Integer> newDays) {
         repeatDays = newDays;
     }
 
@@ -288,8 +289,8 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 case 1:
                     //Return from ringtone dialog
                     Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-                    String name = RingtoneManager.getRingtone(getApplicationContext(),uri).getTitle(getApplicationContext());
-                    setRingtone(String.valueOf(uri),name);
+                    String name = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
+                    setRingtone(String.valueOf(uri), name);
                     break;
                 case 2:
                     //Return from Music
@@ -306,7 +307,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         // An item was selected. You can retrieve the selected item using
         try {
             snoozeLength = Integer.valueOf(String.valueOf(parent.getItemAtPosition(pos)));
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
@@ -318,12 +319,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     }
 
 
-    public void setRepeatText(List<Integer> repeatDays){
+    public void setRepeatText(List<Integer> repeatDays) {
         //Set the repeat_btn view to reflect the days selected
 
         String text = UtilityFunctions.generateRepeatText(repeatDays);
-        if(text !=null){
-            repeatButton.setText("Repeat: "+text);
+        if (text != null) {
+            repeatButton.setText("Repeat: " + text);
         } else {
             repeatButton.setText("Repeat");
         }
