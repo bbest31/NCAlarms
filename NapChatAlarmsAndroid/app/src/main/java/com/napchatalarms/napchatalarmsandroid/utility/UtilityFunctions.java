@@ -52,15 +52,20 @@ public class UtilityFunctions {
      * @return
      */
     public final static boolean isValidUsername(String name) {
-        if (name.trim().isEmpty() || name.length() < 4 || name.length() > 15) {
-            return false;
+        boolean valid = true;
+        if (name.trim().isEmpty()) {
+            valid = false;
+        } else if(name.length() < 4){
+            valid = false;
+        }else if(name.length() > 15){
+            valid = false;
         }
         for (int i = 0; i < name.length(); i++) {
             if (!Character.isLetterOrDigit(name.charAt(i))) {
-                return false;
+                valid =  false;
             }
         }
-        return true;
+        return valid;
     }
 
     /**

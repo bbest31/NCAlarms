@@ -21,6 +21,7 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
@@ -102,14 +103,9 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("Re-Authentication", "User re-authenticated.");
+                        Log.i("Re-Authentication", "User re-authenticated.");
                         if (task.isSuccessful()) {
                             deleteAccount();
-                            try {
-                                NapChatController.getInstance().deleteFiles(getContext());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         }
                     }
                 });
@@ -125,17 +121,24 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
     public void deleteAccount() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList<Alarm> alarmArrayList = User.getInstance().getAlarmList();
-        for(Alarm a:alarmArrayList){
-            AlarmController.getInstance().cancelAlarm(getOwnerActivity().getApplicationContext(),a.getId());
+        for (Alarm a : alarmArrayList) {
+            AlarmController.getInstance().cancelAlarm(getContext(), a.getId());
         }
-        //TODO:need to get a data snapshot reference of the user uid node and removeValue() as well as children.
-
+        FirebaseDAO.getInstance().removeUser(User.getInstance().getUid());
+        user.unlink(user.getProviderId());
         user.delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("reAuthDeleteAccount", "User account deleted.");
+                            try {
+                                NapChatController.getInstance().deleteFiles(getContext());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            User currentUser = User.getInstance();
+                            currentUser = null;
+                            Log.i("reAuthDeleteAccount", "User account deleted.");
                             Intent intent = new Intent(c, LoginActivity.class);
                             c.startActivity(intent);
                             c.finish();

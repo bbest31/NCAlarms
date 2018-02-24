@@ -38,7 +38,6 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
 public class HomeActivity extends AppCompatActivity {
 
     //=====ATTRIBUTES=====
-    User currentUser;
     SwipeMenuListView alarmListView;
     Button addAlarmButton;
     AlarmAdapter alarmAdapter;
@@ -82,15 +81,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onStart();
         NapChatController.getInstance().initNotificationChannel(getApplicationContext());
         updateAlarmList();
-        Log.d("User Info", User.getInstance().toString());
-        Log.d("User Alarms", "Alarm List: " + User.getInstance().getAlarmList());
+        Log.i("User Info", User.getInstance().toString());
 
     }
 
     public void initialize() {
 
-        //Initialize User singleton
-        currentUser = currentUser.getInstance();
+
         alarmListView = (SwipeMenuListView) findViewById(R.id.alarm_list_view);
         updateAlarmList();
 
@@ -186,7 +183,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void updateAlarmList() {
-        alarmAdapter = new AlarmAdapter(getApplicationContext(), currentUser.getAlarmList());
+         User user = User.getInstance();
+        alarmAdapter = new AlarmAdapter(getApplicationContext(), User.getInstance().getAlarmList());
         alarmListView.setAdapter(alarmAdapter);
     }
 

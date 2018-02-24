@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
@@ -42,9 +43,12 @@ public class NapChatController {
      * @throws IOException
      */
     public void createUserFiles(Context context) throws IOException {
-
-        createUserSettingsFile(context);
-        createUserAlarmFile(context);
+        try {
+            //createUserSettingsFile(context);
+            createUserAlarmFile(context);
+        } catch (IOException e) {
+            throw new IOException();
+        }
     }
 
     /**
@@ -70,6 +74,7 @@ public class NapChatController {
         String filename = formatEmail(User.getInstance().getEmail()) + "ALRM.ser";
         File alarmFile = new File(context.getFilesDir().getAbsolutePath(), filename);
         alarmFile.createNewFile();
+        Log.i("NapChatController", "Sucessfull created user alarm file");
 
     }
 
@@ -125,10 +130,12 @@ public class NapChatController {
             file.close();
 
         } catch (IOException e) {
-            System.err.println("No alarm file exists or no object present: " + e.getMessage());
+            Log.e("NapChatController", "No alarm file exists or no object present: " + e.getMessage());
+            throw new IOException();
         } catch (ClassNotFoundException c) {
-            System.err.println("Class not found exception " + c.getMessage());
+            Log.e("NapChatController", "Class not found exception " + c.getMessage());
             c.printStackTrace();
+            throw new IOException();
         }
     }
 
@@ -140,33 +147,30 @@ public class NapChatController {
 
         File dir = context.getFilesDir();
         File alarmFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "ALRM.ser");
-        File settingsFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "SETT.ser");
+       // File settingsFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "SETT.ser");
         alarmFile.delete();
-        settingsFile.delete();
+        //settingsFile.delete();
     }
 
     /**
      * @param context
      */
     public void loadUserData(Context context) {
+        loadUserInfo();
         try {
-            //loadUserSettings();
             loadUserAlarms(context);
-            //loadUserFriends();
         } catch (IOException e) {
             try {
                 createUserFiles(context);
             } catch (IOException e1) {
-                e1.printStackTrace();
             }
-            System.err.println(e.getMessage());
-            e.printStackTrace();
+            Log.e("NapChatController", "Fail to load user alarms.");
         }
     }
 
     public void initNotificationChannel(Context context) {
-        int buildVerion = Build.VERSION.SDK_INT;
-        if (buildVerion >= Build.VERSION_CODES.O) {
+        int buildVersion = Build.VERSION.SDK_INT;
+        if (buildVersion >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(
                     NOTIFICATION_SERVICE);
             try {
@@ -174,7 +178,7 @@ public class NapChatController {
             } catch (RuntimeException e) {
                 // Create the NotificationChannel, but only on API 26+ because
                 // the NotificationChannel class is new and not in the support library
-                Log.d("Init Notify Channel", "Initializing the alarm Notification Channel");
+                Log.i("Init Notify Channel", "Initializing the alarm Notification Channel");
                 CharSequence name = "alarm channel";
                 String description = "application alarms";
                 NotificationChannel channel = new NotificationChannel("alarm", name, NotificationManager.IMPORTANCE_HIGH);
@@ -193,6 +197,12 @@ public class NapChatController {
         String newEmail = email.replace("@", "_");
         newEmail = newEmail.replace(".", "_");
         return newEmail;
+    }
+
+    public void loadUserInfo() {
+        User.getInstance().setName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        User.getInstance().setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        User.getInstance().setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
 

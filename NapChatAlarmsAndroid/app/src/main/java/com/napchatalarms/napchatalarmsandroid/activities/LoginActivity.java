@@ -121,8 +121,6 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser != null) {
             //Load user data.
             NapChatController.getInstance().loadUserData(context);
-            //FirebaseDAO.getInstance();
-
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);
             finish();
@@ -150,21 +148,20 @@ public class LoginActivity extends AppCompatActivity {
             validcreds = Boolean.FALSE;
         }
 
-        if (validcreds = Boolean.TRUE) {
+        if (validcreds == Boolean.TRUE) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d("Login Activity", "signInWithEmail:success");
+                                Log.i("Login Activity", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-
                                 loginNavigationOnSuccess(user, context);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("signInWithEmail:failure", task.getException());
-                                errorText.setVisibility(View.VISIBLE);
+                                Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_LONG).show();
                                 loginNavigationOnSuccess(null, context);
                             }
 
@@ -173,7 +170,6 @@ public class LoginActivity extends AppCompatActivity {
                     });
         } else {
             Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_LONG).show();
-            //errorText.setVisibility(View.VISIBLE);
         }
     }
 }

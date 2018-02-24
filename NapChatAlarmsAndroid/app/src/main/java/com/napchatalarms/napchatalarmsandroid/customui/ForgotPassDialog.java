@@ -83,11 +83,11 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("ForgotPassDialog", "Email sent.");
+                            Log.i("ForgotPassDialog", "Email sent.");
 
                         } else {
                             //Email may not exists with an account so we should display some kind of error
-                            Log.d("ForgotPassDialog", "Email could not be sent!");
+                            Log.i("ForgotPassDialog", "Email could not be sent!");
                         }
                     }
                 });

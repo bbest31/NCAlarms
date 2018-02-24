@@ -40,7 +40,7 @@ public class User {
             this.uid = fUser.getUid();
         } catch (NullPointerException e) {
             e.printStackTrace();
-            Log.e("Alarm Controller", "Failed to get current User");
+            Log.e("User", "Failed to init User");
         }
 
         this.alarmList = new ArrayList<>();

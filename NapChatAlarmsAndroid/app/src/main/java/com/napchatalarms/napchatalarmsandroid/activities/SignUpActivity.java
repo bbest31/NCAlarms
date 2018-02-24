@@ -23,8 +23,6 @@ import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-import java.io.IOException;
-
 /**
  * Activity that allows potential users to sign up using
  * email, password and username.
@@ -97,14 +95,12 @@ public class SignUpActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString();
         if (!UtilityFunctions.isValidEmail(email)) {
             Toast.makeText(this, "Invalid Email", Toast.LENGTH_LONG).show();
-            //emailErrorText.setVisibility(View.VISIBLE);
             validCredentials = false;
         }
 
         String password = passwordEditText.getText().toString();
         if (!UtilityFunctions.isValidPassword(password)) {
             Toast.makeText(this, "Invalid Password", Toast.LENGTH_LONG).show();
-            //passwordErrorText.setVisibility(View.VISIBLE);
             validCredentials = false;
 
         }
@@ -113,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
         String username = UsernameEditText.getText().toString();
         if (!UtilityFunctions.isValidUsername(username)) {
             Toast.makeText(this, "Invalid Username", Toast.LENGTH_LONG).show();
-            //UsernameErrorText.setVisibility(View.VISIBLE);
+
             validCredentials = false;
 
         }
@@ -143,7 +139,6 @@ public class SignUpActivity extends AppCompatActivity {
      */
     public void createNewUser(String email, String password, final String username) {
 
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -153,26 +148,13 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             initProfile(user, username);
                             sendEmailVerification();
-                            try {
-                                //Create new files directory for user in internal storage
-                                NapChatController.getInstance().createUserFiles(getApplicationContext());
-                                FirebaseDAO dao = FirebaseDAO.getInstance();
-                                User newUser = User.getInstance();
-                                dao.writeUserUID(newUser.getUid());
-                                dao.writeUser(newUser);
-//                                dao.writeFriendsList(newUser.getUid(), newUser.getFriendList());
-//                                dao.writeAlerts(newUser.getUid(), newUser.getAlerts());
-//                                dao.writeGroups(newUser.getUid(), newUser.getGroupMap());
-//                                dao.writeFriendRequest(newUser.getUid(), newUser.getFriendRequests());
-                            } catch (IOException e) {
-
-                            }
-
                             signUpNavigationOnSuccess(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SignUp Activity", "createUserWithEmail:failure", task.getException());
                             signUpNavigationOnSuccess(null);
+                            Toast.makeText(SignUpActivity.this, "Failed. Account with email may already exist.", Toast.LENGTH_LONG).show();
+                            ;
                         }
 
                         // ...
@@ -210,7 +192,7 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    public void initProfile(FirebaseUser user, String username) {
+    public void initProfile(final FirebaseUser user, String username) {
 
         UserProfileChangeRequest initializeProfile = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username)
@@ -220,7 +202,16 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("Login Activity", "User Profile initialized.");
+                            try {
+                                //Create new files directory for user in internal storage
+                                NapChatController.getInstance().loadUserData(getApplicationContext());
+                                FirebaseDAO dao = FirebaseDAO.getInstance();
+                                User newUser = User.getInstance();
+                                dao.initUserToDB(newUser);
+
+                            } catch (Exception e) {
+                                Log.e("SignUpActivity", "Error initializing user files or db index " + e.getMessage());
+                            }
                         }
                     }
                 });

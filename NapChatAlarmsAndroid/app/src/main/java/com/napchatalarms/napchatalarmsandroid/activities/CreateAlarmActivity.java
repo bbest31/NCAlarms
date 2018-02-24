@@ -5,6 +5,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -308,7 +309,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         try {
             snoozeLength = Integer.valueOf(String.valueOf(parent.getItemAtPosition(pos)));
         } catch (NumberFormatException e) {
-            System.err.println(e.getMessage());
+            Log.e("CreateAlarmActivity",e.getMessage());
             e.printStackTrace();
         }
     }

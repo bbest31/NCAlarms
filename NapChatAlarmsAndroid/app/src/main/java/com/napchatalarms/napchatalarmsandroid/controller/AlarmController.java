@@ -89,7 +89,7 @@ public class AlarmController {
         } else {
             rescheduleSubAlarm(context, alarm);
         }
-        Log.d("Scheduling Alarm", alarm.toString());
+        Log.i("Scheduling Alarm", alarm.toString());
     }
 
     /**
@@ -102,7 +102,7 @@ public class AlarmController {
         scheduleAlarm(context, alarm);
         alarm.Activate();
         saveAlarms(context);
-        Log.d("Activating Alarm", alarm.toString());
+        Log.i("Activating Alarm", alarm.toString());
     }
 
     /**

@@ -165,10 +165,12 @@ public class OptionsActivity extends AppCompatActivity {
      */
     public void logout() {
         ArrayList<Alarm> alarmArrayList = User.getInstance().getAlarmList();
-        for(Alarm a:alarmArrayList){
-            AlarmController.getInstance().cancelAlarm(this,a.getId());
+        for (Alarm a : alarmArrayList) {
+            AlarmController.getInstance().cancelAlarm(this, a.getId());
         }
         FirebaseAuth.getInstance().signOut();
+        User currentUser = User.getInstance();
+        currentUser = null;
         Intent loginIntent = new Intent(OptionsActivity.this, LoginActivity.class);
         startActivity(loginIntent);
         finish();
@@ -185,7 +187,7 @@ public class OptionsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("Options Activity", "Resent Verification Email successfully");
+                            Log.i("Options Activity", "Resent Verification Email successfully");
                         }
                     }
                 });
@@ -216,7 +218,7 @@ public class OptionsActivity extends AppCompatActivity {
                                 currentUser.setName(newName);
                                 changeUsernameEditText.setText("");
                                 Toast.makeText(OptionsActivity.this, "Username successfully changed!", Toast.LENGTH_LONG).show();
-                                Log.d("Options Activity", "The User's username has been updated successfully");
+                                Log.i("Options Activity", "The User's username has been updated successfully");
                             } else {
                                 Toast.makeText(OptionsActivity.this, "Could not update username!", Toast.LENGTH_LONG).show();
                             }
@@ -241,7 +243,7 @@ public class OptionsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(OptionsActivity.this, "Verification email sent!", Toast.LENGTH_LONG).show();
-                            Log.d("Options Activity", "Email sent.");
+                            Log.i("Options Activity", "Email sent.");
                         }
                     }
                 });

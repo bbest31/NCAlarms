@@ -95,7 +95,7 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("Re-Authentication", "User re-authenticated.");
+                        Log.i("Re-Authentication", "User re-authenticated.");
                         if (task.isSuccessful()) {
 
                             String newEmail = newemailEditText.getText().toString();
@@ -123,7 +123,7 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("ChangeEmailActivity:", "User email address updated.");
+                            Log.i("ChangeEmailActivity:", "User email address updated.");
                             newemailEditText.setText("");
                         }
                     }
