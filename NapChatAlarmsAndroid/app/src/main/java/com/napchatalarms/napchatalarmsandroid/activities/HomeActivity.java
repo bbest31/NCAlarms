@@ -183,7 +183,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void updateAlarmList() {
-         User user = User.getInstance();
         alarmAdapter = new AlarmAdapter(getApplicationContext(), User.getInstance().getAlarmList());
         alarmListView.setAdapter(alarmAdapter);
     }

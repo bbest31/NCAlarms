@@ -169,8 +169,7 @@ public class OptionsActivity extends AppCompatActivity {
             AlarmController.getInstance().cancelAlarm(this, a.getId());
         }
         FirebaseAuth.getInstance().signOut();
-        User currentUser = User.getInstance();
-        currentUser = null;
+        NapChatController.getInstance().uninitializeUser();
         Intent loginIntent = new Intent(OptionsActivity.this, LoginActivity.class);
         startActivity(loginIntent);
         finish();

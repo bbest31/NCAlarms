@@ -8,6 +8,9 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.Friend;
+import com.napchatalarms.napchatalarmsandroid.model.Group;
+import com.napchatalarms.napchatalarmsandroid.model.NapAlerts;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 import java.io.File;
@@ -17,6 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -44,7 +48,7 @@ public class NapChatController {
      */
     public void createUserFiles(Context context) throws IOException {
         try {
-            //createUserSettingsFile(context);
+            createUserSettingsFile(context);
             createUserAlarmFile(context);
         } catch (IOException e) {
             throw new IOException();
@@ -61,7 +65,7 @@ public class NapChatController {
 
         String filename = formatEmail(User.getInstance().getEmail()) + "SETT.ser";
         File settingsFile = new File(context.getFilesDir().getAbsolutePath(), filename);
-
+        //settingsFile.createNewFile();
 
     }
 
@@ -147,9 +151,9 @@ public class NapChatController {
 
         File dir = context.getFilesDir();
         File alarmFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "ALRM.ser");
-       // File settingsFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "SETT.ser");
+        File settingsFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "SETT.ser");
         alarmFile.delete();
-        //settingsFile.delete();
+        settingsFile.delete();
     }
 
     /**
@@ -203,6 +207,17 @@ public class NapChatController {
         User.getInstance().setName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         User.getInstance().setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         User.getInstance().setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    }
+
+    public void uninitializeUser() {
+        User user = User.getInstance();
+        user.setUid(null);
+        user.setEmail(null);
+        user.setName(null);
+        user.setAlarmList(new ArrayList<Alarm>());
+        user.setAlerts(new ArrayList<NapAlerts>());
+        user.setFriendList(new ArrayList<Friend>());
+        user.setGroupMap(new HashMap<String, Group>());
     }
 
 

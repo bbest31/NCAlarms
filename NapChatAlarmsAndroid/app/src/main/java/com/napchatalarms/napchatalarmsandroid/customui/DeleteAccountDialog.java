@@ -136,8 +136,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            User currentUser = User.getInstance();
-                            currentUser = null;
+                            NapChatController.getInstance().uninitializeUser();
                             Log.i("reAuthDeleteAccount", "User account deleted.");
                             Intent intent = new Intent(c, LoginActivity.class);
                             c.startActivity(intent);
