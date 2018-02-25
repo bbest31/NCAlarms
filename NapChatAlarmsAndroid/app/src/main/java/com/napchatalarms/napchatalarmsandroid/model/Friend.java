@@ -9,7 +9,7 @@ public class Friend {
     private String name;
     private String uid;
 
-    public Friend(){
+    public Friend() {
 
     }
 

@@ -8,12 +8,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,24 +31,25 @@ public class RepeatDaysDialog extends Dialog {
     Button okayBtn;
     List<Integer> repeatDays;
 
-    public RepeatDaysDialog(Activity a, List<Integer> days){
+    public RepeatDaysDialog(Activity a, List<Integer> days) {
         super(a);
         this.repeatDays = days;
         this.c = a;
     }
 
-    public void initialize(){
-        sunChckBx = (CheckBox)findViewById(R.id.sunday_checkBox);
-        monChckBox = (CheckBox)findViewById(R.id.monday_checkBox);
-        tuesChckBx = (CheckBox)findViewById(R.id.tuesday_checkBox);
-        wedChckBx = (CheckBox)findViewById(R.id.wednesday_checkBox);
-        thursChckBx = (CheckBox)findViewById(R.id.thursday_checkBox);
-        friChckBx = (CheckBox)findViewById(R.id.friday_checkBox);
-        satChckBx = (CheckBox)findViewById(R.id.saturday_checkBox);
-        okayBtn = (Button)findViewById(R.id.repeat_okay_btn);
+    public void initialize() {
+        sunChckBx = (CheckBox) findViewById(R.id.sunday_checkBox);
+        monChckBox = (CheckBox) findViewById(R.id.monday_checkBox);
+        tuesChckBx = (CheckBox) findViewById(R.id.tuesday_checkBox);
+        wedChckBx = (CheckBox) findViewById(R.id.wednesday_checkBox);
+        thursChckBx = (CheckBox) findViewById(R.id.thursday_checkBox);
+        friChckBx = (CheckBox) findViewById(R.id.friday_checkBox);
+        satChckBx = (CheckBox) findViewById(R.id.saturday_checkBox);
+        okayBtn = (Button) findViewById(R.id.repeat_okay_btn);
 
-        for(Iterator<Integer> iterator = repeatDays.listIterator();iterator.hasNext();){
-            switch (iterator.next()){
+
+        for (Iterator<Integer> iterator = repeatDays.listIterator(); iterator.hasNext(); ) {
+            switch (iterator.next()) {
                 case 1:
                     sunChckBx.setChecked(true);
                     break;
@@ -75,6 +74,7 @@ public class RepeatDaysDialog extends Dialog {
             }
         }
 
+
     }
 
     @Override
@@ -87,7 +87,7 @@ public class RepeatDaysDialog extends Dialog {
         okayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((CreateAlarmActivity)c).setRepeatDays(repeatDays);
+                ((CreateAlarmActivity) c).setRepeatDays(repeatDays);
                 ((CreateAlarmActivity) c).setRepeatText(repeatDays);
                 dismiss();
             }
@@ -96,11 +96,11 @@ public class RepeatDaysDialog extends Dialog {
         sunChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     repeatDays.add(1);
                 } else {
-                    for(Iterator<Integer> iter = repeatDays.iterator();iter.hasNext();){
-                        if(iter.next() == 1){
+                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
+                        if (iter.next() == 1) {
                             iter.remove();
                         }
                     }
@@ -112,11 +112,11 @@ public class RepeatDaysDialog extends Dialog {
         monChckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     repeatDays.add(2);
-                } else{
-                    for(Iterator<Integer> iter = repeatDays.iterator();iter.hasNext();){
-                        if(iter.next() == 2){
+                } else {
+                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
+                        if (iter.next() == 2) {
                             iter.remove();
                         }
                     }
@@ -127,12 +127,12 @@ public class RepeatDaysDialog extends Dialog {
         tuesChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     repeatDays.add(3);
 
                 } else {
-                    for(Iterator<Integer> iter = repeatDays.iterator();iter.hasNext();){
-                        if(iter.next() == 3){
+                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
+                        if (iter.next() == 3) {
                             iter.remove();
                         }
                     }
@@ -143,11 +143,11 @@ public class RepeatDaysDialog extends Dialog {
         wedChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     repeatDays.add(4);
-                } else{
-                    for(Iterator<Integer> iter = repeatDays.iterator();iter.hasNext();){
-                        if(iter.next() == 4){
+                } else {
+                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
+                        if (iter.next() == 4) {
                             iter.remove();
                         }
                     }
@@ -158,11 +158,11 @@ public class RepeatDaysDialog extends Dialog {
         thursChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     repeatDays.add(5);
                 } else {
-                    for(Iterator<Integer> iter = repeatDays.iterator();iter.hasNext();){
-                        if(iter.next() == 5){
+                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
+                        if (iter.next() == 5) {
                             iter.remove();
                         }
                     }
@@ -173,11 +173,11 @@ public class RepeatDaysDialog extends Dialog {
         friChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     repeatDays.add(6);
                 } else {
-                    for(Iterator<Integer> iter = repeatDays.iterator();iter.hasNext();){
-                        if(iter.next() == 6){
+                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
+                        if (iter.next() == 6) {
                             iter.remove();
                         }
                     }
@@ -188,11 +188,11 @@ public class RepeatDaysDialog extends Dialog {
         satChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     repeatDays.add(7);
                 } else {
-                    for(Iterator<Integer> iter = repeatDays.iterator();iter.hasNext();){
-                        if(iter.next() == 7){
+                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
+                        if (iter.next() == 7) {
                             iter.remove();
                         }
                     }

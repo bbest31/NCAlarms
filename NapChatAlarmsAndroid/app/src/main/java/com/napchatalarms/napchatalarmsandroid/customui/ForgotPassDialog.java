@@ -16,8 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.R;
 
 
-/**Java class for the Forgot Password Dialog Box to send a password reset email, to the entered email address
+/**
+ * Java class for the Forgot Password Dialog Box to send a password reset email, to the entered email address
  * if it indeed exists with an account.
+ *
  * @author bbest
  */
 
@@ -30,6 +32,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
 
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
+     *
      * @param a - Activity to appear over.
      */
     public ForgotPassDialog(Activity a) {
@@ -44,7 +47,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
         setContentView(R.layout.forgot_password_dialog);
         send = (Button) findViewById(R.id.fgtpass_send_btn);
         cancel = (Button) findViewById(R.id.fgtpass_cancel_btn);
-        emailEntry = (EditText)findViewById(R.id.password_reset_email_entry);
+        emailEntry = (EditText) findViewById(R.id.password_reset_email_entry);
         send.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
@@ -67,9 +70,10 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
 
     /**
      * This method sends a password reset email entered into the edit text field.
+     *
      * @see FirebaseAuth
-     * */
-    public void sendResetPasswordEmail(){
+     */
+    public void sendResetPasswordEmail() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         String emailAddress = emailEntry.getText().toString();
@@ -79,11 +83,11 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("ForgotPassDialog", "Email sent.");
+                            Log.i("ForgotPassDialog", "Email sent.");
 
-                        }else{
+                        } else {
                             //Email may not exists with an account so we should display some kind of error
-                            Log.d("ForgotPassDialog","Email could not be sent!");
+                            Log.i("ForgotPassDialog", "Email could not be sent!");
                         }
                     }
                 });

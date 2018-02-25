@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid.controller;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
@@ -92,7 +93,7 @@ public class NapChatControllerTest {
 
         for(String f : instrumentationCtx.fileList()){
 
-            System.out.println("File: "+f);
+            Log.i("TAG","File: "+f);
         }
 
         File alrmfile = instrumentationCtx.getFileStreamPath("ALRM.ser");

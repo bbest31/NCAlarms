@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**Base(Super) Alarm class holding the base attributes for an alarm.
+/**
+ * Base(Super) Alarm class holding the base attributes for an alarm.
+ *
  * @author bbest
  */
 public class Alarm implements Serializable {
@@ -16,13 +18,15 @@ public class Alarm implements Serializable {
     private int snoozeLength;
     private int id;
     private Boolean isActive;
-    /**604,800,000:per week, 86,400,000:everyday,*/
+    /**
+     * 604,800,000:per week, 86,400,000:everyday,
+     */
     private long interval;
 
     /**
      * Public constructor initializing the Id using <code>hashCode()</code>
      */
-    public Alarm(){
+    public Alarm() {
         this.id = this.hashCode();
     }
 
@@ -32,126 +36,118 @@ public class Alarm implements Serializable {
     /**
      *
      */
-    public void Activate(){
+    public void Activate() {
         this.isActive = Boolean.TRUE;
     }
 
 
     @Override
-    public String toString(){
+    public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm aa ");
 
-        String alarm = "Id: "+this.getId()+
-                " Trigger: "+this.getTime()+
-                " Time: "+sdf.format(new Date(this.getTime()))+
-                " Interval:"+this.getInterval()+
-                " Snooze Length: "+this.getSnoozeLength()+
-                " Vibrate: "+this.getVibrateOn()+
-                " RingtoneURI: "+this.getRingtoneURI()+
-                " isActive: "+this.getStatus();
+        String alarm = "Id: " + this.getId() +
+                " Trigger: " + this.getTime() +
+                " Time: " + sdf.format(new Date(this.getTime())) +
+                " Interval:" + this.getInterval() +
+                " Snooze Length: " + this.getSnoozeLength() +
+                " Vibrate: " + this.getVibrateOn() +
+                " RingtoneURI: " + this.getRingtoneURI() +
+                " isActive: " + this.getStatus();
         return alarm;
     }
 
     /**
      *
      */
-    public void Deactivate(){
+    public void Deactivate() {
         this.isActive = Boolean.FALSE;
     }
 
     /**
-     *
      * @return
      */
-    public Boolean getStatus(){
+    public Boolean getStatus() {
         return this.isActive;
     }
 
     /**
-     *
      * @return
      */
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
     //=====GETTERS=====
 
     /**
-     *
      * @return
      */
-    public long getTime(){
+    public long getTime() {
         return this.triggerTime;
     }
 
     /**
-     *
-     * @return
-     */
-    public String getRingtoneURI(){
-        return this.ringtoneURI;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Boolean getVibrateOn(){
-        return this.vibrateOn;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getSnoozeLength(){
-        return this.snoozeLength;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public long getInterval(){return this.interval;}
-
-    //=====SETTERS=====
-
-    /**
-     *
      * @param time
      */
-    public void setTime(long time){
+    public void setTime(long time) {
         this.triggerTime = time;
     }
 
     /**
-     *
+     * @return
+     */
+    public String getRingtoneURI() {
+        return this.ringtoneURI;
+    }
+
+    /**
      * @param uri
      */
-    public void setRingtoneURI(String uri){
+    public void setRingtoneURI(String uri) {
         this.ringtoneURI = uri;
     }
 
     /**
-     *
-     * @param vib
+     * @return
      */
-    public void setVibrate(Boolean vib){
-        this.vibrateOn = vib;
+    public Boolean getVibrateOn() {
+        return this.vibrateOn;
+    }
+
+    //=====SETTERS=====
+
+    /**
+     * @return
+     */
+    public int getSnoozeLength() {
+        return this.snoozeLength;
     }
 
     /**
-     *
      * @param length
      */
-    public void setSnoozeLength(int length){
+    public void setSnoozeLength(int length) {
         this.snoozeLength = length;
     }
 
     /**
-     *
+     * @return
+     */
+    public long getInterval() {
+        return this.interval;
+    }
+
+    /**
      * @param interval
      */
-    public void setInterval(long interval){ this.interval = interval;}
+    public void setInterval(long interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * @param vib
+     */
+    public void setVibrate(Boolean vib) {
+        this.vibrateOn = vib;
+    }
 }

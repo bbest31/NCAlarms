@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -18,29 +19,52 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
-import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 
 /**
  * The activity that lists the current <code>User</code> <code>Alarms</code>.
- * <P>
- *     Bottom navigation bar holds:
- *     Home, Friends, Options, NapFacts.
+ * <p>
+ * Bottom navigation bar holds:
+ * Home, Friends, Options, NapFacts.
  * </P>
- * @todo order alarms from earliest to latest time.
+ *
  * @author bbest
+ * @todo order alarms from earliest to latest time.
  */
 public class HomeActivity extends AppCompatActivity {
 
     //=====ATTRIBUTES=====
-    User currentUser;
     SwipeMenuListView alarmListView;
     Button addAlarmButton;
     AlarmAdapter alarmAdapter;
+    /**
+     *
+     */
+    //TODO: Make icons for bottom nav items, turn views visible and gone by
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    updateAlarmList();
+                    return true;
+                case R.id.navigation_dashboard:
+                    return true;
+                case R.id.navigation_notifications:
+                    Intent optionsIntent = new Intent(HomeActivity.this, OptionsActivity.class);
+                    startActivity(optionsIntent);
+                    return true;
+            }
+            return false;
+        }
 
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,30 +77,33 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
+        NapChatController.getInstance().initNotificationChannel(getApplicationContext());
         updateAlarmList();
+        Log.i("User Info", User.getInstance().toString());
 
     }
 
-    public void initialize(){
+    public void initialize() {
 
-        //Initialize User singleton
-        currentUser = currentUser.getInstance();
-        alarmListView = (SwipeMenuListView)findViewById(R.id.alarm_list_view);
+
+        alarmListView = (SwipeMenuListView) findViewById(R.id.alarm_list_view);
         updateAlarmList();
 
-        addAlarmButton = (Button)findViewById(R.id.add_alarm_btn);
+
+        addAlarmButton = (Button) findViewById(R.id.add_alarm_btn);
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createAlarmIntent = new Intent(HomeActivity.this,CreateAlarmActivity.class);
-                createAlarmIntent.putExtra("ID",0);
+                Intent createAlarmIntent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
+                createAlarmIntent.putExtra("ID", 0);
                 startActivity(createAlarmIntent);
             }
         });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.inflateMenu(R.menu.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
@@ -133,14 +160,14 @@ public class HomeActivity extends AppCompatActivity {
                             intent.putExtra("ID", editAlarm.getId());
                             startActivity(intent);
                             updateAlarmList();
-                        } catch (NullPointerException e){
+                        } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
                         break;
                     case 1:
                         // delete
                         Alarm deleteAlarm = alarmAdapter.getItem(position);
-                        AlarmController.getInstance().deleteAlarm(getApplicationContext(),deleteAlarm.getId());
+                        AlarmController.getInstance().deleteAlarm(getApplicationContext(), deleteAlarm.getId());
                         updateAlarmList();
                         break;
                 }
@@ -155,35 +182,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void updateAlarmList(){
-        alarmAdapter = new AlarmAdapter(getApplicationContext(),currentUser.getAlarmList());
+    public void updateAlarmList() {
+        alarmAdapter = new AlarmAdapter(getApplicationContext(), User.getInstance().getAlarmList());
         alarmListView.setAdapter(alarmAdapter);
     }
-
-    /**
-     *
-     */
-    //TODO: Make icons for bottom nav items, turn views visible and gone by
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    updateAlarmList();
-                    return true;
-                case R.id.navigation_dashboard:
-                    return true;
-                case R.id.navigation_notifications:
-                    Intent optionsIntent = new Intent(HomeActivity.this,OptionsActivity.class);
-                    startActivity(optionsIntent);
-                    return true;
-            }
-            return false;
-        }
-
-    };
 
 
 }

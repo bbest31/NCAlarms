@@ -11,25 +11,25 @@ public class Group {
     private ArrayList<Friend> group;
     private String groupName;
 
-    public Group(){
+    public Group() {
 
     }
 
-    public Group(ArrayList<Friend> list, String name){
+    public Group(ArrayList<Friend> list, String name) {
         this.setGroupName(name);
         this.setGroup(list);
     }
 
-    public void removeFriend(String uid){
-        for(Friend friend : group){
-            if(uid.equals(friend.getUid())){
+    public void removeFriend(String uid) {
+        for (Friend friend : group) {
+            if (uid.equals(friend.getUid())) {
                 group.remove(friend);
             }
         }
 
     }
 
-    public void addFriend(Friend friend){
+    public void addFriend(Friend friend) {
         getGroup().add(friend);
     }
 
