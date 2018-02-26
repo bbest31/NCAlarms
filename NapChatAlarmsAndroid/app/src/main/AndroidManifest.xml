@@ -26,7 +26,7 @@
             android:label="@string/title_activity_home"
             />
 
-        <activity android:name=".activities.OptionsActivity" />
+        <activity android:name=".activities.OptionsFragment" />
         <activity
             android:name=".activities.AlarmActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

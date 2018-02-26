@@ -151,9 +151,9 @@ public class NapChatController {
 
         File dir = context.getFilesDir();
         File alarmFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "ALRM.ser");
-        File settingsFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "SETT.ser");
+        //File settingsFile = new File(dir, formatEmail(User.getInstance().getEmail()) + "SETT.ser");
         alarmFile.delete();
-        settingsFile.delete();
+        //settingsFile.delete();
     }
 
     /**

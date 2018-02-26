@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -41,6 +43,11 @@ public class HomeActivity extends AppCompatActivity {
     SwipeMenuListView alarmListView;
     Button addAlarmButton;
     AlarmAdapter alarmAdapter;
+    Button optionsNavButton;
+    FragmentManager fragmentManager = getFragmentManager();
+    FragmentTransaction fragmentTransaction;
+    OptionsFragment optionsFragment;
+    AlarmListFragment alarmListFragment;
     /**
      *
      */
@@ -52,13 +59,18 @@ public class HomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    updateAlarmList();
+                    fragmentTransaction.replace(R.id.fragment_frame,alarmListFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_dashboard:
                     return true;
-                case R.id.navigation_notifications:
-                    Intent optionsIntent = new Intent(HomeActivity.this, OptionsActivity.class);
-                    startActivity(optionsIntent);
+                case R.id.navigation_options:
+                    optionsFragment = new OptionsFragment();
+                    fragmentTransaction.replace(R.id.fragment_frame, optionsFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
                     return true;
             }
             return false;
@@ -72,120 +84,125 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initialize();
-        updateAlarmList();
+        if (savedInstanceState == null) {
+            fragmentTransaction = getFragmentManager().beginTransaction();
+            alarmListFragment = new AlarmListFragment();
+            fragmentTransaction.replace(R.id.fragment_frame, alarmListFragment);
+            fragmentTransaction.commit();
+        }
+        Log.i("User Info", User.getInstance().toString());
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        NapChatController.getInstance().initNotificationChannel(getApplicationContext());
-        updateAlarmList();
-        Log.i("User Info", User.getInstance().toString());
-
     }
 
     public void initialize() {
 
+        NapChatController.getInstance().initNotificationChannel(getApplicationContext());
+        fragmentTransaction = fragmentManager.beginTransaction();
 
-        alarmListView = (SwipeMenuListView) findViewById(R.id.alarm_list_view);
-        updateAlarmList();
-
-
-        addAlarmButton = (Button) findViewById(R.id.add_alarm_btn);
-        addAlarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent createAlarmIntent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
-                createAlarmIntent.putExtra("ID", 0);
-                startActivity(createAlarmIntent);
-            }
-        });
+//        alarmListView = (SwipeMenuListView) findViewById(R.id.alarm_list_view);
+//        updateAlarmList();
+//
+//
+//        addAlarmButton = (Button) findViewById(R.id.add_alarm_btn);
+//        addAlarmButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent createAlarmIntent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
+//                createAlarmIntent.putExtra("ID", 0);
+//                startActivity(createAlarmIntent);
+//            }
+//        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.inflateMenu(R.menu.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //optionsNavButton = (Button) findViewById(R.id.navigation_options);
 
 
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0x00, 0xAB,
-                        0xFF)));
-                // set item width
-                openItem.setWidth(300);
-                // set item title
-                openItem.setTitle("Edit");
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.WHITE);
-                // add to menu
-                menu.addMenuItem(openItem);
-
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                        0x3F, 0x25)));
-                // set item width
-                deleteItem.setWidth(300);
-                // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete_trashcan);
-                deleteItem.setTitleSize(18);
-                deleteItem.setTitleColor(Color.WHITE);
-                // add to menu
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-        // set creator
-        alarmListView.setMenuCreator(creator);
-
-        alarmListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        // Edit
-                        Alarm editAlarm = alarmAdapter.getItem(position);
-                        Intent intent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
-                        try {
-                            intent.putExtra("ID", editAlarm.getId());
-                            startActivity(intent);
-                            updateAlarmList();
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case 1:
-                        // delete
-                        Alarm deleteAlarm = alarmAdapter.getItem(position);
-                        AlarmController.getInstance().deleteAlarm(getApplicationContext(), deleteAlarm.getId());
-                        updateAlarmList();
-                        break;
-                }
-                // false : close the menu; true : not close the menu
-                return false;
-            }
-        });
-
-        alarmListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-
-        alarmListView.setCloseInterpolator(new BounceInterpolator());
+//        SwipeMenuCreator creator = new SwipeMenuCreator() {
+//
+//            @Override
+//            public void create(SwipeMenu menu) {
+//                // create "open" item
+//                SwipeMenuItem openItem = new SwipeMenuItem(
+//                        getApplicationContext());
+//                // set item background
+//                openItem.setBackground(new ColorDrawable(Color.rgb(0x00, 0xAB,
+//                        0xFF)));
+//                // set item width
+//                openItem.setWidth(300);
+//                // set item title
+//                openItem.setTitle("Edit");
+//                // set item title fontsize
+//                openItem.setTitleSize(18);
+//                // set item title font color
+//                openItem.setTitleColor(Color.WHITE);
+//                // add to menu
+//                menu.addMenuItem(openItem);
+//
+//                // create "delete" item
+//                SwipeMenuItem deleteItem = new SwipeMenuItem(
+//                        getApplicationContext());
+//                // set item background
+//                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+//                        0x3F, 0x25)));
+//                // set item width
+//                deleteItem.setWidth(300);
+//                // set a icon
+//                deleteItem.setIcon(R.drawable.ic_delete_trashcan);
+//                deleteItem.setTitleSize(18);
+//                deleteItem.setTitleColor(Color.WHITE);
+//                // add to menu
+//                menu.addMenuItem(deleteItem);
+//            }
+//        };
+//
+//        // set creator
+//        alarmListView.setMenuCreator(creator);
+//
+//        alarmListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+//                switch (index) {
+//                    case 0:
+//                        // Edit
+//                        Alarm editAlarm = alarmAdapter.getItem(position);
+//                        Intent intent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
+//                        try {
+//                            intent.putExtra("ID", editAlarm.getId());
+//                            startActivity(intent);
+//                            updateAlarmList();
+//                        } catch (NullPointerException e) {
+//                            e.printStackTrace();
+//                        }
+//                        break;
+//                    case 1:
+//                        // delete
+//                        Alarm deleteAlarm = alarmAdapter.getItem(position);
+//                        AlarmController.getInstance().deleteAlarm(getApplicationContext(), deleteAlarm.getId());
+//                        updateAlarmList();
+//                        break;
+//                }
+//                // false : close the menu; true : not close the menu
+//                return false;
+//            }
+//        });
+//
+//        alarmListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+//
+//        alarmListView.setCloseInterpolator(new BounceInterpolator());
 
     }
 
-    public void updateAlarmList() {
-        alarmAdapter = new AlarmAdapter(getApplicationContext(), User.getInstance().getAlarmList());
-        alarmListView.setAdapter(alarmAdapter);
-    }
+//    public void updateAlarmList() {
+//        alarmAdapter = new AlarmAdapter(getApplicationContext(), User.getInstance().getAlarmList());
+//        alarmListView.setAdapter(alarmAdapter);
+//    }
 
 
 }
