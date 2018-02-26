@@ -9,17 +9,17 @@
     tools:context="com.napchatalarms.napchatalarmsandroid.activities.HomeActivity">
 
     <FrameLayout
-        android:id="@+id/fragment_frame"
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <fragment
             android:id="@+id/fragment"
-            android:name="com.napchatalarms.napchatalarmsandroid.activities.OptionsFragment"
+            android:name="com.napchatalarms.napchatalarmsandroid.activities.AlarmListFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="5" />
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_alarm_list" />
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView

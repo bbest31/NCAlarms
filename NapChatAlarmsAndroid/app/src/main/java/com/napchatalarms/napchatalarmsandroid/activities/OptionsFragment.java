@@ -53,159 +53,111 @@ public class OptionsFragment extends Fragment {
     public Button deleteAccountButton;
 
 
+    public OptionsFragment() {
+
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_options, container, false);
+        initialize(view);
+        return view;
+    }
+
     /**
      * Initializes views to variables.
      */
-    public void initialize() {
+    private void initialize(View view) {
 
-        logoutButton = (Button) getActivity().findViewById(R.id.logout_btn);
-        resendEmailVerificationButton = (Button) getActivity().findViewById(R.id.resend_verficiationemail_btn);
-        verifiedEmailTextView = (CheckedTextView) getActivity().findViewById(R.id.verified_email_check);
-        changeEmailButton = (Button) getActivity().findViewById(R.id.change_email_btn);
-        changeNameButton = (Button) getActivity().findViewById(R.id.change_name_btn);
-        changeEmailEditText = (EditText) getActivity().findViewById(R.id.change_email_edittext);
-        changeUsernameEditText = (EditText) getActivity().findViewById(R.id.change_username_edittext);
-        resetPassButton = (Button) getActivity().findViewById(R.id.reset_password_btn);
-        deleteAccountButton = (Button) getActivity().findViewById(R.id.delete_account_btn);
-
-    }
-
-    /**
-     * Called when a fragment is first attached to its context.
-     * {@link #onCreate(Bundle)} will be called after this.
-     *
-     * @param context
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     * This is optional, and non-graphical fragments can return null (which
-     * is the default implementation).  This will be called between
-     * {@link #onCreate(Bundle)} and {@link #onActivityCreated(Bundle)}.
-     * <p>
-     * <p>If you return a View from here, you will later be called in
-     * {@link #onDestroyView} when the view is being released.
-     *
-     * @param inflater           The LayoutInflater object that can be used to inflate
-     *                           any views in the fragment,
-     * @param container          If non-null, this is the parent view that the fragment's
-     *                           UI should be attached to.  The fragment should not add the view itself,
-     *                           but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     *                           from a previous saved state as given here.
-     * @return Return the View for the fragment's UI, or null.
-     */
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        //initialize();
-        return inflater.inflate(R.layout.fragment_options,container,false);
-    }
-
-    /**
-     * Called when the Fragment is no longer resumed.  This is generally
-     * tied to {@link HomeActivity#onPause() Activity.onPause} of the containing
-     * Activity's lifecycle.
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    /**
-     * Called when the Fragment is no longer started.  This is generally
-     * tied to {@link HomeActivity#onStop() Activity.onStop} of the containing
-     * Activity's lifecycle.
-     */
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    public OptionsFragment(){
-
+        logoutButton = (Button) view.findViewById(R.id.logout_btn);
+        resendEmailVerificationButton = (Button) view.findViewById(R.id.resend_verficiationemail_btn);
+        verifiedEmailTextView = (CheckedTextView) view.findViewById(R.id.verified_email_check);
+        changeEmailButton = (Button) view.findViewById(R.id.change_email_btn);
+        changeNameButton = (Button) view.findViewById(R.id.change_name_btn);
+        changeEmailEditText = (EditText) view.findViewById(R.id.change_email_edittext);
+        changeUsernameEditText = (EditText) view.findViewById(R.id.change_username_edittext);
+        resetPassButton = (Button) view.findViewById(R.id.reset_password_btn);
+        deleteAccountButton = (Button) view.findViewById(R.id.delete_account_btn);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        //Checks to see if the user has a verified email.
-//        if (user.isEmailVerified() == false) {
-//
-//            verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
-//            verifiedEmailTextView.setText("Email Unverified");
-//            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
-//            verifiedEmailTextView.setVisibility(View.VISIBLE);
-//
-//            resendEmailVerificationButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    resendVerificationEmail();
-//                }
-//            });
-//        } else {
-//            resendEmailVerificationButton.setVisibility(View.GONE);
-//        }
+        //Checks to see if the user has a verified email.
+        if (user.isEmailVerified() == false) {
+
+            verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
+            verifiedEmailTextView.setText("Email Unverified");
+            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
+            verifiedEmailTextView.setVisibility(View.VISIBLE);
+
+            resendEmailVerificationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resendVerificationEmail();
+                }
+            });
+        } else {
+            resendEmailVerificationButton.setVisibility(View.GONE);
+        }
 
         //=====ONCLICK METHODS=====
-//
-//        logoutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                logout();
-//            }
-//        });
-//
-//        changeNameButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                changeUsername();
-//            }
-//        });
-//
-//        changeEmailButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ChangeEmailDialog changeEmailDialog = new ChangeEmailDialog(getActivity());
-//                changeEmailDialog.show();
-//            }
-//        });
-//
-//        resetPassButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                resetPassword();
-//            }
-//        });
-//
-//        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(getActivity());
-//                deleteAccountDialog.show();
-//            }
-//        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
+        changeNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeUsername();
+            }
+        });
+
+        changeEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChangeEmailDialog changeEmailDialog = new ChangeEmailDialog(getActivity());
+                changeEmailDialog.show();
+            }
+        });
+
+        resetPassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetPassword();
+            }
+        });
+
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(getActivity());
+                deleteAccountDialog.show();
+            }
+        });
 
 
     }
+    
 
     @Override
     public void onStart() {
         super.onStart();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (user.isEmailVerified()) {
-//
-//            verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
-//            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.verified_green));
-//            verifiedEmailTextView.setText("Email Verified");
-//            resendEmailVerificationButton.setVisibility(View.GONE);
-//        } else {
-//            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
-//            resendEmailVerificationButton.setVisibility(View.VISIBLE);
-//        }
+
+        if (user.isEmailVerified()) {
+
+            verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
+            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.verified_green));
+            verifiedEmailTextView.setText("Email Verified");
+            resendEmailVerificationButton.setVisibility(View.GONE);
+        } else {
+            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
+            resendEmailVerificationButton.setVisibility(View.VISIBLE);
+        }
     }
     //=====METHODS=====
 

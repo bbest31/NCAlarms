@@ -89,7 +89,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     /**
      * Declaration of view references.
      */
-    public void initialize() {
+    private void initialize() {
         alarmController = AlarmController.getInstance();
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
@@ -258,6 +258,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             alarmController.createAlarm(getApplicationContext(), alarm);
 
         }
+
     }
 
     public void editAlarm(int id, Boolean vibrate, int hour, int minute, String ringtone, int snooze, List<Integer> repeat) {

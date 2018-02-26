@@ -1,86 +1,140 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
+import android.widget.Button;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
+import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AlarmListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AlarmListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AlarmListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    //=====ATTRIBUTES=====
+    SwipeMenuListView alarmListView;
+    Button addAlarmButton;
+    AlarmAdapter alarmAdapter;
 
     public AlarmListFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AlarmListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AlarmListFragment newInstance(String param1, String param2) {
-        AlarmListFragment fragment = new AlarmListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alarm_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
+        initialize(view);
+        return  view;
     }
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private void initialize(View view) {
+        alarmListView = (SwipeMenuListView) view.findViewById(R.id.alarm_list_view);
+        updateAlarmList();
+
+
+        addAlarmButton = (Button) view.findViewById(R.id.add_alarm_btn);
+        addAlarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createAlarmIntent = new Intent(getActivity(), CreateAlarmActivity.class);
+                createAlarmIntent.putExtra("ID", 0);
+                startActivity(createAlarmIntent);
+            }
+        });
+                SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "open" item
+                SwipeMenuItem openItem = new SwipeMenuItem(
+                        getContext());
+                // set item background
+                openItem.setBackground(new ColorDrawable(Color.rgb(0x00, 0xAB,
+                        0xFF)));
+                // set item width
+                openItem.setWidth(300);
+                // set item title
+                openItem.setTitle("Edit");
+                // set item title fontsize
+                openItem.setTitleSize(18);
+                // set item title font color
+                openItem.setTitleColor(Color.WHITE);
+                // add to menu
+                menu.addMenuItem(openItem);
+
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getContext());
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                        0x3F, 0x25)));
+                // set item width
+                deleteItem.setWidth(300);
+                // set a icon
+                deleteItem.setIcon(R.drawable.ic_delete_trashcan);
+                deleteItem.setTitleSize(18);
+                deleteItem.setTitleColor(Color.WHITE);
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+        // set creator
+        alarmListView.setMenuCreator(creator);
+
+        alarmListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        // Edit
+                        Alarm editAlarm = alarmAdapter.getItem(position);
+                        Intent intent = new Intent(getActivity(), CreateAlarmActivity.class);
+                        try {
+                            intent.putExtra("ID", editAlarm.getId());
+                            startActivity(intent);
+                            updateAlarmList();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 1:
+                        // delete
+                        Alarm deleteAlarm = alarmAdapter.getItem(position);
+                        AlarmController.getInstance().deleteAlarm(getContext(), deleteAlarm.getId());
+                        updateAlarmList();
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
+
+        alarmListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+
+        alarmListView.setCloseInterpolator(new BounceInterpolator());
+
     }
+
+    public void updateAlarmList() {
+        alarmAdapter = new AlarmAdapter(getContext(), User.getInstance().getAlarmList());
+        alarmListView.setAdapter(alarmAdapter);
+    }
+
 }
