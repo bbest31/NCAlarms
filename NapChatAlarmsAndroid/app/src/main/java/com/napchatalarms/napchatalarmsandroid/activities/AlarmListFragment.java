@@ -22,7 +22,7 @@ import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 
-public class AlarmListFragment extends Fragment {
+public class AlarmListFragment extends android.support.v4.app.Fragment {
 
     //=====ATTRIBUTES=====
     SwipeMenuListView alarmListView;

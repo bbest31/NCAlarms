@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.napchatalarms.napchatalarmsandroid.R;
 
 
-public class SocialFragment extends Fragment {
+public class SocialFragment extends android.support.v4.app.Fragment {
 
 
     public SocialFragment() {

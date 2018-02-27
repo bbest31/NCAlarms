@@ -39,7 +39,7 @@ import java.util.ArrayList;
  *
  * @author bbest
  */
-public class OptionsFragment extends Fragment {
+public class OptionsFragment extends android.support.v4.app.Fragment {
 
     //=====VIEWS=====
     public Button logoutButton;
@@ -140,7 +140,7 @@ public class OptionsFragment extends Fragment {
 
 
     }
-    
+
 
     @Override
     public void onStart() {

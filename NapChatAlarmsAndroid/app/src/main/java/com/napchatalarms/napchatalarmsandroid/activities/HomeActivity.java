@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
             initialize();
-            getFragmentManager().beginTransaction().replace(R.id.fragment, new AlarmListFragment());
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, new AlarmListFragment()).commit();
         }
         Log.i("User Info", User.getInstance().toString());
 
@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void selectFragment(View view) {
-        Fragment fragment;
+        android.support.v4.app.Fragment fragment;
         if (view == findViewById(R.id.navigation_home)) {
             fragment = new AlarmListFragment();
         } else if (view == findViewById(R.id.navigation_social)) {
@@ -86,7 +86,8 @@ public class HomeActivity extends AppCompatActivity {
             fragment = new OptionsFragment();
         }
 
-        getFragmentManager().beginTransaction().replace(R.id.fragment, fragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
+
     }
 
 
