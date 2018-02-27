@@ -21,6 +21,8 @@ import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class AlarmListFragment extends android.support.v4.app.Fragment {
 
@@ -54,7 +56,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 Intent createAlarmIntent = new Intent(getActivity(), CreateAlarmActivity.class);
                 createAlarmIntent.putExtra("ID", 0);
-                startActivity(createAlarmIntent);
+                startActivityForResult(createAlarmIntent,1);
             }
         });
                 SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -135,6 +137,20 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
     public void updateAlarmList() {
         alarmAdapter = new AlarmAdapter(getContext(), User.getInstance().getAlarmList());
         alarmListView.setAdapter(alarmAdapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 1:
+                    //Back from CreateAlarmActivity
+                    updateAlarmList();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 }

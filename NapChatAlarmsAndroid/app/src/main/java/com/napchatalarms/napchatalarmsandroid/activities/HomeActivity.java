@@ -1,6 +1,9 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -89,6 +92,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
 
     }
+
 
 
 }

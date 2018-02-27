@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -157,6 +158,8 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
 
                     editAlarm(alarm.getId(), vibrate, timePicker.getHour(), timePicker.getMinute(), ringtone, snoozeLength, repeatDays);
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }
             });
@@ -177,7 +180,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 public void onClick(View view) {
 
                     createAlarm();
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
+
                 }
             });
 
