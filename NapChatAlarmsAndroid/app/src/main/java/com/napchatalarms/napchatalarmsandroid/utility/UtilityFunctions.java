@@ -237,6 +237,21 @@ public class UtilityFunctions {
         }
     }
 
-
+    /**
+     * Vibrate pattern is in milliseconds. First number indicates the time to wait
+     * to start vibrating when notification fires. Second number is the time to vibrate
+     * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
+     * **/
     //TODO:custom Vibration patterns.
+    public final static long[] getVibratePattern(Integer i){
+        long[] pattern = {};
+        switch(i){
+            case 0:
+                break;
+            default:
+                break;
+        }
+
+        return  pattern;
+    }
 }

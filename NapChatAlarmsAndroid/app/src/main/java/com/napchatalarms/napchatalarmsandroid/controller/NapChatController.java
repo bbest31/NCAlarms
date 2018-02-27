@@ -9,6 +9,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.Friend;
+import com.napchatalarms.napchatalarmsandroid.model.FriendList;
 import com.napchatalarms.napchatalarmsandroid.model.Group;
 import com.napchatalarms.napchatalarmsandroid.model.NapAlerts;
 import com.napchatalarms.napchatalarmsandroid.model.User;
@@ -216,7 +217,7 @@ public class NapChatController {
         user.setName(null);
         user.setAlarmList(new ArrayList<Alarm>());
         user.setAlerts(new ArrayList<NapAlerts>());
-        user.setFriendList(new ArrayList<Friend>());
+        user.setFriendList(new FriendList());
         user.setGroupMap(new HashMap<String, Group>());
     }
 

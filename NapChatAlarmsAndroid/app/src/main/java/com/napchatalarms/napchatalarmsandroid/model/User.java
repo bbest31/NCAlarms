@@ -24,7 +24,7 @@ public class User {
     private String email;
     private ArrayList<Alarm> alarmList;
     private String uid;
-    private ArrayList<Friend> friendList;
+    private FriendList friendList;
     private Map<String, Group> groupList;
     private ArrayList<NapAlerts> alerts;
     private ArrayList<FriendRequest> friendRequests;
@@ -159,11 +159,11 @@ public class User {
         this.uid = uid;
     }
 
-    public ArrayList<Friend> getFriendList() {
+    public FriendList getFriendList() {
         return friendList;
     }
 
-    public void setFriendList(ArrayList<Friend> friendList) {
+    public void setFriendList(FriendList friendList) {
         this.friendList = friendList;
     }
 
