@@ -10,7 +10,9 @@ and when to wake up. Other applications could be wedding parties, family schedul
 ### Hypothesis
  - **Value hypothesis'** (_tests whether a product or service really delivers value to a customer once they use it._)
      - People want to know the facts about health found through credible research institutions.
+         - Experiement Star-Gazer
      - People want to be shown an indication of where these so called "studies" are coming from.
+         - Experiement Star-Gazer
      - People want to be able to learn more about those studies without having to search for them.
      - People would like to be able to notify certain contacts that they shouldn't be disturbed in order to protect the integrity of their sleeping habits.
  - **Growth Hypothesis'**(_tests how a new customer will discover our product or service._)
