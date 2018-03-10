@@ -4,10 +4,13 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 
 import com.napchatalarms.napchatalarmsandroid.activities.AlarmActivity;
@@ -22,10 +25,11 @@ import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
 
 public class AlarmReceiver extends BroadcastReceiver {
     int previousFilter;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if(manager.isNotificationPolicyAccessGranted()) {
+        if (manager.isNotificationPolicyAccessGranted()) {
             previousFilter = manager.getCurrentInterruptionFilter();
             manager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
         }
@@ -56,7 +60,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmIntent.putExtra("TIME", displayTime);
         alarmIntent.putExtra("MERIDIAN", displayMeridian);
         alarmIntent.putExtra("SUBID", subId);
-        alarmIntent.putExtra("FILTER",previousFilter);
+        alarmIntent.putExtra("FILTER", previousFilter);
 
         PendingIntent pendingAlarmIntent;
         if (subId != 0) {
@@ -86,7 +90,20 @@ public class AlarmReceiver extends BroadcastReceiver {
         } else {
 
             Uri uri = Uri.parse(ringtoneURI);
-            builder.setSound(uri);
+
+            //Assert the existence of the ringtone.
+            //Check device audio files
+            ContentResolver cr = context.getContentResolver();
+            String[] projection = {MediaStore.Audio.Media.DATA};
+            Cursor cursor = cr.query(uri, projection, null, null, null);
+
+            if (cursor != null) {
+                builder.setSound(uri);
+            } else {
+                builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+            }
+
+
         }
 
         //Setting vibrate settings
