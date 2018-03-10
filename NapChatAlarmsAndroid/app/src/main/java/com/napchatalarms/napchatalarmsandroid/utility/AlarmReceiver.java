@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.napchatalarms.napchatalarmsandroid.activities.AlarmActivity;
+import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
 
 /**
  * AlarmReceiver builds the local notifications and creates the AlarmActivity Intent that will launch
@@ -24,11 +25,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        previousFilter = manager.getCurrentInterruptionFilter();
-        manager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
-
+        if(manager.isNotificationPolicyAccessGranted()) {
+            previousFilter = manager.getCurrentInterruptionFilter();
+            manager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+        }
         //Get values for alarm
-        Boolean vibrate = intent.getBooleanExtra("Vibrate", false);
+        int vibrate = intent.getIntExtra("Vibrate", -1);
         String ringtoneURI = intent.getStringExtra("Uri");
         int id = intent.getIntExtra("Id", 0);
         int subId = intent.getIntExtra("subID", 0);
@@ -89,14 +91,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //Setting vibrate settings
 
-        if (vibrate == true) {
+        if (vibrate != -1) {
 
-            long[] pattern = UtilityFunctions.getVibratePattern(0);
-            if (pattern.length == 0) {
-                builder.setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
-            } else {
-                builder.setVibrate(pattern);
-            }
+            VibratePattern pattern = UtilityFunctions.getVibratePattern(vibrate);
+            builder.setVibrate(pattern.getPattern());
         }
 
 

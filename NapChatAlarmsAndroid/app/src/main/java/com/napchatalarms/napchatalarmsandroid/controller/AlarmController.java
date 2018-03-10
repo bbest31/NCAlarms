@@ -170,7 +170,7 @@ public class AlarmController {
     /**
      * Update the attributes of an alarm.
      */
-    public void editAlarm(Context context, int id, Boolean vibrate, int hour, int min, String ringtone, int snooze, List<Integer> repeatDays) {
+    public void editAlarm(Context context, int id, int vibrate, int hour, int min, String ringtone, int snooze, List<Integer> repeatDays) {
         Alarm alarm = User.getInstance().getAlarmById(id);
         Boolean wasActive = alarm.getStatus();
         if (alarm != null) {
@@ -222,7 +222,7 @@ public class AlarmController {
                 cancelAlarm(context, id);
                 alarm.setRingtoneURI(ringtone);
                 alarm.setSnoozeLength(snooze);
-                alarm.setVibrate(vibrate);
+                alarm.setVibratePattern(vibrate);
                 Long trig = UtilityFunctions.UTCMilliseconds(hour, min);
                 alarm.setTime(trig);
                 if(wasActive){
@@ -293,7 +293,7 @@ public class AlarmController {
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         //Provide Settings
-        intent.putExtra("Vibrate", alarm.getVibrateOn());
+        intent.putExtra("Vibrate", alarm.getVibratePattern());
         intent.putExtra("Id", alarm.getId());
         intent.putExtra("Snooze", alarm.getSnoozeLength());
         intent.putExtra("Time", timeString);
@@ -322,7 +322,7 @@ public class AlarmController {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Provide Settings
-        intent.putExtra("Vibrate", alarm.getVibrateOn());
+        intent.putExtra("Vibrate", alarm.getVibratePattern());
         intent.putExtra("Id", alarm.getId());
         intent.putExtra("Snooze", alarm.getSnoozeLength());
         intent.putExtra("Time", timeString);
@@ -353,7 +353,7 @@ public class AlarmController {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Provide Settings
-        intent.putExtra("Vibrate", oneTimeAlarm.getVibrateOn());
+        intent.putExtra("Vibrate", oneTimeAlarm.getVibratePattern());
         intent.putExtra("Id", oneTimeAlarm.getId());
         intent.putExtra("Snooze", oneTimeAlarm.getSnoozeLength());
         intent.putExtra("Time", timeString);
@@ -397,7 +397,7 @@ public class AlarmController {
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         //Provide Settings
-        intent.putExtra("Vibrate", alarm.getVibrateOn());
+        intent.putExtra("Vibrate", alarm.getVibratePattern());
         intent.putExtra("Id", alarm.getId());
         intent.putExtra("Snooze", alarm.getSnoozeLength());
         intent.putExtra("Time", timeString);
@@ -418,7 +418,7 @@ public class AlarmController {
      * @param snooze
      * @param ringtone
      */
-    public void snoozeAlarm(Context context, int ID, int subId, boolean vibrate, int snooze, String ringtone) {
+    public void snoozeAlarm(Context context, int ID, int subId, int vibrate, int snooze, String ringtone) {
 
         long currentTime = System.currentTimeMillis();
         long newTriggerTime = currentTime + snooze * 60000;
@@ -471,7 +471,7 @@ public class AlarmController {
             Intent intent = new Intent(context, AlarmReceiver.class);
 
             //Provide Settings
-            intent.putExtra("Vibrate", alarm.getVibrateOn());
+            intent.putExtra("Vibrate", alarm.getVibratePattern());
             intent.putExtra("Id", alarm.getId());
             intent.putExtra("Snooze", alarm.getSnoozeLength());
             intent.putExtra("Time", timeString);

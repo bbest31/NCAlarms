@@ -19,16 +19,13 @@
         android:numbersSelectorColor="@android:color/holo_purple"
         android:paddingBottom="5dp" />
 
-    <Switch
-        android:id="@+id/vibrate_switch"
+    <Button
+        android:id="@+id/vibrate_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
         android:text="@string/pref_title_vibrate"
-        android:thumbTint="@android:color/holo_purple"
-        android:trackTint="@color/black" />
+        android:textAlignment="viewStart" />
 
     <Button
         android:id="@+id/ringtone_btn"

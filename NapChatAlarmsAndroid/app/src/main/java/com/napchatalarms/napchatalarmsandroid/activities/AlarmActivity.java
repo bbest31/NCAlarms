@@ -31,7 +31,7 @@ public class AlarmActivity extends AppCompatActivity {
     int subID;
     int snoozeLength;
     int previousFilter;
-    Boolean vibrate;
+    int vibrate;
     String ringtoneURI;
     String meridianDisplayString;
     Button dismissButton;
@@ -60,7 +60,6 @@ public class AlarmActivity extends AppCompatActivity {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        //window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         window.addFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
@@ -89,7 +88,7 @@ public class AlarmActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         snoozeLength = intent.getIntExtra("SNOOZE", 5);
         ID = intent.getIntExtra("ID", 0);
-        vibrate = intent.getBooleanExtra("VIBRATE", false);
+        vibrate = intent.getIntExtra("VIBRATE", -1);
         ringtoneURI = intent.getStringExtra("URI");
         meridianDisplayString = intent.getStringExtra("MERIDIAN");
         timeDisplayString = intent.getStringExtra("TIME");
@@ -106,7 +105,9 @@ public class AlarmActivity extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.setInterruptionFilter(previousFilter);
+        if(notificationManager.isNotificationPolicyAccessGranted()) {
+            notificationManager.setInterruptionFilter(previousFilter);
+        }
     }
     //=====METHODS=====
 

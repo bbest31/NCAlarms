@@ -14,7 +14,7 @@ public class Alarm implements Serializable {
     //=====ATTRIBUTES=====
     private long triggerTime;
     private String ringtoneURI;
-    private Boolean vibrateOn;
+    private Integer vibratePattern;
     private int snoozeLength;
     private int id;
     private Boolean isActive;
@@ -50,7 +50,7 @@ public class Alarm implements Serializable {
                 " Time: " + sdf.format(new Date(this.getTime())) +
                 " Interval:" + this.getInterval() +
                 " Snooze Length: " + this.getSnoozeLength() +
-                " Vibrate: " + this.getVibrateOn() +
+                " Vibrate Pattern: " + this.getVibratePattern() +
                 " RingtoneURI: " + this.getRingtoneURI() +
                 " isActive: " + this.getStatus();
         return alarm;
@@ -107,12 +107,6 @@ public class Alarm implements Serializable {
         this.ringtoneURI = uri;
     }
 
-    /**
-     * @return
-     */
-    public Boolean getVibrateOn() {
-        return this.vibrateOn;
-    }
 
     //=====SETTERS=====
 
@@ -144,10 +138,11 @@ public class Alarm implements Serializable {
         this.interval = interval;
     }
 
-    /**
-     * @param vib
-     */
-    public void setVibrate(Boolean vib) {
-        this.vibrateOn = vib;
+    public Integer getVibratePattern() {
+        return vibratePattern;
+    }
+
+    public void setVibratePattern(Integer vibratePattern) {
+        this.vibratePattern = vibratePattern;
     }
 }

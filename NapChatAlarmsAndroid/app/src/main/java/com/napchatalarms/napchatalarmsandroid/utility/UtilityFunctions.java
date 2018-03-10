@@ -2,6 +2,9 @@ package com.napchatalarms.napchatalarmsandroid.utility;
 
 import android.util.Patterns;
 
+import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -15,6 +18,16 @@ import java.util.List;
 
 public class UtilityFunctions {
 
+    private static final long[] HEARTBEAT = {0,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500};
+    private static final long[] BUZZSAW = {0,10000};
+    private static final long[] LOCOMOTIVE = {0,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600};
+    private static final long[] TIPTOE = {0,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150};
+
+    private static final VibratePattern LOCOMOTIVE_PATTERN = new VibratePattern(0,"Locomotive",LOCOMOTIVE);
+    private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(1,"Heartbeat",HEARTBEAT);
+    private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(2,"Buzzsaw",BUZZSAW);
+    private static final VibratePattern TIPTOE_PATTERN = new VibratePattern(3,"Tip-toe",TIPTOE);
+
     /**
      * This method compares a given input against the email pattern and returns a boolean
      * to indicate whether it is in email format or not.
@@ -27,7 +40,6 @@ public class UtilityFunctions {
 
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
 
     /**
      * Returns a boolean to indicate whether the password has only alphabetic and numeric characters.
@@ -237,21 +249,27 @@ public class UtilityFunctions {
         }
     }
 
-    /**
+       /**
      * Vibrate pattern is in milliseconds. First number indicates the time to wait
      * to start vibrating when notification fires. Second number is the time to vibrate
      * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
-     * **/
-    //TODO:custom Vibration patterns.
-    public final static long[] getVibratePattern(Integer i){
-        long[] pattern = {};
+     **/
+    public final static VibratePattern getVibratePattern(Integer i){
+        VibratePattern pattern = null;
         switch(i){
             case 0:
+                pattern = LOCOMOTIVE_PATTERN;
                 break;
-            default:
+            case 1:
+                pattern = HEARTBEAT_PATTERN;
+                break;
+            case 2:
+                pattern = BUZZSAW_PATTERN;
+                break;
+            case 3:
+                pattern = TIPTOE_PATTERN;
                 break;
         }
-
         return  pattern;
     }
 }

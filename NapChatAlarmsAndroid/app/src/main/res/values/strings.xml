@@ -56,7 +56,15 @@
     <string name="okay">OK</string>
     <string name="warning">Warning</string>
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
-
+    <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
+    <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="locomotive">Locomotive</string>
+    <string name="buzzsaw">Buzzsaw</string>
+    <string name="heartbeat">Heartbeat</string>
+    <string name="tiptoe">Tip-toe</string>
+    <string name="off">Off</string>
 
     <string name="username">Username:</string>
 
