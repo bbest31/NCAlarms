@@ -1,12 +1,19 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -90,6 +97,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
     Integer snoozeLength;
 
+    final int EXTERNAL_STORAGE_REQUEST = 42;
+
+    Boolean readPermission;
 
     /**
      * Declaration of view references.
@@ -222,13 +232,18 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
         initialize();
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            readPermission = true;
+        }else{
+            readPermission =false;
+        }
 
         //=====ONCLICK METHODS=====
 
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RingtoneDialog ringtoneDialog = new RingtoneDialog(CreateAlarmActivity.this);
+                RingtoneDialog ringtoneDialog = new RingtoneDialog(CreateAlarmActivity.this,readPermission);
                 ringtoneDialog.show();
 
             }
@@ -255,6 +270,25 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
             DnDOverrideDialog overrideDialog = new DnDOverrideDialog(CreateAlarmActivity.this);
             overrideDialog.show();
+        }
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Explain to the user why we need to read the contacts
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+            }
+
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    EXTERNAL_STORAGE_REQUEST);
+
+            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+            // app-defined int constant that should be quite unique
+
+            return;
         }
 
     }
@@ -339,7 +373,22 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                     break;
                 case 2:
                     //Return from Music
+                    Uri musicUri = data.getData();
+                    String title = "Music";
 
+                    //get the song title
+                    ContentResolver cr = this.getContentResolver();
+                    String[] projection = {MediaStore.Audio.Media.TITLE};
+                    Cursor cursor = cr.query(musicUri, projection, null, null, null);
+
+                    if (cursor != null) {
+                        while (cursor.moveToNext()) {
+                            int titleIndex = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
+                            title = cursor.getString(titleIndex);
+                        }
+                    }
+
+                    setRingtone(String.valueOf(musicUri),title);
                     break;
                 default:
                     break;
@@ -387,5 +436,31 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             repeatButton.setText("Repeat");
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case EXTERNAL_STORAGE_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay!
+                    readPermission = true;
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    readPermission = false;
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
+
 
 }

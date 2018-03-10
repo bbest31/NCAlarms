@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -44,14 +45,17 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
      */
     ncBtn;
 
+    private Boolean readPermission;
+
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
      *
      * @param a - Activity to appear over.
      */
-    public RingtoneDialog(CreateAlarmActivity a) {
+    public RingtoneDialog(CreateAlarmActivity a, Boolean externalReadPermission) {
         super(a);
         this.c = a;
+        this.readPermission = externalReadPermission;
     }
 
     /**
@@ -100,8 +104,10 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
                 c.startActivityForResult(deviceToneIntent, 1);
                 break;
             case R.id.musicRingtoneButton:
-//                Intent musicIntent = new Intent(Intent.CATEGORY_APP_MUSIC);
-//                c.startActivityForResult(musicIntent,2);
+                if (readPermission) {
+                    Intent musicIntent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+                    c.startActivityForResult(musicIntent, 2);
+                }
                 break;
             case R.id.napchatRingtoneButton:
                 break;
