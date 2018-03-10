@@ -20,9 +20,12 @@ import com.napchatalarms.napchatalarmsandroid.activities.AlarmActivity;
  */
 
 public class AlarmReceiver extends BroadcastReceiver {
-
+    int previousFilter;
     @Override
     public void onReceive(Context context, Intent intent) {
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        previousFilter = manager.getCurrentInterruptionFilter();
+        manager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
 
         //Get values for alarm
         Boolean vibrate = intent.getBooleanExtra("Vibrate", false);
@@ -51,6 +54,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmIntent.putExtra("TIME", displayTime);
         alarmIntent.putExtra("MERIDIAN", displayMeridian);
         alarmIntent.putExtra("SUBID", subId);
+        alarmIntent.putExtra("FILTER",previousFilter);
 
         PendingIntent pendingAlarmIntent;
         if (subId != 0) {
@@ -95,7 +99,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             }
         }
 
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         if (subId == 0) {
             manager.notify(id, builder.build());
         } else {

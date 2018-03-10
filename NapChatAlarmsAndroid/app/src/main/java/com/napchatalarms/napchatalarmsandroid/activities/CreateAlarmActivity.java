@@ -227,10 +227,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         Log.e("DND PERMISSION",String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
         //TODO: dialog to explain permission before request.
-//        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
-//            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-//            startActivity(intent);
-//        }
+        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+            startActivity(intent);
+        }
 
     }
 

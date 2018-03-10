@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,7 @@ public class AlarmActivity extends AppCompatActivity {
     int ID;
     int subID;
     int snoozeLength;
+    int previousFilter;
     Boolean vibrate;
     String ringtoneURI;
     String meridianDisplayString;
@@ -91,6 +94,7 @@ public class AlarmActivity extends AppCompatActivity {
         meridianDisplayString = intent.getStringExtra("MERIDIAN");
         timeDisplayString = intent.getStringExtra("TIME");
         subID = intent.getIntExtra("SUBID", 0);
+        previousFilter = intent.getIntExtra("FILTER",2);
 
 
         timeDisplay.setText(timeDisplayString, TextView.BufferType.NORMAL);
@@ -98,7 +102,12 @@ public class AlarmActivity extends AppCompatActivity {
 
 
     }
-
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.setInterruptionFilter(previousFilter);
+    }
     //=====METHODS=====
 
     /**
