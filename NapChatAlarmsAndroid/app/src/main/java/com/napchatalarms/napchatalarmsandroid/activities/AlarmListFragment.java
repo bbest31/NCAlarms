@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,20 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
         initialize(view);
+        Log.e("AlarmListFragment","onCreateView()");
         return  view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateAlarmList();
+    }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
     private void initialize(View view) {
         alarmListView = (SwipeMenuListView) view.findViewById(R.id.alarm_list_view);
         updateAlarmList();
@@ -110,7 +121,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), CreateAlarmActivity.class);
                         try {
                             intent.putExtra("ID", editAlarm.getId());
-                            startActivity(intent);
+                            startActivityForResult(intent,1);
                             updateAlarmList();
                         } catch (NullPointerException e) {
                             e.printStackTrace();

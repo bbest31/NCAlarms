@@ -1,6 +1,8 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -222,6 +224,13 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
+        NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        Log.e("DND PERMISSION",String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
+        //TODO: dialog to explain permission before request.
+//        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+//            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+//            startActivity(intent);
+//        }
 
     }
 
@@ -247,6 +256,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             OneTimeAlarm alarm = builder.build();
 
             alarmController.createAlarm(getApplicationContext(), alarm);
+            alarmController.scheduleAlarm(getApplicationContext(),alarm);
 
         } else {
             //build repeating alarm
@@ -262,8 +272,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             RepeatingAlarm alarm = builder.build();
 
             alarmController.createAlarm(getApplicationContext(), alarm);
+            alarmController.scheduleAlarm(getApplicationContext(),alarm);
 
         }
+        alarmController.saveAlarms(getApplicationContext());
 
     }
 

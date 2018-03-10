@@ -1,9 +1,5 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
-import android.app.Fragment;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -42,8 +38,8 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     selectFragment(findViewById(R.id.navigation_home));
                     return true;
-                case R.id.navigation_social:
-                    selectFragment(findViewById(R.id.navigation_social));
+                case R.id.navigation_facts:
+                    selectFragment(findViewById(R.id.navigation_facts));
                     return true;
                 case R.id.navigation_options:
                     selectFragment(findViewById(R.id.navigation_options));
@@ -70,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
     }
 
     public void initialize() {
@@ -83,8 +80,8 @@ public class HomeActivity extends AppCompatActivity {
         android.support.v4.app.Fragment fragment;
         if (view == findViewById(R.id.navigation_home)) {
             fragment = new AlarmListFragment();
-        } else if (view == findViewById(R.id.navigation_social)) {
-            fragment = new SocialFragment();
+        } else if (view == findViewById(R.id.navigation_facts)) {
+            fragment = new SleepFactsFragment();
         } else {
             fragment = new OptionsFragment();
         }
