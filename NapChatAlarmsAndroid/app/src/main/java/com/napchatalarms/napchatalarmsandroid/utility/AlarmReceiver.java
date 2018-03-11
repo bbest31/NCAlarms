@@ -112,7 +112,12 @@ public class AlarmReceiver extends BroadcastReceiver {
             //Setting Alarm Ringtone
             if (Uri.parse(ringtoneURI).equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))) {
                 builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),AudioManager.STREAM_ALARM);
-            } else {
+            } else if(ringtoneURI.split(":")[0].equals("android.resource")){
+
+                builder.setSound(Uri.parse(ringtoneURI),AudioManager.STREAM_ALARM);
+            }
+            else
+                {
 
                 Uri uri = Uri.parse(ringtoneURI);
 

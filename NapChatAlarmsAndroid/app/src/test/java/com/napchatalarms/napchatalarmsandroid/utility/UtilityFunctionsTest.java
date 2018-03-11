@@ -82,4 +82,10 @@ public class UtilityFunctionsTest {
         assertTrue(UtilityFunctions.validateRepeatTrigger(System.currentTimeMillis()) > System.currentTimeMillis());
 
     }
+
+    @Test
+    public void stringSplitTest(){
+        String path = "android.resource//:com.napchatalarms.napchatalarmsandroid/raw/mysound.m4a";
+        assertTrue(path.split("/")[0].equals("android.resource"));
+    }
 }

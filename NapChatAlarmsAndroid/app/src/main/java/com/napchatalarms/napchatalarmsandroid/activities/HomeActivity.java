@@ -28,7 +28,6 @@ public class HomeActivity extends AppCompatActivity {
     /**
      *
      */
-    //TODO: Make icons for bottom nav items, turn views visible and gone by
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

@@ -388,7 +388,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                     setRingtone(String.valueOf(musicUri), title);
                     break;
                 case CUSTOM_RINGTONE_RESULT_CODE:
-
+                    String customUri = data.getStringExtra("URI");
+                    String trackName = data.getStringExtra("NAME");
+                    setRingtone(customUri,trackName);
                     break;
                 default:
                     break;

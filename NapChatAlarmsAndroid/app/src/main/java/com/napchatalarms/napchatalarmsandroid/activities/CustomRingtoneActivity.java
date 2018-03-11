@@ -1,7 +1,8 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,11 @@ import com.napchatalarms.napchatalarmsandroid.R;
 
 public class CustomRingtoneActivity extends AppCompatActivity {
 
-    private Button button;
+    private Button bambooBtn;
+    private Button steampunkBtn;
+    private Button alleyCatBtn;
+    private Intent returnIntent;
+    private String uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +26,42 @@ public class CustomRingtoneActivity extends AppCompatActivity {
     }
 
     private void initialize(){
-        button = (Button) findViewById(R.id.bubble_btn);
-        button.setOnClickListener(new View.OnClickListener() {
+        bambooBtn = (Button) findViewById(R.id.bamboo_btn);
+        bambooBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaPlayer mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bamboo_forest);
-                mPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-                mPlayer.setLooping(true);
-                mPlayer.start();
+                uri = "android.resource://"+getPackageName()+"/"+R.raw.bamboo_forest;
+                returnIntent = new Intent();
+                returnIntent.putExtra("URI",String.valueOf(uri));
+                returnIntent.putExtra("NAME",getResources().getString(R.string.bamboo));
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            }
+        });
+
+        steampunkBtn = (Button) findViewById(R.id.steampunk_btn);
+        steampunkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri = "android.resource://"+getPackageName()+"/"+R.raw.steampunk;
+                returnIntent = new Intent();
+                returnIntent.putExtra("URI",String.valueOf(uri));
+                returnIntent.putExtra("NAME",getResources().getString(R.string.steampunk));
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            }
+        });
+
+        alleyCatBtn = (Button) findViewById(R.id.alley_cat_btn);
+        alleyCatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri = "android.resource://"+getPackageName()+"/"+R.raw.alley_cat;
+                returnIntent = new Intent();
+                returnIntent.putExtra("URI",String.valueOf(uri));
+                returnIntent.putExtra("NAME",getResources().getString(R.string.alleycat));
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
             }
         });
     }

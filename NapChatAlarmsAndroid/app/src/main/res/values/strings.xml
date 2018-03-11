@@ -60,6 +60,7 @@
     <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
+    <!--Vibrate Options-->
     <string name="locomotive">Locomotive</string>
     <string name="buzzsaw">Buzzsaw</string>
     <string name="heartbeat">Heartbeat</string>
@@ -68,6 +69,10 @@
 
     <string name="username">Username:</string>
 
+    <!--Custom Ringtone Titles-->
+    <string name="bamboo">Bamboo Forest</string>
+    <string name="steampunk">Steam-punk</string>
+    <string name="alleycat">Alley Cat</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -159,7 +164,6 @@
     <string name="music">Music</string>
     <string name="napchat">NapChat</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
