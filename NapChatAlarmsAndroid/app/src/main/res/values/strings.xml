@@ -17,6 +17,7 @@
     <string name="email_error_message">Please enter a valid email address i.e. johndoe@email.com</string>
     <string name="janedoe_email_com">janedoe@email.com</string>
     <string name="login">Login</string>
+    <string name="facts">Facts</string>
     <string name="Options">Options</string>
     <string name="Forgot_Pass">Forgot Password?</string>
     <string name="forgot_pass_message">Please enter your email to send a password reset email.</string>
