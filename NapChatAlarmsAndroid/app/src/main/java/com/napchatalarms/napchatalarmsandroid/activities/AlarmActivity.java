@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -69,6 +70,8 @@ public class AlarmActivity extends AppCompatActivity {
 
         initialize();
 
+
+
         //=====ONCLICK METHODS=====
         dismissButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +102,6 @@ public class AlarmActivity extends AppCompatActivity {
         timeDisplay.setText(timeDisplayString, TextView.BufferType.NORMAL);
         meridianDisplay.setText(meridianDisplayString, TextView.BufferType.NORMAL);
 
-
     }
     @Override
     public void onDestroy(){
@@ -119,8 +121,7 @@ public class AlarmActivity extends AppCompatActivity {
      * @see AlarmController
      */
     public void snoozeAlarm() {
-        AlarmController alarmController = AlarmController.getInstance();
-        alarmController.snoozeAlarm(this.getApplicationContext(), ID, subID, vibrate, snoozeLength, ringtoneURI);
+        AlarmController.getInstance().snoozeAlarm(this.getApplicationContext(), ID, subID, vibrate, snoozeLength, ringtoneURI);
         finish();
 
     }

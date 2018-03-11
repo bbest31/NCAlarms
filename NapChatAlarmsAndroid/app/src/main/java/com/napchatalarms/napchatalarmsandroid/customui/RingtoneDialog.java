@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
+import com.napchatalarms.napchatalarmsandroid.activities.CustomRingtoneActivity;
 
 /**
  * The type Ringtone dialog.
@@ -18,7 +19,9 @@ import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
  * @author bbest
  */
 public class RingtoneDialog extends Dialog implements android.view.View.OnClickListener {
-
+    private final int CUSTOM_RINGTONE_RESULT_CODE = 80;
+    private final int DEVICE_RINGTONE_RESULT_CODE = 14;
+    private final int MUSIC_RINGTONE_RESULT_CODE = 19;
     /**
      * The C.
      */
@@ -83,7 +86,7 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
 
     }
 
-    //TODO: implement the methods or events that happen when they choose music or napchat.
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -101,15 +104,17 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
                 deviceToneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
                 deviceToneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
                 deviceToneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
-                c.startActivityForResult(deviceToneIntent, 1);
+                c.startActivityForResult(deviceToneIntent, DEVICE_RINGTONE_RESULT_CODE);
                 break;
             case R.id.musicRingtoneButton:
                 if (readPermission) {
                     Intent musicIntent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-                    c.startActivityForResult(musicIntent, 2);
+                    c.startActivityForResult(musicIntent, MUSIC_RINGTONE_RESULT_CODE);
                 }
                 break;
             case R.id.napchatRingtoneButton:
+                Intent customRingtoneIntent = new Intent(c,CustomRingtoneActivity.class);
+                c.startActivityForResult(customRingtoneIntent,CUSTOM_RINGTONE_RESULT_CODE);
                 break;
             default:
                 break;
