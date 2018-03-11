@@ -50,8 +50,8 @@ public class OneTimeBuilder extends AlarmBuilder {
      * Sets the alarms vibrate settings to on or off.
      **/
     @Override
-    public OneTimeBuilder setVibrate(final boolean vibrate) {
-        alarm.setVibrate(vibrate);
+    public OneTimeBuilder setVibrate(final int vibrate) {
+        alarm.setVibratePattern(vibrate);
         return this;
     }
 

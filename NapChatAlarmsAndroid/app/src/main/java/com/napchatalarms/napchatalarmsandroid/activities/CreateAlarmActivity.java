@@ -1,24 +1,32 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TimePicker;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
+import com.napchatalarms.napchatalarmsandroid.customui.DnDOverrideDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.RepeatDaysDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
+import com.napchatalarms.napchatalarmsandroid.customui.VibrateDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
@@ -38,6 +46,10 @@ import java.util.List;
  */
 public class CreateAlarmActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    final int EXTERNAL_STORAGE_REQUEST = 42;
+    final int CUSTOM_RINGTONE_RESULT_CODE = 80;
+    final int DEVICE_RINGTONE_RESULT_CODE = 14;
+    final int MUSIC_RINGTONE_RESULT_CODE = 19;
     /**
      * The Time picker.
      */
@@ -46,7 +58,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     /**
      * The Vibrate switch.
      */
-    Switch vibrateSwitch;
+    Button vibrateBtn;
     /**
      * The Ringtone button.
      */
@@ -73,9 +85,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
     String ringtone;
     /**
-     * The Vibrate.
+     * Vibrate Pattern
      */
-    Boolean vibrate;
+    Integer vibratePattern;
     /**
      * The Repeat days.
      */
@@ -84,16 +96,16 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * The Snooze length.
      */
     Integer snoozeLength;
-
+    Boolean readPermission;
 
     /**
      * Declaration of view references.
      */
-    public void initialize() {
+    private void initialize() {
         alarmController = AlarmController.getInstance();
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
-        vibrateSwitch = (Switch) findViewById(R.id.vibrate_switch);
+        vibrateBtn = (Button) findViewById(R.id.vibrate_btn);
         ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
         repeatButton = (Button) findViewById(R.id.repeat_btn);
 
@@ -132,8 +144,29 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             ringtone = alarm.getRingtoneURI();
 
             //Set vibrate
-            vibrateSwitch.setChecked(alarm.getVibrateOn());
-            vibrate = vibrateSwitch.isChecked();
+            switch (alarm.getVibratePattern()) {
+                case -1:
+
+                    vibrateBtn.setText("Vibrate: Off");
+                    break;
+                case 0:
+
+                    vibrateBtn.setText("Vibrate: Heartbeat");
+                    break;
+                case 1:
+
+                    vibrateBtn.setText("Vibrate: Buzzsaw");
+                    break;
+                case 2:
+
+                    vibrateBtn.setText("Vibrate: Locomotive");
+                    break;
+                case 3:
+
+                    vibrateBtn.setText("Vibrate: Tip-toe");
+                    break;
+
+            }
 
             // set snooze
             int pos = snoozeAdapter.getPosition(String.valueOf(alarm.getSnoozeLength()));
@@ -156,7 +189,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 public void onClick(View v) {
 
 
-                    editAlarm(alarm.getId(), vibrate, timePicker.getHour(), timePicker.getMinute(), ringtone, snoozeLength, repeatDays);
+                    editAlarm(alarm.getId(), vibratePattern, timePicker.getHour(), timePicker.getMinute(), ringtone, snoozeLength, repeatDays);
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }
             });
@@ -168,7 +203,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             ringtoneButton.setText("Ringtone: Default");
             ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
 
-            vibrate = vibrateSwitch.isChecked();
+
+            vibratePattern = -1;
+            vibrateBtn.setText("Vibrate: Off");
 
             repeatDays = new ArrayList<>();
 
@@ -177,7 +214,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 public void onClick(View view) {
 
                     createAlarm();
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
+
                 }
             });
 
@@ -189,22 +229,28 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
         initialize();
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            readPermission = true;
+        } else {
+            readPermission = false;
+        }
 
         //=====ONCLICK METHODS=====
 
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RingtoneDialog ringtoneDialog = new RingtoneDialog(CreateAlarmActivity.this);
+                RingtoneDialog ringtoneDialog = new RingtoneDialog(CreateAlarmActivity.this, readPermission);
                 ringtoneDialog.show();
 
             }
         });
 
-        vibrateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        vibrateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vibrate = isChecked;
+            public void onClick(View v) {
+                VibrateDialog vibrateDialog = new VibrateDialog(CreateAlarmActivity.this);
+                vibrateDialog.show();
             }
         });
 
@@ -216,6 +262,31 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
+        NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        Log.e("DND PERMISSION", String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
+        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+            DnDOverrideDialog overrideDialog = new DnDOverrideDialog(CreateAlarmActivity.this);
+            overrideDialog.show();
+        }
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Explain to the user why we need to read the contacts
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+            }
+
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    EXTERNAL_STORAGE_REQUEST);
+
+            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+            // app-defined int constant that should be quite unique
+
+            return;
+        }
 
     }
 
@@ -234,13 +305,14 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             OneTimeBuilder builder = new OneTimeBuilder();
             Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
             builder.setTime(trigger)
-                    .setVibrate(vibrate)
+                    .setVibrate(vibratePattern)
                     .setRingtoneURI(ringtone)
                     .setSnooze(snoozeLength);
 
             OneTimeAlarm alarm = builder.build();
 
             alarmController.createAlarm(getApplicationContext(), alarm);
+            alarmController.scheduleAlarm(getApplicationContext(), alarm);
 
         } else {
             //build repeating alarm
@@ -248,7 +320,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
             builder.initialize(repeatDays)
                     .setTime(trigger)
-                    .setVibrate(vibrate)
+                    .setVibrate(vibratePattern)
                     .setRingtoneURI(ringtone)
                     .setSnooze(snoozeLength)
                     .setInterval();
@@ -256,11 +328,14 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             RepeatingAlarm alarm = builder.build();
 
             alarmController.createAlarm(getApplicationContext(), alarm);
+            alarmController.scheduleAlarm(getApplicationContext(), alarm);
 
         }
+        alarmController.saveAlarms(getApplicationContext());
+
     }
 
-    public void editAlarm(int id, Boolean vibrate, int hour, int minute, String ringtone, int snooze, List<Integer> repeat) {
+    public void editAlarm(int id, Integer vibrate, int hour, int minute, String ringtone, int snooze, List<Integer> repeat) {
         alarmController.editAlarm(getApplicationContext(), id, vibrate, hour, minute, ringtone, snooze, repeat);
         alarmController.saveAlarms(getApplicationContext());
     }
@@ -287,19 +362,55 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case 1:
+                case DEVICE_RINGTONE_RESULT_CODE:
                     //Return from ringtone dialog
                     Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
                     String name = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
                     setRingtone(String.valueOf(uri), name);
                     break;
-                case 2:
+                case MUSIC_RINGTONE_RESULT_CODE:
                     //Return from Music
+                    Uri musicUri = data.getData();
+                    String title = "Music";
 
+                    //get the song title
+                    ContentResolver cr = this.getContentResolver();
+                    String[] projection = {MediaStore.Audio.Media.TITLE};
+                    Cursor cursor = cr.query(musicUri, projection, null, null, null);
+
+                    if (cursor != null) {
+                        while (cursor.moveToNext()) {
+                            int titleIndex = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
+                            title = cursor.getString(titleIndex);
+                        }
+                    }
+
+                    setRingtone(String.valueOf(musicUri), title);
+                    break;
+                case CUSTOM_RINGTONE_RESULT_CODE:
+                    String customUri = data.getStringExtra("URI");
+                    String trackName = data.getStringExtra("NAME");
+                    setRingtone(customUri,trackName);
                     break;
                 default:
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        switch (resultCode) {
+            case RESULT_OK:
+                int pattern = data.getIntExtra("PATTERN", -1);
+                vibratePattern = pattern;
+                if (pattern == -1) {
+                    vibrateBtn.setText("Vibrate: Off");
+                } else {
+                    vibrateBtn.setText("Vibrate: " + UtilityFunctions.getVibratePattern(pattern).getName());
+                }
+                break;
+
         }
     }
 
@@ -309,7 +420,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         try {
             snoozeLength = Integer.valueOf(String.valueOf(parent.getItemAtPosition(pos)));
         } catch (NumberFormatException e) {
-            Log.e("CreateAlarmActivity",e.getMessage());
+            Log.e("CreateAlarmActivity", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -330,5 +441,31 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             repeatButton.setText("Repeat");
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case EXTERNAL_STORAGE_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay!
+                    readPermission = true;
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    readPermission = false;
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
+
 
 }

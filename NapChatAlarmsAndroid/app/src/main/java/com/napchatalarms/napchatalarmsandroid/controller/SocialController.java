@@ -18,7 +18,7 @@ public class SocialController {
      * @param friend
      */
     public static void addFriend(Friend friend) {
-        User.getInstance().getFriendList().add(friend);
+        User.getInstance().getFriendList().getFriends().add(friend);
     }
 
 
@@ -29,7 +29,7 @@ public class SocialController {
         for (Group g : User.getInstance().getGroupMap().values()) {
             g.removeFriend(friend.getUid());
         }
-        User.getInstance().getFriendList().remove(friend);
+        User.getInstance().getFriendList().getFriends().remove(friend);
     }
 
     /**
@@ -54,4 +54,6 @@ public class SocialController {
     public void removeFriendFromGroup(String groupName, String uid) {
         User.getInstance().getGroupMap().get(groupName).removeFriend(uid);
     }
+
+
 }

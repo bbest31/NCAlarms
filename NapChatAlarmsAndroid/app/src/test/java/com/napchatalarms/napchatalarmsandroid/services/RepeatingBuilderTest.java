@@ -25,7 +25,7 @@ public class RepeatingBuilderTest {
         builder.initialize(days);
         builder.setSnooze(5);
         builder.setRingtoneURI("default");
-        builder.setVibrate(true);
+        builder.setVibrate(0);
         builder.setInterval();
         builder.setTime(System.currentTimeMillis());
         alarm1 = builder.build();
@@ -35,7 +35,7 @@ public class RepeatingBuilderTest {
         RepeatingBuilder secondBuilder = new RepeatingBuilder();
         secondBuilder.initialize(days2);
         secondBuilder.setInterval();
-        secondBuilder.setVibrate(false);
+        secondBuilder.setVibrate(-1);
         secondBuilder.setRingtoneURI("custom");
         secondBuilder.setSnooze(10);
         secondBuilder.setTime(System.currentTimeMillis()+600000);

@@ -1,7 +1,10 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +31,8 @@ public class AlarmActivity extends AppCompatActivity {
     int ID;
     int subID;
     int snoozeLength;
-    Boolean vibrate;
+    int previousFilter;
+    int vibrate;
     String ringtoneURI;
     String meridianDisplayString;
     Button dismissButton;
@@ -57,7 +61,6 @@ public class AlarmActivity extends AppCompatActivity {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        //window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         window.addFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
@@ -66,6 +69,8 @@ public class AlarmActivity extends AppCompatActivity {
 
 
         initialize();
+
+
 
         //=====ONCLICK METHODS=====
         dismissButton.setOnClickListener(new View.OnClickListener() {
@@ -86,19 +91,26 @@ public class AlarmActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         snoozeLength = intent.getIntExtra("SNOOZE", 5);
         ID = intent.getIntExtra("ID", 0);
-        vibrate = intent.getBooleanExtra("VIBRATE", false);
+        vibrate = intent.getIntExtra("VIBRATE", -1);
         ringtoneURI = intent.getStringExtra("URI");
         meridianDisplayString = intent.getStringExtra("MERIDIAN");
         timeDisplayString = intent.getStringExtra("TIME");
         subID = intent.getIntExtra("SUBID", 0);
+        previousFilter = intent.getIntExtra("FILTER",2);
 
 
         timeDisplay.setText(timeDisplayString, TextView.BufferType.NORMAL);
         meridianDisplay.setText(meridianDisplayString, TextView.BufferType.NORMAL);
 
-
     }
-
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        if(notificationManager.isNotificationPolicyAccessGranted()) {
+            notificationManager.setInterruptionFilter(previousFilter);
+        }
+    }
     //=====METHODS=====
 
     /**
@@ -109,8 +121,7 @@ public class AlarmActivity extends AppCompatActivity {
      * @see AlarmController
      */
     public void snoozeAlarm() {
-        AlarmController alarmController = AlarmController.getInstance();
-        alarmController.snoozeAlarm(this.getApplicationContext(), ID, subID, vibrate, snoozeLength, ringtoneURI);
+        AlarmController.getInstance().snoozeAlarm(this.getApplicationContext(), ID, subID, vibrate, snoozeLength, ringtoneURI);
         finish();
 
     }

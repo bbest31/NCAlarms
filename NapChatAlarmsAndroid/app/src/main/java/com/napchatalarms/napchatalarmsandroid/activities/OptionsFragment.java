@@ -1,11 +1,17 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
@@ -35,7 +41,7 @@ import java.util.ArrayList;
  *
  * @author bbest
  */
-public class OptionsActivity extends AppCompatActivity {
+public class OptionsFragment extends android.support.v4.app.Fragment {
 
     //=====VIEWS=====
     public Button logoutButton;
@@ -47,35 +53,36 @@ public class OptionsActivity extends AppCompatActivity {
     public CheckedTextView verifiedEmailTextView;
     public Button resetPassButton;
     public Button deleteAccountButton;
-    User currentUser;
 
+
+    public OptionsFragment() {
+
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_options, container, false);
+        initialize(view);
+        return view;
+    }
 
     /**
      * Initializes views to variables.
      */
-    public void initialize() {
+    private void initialize(View view) {
 
-        logoutButton = (Button) findViewById(R.id.logout_btn);
-        resendEmailVerificationButton = (Button) findViewById(R.id.resend_verficiationemail_btn);
-        verifiedEmailTextView = (CheckedTextView) findViewById(R.id.verified_email_check);
-        changeEmailButton = (Button) findViewById(R.id.change_email_btn);
-        changeNameButton = (Button) findViewById(R.id.change_name_btn);
-        changeEmailEditText = (EditText) findViewById(R.id.change_email_edittext);
-        changeUsernameEditText = (EditText) findViewById(R.id.change_username_edittext);
-        resetPassButton = (Button) findViewById(R.id.reset_password_btn);
-        deleteAccountButton = (Button) findViewById(R.id.delete_account_btn);
-        currentUser = User.getInstance();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options);
-
-        initialize();
+        logoutButton = (Button) view.findViewById(R.id.logout_btn);
+        resendEmailVerificationButton = (Button) view.findViewById(R.id.resend_verficiationemail_btn);
+        verifiedEmailTextView = (CheckedTextView) view.findViewById(R.id.verified_email_check);
+        changeEmailButton = (Button) view.findViewById(R.id.change_email_btn);
+        changeNameButton = (Button) view.findViewById(R.id.change_name_btn);
+        changeEmailEditText = (EditText) view.findViewById(R.id.change_email_edittext);
+        changeUsernameEditText = (EditText) view.findViewById(R.id.change_username_edittext);
+        resetPassButton = (Button) view.findViewById(R.id.reset_password_btn);
+        deleteAccountButton = (Button) view.findViewById(R.id.delete_account_btn);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         //Checks to see if the user has a verified email.
         if (user.isEmailVerified() == false) {
 
@@ -99,7 +106,24 @@ public class OptionsActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.warning)
+                .setMessage(R.string.logout_warning)
+                .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logout();
+                    }
+                });
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    //Cancel
+                    }
+                });
+
+                 builder.create().show();
+
             }
         });
 
@@ -113,7 +137,7 @@ public class OptionsActivity extends AppCompatActivity {
         changeEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChangeEmailDialog changeEmailDialog = new ChangeEmailDialog(OptionsActivity.this);
+                ChangeEmailDialog changeEmailDialog = new ChangeEmailDialog(getActivity());
                 changeEmailDialog.show();
             }
         });
@@ -128,12 +152,14 @@ public class OptionsActivity extends AppCompatActivity {
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(OptionsActivity.this);
+                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(getActivity());
                 deleteAccountDialog.show();
             }
         });
 
+
     }
+
 
     @Override
     public void onStart() {
@@ -166,13 +192,14 @@ public class OptionsActivity extends AppCompatActivity {
     public void logout() {
         ArrayList<Alarm> alarmArrayList = User.getInstance().getAlarmList();
         for (Alarm a : alarmArrayList) {
-            AlarmController.getInstance().cancelAlarm(this, a.getId());
+            AlarmController.getInstance().cancelAlarm(getContext(), a.getId());
         }
         FirebaseAuth.getInstance().signOut();
         NapChatController.getInstance().uninitializeUser();
-        Intent loginIntent = new Intent(OptionsActivity.this, LoginActivity.class);
+        Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
-        finish();
+        getActivity().finish();
     }
 
     /**
@@ -186,7 +213,7 @@ public class OptionsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.i("Options Activity", "Resent Verification Email successfully");
+                            Log.i("Options Fragment", "Resent Verification Email successfully");
                         }
                     }
                 });
@@ -214,12 +241,12 @@ public class OptionsActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                currentUser.setName(newName);
+                                User.getInstance().setName(newName);
                                 changeUsernameEditText.setText("");
-                                Toast.makeText(OptionsActivity.this, "Username successfully changed!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Username successfully changed!", Toast.LENGTH_LONG).show();
                                 Log.i("Options Activity", "The User's username has been updated successfully");
                             } else {
-                                Toast.makeText(OptionsActivity.this, "Could not update username!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Could not update username!", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -234,14 +261,14 @@ public class OptionsActivity extends AppCompatActivity {
      */
     public void resetPassword() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        String emailAddress = currentUser.getEmail();
+        String emailAddress = User.getInstance().getEmail();
 
         auth.sendPasswordResetEmail(emailAddress)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(OptionsActivity.this, "Verification email sent!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Verification email sent!", Toast.LENGTH_LONG).show();
                             Log.i("Options Activity", "Email sent.");
                         }
                     }

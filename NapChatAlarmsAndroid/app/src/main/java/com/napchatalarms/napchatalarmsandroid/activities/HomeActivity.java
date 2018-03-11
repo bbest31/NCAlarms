@@ -1,8 +1,5 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,25 +8,16 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.BounceInterpolator;
-import android.widget.Button;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
-import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
-import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 /**
  * The activity that lists the current <code>User</code> <code>Alarms</code>.
  * <p>
  * Bottom navigation bar holds:
- * Home, Friends, Options, NapFacts.
+ * Home, Friends, Options, NapFacts, Alerts.
  * </P>
  *
  * @author bbest
@@ -37,14 +25,9 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    //=====ATTRIBUTES=====
-    SwipeMenuListView alarmListView;
-    Button addAlarmButton;
-    AlarmAdapter alarmAdapter;
     /**
      *
      */
-    //TODO: Make icons for bottom nav items, turn views visible and gone by
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -52,13 +35,13 @@ public class HomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    updateAlarmList();
+                    selectFragment(findViewById(R.id.navigation_home));
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_facts:
+                    selectFragment(findViewById(R.id.navigation_facts));
                     return true;
-                case R.id.navigation_notifications:
-                    Intent optionsIntent = new Intent(HomeActivity.this, OptionsActivity.class);
-                    startActivity(optionsIntent);
+                case R.id.navigation_options:
+                    selectFragment(findViewById(R.id.navigation_options));
                     return true;
             }
             return false;
@@ -71,121 +54,41 @@ public class HomeActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initialize();
-        updateAlarmList();
+        if (savedInstanceState == null) {
+            initialize();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, new AlarmListFragment()).commit();
+        }
+        Log.i("User Info", User.getInstance().toString());
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        NapChatController.getInstance().initNotificationChannel(getApplicationContext());
-        updateAlarmList();
-        Log.i("User Info", User.getInstance().toString());
 
     }
 
     public void initialize() {
-
-
-        alarmListView = (SwipeMenuListView) findViewById(R.id.alarm_list_view);
-        updateAlarmList();
-
-
-        addAlarmButton = (Button) findViewById(R.id.add_alarm_btn);
-        addAlarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent createAlarmIntent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
-                createAlarmIntent.putExtra("ID", 0);
-                startActivity(createAlarmIntent);
-            }
-        });
-
+        NapChatController.getInstance().initNotificationChannel(getApplicationContext());
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.inflateMenu(R.menu.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
 
+    private void selectFragment(View view) {
+        android.support.v4.app.Fragment fragment;
+        if (view == findViewById(R.id.navigation_home)) {
+            fragment = new AlarmListFragment();
+        } else if (view == findViewById(R.id.navigation_facts)) {
+            fragment = new SleepFactsFragment();
+        } else {
+            fragment = new OptionsFragment();
+        }
 
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0x00, 0xAB,
-                        0xFF)));
-                // set item width
-                openItem.setWidth(300);
-                // set item title
-                openItem.setTitle("Edit");
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.WHITE);
-                // add to menu
-                menu.addMenuItem(openItem);
-
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                        0x3F, 0x25)));
-                // set item width
-                deleteItem.setWidth(300);
-                // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete_trashcan);
-                deleteItem.setTitleSize(18);
-                deleteItem.setTitleColor(Color.WHITE);
-                // add to menu
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-        // set creator
-        alarmListView.setMenuCreator(creator);
-
-        alarmListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        // Edit
-                        Alarm editAlarm = alarmAdapter.getItem(position);
-                        Intent intent = new Intent(HomeActivity.this, CreateAlarmActivity.class);
-                        try {
-                            intent.putExtra("ID", editAlarm.getId());
-                            startActivity(intent);
-                            updateAlarmList();
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case 1:
-                        // delete
-                        Alarm deleteAlarm = alarmAdapter.getItem(position);
-                        AlarmController.getInstance().deleteAlarm(getApplicationContext(), deleteAlarm.getId());
-                        updateAlarmList();
-                        break;
-                }
-                // false : close the menu; true : not close the menu
-                return false;
-            }
-        });
-
-        alarmListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-
-        alarmListView.setCloseInterpolator(new BounceInterpolator());
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
 
     }
 
-    public void updateAlarmList() {
-        alarmAdapter = new AlarmAdapter(getApplicationContext(), User.getInstance().getAlarmList());
-        alarmListView.setAdapter(alarmAdapter);
-    }
 
 
 }

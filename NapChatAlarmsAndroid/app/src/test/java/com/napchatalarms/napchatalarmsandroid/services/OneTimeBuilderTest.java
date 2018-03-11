@@ -20,7 +20,7 @@ public class OneTimeBuilderTest {
         time = System.currentTimeMillis();
         builder.setTime(time);
         builder.setSnooze(20);
-        builder.setVibrate(false);
+        builder.setVibrate(-1);
         builder.setRingtoneURI("default");
         alarm = builder.build();
     }
@@ -29,7 +29,6 @@ public class OneTimeBuilderTest {
     public void properBuildTest(){
         assertEquals("default",alarm.getRingtoneURI());
         assertEquals(20,alarm.getSnoozeLength());
-        assertEquals(false,alarm.getVibrateOn());
         assertTrue(time.equals(alarm.getTime()));
 
     }

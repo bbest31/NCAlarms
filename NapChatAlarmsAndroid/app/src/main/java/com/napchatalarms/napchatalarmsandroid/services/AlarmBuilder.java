@@ -48,8 +48,8 @@ public class AlarmBuilder {
      * @param vibrate
      * @return
      */
-    public AlarmBuilder setVibrate(final boolean vibrate) {
-        alarm.setVibrate(vibrate);
+    public AlarmBuilder setVibrate(final int vibrate) {
+        alarm.setVibratePattern(vibrate);
         return this;
     }
 

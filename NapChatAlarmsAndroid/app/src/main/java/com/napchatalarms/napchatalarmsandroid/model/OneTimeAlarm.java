@@ -28,7 +28,7 @@ public class OneTimeAlarm extends Alarm implements Serializable {
                 " Trigger: " + this.getTime() +
                 " Time: " + sdf.format(new Date(this.getTime())) +
                 " Snooze Length: " + this.getSnoozeLength() +
-                " Vibrate: " + this.getVibrateOn() +
+                " Vibrate Pattern: " + this.getVibratePattern() +
                 " RingtoneURI: " + this.getRingtoneURI() +
                 " isActive: " + this.getStatus();
         return alarm;

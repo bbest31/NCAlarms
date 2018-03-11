@@ -113,7 +113,6 @@ public class ChangeEmailDialog extends Dialog implements android.view.View.OnCli
      *
      * @param newEmail - new email to associate that user account with.
      */
-    //TODO:get new email entered from OptionsActivity
     public void changeEmail(String newEmail) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

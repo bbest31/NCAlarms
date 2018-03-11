@@ -68,12 +68,12 @@ public class RepeatingBuilder extends AlarmBuilder {
     }
 
     @Override
-    public RepeatingBuilder setVibrate(final boolean vibrate) {
-        alarm.setVibrate(vibrate);
+    public RepeatingBuilder setVibrate(final int vibrate) {
+        alarm.setVibratePattern(vibrate);
         Map<Integer, Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet()) {
             Alarm a = entry.getValue();
-            a.setVibrate(vibrate);
+            a.setVibratePattern(vibrate);
         }
         return this;
     }
