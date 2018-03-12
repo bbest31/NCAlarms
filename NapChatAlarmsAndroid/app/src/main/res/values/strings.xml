@@ -67,6 +67,7 @@
     <string name="heartbeat">Heartbeat</string>
     <string name="tiptoe">Tip-toe</string>
     <string name="off">Off</string>
+    <string name="already_have_acct">Already have an account?</string>
 
     <string name="username">Username:</string>
 

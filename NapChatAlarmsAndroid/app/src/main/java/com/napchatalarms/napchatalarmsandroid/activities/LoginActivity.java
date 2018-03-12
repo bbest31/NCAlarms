@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,11 @@ import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.customui.ForgotPassDialog;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
+import org.w3c.dom.Text;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 // SOURCES: https://firebase.google.com/docs/auth/android
 
 /**
@@ -37,27 +43,8 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 public class LoginActivity extends AppCompatActivity {
 
     //Views
-    Button signUpButton;
-    EditText emailEditText;
-    EditText passwordEditText;
-    Button loginButton;
-    Button forgotPasswordButton;
-    TextView errorText;
     private FirebaseAuth mAuth;
-    private String email;
-    private String password;
 
-    /**
-     * Initializing function for the views.
-     **/
-    public void initialize() {
-        loginButton = (Button) findViewById(R.id.login_btn);
-        signUpButton = (Button) findViewById(R.id.signUp_btn);
-        emailEditText = (EditText) findViewById(R.id.login_email_editText);
-        passwordEditText = (EditText) findViewById(R.id.login_password_editText);
-        forgotPasswordButton = (Button) findViewById(R.id.forgotPass_btn);
-        errorText = (TextView) findViewById(R.id.login_error_text);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,50 +52,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_login);
+        if (savedInstanceState == null) {
+            selectFragment(new View(getApplicationContext()));
+        }
 
-        initialize();
-
-        //===============OnClick methods====================
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if no view has focus:
-                if (v != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-                login(getApplicationContext());
-            }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-
-        });
-
-        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ForgotPassDialog fgtpassDialog = new ForgotPassDialog(LoginActivity.this);
-                fgtpassDialog.show();
-            }
-        });
 
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
+       selectFragment(new View(getApplicationContext()));
         //Navigate to Home Activity if currentUser is already signed in.
         loginNavigationOnSuccess(currentUser, getApplicationContext());
-
 
     }
 
@@ -126,8 +84,6 @@ public class LoginActivity extends AppCompatActivity {
     public void loginNavigationOnSuccess(FirebaseUser currentUser, final Context context) {
 
         if (currentUser != null) {
-            //Load user data.
-            NapChatController.getInstance().loadUserData(context);
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);
             finish();
@@ -135,50 +91,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * This method will grab the credentials entered into the TextViews and assign their values to the
-     * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
-     *
-     * @see UtilityFunctions
-     */
-    public void login(final Context context) {
-
-        Boolean validcreds = Boolean.TRUE;
-
-        email = emailEditText.getText().toString();
-        if (!UtilityFunctions.isValidEmail(email)) {
-            validcreds = Boolean.FALSE;
-        }
-
-        password = passwordEditText.getText().toString();
-        if (password.isEmpty()) {
-            validcreds = Boolean.FALSE;
-        }
-
-        if (validcreds == Boolean.TRUE) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.i("Login Activity", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                loginNavigationOnSuccess(user, context);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_LONG).show();
-                                loginNavigationOnSuccess(null, context);
-                            }
-
-                            // ...
-                        }
-                    });
+    public void selectFragment(View view) {
+        android.support.v4.app.Fragment fragment;
+        if (view == findViewById(R.id.show_login_btn)) {
+            fragment = new LoginFragment();
         } else {
-            Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_LONG).show();
+            fragment = new LandingFragment();
         }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.login_frame, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+
     }
+
+
 }
 
 

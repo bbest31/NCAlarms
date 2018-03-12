@@ -73,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.inflateMenu(R.menu.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        selectFragment(findViewById(R.id.navigation_home));
     }
 
     private void selectFragment(View view) {

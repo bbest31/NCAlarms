@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context="com.napchatalarms.napchatalarmsandroid.activities.LoginFragment">
+
+    <EditText
+        android:id="@+id/login_email_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="137dp"
+        android:ems="10"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:textColor="@color/cardview_light_background" />
+
+    <EditText
+        android:id="@+id/login_password_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login_email_editText"
+        android:layout_below="@+id/login_email_editText"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:singleLine="true" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/login_password_editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:background="@color/light_purple"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/forgotPass_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:text="@string/Forgot_Pass"
+        android:textAllCaps="false"
+        android:textColor="@color/bright_teal"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/forgotPass_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:background="@android:color/transparent"
+        android:text="Back"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"
+        android:textStyle="bold" />
+</RelativeLayout>
