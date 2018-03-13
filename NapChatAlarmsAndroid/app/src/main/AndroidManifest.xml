@@ -33,7 +33,7 @@
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.OptionsFragment"
+            android:name=".fragments.OptionsFragment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AlarmActivity"

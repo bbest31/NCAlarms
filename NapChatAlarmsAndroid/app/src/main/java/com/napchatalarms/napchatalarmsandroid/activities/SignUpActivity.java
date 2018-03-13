@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,10 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
+import com.napchatalarms.napchatalarmsandroid.fragments.LandingFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.LoginFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.SignUpEmailFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.SignUpPasswordFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
@@ -32,98 +37,27 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class SignUpActivity extends AppCompatActivity {
 
-    Button createAccountButton;
-    EditText UsernameEditText;
-    EditText emailEditText;
-    EditText passwordEditText;
-    TextView UsernameErrorText;
-    TextView emailErrorText;
-    TextView passwordErrorText;
-    //=====VIEWS=====
     private FirebaseAuth mAuth;
-
-    /**
-     * Initialize views for the activity.
-     **/
-    public void initialize() {
-        mAuth = FirebaseAuth.getInstance();
-        //Initialize views.
-        createAccountButton = (Button) findViewById(R.id.create_account_btn);
-        UsernameEditText = (EditText) findViewById(R.id.username_editText);
-
-        emailEditText = (EditText) findViewById(R.id.email_editText);
-        passwordEditText = (EditText) findViewById(R.id.password_editText);
-
-
-        UsernameErrorText = (TextView) findViewById(R.id.username_error_text);
-
-        emailErrorText = (TextView) findViewById(R.id.email_error_text);
-        passwordErrorText = (TextView) findViewById(R.id.password_error_text);
-    }
-
+    public String email;
+    public String password;
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-
-        initialize();
-
-        //=====ONCLICK METHODS=====
-        createAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUp();
-            }
-        });
+        mAuth = FirebaseAuth.getInstance();
+        email = null;
+        username = null;
+        password = null;
+        selectFragment(new View(getApplicationContext()));
 
     }
 
 
     //=====METHODS=====
 
-    /**
-     * This method grabs the necessary credentials from the TextViews and passes them
-     * to the <code>createNewUser()</code> method.
-     *
-     * @see UtilityFunctions
-     */
-    public void signUp() {
-        Boolean validCredentials = true;
-
-        String email = emailEditText.getText().toString();
-        if (!UtilityFunctions.isValidEmail(email)) {
-            Toast.makeText(this, "Invalid Email", Toast.LENGTH_LONG).show();
-            validCredentials = false;
-        }
-
-        String password = passwordEditText.getText().toString();
-        if (!UtilityFunctions.isValidPassword(password)) {
-            Toast.makeText(this, "Invalid Password", Toast.LENGTH_LONG).show();
-            validCredentials = false;
-
-        }
-
-
-        String username = UsernameEditText.getText().toString();
-        if (!UtilityFunctions.isValidUsername(username)) {
-            Toast.makeText(this, "Invalid Username", Toast.LENGTH_LONG).show();
-
-            validCredentials = false;
-
-        }
-
-        //calls the Firebase method to create the valid new user.
-        if (validCredentials == true) {
-            createNewUser(email, password, username);
-        }
-        if (validCredentials == false) {
-            //clears password for reentry.
-            passwordEditText.setText("");
-        }
-
-    }
 
     /**
      * This method takes in the new users email, password and username in order to create
@@ -137,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
      * @see FirebaseAuth
      * @see NapChatController
      */
-    public void createNewUser(String email, String password, final String username) {
+    public void createNewUser() {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -146,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            initProfile(user, username);
+                            initProfile(user);
                             sendEmailVerification();
                             signUpNavigationOnSuccess(user);
                         } else {
@@ -192,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    public void initProfile(final FirebaseUser user, String username) {
+    public void initProfile(final FirebaseUser user) {
 
         UserProfileChangeRequest initializeProfile = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username)
@@ -215,5 +149,18 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void selectFragment(View view) {
+        android.support.v4.app.Fragment fragment;
+        if (view == findViewById(R.id.signup_email_next_btn)) {
+            fragment = new SignUpPasswordFragment();
+        } else {
+            fragment = new SignUpEmailFragment();
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.signup_frame, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK).commit();
+
     }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.napchatalarms.napchatalarmsandroid.activities.AlarmListFragment">
+    tools:context="com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment">
 
     <Button
         android:id="@+id/add_alarm_btn"

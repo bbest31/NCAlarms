@@ -11,6 +11,9 @@ import android.view.Window;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.OptionsFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.SleepFactsFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 /**

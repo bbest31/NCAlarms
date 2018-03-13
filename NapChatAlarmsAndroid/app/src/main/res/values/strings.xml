@@ -55,12 +55,15 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="okay">OK</string>
+    <string name="sign_up_email_msg">Please enter an email and username for your account.</string>
     <string name="warning">Warning</string>
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
     <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
     <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
+    <string name="next">Next</string>
+    <string name="signup_pwd_msg">Enter a password.(min 8 characters)</string>
     <!--Vibrate Options-->
     <string name="locomotive">Locomotive</string>
     <string name="buzzsaw">Buzzsaw</string>

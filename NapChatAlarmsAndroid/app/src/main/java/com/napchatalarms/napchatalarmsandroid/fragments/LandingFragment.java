@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.activities;
+package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
+import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
 
 /**
  * Created by bbest on 11/03/18.
@@ -47,7 +49,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
     /**
      * Initializing function for the views.
      **/
-    public void initialize(View view) {
+    private void initialize(View view) {
         signUpButton = (Button) view.findViewById(R.id.signUp_btn);
         showLoginBtn = (Button) view.findViewById(R.id.show_login_btn);
         alreadyHaveAcctText = (TextView) view.findViewById(R.id.have_acct_text_view);

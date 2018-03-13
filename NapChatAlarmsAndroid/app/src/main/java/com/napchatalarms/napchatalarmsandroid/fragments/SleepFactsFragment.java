@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.activities;
+package com.napchatalarms.napchatalarmsandroid.fragments;
 
 
 import android.os.Bundle;

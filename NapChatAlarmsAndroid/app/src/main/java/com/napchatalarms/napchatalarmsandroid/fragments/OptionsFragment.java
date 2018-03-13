@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.activities;
+package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.customui.ChangeEmailDialog;

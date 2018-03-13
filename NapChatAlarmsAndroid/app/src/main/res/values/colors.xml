@@ -9,7 +9,8 @@
     <color name="black">#000000</color>
     <color name="light_purple">#aa00ff</color>
     <color name="bright_teal">#18ffff</color>
-    <color name="main_purple">#311B92</color>
+    <color name="main_purple">#6200EA</color>
+    <color name="second_purple">#651FFF</color>
     <color name="main_amber">#FFCA28</color>
     <color name="deep_amber">#FFB300</color>
 

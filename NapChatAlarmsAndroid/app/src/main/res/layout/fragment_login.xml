@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context="com.napchatalarms.napchatalarmsandroid.activities.LoginFragment">
+    tools:context="com.napchatalarms.napchatalarmsandroid.fragments.LoginFragment">
 
     <EditText
         android:id="@+id/login_email_editText"

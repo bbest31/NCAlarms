@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.activities;
+package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
