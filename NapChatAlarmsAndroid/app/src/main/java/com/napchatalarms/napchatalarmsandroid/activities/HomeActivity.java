@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -54,12 +56,12 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
             initialize();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame, new AlarmListFragment()).commit();
+            selectFragment(findViewById(R.id.navigation_home));
         }
         Log.i("User Info", User.getInstance().toString());
 
@@ -76,6 +78,26 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.inflateMenu(R.menu.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_home);
+        navigation.setItemIconTintList(null);
+        //TODO: Figure out color states.
+        //Color states
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+        };
+
+        int[] colors = new int[] {
+                getResources().getColor(R.color.black),
+                getResources().getColor(R.color.bright_teal),
+                getResources().getColor(R.color.unverified_red),
+                getResources().getColor(R.color.light_purple)
+        };
+
+        ColorStateList colorStateList = new ColorStateList(states, colors);
+        navigation.setItemTextColor(colorStateList);
         selectFragment(findViewById(R.id.navigation_home));
     }
 

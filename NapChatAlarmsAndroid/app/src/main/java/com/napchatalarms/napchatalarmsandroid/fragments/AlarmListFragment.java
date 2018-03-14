@@ -1,10 +1,12 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
 
     //=====ATTRIBUTES=====
     SwipeMenuListView alarmListView;
-    Button addAlarmButton;
+    FloatingActionButton addAlarmButton;
     AlarmAdapter alarmAdapter;
 
     public AlarmListFragment() {
@@ -62,7 +64,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
         updateAlarmList();
 
 
-        addAlarmButton = (Button) view.findViewById(R.id.add_alarm_btn);
+        addAlarmButton = (FloatingActionButton) view.findViewById(R.id.add_alarm_btn);
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

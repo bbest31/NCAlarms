@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,21 +6,26 @@
     android:orientation="vertical"
     tools:context="com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment">
 
-    <Button
-        android:id="@+id/add_alarm_btn"
-        android:layout_width="47dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="@drawable/ic_action_name"
-         />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_alarm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_add"
+        app:backgroundTint="@color/light_purple"
+        app:elevation="2dp"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/alarm_list_view"
+        app:layout_anchorGravity="left|center" />
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
-            android:id="@+id/alarm_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="true"
-            tools:listitem="@layout/alarm_layout"></com.baoyz.swipemenulistview.SwipeMenuListView>
+        android:id="@+id/alarm_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:nestedScrollingEnabled="true"
+        tools:listitem="@layout/alarm_layout"></com.baoyz.swipemenulistview.SwipeMenuListView>
 
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

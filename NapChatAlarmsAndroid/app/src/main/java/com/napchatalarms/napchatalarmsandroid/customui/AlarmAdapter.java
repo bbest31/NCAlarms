@@ -63,7 +63,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
                 repeatDaysText.setVisibility(View.VISIBLE);
             }
         } else {
-            repeatDaysText.setVisibility(View.GONE);
+            repeatDaysText.setVisibility(View.INVISIBLE);
         }
 
         //Set the status of the alarm
