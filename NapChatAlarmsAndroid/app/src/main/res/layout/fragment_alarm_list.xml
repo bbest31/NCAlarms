@@ -17,7 +17,13 @@
         app:elevation="2dp"
         app:fabSize="normal"
         app:layout_anchor="@+id/alarm_list_view"
-        app:layout_anchorGravity="left|center" />
+        app:layout_anchorGravity="left|center" android:focusable="true" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/alarm_list_app_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/napchat" />-->
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/alarm_list_view"

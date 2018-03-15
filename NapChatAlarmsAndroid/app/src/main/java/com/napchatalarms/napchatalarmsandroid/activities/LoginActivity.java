@@ -11,8 +11,10 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.fragments.LandingFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.LoginFragment;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
 
@@ -68,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
     public void loginNavigationOnSuccess(FirebaseUser currentUser, final Context context) {
 
         if (currentUser != null) {
+            User user = User.getInstance();
+            NapChatController.getInstance().loadUserData(context);
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(homeIntent);
             finish();

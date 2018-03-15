@@ -61,7 +61,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
     }
     private void initialize(View view) {
         alarmListView = (SwipeMenuListView) view.findViewById(R.id.alarm_list_view);
-        updateAlarmList();
+
 
 
         addAlarmButton = (FloatingActionButton) view.findViewById(R.id.add_alarm_btn);
@@ -145,10 +145,11 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
         alarmListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
 
         alarmListView.setCloseInterpolator(new BounceInterpolator());
-
+        updateAlarmList();
     }
 
     public void updateAlarmList() {
+        User user = User.getInstance();
         alarmAdapter = new AlarmAdapter(getContext(), User.getInstance().getAlarmList());
         alarmListView.setAdapter(alarmAdapter);
     }

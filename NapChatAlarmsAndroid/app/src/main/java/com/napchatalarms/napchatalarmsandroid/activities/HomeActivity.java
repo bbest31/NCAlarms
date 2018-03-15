@@ -61,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
             initialize();
-            selectFragment(findViewById(R.id.navigation_home));
         }
         Log.i("User Info", User.getInstance().toString());
 
