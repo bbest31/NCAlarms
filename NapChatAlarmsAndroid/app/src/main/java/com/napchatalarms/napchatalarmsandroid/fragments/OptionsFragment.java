@@ -17,9 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.activities.AboutActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.customui.ChangeUsernameDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.DeleteAccountDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
@@ -32,13 +34,13 @@ import java.util.ArrayList;
 /**
  * Activity where users can logout, verify email, change email/password/name, delete account
  * and upgrade to paid version.
- *
+ *@todo Upgrade Button (if implemented), Rate button method, FAQ, Privacy Policy,
  * @author bbest
  */
 public class OptionsFragment extends android.support.v4.app.Fragment {
 
     //=====VIEWS=====
-     Button logoutButton;
+    Button logoutButton;
     private Button verifyEmailBtn;
     private Button changeNameBtn;
     private Button resetPassButton;
@@ -116,7 +118,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         aboutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -127,14 +130,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                 deleteAccountDialog.show();
             }
         });
-
-        verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                
-            }
-        });
-
 
     }
 
@@ -195,31 +190,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      * @see UtilityFunctions
      */
     public void changeUsername() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (!changeUsernameEditText.getText().toString().isEmpty() &&
-//                UtilityFunctions.isValidUsername(changeUsernameEditText.getText().toString())) {
-//
-//            final String newName = changeUsernameEditText.getText().toString();
-//
-//            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                    .setDisplayName(newName)
-//                    .build();
-//            user.updateProfile(profileUpdates)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                User.getInstance().setName(newName);
-//                                changeUsernameEditText.setText("");
-//                                Toast.makeText(getActivity(), "Username successfully changed!", Toast.LENGTH_LONG).show();
-//                                Log.i("Options Activity", "The User's username has been updated successfully");
-//                            } else {
-//                                Toast.makeText(getActivity(), "Could not update username!", Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                    });
-//        }
+        ChangeUsernameDialog newUsernameDialog = new ChangeUsernameDialog(getActivity());
+        newUsernameDialog.show();
     }
 
 
@@ -237,7 +209,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Verification email sent!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_LONG).show();
                             Log.i("Options Activity", "Email sent.");
                         }
                     }

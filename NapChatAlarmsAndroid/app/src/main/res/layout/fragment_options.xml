@@ -45,6 +45,17 @@
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/rate_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:text="@string/rate"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
         android:id="@+id/logout_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

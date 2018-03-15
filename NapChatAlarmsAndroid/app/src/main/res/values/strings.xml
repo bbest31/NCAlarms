@@ -67,6 +67,8 @@
     <string name="verify">Verify Email</string>
     <string name="reset_password">Reset Password</string>
     <string name="about">About</string>
+    <string name="rate">Rate us</string>
+    <string name="submit">Submit</string>
     <!--Vibrate Options-->
     <string name="locomotive">Locomotive</string>
     <string name="buzzsaw">Buzzsaw</string>

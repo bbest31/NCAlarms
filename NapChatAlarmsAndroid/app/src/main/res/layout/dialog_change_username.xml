@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/change_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:text="@string/change_name"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/new_name_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/change_name_title"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/new_username"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/submit_new_name_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/new_name_edittext"
+        android:layout_below="@+id/new_name_edittext"
+        android:background="@color/light_purple"
+        android:text="@string/submit"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/new_name_cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/submit_new_name_btn"
+        android:layout_alignBottom="@+id/submit_new_name_btn"
+        android:layout_alignEnd="@+id/new_name_edittext"
+        android:background="@color/dark_grey"
+        android:text="@string/cancel"
+        android:textColor="@color/white" />
+</RelativeLayout>
