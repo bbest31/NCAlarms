@@ -79,24 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
         navigation.setItemIconTintList(null);
-        //TODO: Figure out color states.
-        //Color states
-        int[][] states = new int[][] {
-                new int[] { android.R.attr.state_enabled}, // enabled
-                new int[] {-android.R.attr.state_enabled}, // disabled
-                new int[] {-android.R.attr.state_checked}, // unchecked
-                new int[] { android.R.attr.state_pressed}  // pressed
-        };
-
-        int[] colors = new int[] {
-                getResources().getColor(R.color.black),
-                getResources().getColor(R.color.bright_teal),
-                getResources().getColor(R.color.unverified_red),
-                getResources().getColor(R.color.light_purple)
-        };
-
-        ColorStateList colorStateList = new ColorStateList(states, colors);
-        navigation.setItemTextColor(colorStateList);
+        navigation.setItemTextColor(getResources().getColorStateList(R.color.bottom_nav_colors));
         selectFragment(findViewById(R.id.navigation_home));
     }
 

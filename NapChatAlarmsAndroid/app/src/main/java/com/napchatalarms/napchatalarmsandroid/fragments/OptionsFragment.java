@@ -1,32 +1,25 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckedTextView;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
-import com.napchatalarms.napchatalarmsandroid.customui.ChangeEmailDialog;
 import com.napchatalarms.napchatalarmsandroid.customui.DeleteAccountDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
@@ -45,15 +38,12 @@ import java.util.ArrayList;
 public class OptionsFragment extends android.support.v4.app.Fragment {
 
     //=====VIEWS=====
-    public Button logoutButton;
-    public Button resendEmailVerificationButton;
-    public Button changeEmailButton;
-    public Button changeNameButton;
-    public EditText changeEmailEditText;
-    public EditText changeUsernameEditText;
-    public CheckedTextView verifiedEmailTextView;
-    public Button resetPassButton;
-    public Button deleteAccountButton;
+     Button logoutButton;
+    private Button verifyEmailBtn;
+    private Button changeNameBtn;
+    private Button resetPassButton;
+    private Button aboutBtn;
+    private Button deleteAccountButton;
 
 
     public OptionsFragment() {
@@ -74,33 +64,13 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     private void initialize(View view) {
 
         logoutButton = (Button) view.findViewById(R.id.logout_btn);
-        resendEmailVerificationButton = (Button) view.findViewById(R.id.resend_verficiationemail_btn);
-        verifiedEmailTextView = (CheckedTextView) view.findViewById(R.id.verified_email_check);
-        changeEmailButton = (Button) view.findViewById(R.id.change_email_btn);
-        changeNameButton = (Button) view.findViewById(R.id.change_name_btn);
-        changeEmailEditText = (EditText) view.findViewById(R.id.change_email_edittext);
-        changeUsernameEditText = (EditText) view.findViewById(R.id.change_username_edittext);
-        resetPassButton = (Button) view.findViewById(R.id.reset_password_btn);
+        verifyEmailBtn = (Button) view.findViewById(R.id.verified_email_btn);
+        changeNameBtn = (Button) view.findViewById(R.id.change_username_btn);
+        resetPassButton = (Button) view.findViewById(R.id.opt_reset_pwd_btn);
         deleteAccountButton = (Button) view.findViewById(R.id.delete_account_btn);
+        aboutBtn = (Button)view.findViewById(R.id.about_btn);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //Checks to see if the user has a verified email.
-        if (user.isEmailVerified() == false) {
-
-            verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
-            verifiedEmailTextView.setText("Email Unverified");
-            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
-            verifiedEmailTextView.setVisibility(View.VISIBLE);
-
-            resendEmailVerificationButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    resendVerificationEmail();
-                }
-            });
-        } else {
-            resendEmailVerificationButton.setVisibility(View.GONE);
-        }
+        checkEmailVerification();
 
         //=====ONCLICK METHODS=====
 
@@ -128,25 +98,25 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        changeNameButton.setOnClickListener(new View.OnClickListener() {
+        changeNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeUsername();
             }
         });
 
-        changeEmailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChangeEmailDialog changeEmailDialog = new ChangeEmailDialog(getActivity());
-                changeEmailDialog.show();
-            }
-        });
 
         resetPassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 resetPassword();
+            }
+        });
+
+        aboutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -158,6 +128,13 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
 
     }
 
@@ -166,19 +143,10 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user.isEmailVerified()) {
-
-            verifiedEmailTextView.setCheckMarkDrawable(R.drawable.ic_info_black_24dp);
-            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.verified_green));
-            verifiedEmailTextView.setText("Email Verified");
-            resendEmailVerificationButton.setVisibility(View.GONE);
-        } else {
-            verifiedEmailTextView.setBackgroundColor(getResources().getColor(R.color.unverified_red));
-            resendEmailVerificationButton.setVisibility(View.VISIBLE);
-        }
+        checkEmailVerification();
     }
+
+
     //=====METHODS=====
 
     /**
@@ -227,31 +195,31 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      * @see UtilityFunctions
      */
     public void changeUsername() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (!changeUsernameEditText.getText().toString().isEmpty() &&
-                UtilityFunctions.isValidUsername(changeUsernameEditText.getText().toString())) {
-
-            final String newName = changeUsernameEditText.getText().toString();
-
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(newName)
-                    .build();
-            user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                User.getInstance().setName(newName);
-                                changeUsernameEditText.setText("");
-                                Toast.makeText(getActivity(), "Username successfully changed!", Toast.LENGTH_LONG).show();
-                                Log.i("Options Activity", "The User's username has been updated successfully");
-                            } else {
-                                Toast.makeText(getActivity(), "Could not update username!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        if (!changeUsernameEditText.getText().toString().isEmpty() &&
+//                UtilityFunctions.isValidUsername(changeUsernameEditText.getText().toString())) {
+//
+//            final String newName = changeUsernameEditText.getText().toString();
+//
+//            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                    .setDisplayName(newName)
+//                    .build();
+//            user.updateProfile(profileUpdates)
+//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                User.getInstance().setName(newName);
+//                                changeUsernameEditText.setText("");
+//                                Toast.makeText(getActivity(), "Username successfully changed!", Toast.LENGTH_LONG).show();
+//                                Log.i("Options Activity", "The User's username has been updated successfully");
+//                            } else {
+//                                Toast.makeText(getActivity(), "Could not update username!", Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    });
+//        }
     }
 
 
@@ -274,6 +242,21 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                         }
                     }
                 });
+    }
+
+    private void checkEmailVerification() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //Checks to see if the user has a verified email.
+        if (user.isEmailVerified() == false) {
+            verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resendVerificationEmail();
+                }
+            });
+        } else {
+            verifyEmailBtn.setTextColor(getResources().getColor(R.color.dark_grey));
+        }
     }
 
 }

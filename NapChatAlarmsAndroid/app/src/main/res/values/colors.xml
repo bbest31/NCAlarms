@@ -14,5 +14,7 @@
     <color name="main_amber">#FFCA28</color>
     <color name="deep_amber">#FFB300</color>
     <color name="dark_grey">#696969</color>
+    <color name="off_white">#f0eded</color>
+
 
 </resources>

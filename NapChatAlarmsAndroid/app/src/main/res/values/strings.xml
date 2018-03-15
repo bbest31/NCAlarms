@@ -64,6 +64,9 @@
     <string name="deny">Deny</string>
     <string name="next">Next</string>
     <string name="signup_pwd_msg">Enter a password.(min 8 characters)</string>
+    <string name="verify">Verify Email</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="about">About</string>
     <!--Vibrate Options-->
     <string name="locomotive">Locomotive</string>
     <string name="buzzsaw">Buzzsaw</string>

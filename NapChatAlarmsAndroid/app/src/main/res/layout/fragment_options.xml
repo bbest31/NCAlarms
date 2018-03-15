@@ -2,127 +2,81 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    >
-
-    <CheckedTextView
-        android:id="@+id/verified_email_check"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/verified_green"
-        android:checkMark="@android:drawable/checkbox_on_background"
-        android:checked="true"
-        android:text="@string/verified_email"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light" />
+    android:layout_height="match_parent"
+    android:background="@color/off_white"
+    android:orientation="vertical">
 
     <Button
-        android:id="@+id/resend_verficiationemail_btn"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/Resend" />
-
-    <TextView
-        android:id="@+id/change_email_text"
+        android:id="@+id/verified_email_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/change_email"
-        android:textColor="@android:color/black" />
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/verify"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/change_email_edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/janedoe_email_com"
-            android:inputType="textEmailAddress"
-            android:singleLine="true" />
-
-        <Button
-            android:id="@+id/change_email_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Save" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/change_name_text"
+    <Button
+        android:id="@+id/opt_reset_pwd_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/reset_password"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/change_username_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/change_name"
-        android:textColor="@android:color/black" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/change_username_edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/new_username"
-            android:inputType="textPersonName" />
-
-        <Button
-            android:id="@+id/change_name_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:text="@string/Save"
-            android:textAlignment="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/reset_password_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/reset_password_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/ResetPassword"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/reset_password_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Send" />
-    </LinearLayout>
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/logout_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/logout"
-        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-        android:textSize="24sp" />
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/about_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/about"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/delete_account_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Delete_Account" />
+        android:background="@color/unverified_red"
+        android:text="@string/Delete_Account"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </LinearLayout>
 
