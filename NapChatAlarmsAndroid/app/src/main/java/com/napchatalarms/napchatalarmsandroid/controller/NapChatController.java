@@ -12,6 +12,7 @@ import com.napchatalarms.napchatalarmsandroid.model.Friend;
 import com.napchatalarms.napchatalarmsandroid.model.FriendList;
 import com.napchatalarms.napchatalarmsandroid.model.Group;
 import com.napchatalarms.napchatalarmsandroid.model.NapAlerts;
+import com.napchatalarms.napchatalarmsandroid.model.SleepFact;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 import java.io.File;
@@ -22,6 +23,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -35,6 +37,7 @@ public class NapChatController {
     private static final NapChatController instance = new NapChatController();
 
     private NapChatController() {
+
     }
 
     public static NapChatController getInstance() {

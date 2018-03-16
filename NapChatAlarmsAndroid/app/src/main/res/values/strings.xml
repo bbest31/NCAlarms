@@ -173,7 +173,15 @@
     <string name="device">Device</string>
     <string name="music">Music</string>
     <string name="napchat">NapChat</string>
+    <string name="dyk_yes">Yes</string>
+    <string name="dyk_no">No</string>
+    <string name="dyk">Did you know?</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!--Sleep Facts-->
+    <string name="sleep_fact1_description">Alcohol prevents your brain from entering REM sleep.</string>
+    <string name="sleep_fact1_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
+    <string name="sleep_fact2_description">This is another sleep fact about the health benefits of getting a good nights rest.</string>
+    <string name="sleep_fact2_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
+    <string name="sleep_fact3_description">This is another sleep fact about the health benefits of getting a good nights rest.</string>
+    <string name="sleep_fact3_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
 </resources>
