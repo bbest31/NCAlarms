@@ -3,18 +3,30 @@
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#a50abf</color>
-    <color name="white">#ffffff</color>
-    <color name="unverified_red">#ff0000</color>
-    <color name="verified_green">#0ea30e</color>
-    <color name="black">#000000</color>
-    <color name="light_purple">#aa00ff</color>
-    <color name="bright_teal">#18ffff</color>
-    <color name="main_purple">#6200EA</color>
-    <color name="second_purple">#651FFF</color>
-    <color name="main_amber">#FFCA28</color>
-    <color name="deep_amber">#FFB300</color>
+
+    <!--Neutrals-->
     <color name="dark_grey">#696969</color>
     <color name="off_white">#f0eded</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
 
+    <!--Gradient colors-->
+    <color name="main_purple">#6200EA</color>
+    <color name="second_purple">#651FFF</color>
+    <color name="deep_amber">#FFB300</color>
+
+    <color name="wake_blue">#0277BD</color>
+    <color name="wake_light_blue">#03A9F4</color>
+    <color name="wake_lightest_blue">#E1F5FE</color>
+
+    <!--Positives & Negatives-->
+    <color name="unverified_red">#ff0000</color>
+    <color name="verified_green">#0ea30e</color>
+
+    <!--Misc-->
+    <color name="light_purple">#aa00ff</color>
+    <color name="bright_teal">#18ffff</color>
+    <color name="main_amber">#FFCA28</color>
+    <color name="grazing_green">#76FF03</color>
 
 </resources>
