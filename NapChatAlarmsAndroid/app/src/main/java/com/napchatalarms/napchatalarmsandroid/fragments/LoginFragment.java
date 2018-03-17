@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,7 +123,8 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("signInWithEmail:failure", task.getException());
-                                Toast.makeText(getActivity(), "Invalid Credentials", Toast.LENGTH_LONG).show();
+                                Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.login_coordinator),getActivity().getString(),Snackbar.LENGTH_INDEFINITE);
+                                //Toast.makeText(getActivity(), "Invalid Credentials", Toast.LENGTH_LONG).show();
                                 loginNavigationOnSuccess(null, context);
                             }
 

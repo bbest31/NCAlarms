@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">NapChat</string>
+    <string name="app_name">Napchat</string>
+
+    <string name="or">or</string>
 
     <string name="sign_up">Sign Up</string>
     <string name="create_account">Create Account</string>
@@ -176,6 +178,13 @@
     <string name="dyk_yes">Yes</string>
     <string name="dyk_no">No</string>
     <string name="dyk">Did you know?</string>
+
+    <!--Hints-->
+    <string name="email_hint">email</string>
+    <string name="pass_hint">password</string>
+
+    <!--Errors & Warnings-->
+    <string name="invalid_credentials">Invalid Credentials</string>
 
     <!--Sleep Facts-->
     <string name="sleep_fact1_description">Alcohol prevents your brain from entering REM sleep.</string>

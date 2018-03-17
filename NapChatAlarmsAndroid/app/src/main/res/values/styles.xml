@@ -27,7 +27,7 @@
         <item name="windowActionBar">true</item>
     </style>
 
-    <style name="splashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="splashScreenTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
