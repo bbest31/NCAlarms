@@ -23,10 +23,10 @@ import android.widget.TimePicker;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
-import com.napchatalarms.napchatalarmsandroid.customui.DnDOverrideDialog;
-import com.napchatalarms.napchatalarmsandroid.customui.RepeatDaysDialog;
-import com.napchatalarms.napchatalarmsandroid.customui.RingtoneDialog;
-import com.napchatalarms.napchatalarmsandroid.customui.VibrateDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.DnDOverrideDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.RepeatDaysDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.RingtoneDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.VibrateDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;

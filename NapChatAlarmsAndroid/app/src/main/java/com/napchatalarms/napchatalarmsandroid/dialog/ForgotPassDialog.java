@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.customui;
+package com.napchatalarms.napchatalarmsandroid.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -86,7 +86,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.i("ForgotPassDialog", "Email sent.");
-
+                                UtilityFunctions.createEmailSuccessToast(getOwnerActivity(),getLayoutInflater()).show();
                             } else {
                                 //Email may not exists with an account so we should display some kind of error
                                 Log.i("ForgotPassDialog", "Email could not be sent!");

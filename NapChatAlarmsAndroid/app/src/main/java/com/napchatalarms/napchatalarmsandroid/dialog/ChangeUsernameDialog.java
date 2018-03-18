@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.customui;
+package com.napchatalarms.napchatalarmsandroid.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;

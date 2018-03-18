@@ -1,10 +1,16 @@
 package com.napchatalarms.napchatalarmsandroid.utility;
 
+import android.app.Activity;
 import android.util.Patterns;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -273,5 +279,31 @@ public class UtilityFunctions {
                 break;
         }
         return  pattern;
+    }
+
+    /**
+     * Constructs a custom toast near the top of the activity of an amber color with the message
+     * "We're working on it!"
+     * Used as a placeholder for an onclick method.
+     * @param activity
+     * @param inflater
+     * @return
+     */
+    public final static Toast createWarningToast(Activity activity, LayoutInflater inflater){
+        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,100);
+        View layout = inflater.inflate(R.layout.toast_construction_warn,
+                (ViewGroup) activity.findViewById(R.id.warning_toast_container));
+        toast.setView(layout);
+        return toast;
+    }
+
+    public final static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater){
+        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,100);
+        View layout = inflater.inflate(R.layout.toast_email_success,
+                (ViewGroup) activity.findViewById(R.id.email_success_toast_container));
+        toast.setView(layout);
+        return toast;
     }
 }

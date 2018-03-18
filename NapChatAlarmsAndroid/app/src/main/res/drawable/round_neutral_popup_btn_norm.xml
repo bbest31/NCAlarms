@@ -9,6 +9,6 @@
         android:left="10dp"
         android:right="10dp"
         android:top="10dp" />
-    <solid android:color="@color/off_white" />
+    <solid android:color="@color/neutral_btn_norm" />
 
 </shape>

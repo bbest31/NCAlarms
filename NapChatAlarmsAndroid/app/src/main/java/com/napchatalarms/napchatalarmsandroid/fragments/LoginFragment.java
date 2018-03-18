@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
-import com.napchatalarms.napchatalarmsandroid.customui.ForgotPassDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.ForgotPassDialog;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 /**

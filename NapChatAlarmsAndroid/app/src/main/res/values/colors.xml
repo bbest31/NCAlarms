@@ -14,7 +14,9 @@
     <color name="blood_orange_sel">#cc3303</color>
     <color name="fab_blue_norm">#00CFFA</color>
     <color name="fab_blue_sel">#0199b8</color>
-    <color name="light_blue_sel">#0583bd</color>
+    <color name="light_blue_sel">#9ec7db</color>
+    <color name="neutral_btn_norm">#f6f6f6</color>
+    <color name="neutral_btn_sel">#cccbcb</color>
 
     <!--Neutrals-->
     <color name="dark_grey">#696969</color>
@@ -35,8 +37,6 @@
     <!--Positives & Negatives-->
     <color name="unverified_red">#ff0000</color>
     <color name="verified_green">#0ea30e</color>
-
-
 
     <!--Misc-->
     <color name="facebook_blue">#4267B2</color>

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,8 +20,8 @@ import com.napchatalarms.napchatalarmsandroid.activities.AboutActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
-import com.napchatalarms.napchatalarmsandroid.customui.ChangeUsernameDialog;
-import com.napchatalarms.napchatalarmsandroid.customui.DeleteAccountDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.ChangeUsernameDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.DeleteAccountDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
@@ -34,7 +33,6 @@ import java.util.ArrayList;
 /**
  * Activity where users can logout, verify email, change email/password/name, delete account
  * and upgrade to paid version.
- *@todo Upgrade Button , Rate button method, FAQ, Privacy Policy,
  * @author bbest
  */
 public class OptionsFragment extends android.support.v4.app.Fragment {
@@ -43,9 +41,13 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     Button logoutButton;
     private Button verifyEmailBtn;
     private Button changeNameBtn;
-    private Button resetPassButton;
+    private Button resetPassBtn;
     private Button aboutBtn;
-    private Button deleteAccountButton;
+    private Button deleteAccountBtn;
+    private Button faqBtn;
+    private Button upgradeBtn;
+    private Button privacyPolicyBtn;
+    private Button rateBtn;
 
 
     public OptionsFragment() {
@@ -68,9 +70,14 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         logoutButton = (Button) view.findViewById(R.id.logout_btn);
         verifyEmailBtn = (Button) view.findViewById(R.id.verified_email_btn);
         changeNameBtn = (Button) view.findViewById(R.id.change_username_btn);
-        resetPassButton = (Button) view.findViewById(R.id.opt_reset_pwd_btn);
-        deleteAccountButton = (Button) view.findViewById(R.id.delete_account_btn);
+        resetPassBtn = (Button) view.findViewById(R.id.opt_reset_pwd_btn);
+        deleteAccountBtn = (Button) view.findViewById(R.id.delete_account_btn);
         aboutBtn = (Button)view.findViewById(R.id.about_btn);
+        faqBtn = (Button) view.findViewById(R.id.faq_btn);
+        upgradeBtn = (Button) view.findViewById(R.id.upgrade_btn);
+        privacyPolicyBtn = (Button) view.findViewById(R.id.privacy_policy_btn);
+        rateBtn = (Button) view.findViewById(R.id.rate_btn);
+
 
         checkEmailVerification();
 
@@ -108,12 +115,42 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         });
 
 
-        resetPassButton.setOnClickListener(new View.OnClickListener() {
+        resetPassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 resetPassword();
             }
         });
+
+        upgradeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+            }
+        });
+
+        faqBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+            }
+        });
+
+        rateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+            }
+        });
+
+        privacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+            }
+        });
+
+
 
         aboutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +160,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+        deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(getActivity());
@@ -178,6 +215,14 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.i("Options Fragment", "Resent Verification Email successfully");
+                           UtilityFunctions.createEmailSuccessToast(getActivity(),getLayoutInflater()).show();
+                            verifyEmailBtn.setText(R.string.sent);
+                            verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
                         }
                     }
                 });
@@ -209,7 +254,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_LONG).show();
+                            UtilityFunctions.createEmailSuccessToast(getActivity(),getLayoutInflater()).show();
+
                             Log.i("Options Activity", "Email sent.");
                         }
                     }
@@ -227,8 +273,17 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                 }
             });
         } else {
-            verifyEmailBtn.setTextColor(getResources().getColor(R.color.dark_grey));
+            verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            verifyEmailBtn.setTextColor(getResources().getColor(R.color.verified_green));
+            verifyEmailBtn.setText(R.string.verified);
         }
     }
+
+
 
 }

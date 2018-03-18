@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.napchatalarms.napchatalarmsandroid.customui.FactFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.FactFragment;
 
 import java.util.List;
 
@@ -18,9 +18,11 @@ public class FactsPageAdapter extends FragmentPagerAdapter {
 
 
     private List<android.support.v4.app.Fragment> fragments;
+    private int count = 0;
 
-    public FactsPageAdapter(FragmentManager fm) {
+    public FactsPageAdapter(FragmentManager fm,int count) {
         super(fm);
+        this.count = count;
     }
 
     @Override
@@ -30,6 +32,6 @@ public class FactsPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return count;
     }
 }

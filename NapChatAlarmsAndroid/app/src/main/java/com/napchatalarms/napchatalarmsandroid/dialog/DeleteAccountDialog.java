@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.customui;
+package com.napchatalarms.napchatalarmsandroid.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -56,7 +56,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.delete_account_dialog);
+        setContentView(R.layout.dialog_delete_account);
         confirm = (Button) findViewById(R.id.delete_account_confirm_btn);
         cancel = (Button) findViewById(R.id.delete_account_cancel_btn);
         emailEntry = (EditText) findViewById(R.id.delete_account_email_editText);

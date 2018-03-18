@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.customui;
+package com.napchatalarms.napchatalarmsandroid.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,7 +9,6 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
 
 /**
  * Created by bbest on 10/03/18.

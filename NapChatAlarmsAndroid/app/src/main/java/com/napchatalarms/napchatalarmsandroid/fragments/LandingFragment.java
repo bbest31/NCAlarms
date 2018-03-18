@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 /**
  * Created by bbest on 11/03/18.
@@ -81,13 +82,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         fbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getActivity(),"",Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP,0,100);
-                LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.toast_construction_warn,
-                        (ViewGroup) getActivity().findViewById(R.id.warning_toast_container));
-                toast.setView(layout);
-                toast.show();
+                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
             }
         });
 

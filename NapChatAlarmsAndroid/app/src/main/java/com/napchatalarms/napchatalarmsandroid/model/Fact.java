@@ -6,13 +6,13 @@ import java.net.URL;
  * Created by bbest on 15/03/18.
  */
 
-public class SleepFact {
+public class Fact {
     private String factDescription;
     private String citation;
     //private URL link;
     //gif or image.
 
-    public SleepFact(String fact, String citation){
+    public Fact(String fact, String citation){
         this.citation = citation;
         this.factDescription = fact;
 

@@ -45,6 +45,27 @@
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/faq_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:text="@string/faq"
+        android:textAlignment="viewStart"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/upgrade_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:text="@string/upgrade"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
         android:id="@+id/rate_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,6 +87,17 @@
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/privacy_policy_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:paddingLeft="10dp"
+        android:text="@string/privacy_policy"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
         android:textSize="18sp" />
 
     <Button

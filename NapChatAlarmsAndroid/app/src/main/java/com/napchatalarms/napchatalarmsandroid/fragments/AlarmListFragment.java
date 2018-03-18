@@ -18,7 +18,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
-import com.napchatalarms.napchatalarmsandroid.customui.AlarmAdapter;
+import com.napchatalarms.napchatalarmsandroid.dialog.AlarmAdapter;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 

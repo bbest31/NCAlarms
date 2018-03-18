@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.customui.FactFragment;
+import com.napchatalarms.napchatalarmsandroid.model.Fact;
+import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
 import com.napchatalarms.napchatalarmsandroid.services.FactsPageAdapter;
 import com.napchatalarms.napchatalarmsandroid.utility.DepthPageTransformer;
 
@@ -22,8 +23,9 @@ public class SleepFactsFragment extends android.support.v4.app.Fragment {
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
-    private final static int NUM_PAGES = 3;
+    private static int NUM_PAGES = 0;
     FactsPageAdapter pageAdapter;
+
     public SleepFactsFragment() {
         // Required empty public constructor
     }
@@ -37,8 +39,7 @@ public class SleepFactsFragment extends android.support.v4.app.Fragment {
         View  view = inflater.inflate(R.layout.fragment_facts, container, false);
         initialize(view);
         List<Fragment> fragments = getFragments();
-        pageAdapter = new FactsPageAdapter(getActivity().getSupportFragmentManager());
-
+        pageAdapter = new FactsPageAdapter(getActivity().getSupportFragmentManager(),NUM_PAGES);
         pager = (ViewPager)view.findViewById(R.id.facts_view_pager);
         pager.setPageTransformer(true, new DepthPageTransformer());
         pager.setAdapter(pageAdapter);
@@ -52,11 +53,33 @@ public class SleepFactsFragment extends android.support.v4.app.Fragment {
 
     }
 
+    /**
+     *
+     * @return
+     */
     private List<Fragment> getFragments(){
+        ArrayList<Fact> facts = FactHolder.getInstance(getActivity()).getFacts();
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new FactFragment());
-        fragments.add(new FactFragment());
-        fragments.add(new FactFragment());
+
+        // Add first fact without left chevron
+        FirstFactFragment firstFactFragment = new FirstFactFragment();
+        firstFactFragment.setFact(facts.get(0));
+        fragments.add(new FirstFactFragment());
+
+        // Add the rest of the facts
+        for(int i = 1; i < facts.size(); i++){
+            FactFragment factFragment = new FactFragment();
+            factFragment.setFact(facts.get(i));
+            fragments.add(factFragment);
+        }
+
+        // Add SubmitFactFragment
+        SubmitFactFragment fragment = new SubmitFactFragment();
+        fragment.isLast(true);
+
+        fragments.add(fragment);
+
+        NUM_PAGES = fragments.size();
 
         return fragments;
     }

@@ -8,11 +8,9 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
-import com.napchatalarms.napchatalarmsandroid.model.Friend;
 import com.napchatalarms.napchatalarmsandroid.model.FriendList;
 import com.napchatalarms.napchatalarmsandroid.model.Group;
 import com.napchatalarms.napchatalarmsandroid.model.NapAlerts;
-import com.napchatalarms.napchatalarmsandroid.model.SleepFact;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 import java.io.File;
@@ -23,7 +21,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
