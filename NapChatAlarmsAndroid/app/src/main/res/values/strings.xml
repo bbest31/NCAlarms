@@ -180,6 +180,9 @@
     <string name="dyk_no">No</string>
     <string name="dyk">Did you know?</string>
 
+    <!--Button Text-->
+    <string name="edit">Edit</string>
+
     <!--Hints-->
     <string name="email_hint">email</string>
     <string name="pass_hint">password</string>

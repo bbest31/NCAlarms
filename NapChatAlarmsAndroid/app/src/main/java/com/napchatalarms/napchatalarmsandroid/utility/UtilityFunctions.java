@@ -6,6 +6,7 @@ import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -212,6 +213,7 @@ public class UtilityFunctions {
 
     //TODO: detect weekends, and weekdays settings.
     public final static String generateRepeatText(List<Integer> days) {
+        Collections.sort(days);
         String repeatText = "";
         if (days.size() != 0 && days.size() != 7) {
             for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext(); ) {

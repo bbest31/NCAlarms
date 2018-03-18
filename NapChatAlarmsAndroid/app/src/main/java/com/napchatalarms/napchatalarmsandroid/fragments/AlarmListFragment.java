@@ -1,10 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -12,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
-import android.widget.Button;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -81,12 +77,11 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getContext());
                 // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0x00, 0xAB,
-                        0xFF)));
+                openItem.setBackground(getActivity().getDrawable(R.drawable.circle_edit_alarm_btn));
                 // set item width
                 openItem.setWidth(300);
                 // set item title
-                openItem.setTitle("Edit");
+                openItem.setTitle(getActivity().getString(R.string.edit));
                 // set item title fontsize
                 openItem.setTitleSize(18);
                 // set item title font color
@@ -98,8 +93,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                        0x3F, 0x25)));
+                deleteItem.setBackground(getActivity().getDrawable(R.drawable.circle_del_alarm_btn));
                 // set item width
                 deleteItem.setWidth(300);
                 // set a icon
@@ -149,7 +143,6 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
     }
 
     public void updateAlarmList() {
-        User user = User.getInstance();
         alarmAdapter = new AlarmAdapter(getContext(), User.getInstance().getAlarmList());
         alarmListView.setAdapter(alarmAdapter);
     }
