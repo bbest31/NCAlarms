@@ -34,7 +34,7 @@ import java.util.ArrayList;
 /**
  * Activity where users can logout, verify email, change email/password/name, delete account
  * and upgrade to paid version.
- *@todo Upgrade Button (if implemented), Rate button method, FAQ, Privacy Policy,
+ *@todo Upgrade Button , Rate button method, FAQ, Privacy Policy,
  * @author bbest
  */
 public class OptionsFragment extends android.support.v4.app.Fragment {

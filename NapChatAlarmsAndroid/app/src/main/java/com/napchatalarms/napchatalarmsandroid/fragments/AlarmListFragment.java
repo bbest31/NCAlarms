@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
@@ -24,12 +25,16 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
 import static android.app.Activity.RESULT_OK;
 
 
-public class AlarmListFragment extends android.support.v4.app.Fragment {
+public class AlarmListFragment extends android.support.v4.app.Fragment implements View.OnTouchListener {
 
     //=====ATTRIBUTES=====
     SwipeMenuListView alarmListView;
     FloatingActionButton addAlarmButton;
     AlarmAdapter alarmAdapter;
+    private final static float CLICK_DRAG_TOLERANCE = 10; // Often, there will be a slight, unintentional, drag when the user taps the FAB, so we need to account for this.
+
+    private float downRawX, downRawY;
+    private float dX, dY;
 
     public AlarmListFragment() {
         // Required empty public constructor
@@ -64,11 +69,16 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addAlarmButton.setBackgroundColor(getActivity().getColor(R.color.fab_blue_sel));
                 Intent createAlarmIntent = new Intent(getActivity(), CreateAlarmActivity.class);
                 createAlarmIntent.putExtra("ID", 0);
                 startActivityForResult(createAlarmIntent,1);
             }
         });
+
+
+        addAlarmButton.setOnTouchListener(this);
+
                 SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -77,7 +87,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getContext());
                 // set item background
-                openItem.setBackground(getActivity().getDrawable(R.drawable.circle_edit_alarm_btn));
+                openItem.setBackground(getActivity().getDrawable(R.drawable.circle_blue_btn));
                 // set item width
                 openItem.setWidth(300);
                 // set item title
@@ -93,7 +103,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getContext());
                 // set item background
-                deleteItem.setBackground(getActivity().getDrawable(R.drawable.circle_del_alarm_btn));
+                deleteItem.setBackground(getActivity().getDrawable(R.drawable.circle_red_btn));
                 // set item width
                 deleteItem.setWidth(300);
                 // set a icon
@@ -161,4 +171,65 @@ public class AlarmListFragment extends android.support.v4.app.Fragment {
         }
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        int action = motionEvent.getAction();
+        if (action == MotionEvent.ACTION_DOWN) {
+
+            downRawX = motionEvent.getRawX();
+            downRawY = motionEvent.getRawY();
+            dX = view.getX() - downRawX;
+            dY = view.getY() - downRawY;
+
+            return true; // Consumed
+
+        }
+        else if (action == MotionEvent.ACTION_MOVE) {
+
+            int viewWidth = view.getWidth();
+            int viewHeight = view.getHeight();
+
+            View viewParent = (View)view.getParent();
+            int parentWidth = viewParent.getWidth();
+            int parentHeight = viewParent.getHeight();
+
+            float newX = motionEvent.getRawX() + dX;
+            newX = Math.max(0, newX); // Don't allow the FAB past the left hand side of the parent
+            newX = Math.min(parentWidth - viewWidth, newX); // Don't allow the FAB past the right hand side of the parent
+
+            float newY = motionEvent.getRawY() + dY;
+            newY = Math.max(0, newY); // Don't allow the FAB past the top of the parent
+            newY = Math.min(parentHeight - viewHeight, newY); // Don't allow the FAB past the bottom of the parent
+
+            view.animate()
+                    .x(newX)
+                    .y(newY)
+                    .setDuration(0)
+                    .start();
+
+            return true; // Consumed
+
+        }
+        else if (action == MotionEvent.ACTION_UP) {
+
+            float upRawX = motionEvent.getRawX();
+            float upRawY = motionEvent.getRawY();
+
+            float upDX = upRawX - downRawX;
+            float upDY = upRawY - downRawY;
+
+            if (Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(upDY) < CLICK_DRAG_TOLERANCE) { // A click
+                return view.performClick();
+            }
+            else { // A drag
+                return true; // Consumed
+            }
+
+        }
+        else {
+            return view.onTouchEvent(motionEvent);
+        }
+    }
 }
+

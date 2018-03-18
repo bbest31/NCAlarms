@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 
 /**
@@ -44,7 +45,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.forgot_password_dialog);
+        setContentView(R.layout.dialog_forgot_password);
         send = (Button) findViewById(R.id.fgtpass_send_btn);
         cancel = (Button) findViewById(R.id.fgtpass_cancel_btn);
         emailEntry = (EditText) findViewById(R.id.password_reset_email_entry);
@@ -78,18 +79,26 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
 
         String emailAddress = emailEntry.getText().toString();
 
-        auth.sendPasswordResetEmail(emailAddress)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.i("ForgotPassDialog", "Email sent.");
+        if(UtilityFunctions.isValidEmail(emailAddress)){
+            auth.sendPasswordResetEmail(emailAddress)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.i("ForgotPassDialog", "Email sent.");
 
-                        } else {
-                            //Email may not exists with an account so we should display some kind of error
-                            Log.i("ForgotPassDialog", "Email could not be sent!");
+                            } else {
+                                //Email may not exists with an account so we should display some kind of error
+                                Log.i("ForgotPassDialog", "Email could not be sent!");
+                                //TODO Custom Toast
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            //TODO Custom Toast
+
+        }
+
+
     }
 }
