@@ -13,12 +13,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="220dp"
-        android:alpha="0.75"
         android:elevation="0dp"
         android:visibility="visible"
-        app:cardBackgroundColor="@android:color/darker_gray"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
-        app:cardElevation="5dp"
+        app:cardElevation="1dp"
         app:contentPadding="20dp">
 
         <LinearLayout
@@ -32,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/sign_up_email_msg"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_grey"
                 android:textSize="14sp" />
 
             <EditText
@@ -44,7 +43,7 @@
                 android:hint="@string/janedoe_email_com"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
-                android:textColor="@color/white" />
+                android:textColor="@color/dark_grey" />
 
             <EditText
                 android:id="@+id/signup_username_edittext"
@@ -54,15 +53,16 @@
                 android:hint="@string/new_username"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textColor="@color/dark_grey" />
 
             <Button
                 android:id="@+id/signup_email_next_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_purple"
+                android:background="@drawable/round_purple_btn"
                 android:text="@string/next"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 android:visibility="visible" />
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,14 +45,14 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 Boolean validCredentials = true;
                 String username = usernameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
-                String errMsg = "Invalid Entry";
+                int err = 0;
 
                 if (!UtilityFunctions.isValidEmail(email)) {
-                    errMsg = "Invalid Email";
+                    err = 1;
                     validCredentials = false;
 
                 }else if (!UtilityFunctions.isValidUsername(username)) {
-                    errMsg ="Invalid Username";
+                    err = 2;
                     validCredentials = false;
                 }
 
@@ -63,7 +64,8 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                     activity.selectFragment(v);
                 }
                 if (validCredentials == false) {
-                    Toast.makeText(getActivity(),errMsg,Toast.LENGTH_LONG).show();
+                    Toast toast = errorToast(err);
+                    toast.show();
 
                 }
 
@@ -71,5 +73,31 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
 
             }
         });
+    }
+
+    private Toast errorToast(int err){
+        Toast toast = Toast.makeText(getActivity(),"", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,500);
+
+        switch(err){
+            case 1:
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_signup_email_err,
+                        (ViewGroup) getActivity().findViewById(R.id.signup_email_err_container));
+                toast.setView(layout);
+                break;
+            case 2:
+                LayoutInflater inflater2 = getLayoutInflater();
+                View layout2 = inflater2.inflate(R.layout.toast_signup_user_err,
+                        (ViewGroup) getActivity().findViewById(R.id.signup_user_err_container));
+                toast.setView(layout2);
+                break;
+            default:
+                toast.setText(getActivity().getString(R.string.invalid_generic));
+                break;
+
+        }
+
+        return toast;
     }
 }

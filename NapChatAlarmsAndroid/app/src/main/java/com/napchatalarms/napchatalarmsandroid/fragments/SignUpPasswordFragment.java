@@ -2,6 +2,7 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,8 @@ public class SignUpPasswordFragment extends Fragment {
     EditText pwdEditText;
     Button signUpBtn;
 
-    public SignUpPasswordFragment(){}
+    public SignUpPasswordFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,7 +35,7 @@ public class SignUpPasswordFragment extends Fragment {
         return view;
     }
 
-    private void initialize(View view){
+    private void initialize(View view) {
         pwdEditText = (EditText) view.findViewById(R.id.signup_pwd_edittext);
         signUpBtn = (Button) view.findViewById(R.id.signup_pwd_next_btn);
 
@@ -41,27 +43,38 @@ public class SignUpPasswordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Boolean validCredentials = true;
-                String errMsg = "Invalid Entry";
 
                 String password = pwdEditText.getText().toString();
                 if (!UtilityFunctions.isValidPassword(password)) {
                     validCredentials = false;
-                    errMsg = "Invalid Password!";
                 }
 
-
                 if (validCredentials == true) {
-                    SignUpActivity activity = (SignUpActivity)getActivity();
+                    SignUpActivity activity = (SignUpActivity) getActivity();
                     activity.password = pwdEditText.getText().toString();
                     activity.createNewUser();
                 }
                 if (validCredentials == false) {
                     //clears password for reentry.
-                    Toast.makeText(getActivity(),errMsg, Toast.LENGTH_LONG).show();
+                    Toast toast = errorToast();
+
+                    toast.show();
                     pwdEditText.setText("");
                 }
             }
         });
+    }
+
+    private Toast errorToast() {
+        Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 500);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_signup_pass_err,
+                (ViewGroup) getActivity().findViewById(R.id.signup_pass_err_container));
+
+        toast.setView(layout);
+        return toast;
     }
 
 }

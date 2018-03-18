@@ -3,8 +3,8 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +82,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity activity = (LoginActivity)getActivity();
+                LoginActivity activity = (LoginActivity) getActivity();
                 activity.selectFragment(v);
             }
         });
@@ -123,8 +123,16 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("signInWithEmail:failure", task.getException());
-                                Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.login_coordinator),getActivity().getString(),Snackbar.LENGTH_INDEFINITE);
-                                //Toast.makeText(getActivity(), "Invalid Credentials", Toast.LENGTH_LONG).show();
+                                Toast toast = Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_credentials), Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.TOP, 0, 80);
+                                toast.setText(getActivity().getString(R.string.failed_login));
+
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast_login_err,
+                                        (ViewGroup) getActivity().findViewById(R.id.login_toast_container));
+
+                                toast.setView(layout);
+                                toast.show();
                                 loginNavigationOnSuccess(null, context);
                             }
 
@@ -132,7 +140,8 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                         }
                     });
         } else {
-            Toast.makeText(getActivity(), "Invalid Credentials", Toast.LENGTH_LONG).show();
+
+            loginErrToast().show();
         }
     }
 
@@ -153,5 +162,18 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             activity.loginNavigationOnSuccess(currentUser, context);
         }
 
+    }
+
+    private Toast loginErrToast() {
+        Toast toast = Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_credentials), Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 80);
+        toast.setText(getActivity().getString(R.string.invalid_credentials));
+
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_login_err,
+                (ViewGroup) getActivity().findViewById(R.id.login_toast_container));
+
+        toast.setView(layout);
+        return toast;
     }
 }

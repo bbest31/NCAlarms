@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#a50abf</color>
+
+    <!--Buttons-->
+    <color name="dark_blue">#303f9f</color>
+    <color name="light_btn_blue">#E3F2FD</color>
+    <color name="light_purple">#aa00ff</color>
 
     <!--Neutrals-->
     <color name="dark_grey">#696969</color>
@@ -28,7 +33,6 @@
 
     <!--Misc-->
     <color name="facebook_blue">#4267B2</color>
-    <color name="light_purple">#aa00ff</color>
     <color name="bright_teal">#18ffff</color>
     <color name="main_amber">#FFCA28</color>
     <color name="grazing_green">#76FF03</color>

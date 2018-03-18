@@ -217,25 +217,25 @@ public class UtilityFunctions {
             for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext(); ) {
                 switch (iterator.next()) {
                     case 1:
-                        repeatText = repeatText.concat("Sun,");
+                        repeatText = repeatText.concat("Sun ");
                         break;
                     case 2:
-                        repeatText = repeatText.concat("Mon,");
+                        repeatText = repeatText.concat("Mon ");
                         break;
                     case 3:
-                        repeatText = repeatText.concat("Tues,");
+                        repeatText = repeatText.concat("Tues ");
                         break;
                     case 4:
-                        repeatText = repeatText.concat("Wed,");
+                        repeatText = repeatText.concat("Wed ");
                         break;
                     case 5:
-                        repeatText = repeatText.concat("Thurs,");
+                        repeatText = repeatText.concat("Thurs ");
                         break;
                     case 6:
-                        repeatText = repeatText.concat("Fri,");
+                        repeatText = repeatText.concat("Fri ");
                         break;
                     case 7:
-                        repeatText = repeatText.concat("Sat,");
+                        repeatText = repeatText.concat("Sat ");
                         break;
                 }
             }

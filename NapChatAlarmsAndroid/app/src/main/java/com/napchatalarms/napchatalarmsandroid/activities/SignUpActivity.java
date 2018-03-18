@@ -44,7 +44,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
@@ -88,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.w("SignUp Activity", "createUserWithEmail:failure", task.getException());
                             signUpNavigationOnSuccess(null);
                             Toast.makeText(SignUpActivity.this, "Failed. Account with email may already exist.", Toast.LENGTH_LONG).show();
-                            ;
+
                         }
 
                         // ...
@@ -160,7 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.signup_frame, fragment)
-                .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK).commit();
+                .setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left).commit();
 
     }
 }
