@@ -42,12 +42,16 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     private Button verifyEmailBtn;
     private Button changeNameBtn;
     private Button resetPassBtn;
+    private Button shareBtn;
     private Button aboutBtn;
     private Button deleteAccountBtn;
     private Button faqBtn;
     private Button upgradeBtn;
     private Button privacyPolicyBtn;
     private Button rateBtn;
+    private Button openSrcBtn;
+    private Button creditBtn;
+    private Button submitFeedbackBtn;
 
 
     public OptionsFragment() {
@@ -77,6 +81,11 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         upgradeBtn = (Button) view.findViewById(R.id.upgrade_btn);
         privacyPolicyBtn = (Button) view.findViewById(R.id.privacy_policy_btn);
         rateBtn = (Button) view.findViewById(R.id.rate_btn);
+        shareBtn = (Button) view.findViewById(R.id.share_app_btn);
+        submitFeedbackBtn = (Button) view.findViewById(R.id.feedback_btn);
+        openSrcBtn = (Button) view.findViewById(R.id.open_src_btn);
+        creditBtn = (Button) view.findViewById(R.id.credit_btn);
+
 
 
         checkEmailVerification();
@@ -137,6 +146,13 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         });
 
         rateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+            }
+        });
+
+        shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();

@@ -1,6 +1,11 @@
 <resources>
 
+    <!--Info-->
     <string name="app_name">Napchat</string>
+    <string name="company_name">by Brandon Best</string>
+    <string name="version_number">v0.1.0.0</string>
+    <string name="license">Licenses</string>
+
 
     <string name="or">or</string>
 
@@ -64,12 +69,16 @@
     <string name="back">Back</string>
 
 
+    <!--Image content Descriptions-->
+    <string name="logo_descrip">Napchat Pillow Logo</string>
+
 
     <!--Titles-->
     <string name="Forgot_Pass">Forgot Password?</string>
     <string name="Delete_Account">Delete Account</string>
     <string name="change_name">Change Name</string>
     <string name="submit_fact">Submit Fact</string>
+    <string name="support">Support</string>
 
 
     <!--Vibrate Options-->
@@ -176,18 +185,11 @@
 
     <!--Button Text-->
     <string name="edit">Edit</string>
-    <string name="faq">FAQ</string>
     <string name="device">Device</string>
     <string name="music">Music</string>
     <string name="dyk_yes">Yes</string>
     <string name="dyk_no">No</string>
-    <string name="upgrade">Upgrade</string>
-    <string name="privacy_policy">Privacy Policy</string>
     <string name="sign_up">Sign Up</string>
-    <string name="verify">Verify Email</string>
-    <string name="reset_password">Reset Password</string>
-    <string name="about">About</string>
-    <string name="rate">Rate us</string>
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
     <string name="next">Next</string>
@@ -195,7 +197,22 @@
     <string name="repeat">Repeat</string>
     <string name="Cancel">Cancel</string>
     <string name="Send">Send</string>
+
+
+    <!--Options Menu-->
+    <string name="faq">FAQ</string>
+    <string name="upgrade_support">Upgrade/Support Developers</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="verify">Verify Email</string>
     <string name="verified">Verified</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="about">About</string>
+    <string name="rate">Rate App</string>
+    <string name="credits">Credits</string>
+    <string name="open_src">Open Source Libraries</string>
+    <string name="feedback_bug">Submit Feedback/Problems</string>
+    <string name="share">Share App</string>
+
 
     <!--Placeholders-->
     <string name="descrip">Description</string>

@@ -4,14 +4,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/off_white"
+    android:background="@android:color/darker_gray"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/options_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="10dp"
+        android:text="@string/Options"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_blue"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/verified_email_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/verify"
@@ -24,7 +39,10 @@
         android:id="@+id/opt_reset_pwd_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/reset_password"
@@ -36,7 +54,10 @@
         android:id="@+id/change_username_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/change_name"
@@ -45,42 +66,13 @@
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/faq_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/off_white"
-        android:paddingLeft="10dp"
-        android:text="@string/faq"
-        android:textAlignment="viewStart"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/upgrade_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/off_white"
-        android:paddingLeft="10dp"
-        android:text="@string/upgrade"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/rate_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/off_white"
-        android:paddingLeft="10dp"
-        android:text="@string/rate"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textSize="18sp" />
-
-    <Button
         android:id="@+id/logout_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/logout"
@@ -90,10 +82,128 @@
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/delete_account_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:paddingLeft="10dp"
+        android:text="@string/Delete_Account"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="10dp"
+        android:text="@string/support"
+        android:textColor="@color/dark_blue"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/faq_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:paddingLeft="10dp"
+        android:text="@string/faq"
+        android:textAlignment="viewStart"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/feedback_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:text="@string/feedback_bug"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/upgrade_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:paddingLeft="10dp"
+        android:text="@string/upgrade_support"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/rate_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:paddingLeft="10dp"
+        android:text="@string/rate"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/share_app_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:text="@string/share"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="10dp"
+        android:text="@string/about"
+        android:textColor="@color/dark_blue"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/open_src_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:paddingLeft="10dp"
+        android:text="@string/open_src"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
         android:id="@+id/privacy_policy_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
         android:paddingLeft="10dp"
         android:text="@string/privacy_policy"
         android:textAlignment="viewStart"
@@ -101,24 +211,32 @@
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/credit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
+        android:paddingLeft="10dp"
+        android:text="@string/credits"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <Button
         android:id="@+id/about_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/options_menu_btn"
+        android:elevation="1dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/about"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/delete_account_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/unverified_red"
-        android:text="@string/Delete_Account"
-        android:textColor="@color/white"
         android:textSize="18sp" />
 
 </LinearLayout>

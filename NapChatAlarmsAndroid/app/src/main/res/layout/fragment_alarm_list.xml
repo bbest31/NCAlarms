@@ -33,12 +33,12 @@
             android:id="@+id/alarm_list_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_one"
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="36sp" />
 
         <View
             android:layout_width="match_parent"
