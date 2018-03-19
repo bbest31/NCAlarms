@@ -50,7 +50,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     private Button privacyPolicyBtn;
     private Button rateBtn;
     private Button openSrcBtn;
-    private Button creditBtn;
     private Button submitFeedbackBtn;
 
 
@@ -84,7 +83,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         shareBtn = (Button) view.findViewById(R.id.share_app_btn);
         submitFeedbackBtn = (Button) view.findViewById(R.id.feedback_btn);
         openSrcBtn = (Button) view.findViewById(R.id.open_src_btn);
-        creditBtn = (Button) view.findViewById(R.id.credit_btn);
 
 
 
@@ -181,6 +179,13 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             public void onClick(View view) {
                 DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(getActivity());
                 deleteAccountDialog.show();
+            }
+        });
+
+        openSrcBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
