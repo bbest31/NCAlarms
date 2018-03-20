@@ -49,7 +49,6 @@
 
         <activity android:name=".activities.CustomRingtoneActivity" />
         <activity android:name=".activities.AboutActivity" />
-        <activity android:name=".activities.FeedbackActivity"></activity>
     </application>
 
 </manifest>

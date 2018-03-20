@@ -3,6 +3,8 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +29,8 @@ import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
@@ -33,6 +38,7 @@ import java.util.ArrayList;
 /**
  * Activity where users can logout, verify email, change email/password/name, delete account
  * and upgrade to paid version.
+ *
  * @author bbest
  */
 public class OptionsFragment extends android.support.v4.app.Fragment {
@@ -75,7 +81,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         changeNameBtn = (Button) view.findViewById(R.id.change_username_btn);
         resetPassBtn = (Button) view.findViewById(R.id.opt_reset_pwd_btn);
         deleteAccountBtn = (Button) view.findViewById(R.id.delete_account_btn);
-        aboutBtn = (Button)view.findViewById(R.id.about_btn);
+        aboutBtn = (Button) view.findViewById(R.id.about_btn);
         faqBtn = (Button) view.findViewById(R.id.faq_btn);
         upgradeBtn = (Button) view.findViewById(R.id.upgrade_btn);
         privacyPolicyBtn = (Button) view.findViewById(R.id.privacy_policy_btn);
@@ -83,7 +89,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         shareBtn = (Button) view.findViewById(R.id.share_app_btn);
         submitFeedbackBtn = (Button) view.findViewById(R.id.feedback_btn);
         openSrcBtn = (Button) view.findViewById(R.id.open_src_btn);
-
 
 
         checkEmailVerification();
@@ -95,21 +100,21 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.warning)
-                .setMessage(R.string.logout_warning)
-                .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logout();
-                    }
-                });
+                        .setMessage(R.string.logout_warning)
+                        .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                logout();
+                            }
+                        });
                 builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    //Cancel
+                        //Cancel
                     }
                 });
 
-                 builder.create().show();
+                builder.create().show();
 
             }
         });
@@ -132,38 +137,37 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         upgradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         faqBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         privacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
-
 
 
         aboutBtn.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +190,33 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        submitFeedbackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String recepient = getString(R.string.support_email);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
+                String timestamp = dateFormat.format(System.currentTimeMillis());
+                String subject = "Napchat Feedback Android " + getString(R.string.version_number) + " " + timestamp;
+                String header = "---------------\n" +
+                        "APP VERSION: " + getString(R.string.version_number) + "\n" +
+                        "DEVICE: " + Build.MANUFACTURER + " " + Build.MODEL + "\n" +
+                        "ANDROID: " + Build.VERSION.RELEASE + " SDK: " + Build.VERSION.SDK_INT + "\n" +
+                        "--------------- \n " +
+                        "YOUR FEEDBACK BELOW";
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:" + recepient));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                emailIntent.putExtra(Intent.EXTRA_TEXT, header);
+
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Send email using..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getActivity(), "No email clients installed.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -236,7 +267,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.i("Options Fragment", "Resent Verification Email successfully");
-                           UtilityFunctions.createEmailSuccessToast(getActivity(),getLayoutInflater()).show();
+                            UtilityFunctions.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
                             verifyEmailBtn.setText(R.string.sent);
                             verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -275,7 +306,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            UtilityFunctions.createEmailSuccessToast(getActivity(),getLayoutInflater()).show();
+                            UtilityFunctions.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
 
                             Log.i("Options Activity", "Email sent.");
                         }
@@ -304,7 +335,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             verifyEmailBtn.setText(R.string.verified);
         }
     }
-
 
 
 }
