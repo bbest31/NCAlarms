@@ -48,7 +48,8 @@
         <receiver android:name=".utility.AlarmReceiver" />
 
         <activity android:name=".activities.CustomRingtoneActivity" />
-        <activity android:name=".activities.AboutActivity"></activity>
+        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.FeedbackActivity"></activity>
     </application>
 
 </manifest>

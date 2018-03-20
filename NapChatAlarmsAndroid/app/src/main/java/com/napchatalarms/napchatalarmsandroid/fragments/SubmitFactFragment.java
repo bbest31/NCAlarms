@@ -19,15 +19,18 @@ public class SubmitFactFragment extends FactFragment {
     private EditText descriptionField;
     private EditText link;
     private View view;
+    private int pageNumber;
+    private static final String ARG_PAGE = "submitFact";
 
     public SubmitFactFragment(){
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fact, container, false);
+        View view = inflater.inflate(R.layout.fragment_submit_fact, container, false);
         this.view = view;
 
         submitBtn = (Button) view.findViewById(R.id.submit_fact_btn);
@@ -43,4 +46,5 @@ public class SubmitFactFragment extends FactFragment {
            // view.findViewById(R.id.submit_chevron_rt).setVisibility(View.INVISIBLE);
         }
     }
+
 }

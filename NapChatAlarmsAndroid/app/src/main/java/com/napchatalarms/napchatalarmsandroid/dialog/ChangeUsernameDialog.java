@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +21,8 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by bbest on 15/03/18.
  */
@@ -30,6 +33,7 @@ public class ChangeUsernameDialog extends Dialog {
     private EditText changeNameEditText;
     private Button submitBtn;
     private Button cancelBtn;
+    private TextView errText;
 
 
     /**
@@ -74,6 +78,7 @@ public class ChangeUsernameDialog extends Dialog {
         changeNameEditText = (EditText) findViewById(R.id.new_name_edittext);
         submitBtn = (Button) findViewById(R.id.submit_new_name_btn);
         cancelBtn = (Button) findViewById(R.id.new_name_cancel_btn);
+        errText = (TextView) findViewById(R.id.change_usrnm_err_text);
 
     }
 
@@ -101,10 +106,12 @@ public class ChangeUsernameDialog extends Dialog {
                                 Toast.makeText(parentActivity, "Username successfully changed!", Toast.LENGTH_LONG).show();
                                 Log.i("Options Activity", "The User's username has been updated successfully");
                             } else {
-                                Toast.makeText(parentActivity, "Could not update username!", Toast.LENGTH_LONG).show();
+                                errText.setVisibility(View.VISIBLE);
                             }
                         }
                     });
+        } else {
+            errText.setVisibility(View.VISIBLE);
         }
     }
 }

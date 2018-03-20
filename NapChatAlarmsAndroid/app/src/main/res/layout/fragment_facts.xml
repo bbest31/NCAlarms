@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.napchatalarms.napchatalarmsandroid.fragments.SleepFactsFragment">
+    tools:context="com.napchatalarms.napchatalarmsandroid.fragments.HealthFactsFragment">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/facts_view_pager"

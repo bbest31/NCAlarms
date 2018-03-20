@@ -46,7 +46,6 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
         initialize(view);
-        Log.e("AlarmListFragment","onCreateView()");
         return  view;
     }
 

@@ -1,7 +1,5 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
-import android.content.Context;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,13 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.OptionsFragment;
-import com.napchatalarms.napchatalarmsandroid.fragments.SleepFactsFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.HealthFactsFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 /**
@@ -29,7 +26,7 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  * @todo order alarms from earliest to latest time.
  */
 public class HomeActivity extends AppCompatActivity {
-
+    private int currentFragment;
     /**
      *
      */
@@ -80,19 +77,28 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setItemIconTintList(null);
         navigation.setItemTextColor(getResources().getColorStateList(R.color.bottom_nav_colors));
         selectFragment(findViewById(R.id.navigation_home));
+        this.currentFragment = R.id.navigation_home;
     }
 
     private void selectFragment(View view) {
-        android.support.v4.app.Fragment fragment;
-        if (view == findViewById(R.id.navigation_home)) {
+        android.support.v4.app.Fragment fragment = null;
+        if (view == findViewById(R.id.navigation_home) && currentFragment != R.id.navigation_home) {
             fragment = new AlarmListFragment();
-        } else if (view == findViewById(R.id.navigation_facts)) {
-            fragment = new SleepFactsFragment();
-        } else {
+            currentFragment = R.id.navigation_home;
+        } else if (view == findViewById(R.id.navigation_facts) && currentFragment != R.id.navigation_facts) {
+            fragment = new HealthFactsFragment();
+            currentFragment = R.id.navigation_facts;
+        } else if(view == findViewById(R.id.navigation_options) && currentFragment != R.id.navigation_options) {
             fragment = new OptionsFragment();
+            currentFragment = R.id.navigation_options;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
+        if(fragment != null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
+        } else {
+            Log.w("Home Activity","Already on that fragment.");
+        }
+
 
     }
 

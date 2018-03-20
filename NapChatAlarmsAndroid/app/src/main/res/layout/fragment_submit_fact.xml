@@ -72,7 +72,12 @@
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="@string/descrip"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:maxLines="12"
+                android:gravity="top|left"
+                android:scrollbars="vertical"
+                 />
 
             <EditText
                 android:id="@+id/link_src_edittext"

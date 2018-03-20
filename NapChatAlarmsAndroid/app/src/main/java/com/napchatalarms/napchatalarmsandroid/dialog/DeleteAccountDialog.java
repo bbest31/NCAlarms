@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +41,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
     public Button confirm, cancel;
     public EditText emailEntry;
     public EditText passEntry;
+    private TextView errText;
 
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
@@ -61,6 +63,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
         cancel = (Button) findViewById(R.id.delete_account_cancel_btn);
         emailEntry = (EditText) findViewById(R.id.delete_account_email_editText);
         passEntry = (EditText) findViewById(R.id.delete_account_pass_editText);
+        errText = (TextView) findViewById(R.id.del_acct_err_text);
         confirm.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
@@ -106,6 +109,8 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                         Log.i("Re-Authentication", "User re-authenticated.");
                         if (task.isSuccessful()) {
                             deleteAccount();
+                        }else{
+                            errText.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -142,6 +147,9 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             c.startActivity(intent);
                             c.finish();
+                        } else{
+                            errText.setText("System Error");
+                            errText.setVisibility(View.VISIBLE);
                         }
                     }
                 });

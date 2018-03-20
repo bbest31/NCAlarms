@@ -19,18 +19,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SleepFactsFragment extends android.support.v4.app.Fragment {
+public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
     private static int NUM_PAGES = 0;
     FactsPageAdapter pageAdapter;
 
-    public SleepFactsFragment() {
+    public HealthFactsFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstance){
+        super.onCreate(savedInstance);
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,7 +42,6 @@ public class SleepFactsFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View  view = inflater.inflate(R.layout.fragment_facts, container, false);
         initialize(view);
-        List<Fragment> fragments = getFragments();
         pageAdapter = new FactsPageAdapter(getActivity().getSupportFragmentManager(),NUM_PAGES);
         pager = (ViewPager)view.findViewById(R.id.facts_view_pager);
         pager.setPageTransformer(true, new DepthPageTransformer());
@@ -49,40 +52,11 @@ public class SleepFactsFragment extends android.support.v4.app.Fragment {
 
 
     private void initialize(View view){
-
-
-    }
-
-    /**
-     *
-     * @return
-     */
-    private List<Fragment> getFragments(){
         ArrayList<Fact> facts = FactHolder.getInstance(getActivity()).getFacts();
-        List<Fragment> fragments = new ArrayList<>();
-
-        // Add first fact without left chevron
-        FirstFactFragment firstFactFragment = new FirstFactFragment();
-        firstFactFragment.setFact(facts.get(0));
-        fragments.add(new FirstFactFragment());
-
-        // Add the rest of the facts
-        for(int i = 1; i < facts.size(); i++){
-            FactFragment factFragment = new FactFragment();
-            factFragment.setFact(facts.get(i));
-            fragments.add(factFragment);
-        }
-
-        // Add SubmitFactFragment
-        SubmitFactFragment fragment = new SubmitFactFragment();
-        fragment.isLast(true);
-
-        fragments.add(fragment);
-
-        NUM_PAGES = fragments.size();
-
-        return fragments;
+        NUM_PAGES = facts.size();
     }
+
+
 
 
 }

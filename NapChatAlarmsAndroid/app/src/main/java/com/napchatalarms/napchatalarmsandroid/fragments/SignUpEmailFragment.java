@@ -76,9 +76,7 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
     }
 
     private Toast errorToast(int err){
-        Toast toast = Toast.makeText(getActivity(),"", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP,0,500);
-
+        Toast toast = null;
         switch(err){
             case 1:
                 LayoutInflater inflater = getLayoutInflater();
@@ -87,13 +85,10 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 toast.setView(layout);
                 break;
             case 2:
-                LayoutInflater inflater2 = getLayoutInflater();
-                View layout2 = inflater2.inflate(R.layout.toast_signup_user_err,
-                        (ViewGroup) getActivity().findViewById(R.id.signup_user_err_container));
-                toast.setView(layout2);
+               toast = UtilityFunctions.createInvalidUsernameToast(getActivity(),getLayoutInflater());
                 break;
             default:
-                toast.setText(getActivity().getString(R.string.invalid_generic));
+
                 break;
 
         }

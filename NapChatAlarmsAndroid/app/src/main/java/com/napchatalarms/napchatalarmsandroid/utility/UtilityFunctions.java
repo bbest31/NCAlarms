@@ -102,51 +102,50 @@ public class UtilityFunctions {
             cal.set(Calendar.MINUTE, minute);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
-
             timeMilli = cal.getTimeInMillis();
+
         } else if (hour == cal.get(Calendar.HOUR_OF_DAY) && minute > cal.get(Calendar.MINUTE)) {
-            //If the time is earlier than the current time we increase the day by 1.
-            int day = cal.get(Calendar.DATE);
 
+            //If the time is later than the current time by minutes.
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
-
             timeMilli = cal.getTimeInMillis();
+
         } else if (hour == cal.get(Calendar.HOUR_OF_DAY) && minute < cal.get(Calendar.MINUTE)) {
-            //If the time is earlier than the current time we increase the day by 1.
-            int day = cal.get(Calendar.DATE);
 
+            //If the time is earlier than the current time by minutes we increase the day by 1.
+            int day = cal.get(Calendar.DATE);
             cal.set(Calendar.DATE, day + 1);
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
-
             timeMilli = cal.getTimeInMillis();
+
         } else if (hour < cal.get(Calendar.HOUR_OF_DAY)) {
+
             //If the time is earlier than the current time we increase the day by 1.
             int day = cal.get(Calendar.DATE);
-
             cal.set(Calendar.DATE, day + 1);
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
-
             timeMilli = cal.getTimeInMillis();
+
         } else if (hour == cal.get(Calendar.HOUR_OF_DAY) && minute == cal.get(Calendar.MINUTE)) {
+
             //If the time is exactly the current time we increase the day by 1.
             int day = cal.get(Calendar.DATE);
-
             cal.set(Calendar.DATE, day + 1);
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
-
             timeMilli = cal.getTimeInMillis();
+
         }
 
         return timeMilli;
@@ -303,6 +302,15 @@ public class UtilityFunctions {
         toast.setGravity(Gravity.TOP,0,100);
         View layout = inflater.inflate(R.layout.toast_email_success,
                 (ViewGroup) activity.findViewById(R.id.email_success_toast_container));
+        toast.setView(layout);
+        return toast;
+    }
+
+    public final static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater){
+        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,100);
+        View layout = inflater.inflate(R.layout.toast_signup_user_err,
+                (ViewGroup) activity.findViewById(R.id.signup_user_err_container));
         toast.setView(layout);
         return toast;
     }

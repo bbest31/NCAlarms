@@ -27,8 +27,7 @@ public class FirstFactFragment extends FactFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fact, container, false);
-        view.findViewById(R.id.next_indicator_left).setVisibility(View.INVISIBLE);
+        View view = inflater.inflate(R.layout.fragment_first_fact, container, false);
         description = (TextView) view.findViewById(R.id.fact_description);
         citation = (TextView) view.findViewById(R.id.fact_citation);
         yesBtn = (Button) view.findViewById(R.id.dyk_yes_btn);

@@ -24,10 +24,31 @@ public class FactFragment extends Fragment {
     private TextView citation;
     private Button yesBtn;
     private Button noBtn;
+    private int pageNumber;
+    private static final String ARG_PAGE = "fact";
+
+
 
     public FactFragment(){
 
     }
+    /**
+     * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     */
+    public static FactFragment create(int pageNumber) {
+        FactFragment fragment = new FactFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageNumber = getArguments().getInt(ARG_PAGE);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,5 +66,9 @@ public class FactFragment extends Fragment {
     public void setFact(Fact fact) {
         //description.setText(fact.getFactDescription());
         //citation.setText(fact.getCitation());
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
     }
 }

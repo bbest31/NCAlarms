@@ -40,6 +40,15 @@
         android:hint="@string/password"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/del_acct_err_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/invalid_credentials"
+        android:textColor="@color/unverified_red"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
