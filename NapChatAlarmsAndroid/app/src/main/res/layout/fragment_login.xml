@@ -58,6 +58,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="17dp"
                 android:background="@drawable/round_purple_btn"
+                android:fontFamily="@font/fredoka_one"
                 android:text="@string/login"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -96,6 +97,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="34dp"
+                android:fontFamily="@font/fredoka_one"
                 android:text="@string/login"
                 android:textSize="30sp"
                 android:textStyle="bold" />

@@ -18,6 +18,7 @@
         android:layout_marginBottom="247dp"
         android:background="@drawable/round_purple_btn"
         android:elevation="1dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/sign_up"
         android:textColor="@android:color/white"
         android:textStyle="bold"

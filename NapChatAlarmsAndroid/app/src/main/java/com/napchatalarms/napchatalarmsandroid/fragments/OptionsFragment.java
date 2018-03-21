@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.AboutActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
+import com.napchatalarms.napchatalarmsandroid.activities.OpenSrcLibActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.dialog.ChangeUsernameDialog;
@@ -189,7 +190,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         openSrcBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), OpenSrcLibActivity.class);
+                getActivity().startActivity(intent);
             }
         });
 

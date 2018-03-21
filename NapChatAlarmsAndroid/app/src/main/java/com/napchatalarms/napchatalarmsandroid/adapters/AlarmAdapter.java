@@ -1,4 +1,4 @@
-package com.napchatalarms.napchatalarmsandroid.dialog;
+package com.napchatalarms.napchatalarmsandroid.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -239,7 +239,19 @@
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
     <string name="sent">Sent</string>
     <string name="link_msg">Academic research papers, journals, and articles only. Preferably peer reviewed.</string>
-
+    
+    <!--Open Source Libraries-->
+    <string name="firebase_auth">Firebase Authentication</string>
+    <string name="firebase_rldb">Firebase Realtime Database</string>
+    <string name="firebase_crashlytics">Firebase Crashlytics</string>
+    <string name="firebase_google_analytics">Firebase Google Analytics</string>
+    <string name="firebase_app_index">Firebase App Indexing</string>
+    <string name="firebase_remote_config">Firebase Remote Config</string>
+    <string name="firebase_invites">Firebase Invites</string>
+    <string name="google_inc">Google Inc.</string>
+    <string name="swipemenulistview">SwipeMenuListView</string>
+    <string name="baoyongzhang">baoyongzhang</string>
+    
     <!--Sleep Facts-->
     <string name="sleep_fact1_description">Alcohol prevents your brain from entering REM sleep.</string>
     <string name="sleep_fact1_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
