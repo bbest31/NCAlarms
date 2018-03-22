@@ -26,43 +26,43 @@ public class CustomRingtoneActivity extends AppCompatActivity {
     }
 
     private void initialize(){
-        bambooBtn = (Button) findViewById(R.id.bamboo_btn);
-        bambooBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri = "android.resource://"+getPackageName()+"/"+R.raw.bamboo_forest;
-                returnIntent = new Intent();
-                returnIntent.putExtra("URI",String.valueOf(uri));
-                returnIntent.putExtra("NAME",getResources().getString(R.string.bamboo));
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-            }
-        });
-
-        steampunkBtn = (Button) findViewById(R.id.steampunk_btn);
-        steampunkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri = "android.resource://"+getPackageName()+"/"+R.raw.steampunk;
-                returnIntent = new Intent();
-                returnIntent.putExtra("URI",String.valueOf(uri));
-                returnIntent.putExtra("NAME",getResources().getString(R.string.steampunk));
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-            }
-        });
-
-        alleyCatBtn = (Button) findViewById(R.id.alley_cat_btn);
-        alleyCatBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri = "android.resource://"+getPackageName()+"/"+R.raw.alley_cat;
-                returnIntent = new Intent();
-                returnIntent.putExtra("URI",String.valueOf(uri));
-                returnIntent.putExtra("NAME",getResources().getString(R.string.alleycat));
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-            }
-        });
+//        bambooBtn = (Button) findViewById(R.id.bamboo_btn);
+//        bambooBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                uri = "android.resource://"+getPackageName()+"/"+R.raw.bamboo_forest;
+//                returnIntent = new Intent();
+//                returnIntent.putExtra("URI",String.valueOf(uri));
+//                returnIntent.putExtra("NAME",getResources().getString(R.string.bamboo));
+//                setResult(Activity.RESULT_OK, returnIntent);
+//                finish();
+//            }
+//        });
+//
+//        steampunkBtn = (Button) findViewById(R.id.steampunk_btn);
+//        steampunkBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                uri = "android.resource://"+getPackageName()+"/"+R.raw.steampunk;
+//                returnIntent = new Intent();
+//                returnIntent.putExtra("URI",String.valueOf(uri));
+//                returnIntent.putExtra("NAME",getResources().getString(R.string.steampunk));
+//                setResult(Activity.RESULT_OK, returnIntent);
+//                finish();
+//            }
+//        });
+//
+//        alleyCatBtn = (Button) findViewById(R.id.alley_cat_btn);
+//        alleyCatBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                uri = "android.resource://"+getPackageName()+"/"+R.raw.alley_cat;
+//                returnIntent = new Intent();
+//                returnIntent.putExtra("URI",String.valueOf(uri));
+//                returnIntent.putExtra("NAME",getResources().getString(R.string.alleycat));
+//                setResult(Activity.RESULT_OK, returnIntent);
+//                finish();
+//            }
+//        });
     }
 }

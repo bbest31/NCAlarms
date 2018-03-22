@@ -17,6 +17,8 @@
     <color name="light_blue_sel">#9ec7db</color>
     <color name="neutral_btn_norm">#f6f6f6</color>
     <color name="neutral_btn_sel">#cccbcb</color>
+    <color name="violet_btn_norm">#CC99CC</color>
+    <color name="violet_btn_sel">#996699</color>
 
     <!--Neutrals-->
     <color name="dark_grey">#696969</color>

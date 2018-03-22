@@ -8,29 +8,39 @@
         android:id="@+id/locomotive_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/locomotive" />
 
     <Button
         android:id="@+id/buzzsaw_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/buzzsaw" />
 
     <Button
         android:id="@+id/heartbeat_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/heartbeat" />
 
     <Button
         android:id="@+id/tiptoe_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/tiptoe" />
 
     <Button
         android:id="@+id/no_vibrate_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/off" />
 </LinearLayout>

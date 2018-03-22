@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/main_gradient"
     android:gravity="top"
     android:isScrollContainer="true"
@@ -18,11 +18,12 @@
         android:layout_weight="1"
         android:elevation="1dp"
         android:headerBackground="@android:color/transparent"
-        android:numbersSelectorColor="@color/main_amber" />
+        android:numbersSelectorColor="@color/main_amber"
+        android:paddingBottom="10dp" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -45,11 +46,13 @@
                 android:layout_marginBottom="1dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
-                android:background="@color/light_purple2"
+                android:background="@drawable/light_purple_btn_norm"
+                android:fontFamily="@font/fredoka_one"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="@string/pref_title_vibrate"
-                android:textAlignment="textStart" />
+                android:textAlignment="textStart"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/ringtone_btn"
@@ -58,11 +61,13 @@
                 android:layout_marginBottom="1dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
-                android:background="@color/light_purple2"
+                android:background="@drawable/light_purple_btn"
+                android:fontFamily="@font/fredoka_one"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="@string/pref_title_ringtone"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/repeat_btn"
@@ -71,18 +76,39 @@
                 android:layout_marginBottom="1dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
-                android:background="@color/light_purple2"
+                android:background="@drawable/light_purple_btn"
+                android:fontFamily="@font/fredoka_one"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="@string/repeat"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:textColor="@color/white" />
 
-            <Spinner
-                android:id="@+id/snooze_spinner"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="20dp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/fredoka_one"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/snooze"
+                    android:textAllCaps="true" />
+
+                <Spinner
+                    android:id="@+id/snooze_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="20dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -92,7 +118,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
+        android:background="@color/dark_blue"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/create"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -103,7 +130,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@color/dark_blue"
+        android:fontFamily="@font/fredoka_one"
         android:text="@android:string/ok"
+        android:textColor="@color/white"
         android:visibility="gone" />
 
 </LinearLayout>
