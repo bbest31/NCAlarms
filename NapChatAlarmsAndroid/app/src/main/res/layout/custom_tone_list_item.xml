@@ -11,11 +11,7 @@
         android:background="@color/off_white"
         android:fontFamily="@font/fredoka_one"
         android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:paddingStart="to
-        tem"
-        android:
-        p="5dp"
-        android:text="But
-            android:textAlignme />
+       />
 </LinearLayout>

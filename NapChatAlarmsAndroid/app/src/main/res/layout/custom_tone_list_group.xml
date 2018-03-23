@@ -10,7 +10,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fredoka_one"
-        android:paddingEnd="?android:attr/expandableListPreferredItemPaddingRight"
         android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textAlignment="textStart"
         android:textColor="@color/black"
