@@ -213,6 +213,8 @@
     <string name="open_src">Open Source Libraries</string>
     <string name="feedback_bug">Submit Feedback/Problems</string>
     <string name="share">Share App</string>
+    <string name="invite">Invite</string>
+    <string name="language">Language</string>
 
 
     <!--Placeholders-->

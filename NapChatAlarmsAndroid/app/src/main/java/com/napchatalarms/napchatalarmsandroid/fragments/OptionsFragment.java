@@ -58,6 +58,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     private Button rateBtn;
     private Button openSrcBtn;
     private Button submitFeedbackBtn;
+    private Button languageBtn;
+    private Button inviteBtn;
 
 
     public OptionsFragment() {
@@ -90,6 +92,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         shareBtn = (Button) view.findViewById(R.id.share_app_btn);
         submitFeedbackBtn = (Button) view.findViewById(R.id.feedback_btn);
         openSrcBtn = (Button) view.findViewById(R.id.open_src_btn);
+        inviteBtn = (Button) view.findViewById(R.id.opt_inv_btn);
+        languageBtn = (Button) view.findViewById(R.id.opt_lang_btn);
 
 
         checkEmailVerification();
@@ -192,6 +196,20 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), OpenSrcLibActivity.class);
                 getActivity().startActivity(intent);
+            }
+        });
+
+        inviteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+            }
+        });
+
+        languageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
