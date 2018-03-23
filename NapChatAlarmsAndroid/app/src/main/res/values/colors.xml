@@ -19,6 +19,10 @@
     <color name="neutral_btn_sel">#cccbcb</color>
     <color name="violet_btn_norm">#CC99CC</color>
     <color name="violet_btn_sel">#996699</color>
+    <color name="grazing_green_norm">#76FF03</color>
+    <color name="grazing_green_sel">#57be00</color>
+    <color name="snooze_btn_norm">#ffb300</color>
+    <color name="snooze_btn_sel">#d29607</color>
 
     <!--Neutrals-->
     <color name="dark_grey">#696969</color>
@@ -45,7 +49,6 @@
     <color name="facebook_blue">#4267B2</color>
     <color name="bright_teal">#18ffff</color>
     <color name="main_amber">#FFCA28</color>
-    <color name="grazing_green">#76FF03</color>
     <color name="light_purple2">#B39DDB</color>
 
 </resources>
