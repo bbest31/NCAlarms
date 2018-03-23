@@ -44,6 +44,7 @@
         android:id="@+id/repeat_okay_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:background="@drawable/round_blue_popup_btn"
         android:fontFamily="@font/fredoka_one"
         android:text="@string/okay" />
