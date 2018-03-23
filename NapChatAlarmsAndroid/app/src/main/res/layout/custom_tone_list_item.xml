@@ -4,7 +4,7 @@
     android:layout_height="55dp"
     android:orientation="vertical">
 
-    <Button
+    <TextView
         android:id="@+id/tone_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
