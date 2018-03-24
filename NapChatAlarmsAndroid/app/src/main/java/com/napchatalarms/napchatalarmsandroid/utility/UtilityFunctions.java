@@ -314,4 +314,13 @@ public class UtilityFunctions {
         toast.setView(layout);
         return toast;
     }
+
+    public final static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater){
+        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP, 0, 100);
+        View layout = inflater.inflate(R.layout.toast_alarm_created,
+                (ViewGroup) activity.findViewById(R.id.alarm_created_toast_container));
+        toast.setView(layout);
+        return toast;
+    }
 }

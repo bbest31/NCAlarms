@@ -61,7 +61,6 @@ public class AlarmController {
         alarm.Activate();
         addAlarmToUser(alarm, context);
         Log.w("New Alarm ID",String.valueOf(alarm.getId()));
-        Toast.makeText(context, "Alarm Created!", Toast.LENGTH_LONG).show();
     }
 
     /**

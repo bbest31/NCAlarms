@@ -241,6 +241,7 @@
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
     <string name="sent">Sent</string>
     <string name="link_msg">Academic research papers, journals, and articles only. Preferably peer reviewed.</string>
+    <string name="alarm_created">Alarm Created!</string>
     
     <!--Open Source Libraries-->
     <string name="firebase_auth">Firebase Authentication</string>

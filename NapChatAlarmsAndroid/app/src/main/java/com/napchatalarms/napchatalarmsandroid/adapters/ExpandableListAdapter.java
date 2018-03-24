@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
+    private Drawable softId;
+    private Drawable mildId;
+    private Drawable thunderId;
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
+        softId = context.getResources().getDrawable(R.drawable.ic_rainbow);
+        mildId = context.getResources().getDrawable(R.drawable.ic_rain);
+
     }
 
     @Override
@@ -91,6 +98,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.lblListHeader);
+        switch(groupPosition){
+            case 0:
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_rainbow,0);
+                break;
+            case 1:
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_rain,0);
+                break;
+            case 2:
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_thunderstorm,0);
+                break;
+        }
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 

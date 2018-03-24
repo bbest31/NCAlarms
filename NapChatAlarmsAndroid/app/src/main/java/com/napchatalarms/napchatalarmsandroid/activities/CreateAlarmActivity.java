@@ -332,6 +332,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
         }
         alarmController.saveAlarms(getApplicationContext());
+        UtilityFunctions.createAlarmCreatedToast(this,getLayoutInflater()).show();
 
     }
 
