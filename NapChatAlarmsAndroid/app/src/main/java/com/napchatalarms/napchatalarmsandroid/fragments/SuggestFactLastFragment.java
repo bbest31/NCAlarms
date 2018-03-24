@@ -1,13 +1,20 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by bbest on 24/03/18.
@@ -50,6 +57,32 @@ public class SuggestFactLastFragment extends FactFragment {
         this.view = view;
 
         submitBtn = (Button) view.findViewById(R.id.submit_fact_btn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String recepient = getString(R.string.support_email);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
+                String timestamp = dateFormat.format(System.currentTimeMillis());
+                String subject = "Napchat Fact Submission " + getString(R.string.version_number) + " " + timestamp;
+                String body =
+                        "DESCRIPTION: \n" + descriptionField.getText() + " \n" +
+                        "\n LINK: " + link.getText();
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:" + recepient));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Send email using..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getActivity(), "No email clients installed.", Toast.LENGTH_SHORT).show();
+                }
+                descriptionField.setText("");
+                link.setText("");
+            }
+        });
+
         descriptionField = (EditText) view.findViewById(R.id.submit_fact_descrip_edittext);
         link = (EditText) view.findViewById(R.id.link_src_edittext);
 
