@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.model.Fact;
+import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
 
 /**
  * Created by bbest on 18/03/18.
@@ -17,6 +19,7 @@ import com.napchatalarms.napchatalarmsandroid.R;
 public class FirstFactFragment extends FactFragment {
     private TextView description;
     private TextView citation;
+    private TextView DYKText;
     private Button yesBtn;
     private Button noBtn;
     private int pageNumber;
@@ -32,6 +35,7 @@ public class FirstFactFragment extends FactFragment {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -50,22 +54,35 @@ public class FirstFactFragment extends FactFragment {
         citation = (TextView) view.findViewById(R.id.fact_citation);
         yesBtn = (Button) view.findViewById(R.id.dyk_yes_btn);
         noBtn = (Button) view.findViewById(R.id.dyk_no_btn);
+        DYKText = (TextView) view.findViewById(R.id.dyk_text);
 
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DYKText.setText(getString(R.string.fact_yes_msg));
+                noBtn.setVisibility(View.INVISIBLE);
+                yesBtn.setVisibility(View.INVISIBLE);
             }
         });
 
         noBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DYKText.setText(getString(R.string.fact_no_msg));
+                yesBtn.setVisibility(View.INVISIBLE);
+                noBtn.setVisibility(View.INVISIBLE);
             }
         });
 
+        this.setFact(pageNumber);
+
         return view;
+    }
+
+    public void setFact(int factNumber) {
+        Fact fact = FactHolder.getInstance(getActivity()).getFacts().get(factNumber);
+        description.setText(fact.getFactDescription());
+        citation.setText(fact.getCitation());
     }
 
 
