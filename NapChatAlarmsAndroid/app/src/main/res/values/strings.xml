@@ -198,11 +198,12 @@
     <string name="repeat">Repeat</string>
     <string name="Cancel">Cancel</string>
     <string name="Send">Send</string>
+    <string name="vibrate">Vibrate</string>
 
 
     <!--Options Menu-->
     <string name="faq">FAQ</string>
-    <string name="upgrade_support">Upgrade/Support Developers</string>
+    <string name="upgrade_support">Upgrade</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="verify">Verify Email</string>
     <string name="verified">Verified</string>
@@ -242,6 +243,8 @@
     <string name="sent">Sent</string>
     <string name="link_msg">Academic research papers, journals, and articles only. Preferably peer reviewed.</string>
     <string name="alarm_created">Alarm Created!</string>
+    <string name="fact_yes_msg">You\'re so smart!</string>
+    <string name="fact_no_msg">Well now you know!</string>
     
     <!--Open Source Libraries-->
     <string name="firebase_auth">Firebase Authentication</string>

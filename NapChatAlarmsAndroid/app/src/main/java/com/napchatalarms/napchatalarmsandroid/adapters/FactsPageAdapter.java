@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.napchatalarms.napchatalarmsandroid.fragments.FactFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.FirstFactFragment;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by bbest on 15/03/18.
  */
 
-public class FactsPageAdapter extends FragmentPagerAdapter {
+public class FactsPageAdapter extends FragmentStatePagerAdapter {
 
 
     private int count = 0;

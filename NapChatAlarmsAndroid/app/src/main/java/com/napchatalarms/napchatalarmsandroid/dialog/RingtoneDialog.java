@@ -81,7 +81,7 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.ringtone_menu);
+        setContentView(R.layout.dialog_ringtone_options);
         initialize();
 
     }

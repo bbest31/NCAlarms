@@ -39,6 +39,7 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
         initialize(view);
         pageAdapter = new FactsPageAdapter(getActivity().getSupportFragmentManager(),NUM_PAGES);
         pager = (ViewPager)view.findViewById(R.id.facts_view_pager);
+        pager.setOffscreenPageLimit(NUM_PAGES);
         pager.setPageTransformer(true, new DepthPageTransformer());
         pager.setAdapter(pageAdapter);
         return  view;

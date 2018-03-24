@@ -81,7 +81,7 @@ public class RepeatDaysDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.repeat_selection_layout);
+        setContentView(R.layout.dialog_repeat_menu);
         initialize();
 
         okayBtn.setOnClickListener(new View.OnClickListener() {
