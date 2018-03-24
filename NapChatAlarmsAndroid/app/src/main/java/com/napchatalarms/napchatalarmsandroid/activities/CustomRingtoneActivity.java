@@ -165,7 +165,7 @@ public class CustomRingtoneActivity extends AppCompatActivity {
                         break;
                 }
                 break;
-            case 3:
+            case 2:
                 // Thunderous section
                 // determine the child selection
                 switch (childPosition){
