@@ -25,15 +25,15 @@ import java.util.List;
 
 public class UtilityFunctions {
 
-    private static final long[] HEARTBEAT = {0,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500,200,100,200,500};
-    private static final long[] BUZZSAW = {0,10000};
-    private static final long[] LOCOMOTIVE = {0,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600,500,100,500,600};
-    private static final long[] TIPTOE = {0,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150};
+    private static final long[] HEARTBEAT = {0, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500};
+    private static final long[] BUZZSAW = {0, 10000};
+    private static final long[] LOCOMOTIVE = {0, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600};
+    private static final long[] TIPTOE = {0, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150};
 
-    private static final VibratePattern LOCOMOTIVE_PATTERN = new VibratePattern(0,"Locomotive",LOCOMOTIVE);
-    private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(1,"Heartbeat",HEARTBEAT);
-    private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(2,"Buzzsaw",BUZZSAW);
-    private static final VibratePattern TIPTOE_PATTERN = new VibratePattern(3,"Tip-toe",TIPTOE);
+    private static final VibratePattern LOCOMOTIVE_PATTERN = new VibratePattern(0, "Locomotive", LOCOMOTIVE);
+    private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(1, "Heartbeat", HEARTBEAT);
+    private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(2, "Buzzsaw", BUZZSAW);
+    private static final VibratePattern TIPTOE_PATTERN = new VibratePattern(3, "Tip-toe", TIPTOE);
 
     /**
      * This method compares a given input against the email pattern and returns a boolean
@@ -74,14 +74,14 @@ public class UtilityFunctions {
         boolean valid = true;
         if (name.trim().isEmpty()) {
             valid = false;
-        } else if(name.length() < 4){
+        } else if (name.length() < 4) {
             valid = false;
-        }else if(name.length() > 15){
+        } else if (name.length() > 15) {
             valid = false;
         }
         for (int i = 0; i < name.length(); i++) {
             if (!Character.isLetterOrDigit(name.charAt(i))) {
-                valid =  false;
+                valid = false;
             }
         }
         return valid;
@@ -215,35 +215,40 @@ public class UtilityFunctions {
 
     }
 
-
-    //TODO: detect weekends, and weekdays settings.
     public final static String generateRepeatText(List<Integer> days) {
         Collections.sort(days);
         String repeatText = "";
         if (days.size() != 0 && days.size() != 7) {
-            for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext(); ) {
-                switch (iterator.next()) {
-                    case 1:
-                        repeatText = repeatText.concat("Sun ");
-                        break;
-                    case 2:
-                        repeatText = repeatText.concat("Mon ");
-                        break;
-                    case 3:
-                        repeatText = repeatText.concat("Tues ");
-                        break;
-                    case 4:
-                        repeatText = repeatText.concat("Wed ");
-                        break;
-                    case 5:
-                        repeatText = repeatText.concat("Thurs ");
-                        break;
-                    case 6:
-                        repeatText = repeatText.concat("Fri ");
-                        break;
-                    case 7:
-                        repeatText = repeatText.concat("Sat ");
-                        break;
+            if (days.contains(1) && days.contains(7) && days.size() == 2) {
+                repeatText = "Weekends";
+            } else if (!days.contains(1) && !days.contains(7) && days.size() == 5) {
+                repeatText = "Weekdays";
+            } else {
+
+                for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext(); ) {
+                    switch (iterator.next()) {
+                        case 1:
+                            repeatText = repeatText.concat("Sun ");
+                            break;
+                        case 2:
+                            repeatText = repeatText.concat("Mon ");
+                            break;
+                        case 3:
+                            repeatText = repeatText.concat("Tues ");
+                            break;
+                        case 4:
+                            repeatText = repeatText.concat("Wed ");
+                            break;
+                        case 5:
+                            repeatText = repeatText.concat("Thurs ");
+                            break;
+                        case 6:
+                            repeatText = repeatText.concat("Fri ");
+                            break;
+                        case 7:
+                            repeatText = repeatText.concat("Sat ");
+                            break;
+                    }
                 }
             }
 
@@ -256,14 +261,14 @@ public class UtilityFunctions {
         }
     }
 
-       /**
+    /**
      * Vibrate pattern is in milliseconds. First number indicates the time to wait
      * to start vibrating when notification fires. Second number is the time to vibrate
      * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
      **/
-    public final static VibratePattern getVibratePattern(Integer i){
+    public final static VibratePattern getVibratePattern(Integer i) {
         VibratePattern pattern = null;
-        switch(i){
+        switch (i) {
             case 0:
                 pattern = LOCOMOTIVE_PATTERN;
                 break;
@@ -277,46 +282,47 @@ public class UtilityFunctions {
                 pattern = TIPTOE_PATTERN;
                 break;
         }
-        return  pattern;
+        return pattern;
     }
 
     /**
      * Constructs a custom toast near the top of the activity of an amber color with the message
      * "We're working on it!"
      * Used as a placeholder for an onclick method.
+     *
      * @param activity
      * @param inflater
      * @return
      */
-    public final static Toast createWarningToast(Activity activity, LayoutInflater inflater){
-        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP,0,100);
+    public final static Toast createWarningToast(Activity activity, LayoutInflater inflater) {
+        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_construction_warn,
                 (ViewGroup) activity.findViewById(R.id.warning_toast_container));
         toast.setView(layout);
         return toast;
     }
 
-    public final static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater){
-        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP,0,100);
+    public final static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater) {
+        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_email_success,
                 (ViewGroup) activity.findViewById(R.id.email_success_toast_container));
         toast.setView(layout);
         return toast;
     }
 
-    public final static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater){
-        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP,0,100);
+    public final static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater) {
+        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_signup_user_err,
                 (ViewGroup) activity.findViewById(R.id.signup_user_err_container));
         toast.setView(layout);
         return toast;
     }
 
-    public final static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater){
-        Toast toast = Toast.makeText(activity,"",Toast.LENGTH_SHORT);
+    public final static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater) {
+        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_alarm_created,
                 (ViewGroup) activity.findViewById(R.id.alarm_created_toast_container));

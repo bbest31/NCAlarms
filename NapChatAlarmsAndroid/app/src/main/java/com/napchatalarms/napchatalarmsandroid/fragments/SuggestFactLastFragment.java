@@ -6,15 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 
 /**
- * Created by bbest on 18/03/18.
+ * Created by bbest on 24/03/18.
  */
 
-public class SubmitFactFragment extends FactFragment {
+public class SuggestFactLastFragment extends FactFragment {
     private Button submitBtn;
     private EditText descriptionField;
     private EditText link;
@@ -22,15 +21,32 @@ public class SubmitFactFragment extends FactFragment {
     private int pageNumber;
     private static final String ARG_PAGE = "submitFact";
 
-    public SubmitFactFragment(){
+    public SuggestFactLastFragment(){
 
+    }
+
+    /**
+     * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     */
+    public static SuggestFactLastFragment create(int pageNumber) {
+        SuggestFactLastFragment fragment = new SuggestFactLastFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageNumber = getArguments().getInt(ARG_PAGE);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_submit_fact, container, false);
+        View view = inflater.inflate(R.layout.fragment_suggest_fact_last, container, false);
         this.view = view;
 
         submitBtn = (Button) view.findViewById(R.id.submit_fact_btn);
@@ -41,10 +57,8 @@ public class SubmitFactFragment extends FactFragment {
 
     }
 
-    public void isLast(Boolean last){
-        if(last){
-           // view.findViewById(R.id.submit_chevron_rt).setVisibility(View.INVISIBLE);
-        }
+    @Override
+    public int getPageNumber() {
+        return pageNumber;
     }
-
 }

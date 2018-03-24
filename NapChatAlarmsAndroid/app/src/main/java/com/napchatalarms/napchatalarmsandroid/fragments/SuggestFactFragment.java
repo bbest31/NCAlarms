@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 
@@ -14,22 +14,52 @@ import com.napchatalarms.napchatalarmsandroid.R;
  */
 
 public class SuggestFactFragment extends FactFragment {
+    private Button submitBtn;
+    private EditText descriptionField;
+    private EditText link;
+    private View view;
+    private int pageNumber;
+    private static final String ARG_PAGE = "submitFact";
 
-    private TextView description;
-    private TextView citation;
-    private Button yesBtn;
-    private Button noBtn;
+    public SuggestFactFragment(){
+
+    }
+
+    /**
+     * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     */
+    public static SuggestFactFragment create(int pageNumber) {
+        SuggestFactFragment fragment = new SuggestFactFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageNumber = getArguments().getInt(ARG_PAGE);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fact, container, false);
-        view.findViewById(R.id.next_indicator_right).setVisibility(View.INVISIBLE);
-        description = (TextView) view.findViewById(R.id.fact_description);
-        citation = (TextView) view.findViewById(R.id.fact_citation);
-        yesBtn = (Button) view.findViewById(R.id.dyk_yes_btn);
-        noBtn = (Button) view.findViewById(R.id.dyk_no_btn);
+        View view = inflater.inflate(R.layout.fragment_suggest_fact, container, false);
+        this.view = view;
+
+        submitBtn = (Button) view.findViewById(R.id.submit_fact_btn);
+        descriptionField = (EditText) view.findViewById(R.id.submit_fact_descrip_edittext);
+        link = (EditText) view.findViewById(R.id.link_src_edittext);
 
         return view;
+
+    }
+
+
+    @Override
+    public int getPageNumber() {
+        return pageNumber;
     }
 }

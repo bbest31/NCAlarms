@@ -23,7 +23,6 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  * </P>
  *
  * @author bbest
- * @todo order alarms from earliest to latest time.
  */
 public class HomeActivity extends AppCompatActivity {
     private int currentFragment;

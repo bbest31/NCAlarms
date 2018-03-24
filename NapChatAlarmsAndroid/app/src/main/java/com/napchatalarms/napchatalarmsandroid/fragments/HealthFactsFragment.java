@@ -2,7 +2,6 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -10,13 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.model.Fact;
 import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
-import com.napchatalarms.napchatalarmsandroid.services.FactsPageAdapter;
+import com.napchatalarms.napchatalarmsandroid.adapters.FactsPageAdapter;
 import com.napchatalarms.napchatalarmsandroid.utility.DepthPageTransformer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class HealthFactsFragment extends android.support.v4.app.Fragment {
@@ -52,8 +47,8 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
 
     private void initialize(View view){
-        ArrayList<Fact> facts = FactHolder.getInstance(getActivity()).getFacts();
-        NUM_PAGES = facts.size();
+        NUM_PAGES = FactHolder.getInstance(getActivity()).getFacts().size() + 1;
+
     }
 
 

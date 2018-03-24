@@ -19,10 +19,28 @@ public class FirstFactFragment extends FactFragment {
     private TextView citation;
     private Button yesBtn;
     private Button noBtn;
+    private int pageNumber;
+    private static final String ARG_PAGE = "fact";
+
 
     public FirstFactFragment(){
 
     }
+
+    public static FirstFactFragment create(int pageNumber){
+        FirstFactFragment fragment = new FirstFactFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageNumber = getArguments().getInt(ARG_PAGE);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -33,6 +51,26 @@ public class FirstFactFragment extends FactFragment {
         yesBtn = (Button) view.findViewById(R.id.dyk_yes_btn);
         noBtn = (Button) view.findViewById(R.id.dyk_no_btn);
 
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return view;
+    }
+
+
+    @Override
+    public int getPageNumber() {
+        return pageNumber;
     }
 }

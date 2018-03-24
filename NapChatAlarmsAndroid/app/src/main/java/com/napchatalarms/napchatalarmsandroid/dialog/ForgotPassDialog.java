@@ -90,12 +90,12 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                             } else {
                                 //Email may not exists with an account so we should display some kind of error
                                 Log.i("ForgotPassDialog", "Email could not be sent!");
-                                //TODO Custom Toast
+                                //TODO Custom Toast saying "Email could not be sent!"
                             }
                         }
                     });
         } else {
-            //TODO Custom Toast
+            //TODO Custom Toast saying "Email could not be sent!"
 
         }
 

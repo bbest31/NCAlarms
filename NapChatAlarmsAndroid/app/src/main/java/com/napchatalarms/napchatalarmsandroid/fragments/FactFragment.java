@@ -60,6 +60,20 @@ public class FactFragment extends Fragment {
         yesBtn = (Button) view.findViewById(R.id.dyk_yes_btn);
         noBtn = (Button) view.findViewById(R.id.dyk_no_btn);
 
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return view;
     }
 

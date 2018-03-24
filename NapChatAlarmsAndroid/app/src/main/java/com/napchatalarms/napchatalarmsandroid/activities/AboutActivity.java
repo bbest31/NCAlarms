@@ -6,7 +6,6 @@ import android.os.Bundle;
 import com.napchatalarms.napchatalarmsandroid.R;
 
 /**
- * @todo version number, logo, business name, open source licences, other contact info.
  */
 public class AboutActivity extends AppCompatActivity {
 

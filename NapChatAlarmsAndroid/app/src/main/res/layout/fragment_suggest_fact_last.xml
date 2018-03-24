@@ -29,6 +29,7 @@
                 android:layout_marginBottom="21dp"
                 android:background="@drawable/round_purple_btn"
                 android:text="@string/submit"
+                android:fontFamily="@font/fredoka_one"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="103dp"
@@ -42,13 +43,6 @@
                 android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_chevron_sign_left" />
 
-            <ImageView
-                android:id="@+id/submit_chevron_rt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_chevron_sign_to_right" />
 
             <TextView
                 android:id="@+id/submit_fact_text"
@@ -57,8 +51,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="54dp"
-                android:fontFamily="sans-serif-condensed"
                 android:text="@string/submit_fact"
+                android:fontFamily="@font/fredoka_one"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -66,26 +60,25 @@
                 android:id="@+id/submit_fact_descrip_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/link_src_edittext"
                 android:layout_below="@+id/textView5"
-                android:layout_marginTop="42dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="26dp"
                 android:background="@color/white"
                 android:ems="10"
+                android:gravity="top|left"
                 android:hint="@string/descrip"
                 android:inputType="textMultiLine"
-                android:lines="8"
-                android:maxLines="12"
-                android:gravity="top|left"
-                android:scrollbars="vertical"
-                 />
+                android:lines="12"
+                android:maxLines="20"
+                android:scrollbars="vertical" />
 
             <EditText
                 android:id="@+id/link_src_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/submit_chevron_lft"
+                android:layout_above="@+id/submit_fact_btn"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="74dp"
+                android:layout_marginBottom="23dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="link"
