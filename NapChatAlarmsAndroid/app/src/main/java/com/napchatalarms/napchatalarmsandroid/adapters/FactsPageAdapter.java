@@ -1,21 +1,13 @@
 package com.napchatalarms.napchatalarmsandroid.adapters;
 
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.napchatalarms.napchatalarmsandroid.fragments.FactFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.FirstFactFragment;
-import com.napchatalarms.napchatalarmsandroid.fragments.SuggestFactFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.SuggestFactLastFragment;
-import com.napchatalarms.napchatalarmsandroid.model.Fact;
-import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Page Adapter class for {@link FactFragment}.
@@ -47,6 +39,5 @@ public class FactsPageAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return count;
     }
-
 
 }

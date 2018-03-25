@@ -2,7 +2,6 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.abstractions.IFactFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,15 +20,15 @@ import java.text.SimpleDateFormat;
  * Created by bbest on 24/03/18.
  */
 
-public class SuggestFactLastFragment extends FactFragment {
+public class SuggestFactLastFragment extends FactFragment implements IFactFragment {
+    private static final String ARG_PAGE = "submitFact";
     private Button submitBtn;
     private EditText descriptionField;
     private EditText link;
     private View view;
     private int pageNumber;
-    private static final String ARG_PAGE = "submitFact";
 
-    public SuggestFactLastFragment(){
+    public SuggestFactLastFragment() {
 
     }
 
@@ -51,7 +51,7 @@ public class SuggestFactLastFragment extends FactFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_suggest_fact_last, container, false);
         this.view = view;
@@ -66,7 +66,7 @@ public class SuggestFactLastFragment extends FactFragment {
                 String subject = "Napchat Fact Submission " + getString(R.string.version_number) + " " + timestamp;
                 String body =
                         "DESCRIPTION: \n" + descriptionField.getText() + " \n" +
-                        "\n LINK: " + link.getText();
+                                "\n LINK: " + link.getText();
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:" + recepient));
@@ -83,8 +83,14 @@ public class SuggestFactLastFragment extends FactFragment {
             }
         });
 
+
+        // Set enabled to false so they aren't clickable through the previous fragment.
+        submitBtn.setEnabled(false);
         descriptionField = (EditText) view.findViewById(R.id.submit_fact_descrip_edittext);
+        descriptionField.setEnabled(false);
         link = (EditText) view.findViewById(R.id.link_src_edittext);
+        link.setEnabled(false);
+
 
         return view;
 
@@ -93,5 +99,18 @@ public class SuggestFactLastFragment extends FactFragment {
     @Override
     public int getPageNumber() {
         return pageNumber;
+    }
+
+    /**
+     * When this fragment becomes the selected fragment in the ViewPager this method lets it know
+     * to enable its views. This prevents them from being clickable from the view before.
+     */
+    @Override
+    public void onBecameVisible() {
+        if (getActivity() != null && !getActivity().isFinishing()) {
+            submitBtn.setEnabled(true);
+            link.setEnabled(true);
+            descriptionField.setEnabled(true);
+        }
     }
 }

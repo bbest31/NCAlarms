@@ -95,27 +95,30 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
         String email = emailEntry.getText().toString();
         String pass = passEntry.getText().toString();
 
+        if (email.isEmpty() || pass.isEmpty()) {
+            errText.setVisibility(View.VISIBLE);
+        } else {
 // Get auth credentials from the user for re-authentication. The example below shows
 // email and password credentials but there are multiple possible providers,
 // such as GoogleAuthProvider or FacebookAuthProvider.
-        AuthCredential credential = EmailAuthProvider
-                .getCredential(email, pass);
+            AuthCredential credential = EmailAuthProvider
+                    .getCredential(email, pass);
 
 // Prompt the user to re-provide their sign-in credentials
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.i("Re-Authentication", "User re-authenticated.");
-                        if (task.isSuccessful()) {
-                            deleteAccount();
-                        }else{
-                            errText.setVisibility(View.VISIBLE);
+            user.reauthenticate(credential)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.i("Re-Authentication", "User re-authenticated.");
+                            if (task.isSuccessful()) {
+                                deleteAccount();
+                            } else {
+                                errText.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
-                });
+                    });
 
-
+        }
     }
 
     /**
@@ -147,7 +150,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             c.startActivity(intent);
                             c.finish();
-                        } else{
+                        } else {
                             errText.setText("System Error");
                             errText.setVisibility(View.VISIBLE);
                         }

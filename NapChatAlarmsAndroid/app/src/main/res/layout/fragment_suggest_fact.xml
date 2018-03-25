@@ -20,16 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <Button
                 android:id="@+id/submit_fact_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/submit_fact_descrip_edittext"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="21dp"
+                android:layout_marginTop="36dp"
                 android:background="@drawable/round_purple_btn"
-                android:text="@string/submit"
                 android:fontFamily="@font/fredoka_one"
+                android:text="@string/submit"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="103dp"
@@ -67,9 +68,9 @@
                 android:id="@+id/submit_fact_descrip_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView5"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="26dp"
+                android:layout_alignStart="@+id/link_src_edittext"
+                android:layout_below="@+id/link_src_edittext"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:gravity="top|left"
@@ -83,13 +84,14 @@
                 android:id="@+id/link_src_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/submit_fact_btn"
+                android:layout_below="@+id/textView5"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="23dp"
+                android:layout_marginTop="25dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="link"
                 android:inputType="textWebEditText" />
+
 
             <TextView
                 android:id="@+id/textView5"

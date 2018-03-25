@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.abstractions.IFactFragment;
 import com.napchatalarms.napchatalarmsandroid.model.Fact;
 import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
 
@@ -21,7 +22,7 @@ import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
  * Created by bbest on 15/03/18.
  */
 
-public class FactFragment extends Fragment {
+public class FactFragment extends Fragment implements IFactFragment {
     private TextView description;
     private TextView citation;
     private Button yesBtn;
@@ -95,5 +96,10 @@ public class FactFragment extends Fragment {
 
     public int getPageNumber() {
         return pageNumber;
+    }
+
+    @Override
+    public void onBecameVisible() {
+
     }
 }
