@@ -7,50 +7,7 @@
     <string name="license">Licenses</string>
     <string name="support_email">bbest.dev@gmail.com</string>
 
-
-    <string name="or">or</string>
-
-
-    <string name="create_account">Create Account</string>
-    <string name="surname">Surname:</string>
-    <string name="first_name">First Name:</string>
-    <string name="email">Email:</string>
-    <string name="password">Password:</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="logout">Logout</string>
-    <string name="this_must_not_be_empty">* This must not be empty.</string>
-
-    <string name="login">Login</string>
-    <string name="facts">Facts</string>
-    <string name="Options">Options</string>
-
-    <string name="forgot_pass_message">Please enter your email to send a password reset email.</string>
-
-    <string name="verified_email">Verified Email</string>
-    <string name="Resend">Resend</string>
-
-    <string name="Save">Save</string>
-    <string name="FirstName">First Name</string>
-    <string name="SurName">Surname</string>
-    <string name="LoginError">*Username or password does not exists.</string>
-    <string name="ResetPassword">Change password by sending a reset password email:</string>
-
-    <string name="Reauthenticate">Please re-authenticate to delete account.</string>
-    <string name="confirm">Confirm</string>
-    <string name="new_username">username123</string>
-    <string name="change_email_msg">Please re-authenticate to change email</string>
-    <string name="default_time">00:00</string>
-    <string name="default_meridian">AM</string>
-    <string name="dismiss">Dismiss</string>
-    <string name="snooze">Snooze</string>
-    <string name="create">Create</string>
-    <string name="create_activate">Create and Activate</string>
-
-    <string name="ringtones">Ringtones</string>
-    <string name="blanktime">00:00 AM</string>
+    <!--Days of the week-->
     <string name="sunday">Sunday</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
@@ -58,29 +15,26 @@
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
-    <string name="okay">OK</string>
-    <string name="sign_up_email_msg">Please enter an email and username for your account.</string>
-
-    <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
-    <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
-
-    <string name="signup_pwd_msg">Enter a password.(min 8 characters)</string>
-
-    <string name="submit">Submit</string>
-    <string name="back">Back</string>
-
 
     <!--Image content Descriptions-->
     <string name="logo_descrip">Napchat Pillow Logo</string>
 
     24sp
-    <!--Titles-->
+
+    <!--Navigation-->
+    <string name="facts">Facts</string>
+    <string name="Options">Options</string>
+    <string name="title_home">Home</string>
+
+    <!--Titles & Headers-->
     <string name="Forgot_Pass">Forgot Password?</string>
     <string name="Delete_Account">Delete Account</string>
     <string name="change_name">Change Name</string>
     <string name="submit_fact">Submit Fact</string>
     <string name="support">Support</string>
-
+    <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
+    <string name="create_account">Create Account</string>
+    <string name="login">Login</string>
 
     <!--Vibrate Options-->
     <string name="locomotive">Locomotive</string>
@@ -88,38 +42,14 @@
     <string name="heartbeat">Heartbeat</string>
     <string name="tiptoe">Tip-toe</string>
     <string name="off">Off</string>
-    <string name="already_have_acct">Already have an account?</string>
-
-    <string name="username">Username:</string>
 
     <!--Custom Ringtone Titles-->
     <string name="bamboo">Bamboo Forest</string>
     <string name="steampunk">Steam-punk</string>
     <string name="alleycat">Alley Cat</string>
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
 
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
+    <!--Arrays-->
     <string-array name="snooze_array">
         <item>1</item>
         <item>5</item>
@@ -131,58 +61,17 @@
         <item>60</item>
     </string-array>
 
-
-    <!-- Example settings for Data & Sync -->
-
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-    <string name="napchat">NapChat</string>
-    <string name="title_activity_alarm">AlarmActivity</string>
-    <string name="default_menu_string">Default</string>
-
+    <!--Labels-->
     <string name="dyk">Did you know?</string>
+    <string name="default_string">Default</string>
+    <string name="username">Username:</string>
+    <string name="surname">Surname:</string>
+    <string name="first_name">First Name:</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
+    <string name="already_have_acct">Already have an account?</string>
+    <string name="FirstName">First Name</string>
+    <string name="SurName">Surname</string>
 
     <!--Button Text-->
     <string name="edit">Edit</string>
@@ -199,6 +88,15 @@
     <string name="Cancel">Cancel</string>
     <string name="Send">Send</string>
     <string name="vibrate">Vibrate</string>
+    <string name="submit">Submit</string>
+    <string name="back">Back</string>
+    <string name="okay">OK</string>
+    <string name="ringtone">Ringtone</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="snooze">Snooze</string>
+    <string name="create">Create</string>
+    <string name="Save">Save</string>
+    <string name="confirm">Confirm</string>
 
 
     <!--Options Menu-->
@@ -216,11 +114,15 @@
     <string name="share">Share App</string>
     <string name="invite">Invite</string>
     <string name="language">Language</string>
+    <string name="logout">Logout</string>
 
 
     <!--Placeholders-->
     <string name="descrip">Description</string>
     <string name="citation">Citation</string>
+    <string name="blanktime">00:00 AM</string>
+    <string name="default_time">00:00</string>
+    <string name="default_meridian">AM</string>
 
     <!--Hints-->
     <string name="email_hint">email</string>
@@ -228,6 +130,7 @@
     <string name="password_format_error">Password must be at least 8 characters with A-z, 0-9 only.</string>
     <string name="email_error_message">Please enter a valid email address i.e. johndoe@email.com</string>
     <string name="janedoe_email_com">janedoe@email.com</string>
+    <string name="new_username">username123</string>
 
     <!--Errors, Warnings & Messages-->
     <string name="invalid_credentials">Invalid Credentials</string>
@@ -245,7 +148,15 @@
     <string name="alarm_created">Alarm Created!</string>
     <string name="fact_yes_msg">You\'re so smart!</string>
     <string name="fact_no_msg">Well now you know!</string>
-    
+    <string name="forgot_pass_message">Please enter your email to send a password reset email.</string>
+    <string name="sign_up_email_msg">Please enter an email and username for your account.</string>
+    <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
+    <string name="signup_pwd_msg">Enter a password.(min 8 characters)</string>
+    <string name="LoginError">*Username or password does not exists.</string>
+    <string name="ResetPassword">Change password by sending a reset password email:</string>
+    <string name="Reauthenticate">Please re-authenticate to delete account.</string>
+    <string name="change_email_msg">Please re-authenticate to change email</string>
+
     <!--Open Source Libraries-->
     <string name="firebase_auth">Firebase Authentication</string>
     <string name="firebase_rldb">Firebase Realtime Database</string>
@@ -257,7 +168,7 @@
     <string name="google_inc">Google Inc.</string>
     <string name="swipemenulistview">SwipeMenuListView</string>
     <string name="baoyongzhang">baoyongzhang</string>
-    
+
     <!--Sleep Facts-->
     <string name="sleep_fact1_description">Alcohol prevents your brain from entering REM sleep.</string>
     <string name="sleep_fact1_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
@@ -265,4 +176,10 @@
     <string name="sleep_fact2_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
     <string name="sleep_fact3_description">This is another sleep fact about the health benefits of getting a good nights rest.</string>
     <string name="sleep_fact3_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
+
+    <!--Misc-->
+    <string name="or">or</string>
+    <string name="title_activity_alarm">Alarm Activity</string>
+    <string name="title_activity_home">Home Activity</string>
+
 </resources>

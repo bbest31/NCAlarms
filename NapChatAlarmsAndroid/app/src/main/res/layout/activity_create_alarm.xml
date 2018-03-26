@@ -65,7 +65,7 @@
                 android:fontFamily="@font/fredoka_one"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="@string/pref_title_ringtone"
+                android:text="@string/ringtone"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white" />
 
