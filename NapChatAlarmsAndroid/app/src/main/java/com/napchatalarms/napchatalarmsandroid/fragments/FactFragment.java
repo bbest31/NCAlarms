@@ -82,6 +82,8 @@ public class FactFragment extends Fragment implements IFactFragment {
                 noBtn.setVisibility(View.INVISIBLE);
             }
         });
+        yesBtn.setEnabled(false);
+        noBtn.setEnabled(false);
 
         this.setFact(pageNumber);
 
@@ -100,6 +102,17 @@ public class FactFragment extends Fragment implements IFactFragment {
 
     @Override
     public void onBecameVisible() {
+        yesBtn.setEnabled(true);
+        noBtn.setEnabled(true);
 
+    }
+
+    /**
+     * When this fragment becomes invisible then we disable the views again.
+     */
+    @Override
+    public void onBecameInvisible(){
+        yesBtn.setEnabled(false);
+        noBtn.setEnabled(false);
     }
 }

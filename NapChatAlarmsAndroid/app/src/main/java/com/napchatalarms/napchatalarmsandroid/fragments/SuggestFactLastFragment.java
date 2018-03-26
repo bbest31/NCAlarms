@@ -113,4 +113,15 @@ public class SuggestFactLastFragment extends FactFragment implements IFactFragme
             descriptionField.setEnabled(true);
         }
     }
+
+    /**
+     * When this fragment becomes invisible then we disable the views again.
+     */
+    @Override
+    public void onBecameInvisible(){
+        link.setEnabled(false);
+        descriptionField.setEnabled(false);
+        submitBtn.setEnabled(false);
+    }
+
 }

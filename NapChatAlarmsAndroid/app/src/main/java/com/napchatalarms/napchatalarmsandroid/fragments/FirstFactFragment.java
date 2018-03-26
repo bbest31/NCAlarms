@@ -75,9 +75,16 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
             }
         });
 
+        yesBtn.setEnabled(false);
+        noBtn.setEnabled(false);
+
         this.setFact(pageNumber);
 
         return view;
+    }
+    @Override
+    public int getPageNumber() {
+        return pageNumber;
     }
 
     public void setFact(int factNumber) {
@@ -86,9 +93,20 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
         citation.setText(fact.getCitation());
     }
 
-
     @Override
-    public int getPageNumber() {
-        return pageNumber;
+    public void onBecameVisible() {
+        yesBtn.setEnabled(true);
+        noBtn.setEnabled(true);
+
     }
+
+    /**
+     * When this fragment becomes invisible then we disable the views again.
+     */
+    @Override
+    public void onBecameInvisible(){
+        yesBtn.setEnabled(false);
+        noBtn.setEnabled(false);
+    }
+
 }

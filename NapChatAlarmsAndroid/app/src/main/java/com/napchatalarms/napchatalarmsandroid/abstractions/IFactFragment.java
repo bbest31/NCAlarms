@@ -6,4 +6,5 @@ package com.napchatalarms.napchatalarmsandroid.abstractions;
 
 public interface IFactFragment {
     void onBecameVisible();
+    void onBecameInvisible();
 }

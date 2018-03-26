@@ -103,8 +103,19 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
     public void onBecameVisible() {
         if (getActivity() != null && !getActivity().isFinishing()) {
             // do something with your Activity -which should also implement an interface!-
-            // link.setEnabled(true);
-            // descriptionField.setEnabled(true);
+            link.setEnabled(true);
+            descriptionField.setEnabled(true);
+            submitBtn.setEnabled(true);
         }
+    }
+
+    /**
+     * When this fragment becomes invisible then we disable the views again.
+     */
+    @Override
+    public void onBecameInvisible(){
+        link.setEnabled(false);
+        descriptionField.setEnabled(false);
+        submitBtn.setEnabled(false);
     }
 }
