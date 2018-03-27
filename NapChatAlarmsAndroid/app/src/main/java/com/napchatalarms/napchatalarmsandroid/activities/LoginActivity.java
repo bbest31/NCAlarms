@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.R;
@@ -15,6 +16,8 @@ import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.fragments.LandingFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.LoginFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;
+
+import java.text.SimpleDateFormat;
 
 // SOURCES: https://firebase.google.com/docs/auth/android
 
@@ -28,8 +31,9 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    //Views
+
     private FirebaseAuth mAuth;
+    private FirebaseAnalytics mAnalytics;
 
 
     @Override
@@ -50,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-       selectFragment(new View(getApplicationContext()));
+        selectFragment(new View(getApplicationContext()));
         //Navigate to Home Activity if currentUser is already signed in.
         loginNavigationOnSuccess(currentUser, getApplicationContext());
 
@@ -73,6 +77,15 @@ public class LoginActivity extends AppCompatActivity {
             User user = User.getInstance();
             NapChatController.getInstance().loadUserData(context);
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+
+            //Log event
+            mAnalytics = FirebaseAnalytics.getInstance(this);
+            Bundle event = new Bundle();
+            SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+            event.putString(FirebaseAnalytics.Param.ACLID, user.getUid());
+            event.putString("DATE", format.format(System.currentTimeMillis()));
+            mAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, event);
+
             startActivity(homeIntent);
             finish();
         }

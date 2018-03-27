@@ -5,33 +5,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.abstractions.IFactFragment;
 import com.napchatalarms.napchatalarmsandroid.model.Fact;
 import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 
 /**
  * Created by bbest on 18/03/18.
  */
 
 public class FirstFactFragment extends FactFragment implements IFactFragment {
+    private static final String ARG_PAGE = "fact";
     private TextView description;
     private TextView citation;
     private TextView DYKText;
     private Button yesBtn;
     private Button noBtn;
     private int pageNumber;
-    private static final String ARG_PAGE = "fact";
+    private int factId;
+    private FirebaseAnalytics mAnalytics;
 
 
-    public FirstFactFragment(){
+    public FirstFactFragment() {
 
     }
 
-    public static FirstFactFragment create(int pageNumber){
+    public static FirstFactFragment create(int pageNumber) {
         FirstFactFragment fragment = new FirstFactFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
@@ -48,7 +51,7 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_first_fact, container, false);
         description = (TextView) view.findViewById(R.id.fact_description);
@@ -63,6 +66,15 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_yes_msg));
                 noBtn.setVisibility(View.INVISIBLE);
                 yesBtn.setVisibility(View.INVISIBLE);
+                mAnalytics = FirebaseAnalytics.getInstance(getActivity());
+                Bundle event = new Bundle();
+                event.putString("DYK_ANSWER", "Y");
+                event.putString("FACT", String.valueOf(factId));
+                event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
+                event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
+                // Add if they are paid or unpaid and when they joined.
+
+                mAnalytics.logEvent("DYK", event);
             }
         });
 
@@ -72,6 +84,15 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_no_msg));
                 yesBtn.setVisibility(View.INVISIBLE);
                 noBtn.setVisibility(View.INVISIBLE);
+                mAnalytics = FirebaseAnalytics.getInstance(getActivity());
+                Bundle event = new Bundle();
+                event.putString("DYK_ANSWER", "N");
+                event.putString("FACT", String.valueOf(factId));
+                event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
+                event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
+                // Add if they are paid or unpaid and when they joined.
+
+                mAnalytics.logEvent("DYK", event);
             }
         });
 
@@ -82,6 +103,7 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
 
         return view;
     }
+
     @Override
     public int getPageNumber() {
         return pageNumber;
@@ -91,6 +113,7 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
         Fact fact = FactHolder.getInstance(getActivity()).getFacts().get(factNumber);
         description.setText(fact.getFactDescription());
         citation.setText(fact.getCitation());
+        factId = fact.getId();
     }
 
     @Override
@@ -104,7 +127,7 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
      * When this fragment becomes invisible then we disable the views again.
      */
     @Override
-    public void onBecameInvisible(){
+    public void onBecameInvisible() {
         yesBtn.setEnabled(false);
         noBtn.setEnabled(false);
     }

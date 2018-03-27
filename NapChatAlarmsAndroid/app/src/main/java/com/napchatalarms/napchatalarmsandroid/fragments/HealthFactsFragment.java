@@ -62,7 +62,7 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
             }
         });
-        pager.setOffscreenPageLimit(2);
+        pager.setOffscreenPageLimit(4);
         pager.setPageTransformer(true, new DepthPageTransformer());
         pager.setAdapter(pageAdapter);
         return view;

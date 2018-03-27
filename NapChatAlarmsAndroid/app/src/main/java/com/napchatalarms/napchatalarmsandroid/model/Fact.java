@@ -1,7 +1,5 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
-import java.net.URL;
-
 /**
  * Created by bbest on 15/03/18.
  */
@@ -9,12 +7,14 @@ import java.net.URL;
 public class Fact {
     private String factDescription;
     private String citation;
+    private int id;
     //private URL link;
     //gif or image.
 
     public Fact(String fact, String citation){
         this.citation = citation;
         this.factDescription = fact;
+        this.id = this.hashCode();
 
     }
 
@@ -33,4 +33,9 @@ public class Fact {
     public void setCitation(String citation) {
         this.citation = citation;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

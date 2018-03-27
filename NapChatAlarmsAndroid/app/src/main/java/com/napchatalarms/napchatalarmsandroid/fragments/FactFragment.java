@@ -1,6 +1,5 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.abstractions.IFactFragment;
 import com.napchatalarms.napchatalarmsandroid.model.Fact;
 import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 
 /**
  * Fragment holding a singular {@link Fact}.
@@ -30,6 +31,7 @@ public class FactFragment extends Fragment implements IFactFragment {
     private TextView DYKText;
     private int pageNumber;
     private static final String ARG_PAGE = "fact";
+    private FirebaseAnalytics mAnalytics;
 
 
 
@@ -71,6 +73,16 @@ public class FactFragment extends Fragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_yes_msg));
                 noBtn.setVisibility(View.INVISIBLE);
                 yesBtn.setVisibility(View.INVISIBLE);
+                mAnalytics = FirebaseAnalytics.getInstance(getActivity());
+                //Log event
+                Bundle event = new Bundle();
+                event.putString("DYK_ANSWER","Y");
+                event.putString("FACT",String.valueOf(pageNumber));
+                event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
+                event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
+                // Add if they are paid or unpaid and when they joined.
+
+                mAnalytics.logEvent("DYK",event);
             }
         });
 
@@ -80,6 +92,15 @@ public class FactFragment extends Fragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_no_msg));
                 yesBtn.setVisibility(View.INVISIBLE);
                 noBtn.setVisibility(View.INVISIBLE);
+                mAnalytics = FirebaseAnalytics.getInstance(getActivity());
+                Bundle event = new Bundle();
+                event.putString("DYK_ANSWER","N");
+                event.putString("FACT",String.valueOf(pageNumber));
+                event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
+                event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
+                // Add if they are paid or unpaid and when they joined.
+
+                mAnalytics.logEvent("DYK",event);
             }
         });
         yesBtn.setEnabled(false);

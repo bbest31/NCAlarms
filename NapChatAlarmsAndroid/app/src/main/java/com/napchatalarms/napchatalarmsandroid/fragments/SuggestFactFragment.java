@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
+ * @// TODO: 26/03/18 Have the text boxes wait for them to send the email before clearing.
  * Created by bbest on 18/03/18.
  */
 

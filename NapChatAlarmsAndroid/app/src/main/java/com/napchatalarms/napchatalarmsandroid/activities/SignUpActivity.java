@@ -3,17 +3,14 @@ package com.napchatalarms.napchatalarmsandroid.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,12 +18,11 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
-import com.napchatalarms.napchatalarmsandroid.fragments.LandingFragment;
-import com.napchatalarms.napchatalarmsandroid.fragments.LoginFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.SignUpEmailFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.SignUpPasswordFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;
-import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
+
+import java.text.SimpleDateFormat;
 
 /**
  * Activity that allows potential users to sign up using
@@ -37,10 +33,11 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class SignUpActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     public String email;
     public String password;
     public String username;
+    private FirebaseAuth mAuth;
+    private FirebaseAnalytics mAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +78,12 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             initProfile(user);
                             sendEmailVerification();
-                            signUpNavigationOnSuccess(user);
+                            signUpNavigationOnSuccess(user, 0);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SignUp Activity", "createUserWithEmail:failure", task.getException());
-                            signUpNavigationOnSuccess(null);
+                            signUpNavigationOnSuccess(null, 0);
                             Toast.makeText(SignUpActivity.this, "Failed. Account with email may already exist.", Toast.LENGTH_LONG).show();
 
                         }
@@ -99,10 +97,25 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Navigation on successfuly sign up to the HomeActivity.
      */
-    public void signUpNavigationOnSuccess(FirebaseUser currentUser) {
+    public void signUpNavigationOnSuccess(FirebaseUser currentUser, int method) {
 
         if (currentUser != null) {
             Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+            mAnalytics = FirebaseAnalytics.getInstance(this);
+            switch (method) {
+                case 0:
+                    //Log event for email sign up
+                    Bundle event = new Bundle();
+                    SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+                    event.putString(FirebaseAnalytics.Param.ACLID, currentUser.getUid());
+                    event.putString("DATE", format.format(System.currentTimeMillis()));
+                    event.putString("METHOD", "EMAIL");
+                    mAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, event);
+                    break;
+                case 1:
+                    //Facebook sign up
+                    break;
+            }
             startActivity(intent);
             finish();
         }
@@ -159,7 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.signup_frame, fragment)
-                .setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left).commit();
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).commit();
 
     }
 }

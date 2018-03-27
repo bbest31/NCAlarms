@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.dialog.DnDOverrideDialog;
@@ -97,6 +98,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
     Integer snoozeLength;
     Boolean readPermission;
+    private FirebaseAnalytics mAnalytics;
 
     /**
      * Declaration of view references.
@@ -332,13 +334,27 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
         }
         alarmController.saveAlarms(getApplicationContext());
-        UtilityFunctions.createAlarmCreatedToast(this,getLayoutInflater()).show();
+        UtilityFunctions.createAlarmCreatedToast(this, getLayoutInflater()).show();
+
+        // Log event
+        mAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle event = new Bundle();
+        event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+        event.putString("RINGTONE", ringtone);
+        mAnalytics.logEvent("CREATE_ALARM", event);
 
     }
 
     public void editAlarm(int id, Integer vibrate, int hour, int minute, String ringtone, int snooze, List<Integer> repeat) {
         alarmController.editAlarm(getApplicationContext(), id, vibrate, hour, minute, ringtone, snooze, repeat);
         alarmController.saveAlarms(getApplicationContext());
+
+        // Log event
+        mAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle event = new Bundle();
+        event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibrate).getName());
+        event.putString("RINGTONE", ringtone);
+        mAnalytics.logEvent("EDIT_ALARM", event);
     }
 
     /**
@@ -391,7 +407,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 case CUSTOM_RINGTONE_RESULT_CODE:
                     String customUri = data.getStringExtra("URI");
                     String trackName = data.getStringExtra("NAME");
-                    setRingtone(customUri,trackName);
+                    setRingtone(customUri, trackName);
                     break;
                 default:
                     break;
