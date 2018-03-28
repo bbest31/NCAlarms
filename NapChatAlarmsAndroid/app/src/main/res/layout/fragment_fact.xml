@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,12 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/off_white"
         app:cardCornerRadius="20dp"
         app:cardElevation="2dp"
-        app:contentPadding="20dp">
+        app:contentPadding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,13 +36,17 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/fact_citation"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="156dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="150dp"
                 android:text="@string/descrip"
                 android:textAlignment="center"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                tools:layout_editor_absoluteY="262dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/fact_citation"
@@ -40,13 +54,13 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/dyk_text"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="70dp"
+                android:layout_marginTop="164dp"
                 android:text="@string/citation"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/fact_description" />
 
             <Button
                 android:id="@+id/dyk_yes_btn"
@@ -54,15 +68,19 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/dyk_no_btn"
                 android:layout_alignBottom="@+id/dyk_no_btn"
-                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="1dp"
                 android:layout_toStartOf="@+id/dyk_no_btn"
                 android:background="@drawable/round_blue_popup_btn"
                 android:fontFamily="@font/fredoka_one"
                 android:text="@string/dyk_yes"
                 android:textColor="@color/dark_blue"
                 android:visibility="visible"
-                tools:layout_editor_absoluteX="103dp"
-                tools:layout_editor_absoluteY="456dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dyk_no_btn"
+                app:layout_constraintTop_toBottomOf="@+id/dyk_text"
+                app:layout_constraintVertical_bias="0.492" />
 
             <Button
                 android:id="@+id/dyk_no_btn"
@@ -70,15 +88,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="71dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/round_neutral_popup_btn"
                 android:fontFamily="@font/fredoka_one"
                 android:text="@string/dyk_no"
                 android:textStyle="bold"
                 android:visibility="visible"
-                tools:layout_editor_absoluteX="213dp"
-                tools:layout_editor_absoluteY="456dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dyk_text"
+                app:layout_constraintVertical_bias="0.486" />
 
             <TextView
                 android:id="@+id/dyk_text"
@@ -86,10 +107,16 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/dyk_yes_btn"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="14dp"
+                android:layout_marginTop="80dp"
                 android:text="@string/dyk"
                 android:textColor="@color/dark_grey"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fact_citation" />
 
             <ImageView
                 android:id="@+id/next_indicator_left"
@@ -97,6 +124,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/left_chev"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_chevron_sign_left" />
 
             <ImageView
@@ -105,20 +139,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/right_chev"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_chevron_sign_to_right" />
 
-        </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/cardView"
-        android:layout_marginEnd="34dp"
-        android:layout_marginTop="112dp"
-        android:text="TextView" />
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
