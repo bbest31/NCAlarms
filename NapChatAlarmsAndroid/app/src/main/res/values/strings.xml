@@ -131,6 +131,7 @@
     <string name="email_error_message">Please enter a valid email address i.e. johndoe@email.com</string>
     <string name="janedoe_email_com">janedoe@email.com</string>
     <string name="new_username">username123</string>
+    <string name="link_hint">www.example.com</string>
 
     <!--Errors, Warnings & Messages-->
     <string name="invalid_credentials">Invalid Credentials</string>
@@ -168,6 +169,10 @@
     <string name="google_inc">Google Inc.</string>
     <string name="swipemenulistview">SwipeMenuListView</string>
     <string name="baoyongzhang">baoyongzhang</string>
+
+    <!--Image Descriptions-->
+    <string name="left_chev">left chevron</string>
+    <string name="right_chev">right chevron</string>
 
     <!--Sleep Facts-->
     <string name="sleep_fact1_description">Alcohol prevents your brain from entering REM sleep.</string>

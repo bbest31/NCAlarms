@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
     android:gravity="top|center_vertical"
@@ -10,59 +11,91 @@
         android:id="@+id/defaultRingtoneButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@color/off_white"
         android:fontFamily="@font/fredoka_one"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:text="@string/default_string"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/deviceRingtoneButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/deviceRingtoneButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/off_white"
         android:drawableRight="@drawable/ic_smartphone"
         android:fontFamily="@font/fredoka_one"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:text="@string/device"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/musicRingtoneButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/musicRingtoneButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/off_white"
         android:drawableRight="@drawable/ic_compact_disc"
         android:fontFamily="@font/fredoka_one"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:text="@string/music"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/napchatRingtoneButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/napchatRingtoneButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/off_white"
         android:drawableRight="@drawable/ic_pillow_24dp"
         android:fontFamily="@font/fredoka_one"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:text="@string/app_name"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_ringtone_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/cancel_ringtone_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/off_white"
         android:fontFamily="@font/fredoka_one"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:text="@string/Cancel"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

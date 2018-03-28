@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="top|center_vertical"
@@ -12,71 +13,110 @@
         android:id="@+id/delete_account_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/fredoka_one"
         android:text="@string/Delete_Account"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/delete_account_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Reauthenticate" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/Reauthenticate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_account_text" />
 
     <EditText
         android:id="@+id/delete_account_email_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_account_msg" />
 
     <EditText
         android:id="@+id/delete_account_pass_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_account_email_editText" />
 
     <TextView
         android:id="@+id/del_acct_err_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:padding="10dp"
         android:text="@string/invalid_credentials"
         android:textColor="@color/unverified_red"
-        android:visibility="gone" />
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_account_pass_editText" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <Button
+        android:id="@+id/delete_account_confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_blue_popup_btn"
+        android:fontFamily="@font/fredoka_one"
+        android:paddingEnd="45dp"
+        android:paddingStart="45dp"
+        android:text="@string/confirm"
+        android:textColor="@color/dark_blue"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/del_acct_err_text" />
 
-        <Button
-            android:id="@+id/delete_account_confirm_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_blue_popup_btn"
-            android:fontFamily="@font/fredoka_one"
-            android:text="@string/confirm"
-            android:textColor="@color/dark_blue"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/delete_account_cancel_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_neutral_popup_btn"
-            android:fontFamily="@font/fredoka_one"
-            android:text="@string/Cancel"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/delete_account_cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_neutral_popup_btn"
+        android:fontFamily="@font/fredoka_one"
+        android:paddingEnd="45dp"
+        android:paddingStart="45dp"
+        android:text="@string/Cancel"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/del_acct_err_text" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
