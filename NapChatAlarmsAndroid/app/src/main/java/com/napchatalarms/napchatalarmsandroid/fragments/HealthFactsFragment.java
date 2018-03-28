@@ -15,8 +15,6 @@ import com.napchatalarms.napchatalarmsandroid.adapters.FactsPageAdapter;
 import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
 import com.napchatalarms.napchatalarmsandroid.utility.DepthPageTransformer;
 
-import java.util.ArrayList;
-
 
 public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
@@ -77,9 +75,9 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
     public void OnPageSelected(final int i) {
         FactFragment fragment = (FactFragment) pageAdapter.instantiateItem(pager, i);
         // Get the next fragment that has been instantiated and tell it that it is invisible.
-        if(i != NUM_PAGES-1){
-            FactFragment nextFragment = (FactFragment) pageAdapter.instantiateItem(pager,i+1);
-            if(nextFragment != null){
+        if (i != NUM_PAGES - 1) {
+            FactFragment nextFragment = (FactFragment) pageAdapter.instantiateItem(pager, i + 1);
+            if (nextFragment != null) {
                 nextFragment.onBecameInvisible();
             }
         }

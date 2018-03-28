@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.napchatalarms.napchatalarmsandroid.activities.CustomRingtoneActivity">
 
     <ExpandableListView
         android:id="@+id/custom_tone_listview"
-        android:layout_width="395dp"
-        android:layout_height="643dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"

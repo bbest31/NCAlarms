@@ -24,20 +24,20 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  */
 
 public class FactFragment extends Fragment implements IFactFragment {
+    private static final String ARG_PAGE = "fact";
     private TextView description;
     private TextView citation;
     private Button yesBtn;
     private Button noBtn;
     private TextView DYKText;
     private int pageNumber;
-    private static final String ARG_PAGE = "fact";
     private FirebaseAnalytics mAnalytics;
 
 
-
-    public FactFragment(){
+    public FactFragment() {
 
     }
+
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
      */
@@ -76,13 +76,13 @@ public class FactFragment extends Fragment implements IFactFragment {
                 mAnalytics = FirebaseAnalytics.getInstance(getActivity());
                 //Log event
                 Bundle event = new Bundle();
-                event.putString("DYK_ANSWER","Y");
-                event.putString("FACT",String.valueOf(pageNumber));
+                event.putString("DYK_ANSWER", "Y");
+                event.putString("FACT", String.valueOf(pageNumber));
                 event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
                 event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
                 // Add if they are paid or unpaid and when they joined.
 
-                mAnalytics.logEvent("DYK",event);
+                mAnalytics.logEvent("DYK", event);
             }
         });
 
@@ -94,13 +94,13 @@ public class FactFragment extends Fragment implements IFactFragment {
                 noBtn.setVisibility(View.INVISIBLE);
                 mAnalytics = FirebaseAnalytics.getInstance(getActivity());
                 Bundle event = new Bundle();
-                event.putString("DYK_ANSWER","N");
-                event.putString("FACT",String.valueOf(pageNumber));
+                event.putString("DYK_ANSWER", "N");
+                event.putString("FACT", String.valueOf(pageNumber));
                 event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
                 event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
                 // Add if they are paid or unpaid and when they joined.
 
-                mAnalytics.logEvent("DYK",event);
+                mAnalytics.logEvent("DYK", event);
             }
         });
         yesBtn.setEnabled(false);
@@ -132,7 +132,7 @@ public class FactFragment extends Fragment implements IFactFragment {
      * When this fragment becomes invisible then we disable the views again.
      */
     @Override
-    public void onBecameInvisible(){
+    public void onBecameInvisible() {
         yesBtn.setEnabled(false);
         noBtn.setEnabled(false);
     }

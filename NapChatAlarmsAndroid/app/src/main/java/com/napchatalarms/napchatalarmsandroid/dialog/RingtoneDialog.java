@@ -113,8 +113,8 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
                 }
                 break;
             case R.id.napchatRingtoneButton:
-                Intent customRingtoneIntent = new Intent(c,CustomRingtoneActivity.class);
-                c.startActivityForResult(customRingtoneIntent,CUSTOM_RINGTONE_RESULT_CODE);
+                Intent customRingtoneIntent = new Intent(c, CustomRingtoneActivity.class);
+                c.startActivityForResult(customRingtoneIntent, CUSTOM_RINGTONE_RESULT_CODE);
                 break;
             default:
                 break;

@@ -16,8 +16,8 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
-import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.adapters.AlarmAdapter;
+import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
@@ -26,12 +26,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class AlarmListFragment extends android.support.v4.app.Fragment implements View.OnTouchListener {
 
+    private final static float CLICK_DRAG_TOLERANCE = 10; // Often, there will be a slight, unintentional, drag when the user taps the FAB, so we need to account for this.
     //=====ATTRIBUTES=====
     SwipeMenuListView alarmListView;
     FloatingActionButton addAlarmButton;
     AlarmAdapter alarmAdapter;
-    private final static float CLICK_DRAG_TOLERANCE = 10; // Often, there will be a slight, unintentional, drag when the user taps the FAB, so we need to account for this.
-
     private float downRawX, downRawY;
     private float dX, dY;
 
@@ -45,22 +44,22 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
         initialize(view);
-        return  view;
+        return view;
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         updateAlarmList();
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
     }
+
     private void initialize(View view) {
         alarmListView = (SwipeMenuListView) view.findViewById(R.id.alarm_list_view);
-
 
 
         addAlarmButton = (FloatingActionButton) view.findViewById(R.id.add_alarm_btn);
@@ -70,14 +69,14 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
                 addAlarmButton.setBackgroundColor(getActivity().getColor(R.color.fab_blue_sel));
                 Intent createAlarmIntent = new Intent(getActivity(), CreateAlarmActivity.class);
                 createAlarmIntent.putExtra("ID", 0);
-                startActivityForResult(createAlarmIntent,1);
+                startActivityForResult(createAlarmIntent, 1);
             }
         });
 
 
         addAlarmButton.setOnTouchListener(this);
 
-                SwipeMenuCreator creator = new SwipeMenuCreator() {
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
             public void create(SwipeMenu menu) {
@@ -126,7 +125,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
                         Intent intent = new Intent(getActivity(), CreateAlarmActivity.class);
                         try {
                             intent.putExtra("ID", editAlarm.getId());
-                            startActivityForResult(intent,1);
+                            startActivityForResult(intent, 1);
                             updateAlarmList();
                         } catch (NullPointerException e) {
                             e.printStackTrace();
@@ -182,13 +181,12 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
 
             return true; // Consumed
 
-        }
-        else if (action == MotionEvent.ACTION_MOVE) {
+        } else if (action == MotionEvent.ACTION_MOVE) {
 
             int viewWidth = view.getWidth();
             int viewHeight = view.getHeight();
 
-            View viewParent = (View)view.getParent();
+            View viewParent = (View) view.getParent();
             int parentWidth = viewParent.getWidth();
             int parentHeight = viewParent.getHeight();
 
@@ -208,8 +206,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
 
             return true; // Consumed
 
-        }
-        else if (action == MotionEvent.ACTION_UP) {
+        } else if (action == MotionEvent.ACTION_UP) {
 
             float upRawX = motionEvent.getRawX();
             float upRawY = motionEvent.getRawY();
@@ -219,13 +216,11 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
 
             if (Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(upDY) < CLICK_DRAG_TOLERANCE) { // A click
                 return view.performClick();
-            }
-            else { // A drag
+            } else { // A drag
                 return true; // Consumed
             }
 
-        }
-        else {
+        } else {
             return view.onTouchEvent(motionEvent);
         }
     }

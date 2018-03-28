@@ -11,7 +11,8 @@ public class FriendList {
     private ArrayList<Friend> friends;
 
     private ArrayList<String> pending;
-    public FriendList(){
+
+    public FriendList() {
         this.friends = new ArrayList<>();
         this.pending = new ArrayList<>();
     }

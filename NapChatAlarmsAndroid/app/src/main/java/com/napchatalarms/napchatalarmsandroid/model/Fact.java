@@ -11,7 +11,7 @@ public class Fact {
     //private URL link;
     //gif or image.
 
-    public Fact(String fact, String citation){
+    public Fact(String fact, String citation) {
         this.citation = citation;
         this.factDescription = fact;
         this.id = this.hashCode();

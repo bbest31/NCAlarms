@@ -1,7 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,8 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
     EditText emailEditText;
     EditText usernameEditText;
 
-    public SignUpEmailFragment(){}
+    public SignUpEmailFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +34,7 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
-    private void initialize(View view){
+    private void initialize(View view) {
         nextButton = (Button) view.findViewById(R.id.signup_email_next_btn);
         emailEditText = (EditText) view.findViewById(R.id.signup_email_edittext);
         usernameEditText = (EditText) view.findViewById(R.id.signup_username_edittext);
@@ -51,7 +51,7 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                     err = 1;
                     validCredentials = false;
 
-                }else if (!UtilityFunctions.isValidUsername(username)) {
+                } else if (!UtilityFunctions.isValidUsername(username)) {
                     err = 2;
                     validCredentials = false;
                 }
@@ -70,14 +70,13 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 }
 
 
-
             }
         });
     }
 
-    private Toast errorToast(int err){
+    private Toast errorToast(int err) {
         Toast toast = null;
-        switch(err){
+        switch (err) {
             case 1:
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.toast_signup_email_err,
@@ -85,7 +84,7 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 toast.setView(layout);
                 break;
             case 2:
-               toast = UtilityFunctions.createInvalidUsernameToast(getActivity(),getLayoutInflater());
+                toast = UtilityFunctions.createInvalidUsernameToast(getActivity(), getLayoutInflater());
                 break;
             default:
 

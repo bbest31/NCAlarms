@@ -19,6 +19,7 @@ public class DnDOverrideDialog extends Dialog implements android.view.View.OnCli
     public Activity c;
     public Button allow;
     public Button deny;
+
     /**
      * Creates a dialog window that uses the default dialog theme.
      * <p>

@@ -8,7 +8,7 @@ package com.napchatalarms.napchatalarmsandroid.model;
 
 public class NapAlerts {
 
-    public NapAlerts(){
+    public NapAlerts() {
 
     }
 

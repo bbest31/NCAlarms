@@ -54,13 +54,14 @@ public class AlarmController {
     /**
      * Sets alarm status to active
      * Adds to the user list and schedules alarm.
+     *
      * @param context
      * @param alarm
      */
     public void createAlarm(Context context, Alarm alarm) {
         alarm.Activate();
         addAlarmToUser(alarm, context);
-        Log.w("New Alarm ID",String.valueOf(alarm.getId()));
+        Log.w("New Alarm ID", String.valueOf(alarm.getId()));
     }
 
     /**
@@ -187,13 +188,13 @@ public class AlarmController {
                 RepeatingAlarm newAlarm = builder.build();
                 deleteAlarm(context, id);
                 createAlarm(context, newAlarm);
-                if(wasActive){
-                    scheduleAlarm(context,newAlarm);
-                }else{
+                if (wasActive) {
+                    scheduleAlarm(context, newAlarm);
+                } else {
                     newAlarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(1T->R)",newAlarm.toString());
+                Log.w("Edit Alarm(1T->R)", newAlarm.toString());
 
 
             } else if (alarm.getClass() == RepeatingAlarm.class && repeatDays.size() == 0) {
@@ -208,13 +209,13 @@ public class AlarmController {
                 OneTimeAlarm newAlarm = builder.build();
                 deleteAlarm(context, id);
                 createAlarm(context, newAlarm);
-                if(wasActive){
-                    scheduleAlarm(context,newAlarm);
-                }else{
+                if (wasActive) {
+                    scheduleAlarm(context, newAlarm);
+                } else {
                     newAlarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(R->1T)",newAlarm.toString());
+                Log.w("Edit Alarm(R->1T)", newAlarm.toString());
 
             } else if (alarm.getClass() == OneTimeAlarm.class && repeatDays.size() == 0) {
                 //Onetime alarm staying the same type
@@ -224,14 +225,14 @@ public class AlarmController {
                 alarm.setVibratePattern(vibrate);
                 Long trig = UtilityFunctions.UTCMilliseconds(hour, min);
                 alarm.setTime(trig);
-                if(wasActive){
+                if (wasActive) {
                     alarm.Activate();
                     scheduleAlarm(context, alarm);
-                }else{
+                } else {
                     alarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(1T->1T)",alarm.toString());
+                Log.w("Edit Alarm(1T->1T)", alarm.toString());
 
             } else {
                 //repeating stays repeating
@@ -246,13 +247,13 @@ public class AlarmController {
                 RepeatingAlarm newAlarm = builder.build();
                 deleteAlarm(context, id);
                 createAlarm(context, newAlarm);
-                if(wasActive){
-                    scheduleAlarm(context,newAlarm);
-                }else{
+                if (wasActive) {
+                    scheduleAlarm(context, newAlarm);
+                } else {
                     newAlarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(R->R)",newAlarm.toString());
+                Log.w("Edit Alarm(R->R)", newAlarm.toString());
             }
         } else {
             Toast.makeText(context, "Error editing alarm", Toast.LENGTH_LONG).show();

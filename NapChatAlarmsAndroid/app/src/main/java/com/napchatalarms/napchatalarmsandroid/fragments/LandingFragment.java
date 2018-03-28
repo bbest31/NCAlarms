@@ -2,13 +2,11 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
@@ -33,10 +31,12 @@ public class LandingFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onResume(){super.onResume();}
+    public void onResume() {
+        super.onResume();
+    }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
     }
 
@@ -82,7 +82,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         fbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 

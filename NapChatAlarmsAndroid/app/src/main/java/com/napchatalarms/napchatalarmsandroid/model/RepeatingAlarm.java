@@ -70,7 +70,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      */
     @Override
     public String toString() {
-        String alarmStr = "ID: " + this.getId() +" Active: "+this.getStatus()+ "\n <Sub-Alarms> \n";
+        String alarmStr = "ID: " + this.getId() + " Active: " + this.getStatus() + "\n <Sub-Alarms> \n";
 
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet()) {
             alarmStr = alarmStr + entry.getValue().toString() + " \n ";

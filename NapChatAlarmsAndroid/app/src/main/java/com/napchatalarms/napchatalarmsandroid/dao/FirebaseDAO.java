@@ -23,14 +23,9 @@ import java.util.Map;
 
 public class FirebaseDAO {
 
+    private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static FirebaseDAO instance = null;
-
-    public static FirebaseDAO getInstance() {
-        if (instance == null) {
-            instance = new FirebaseDAO();
-        }
-        return instance;
-    }
+    private static DatabaseReference dbRef = database.getReference();
 
     /**
      * This constructor initializes all the event listeners for the different children of the user
@@ -93,32 +88,35 @@ public class FirebaseDAO {
 //        dbRef.addValueEventListener(requestsEventListener);
     }
 
-    private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public static FirebaseDAO getInstance() {
+        if (instance == null) {
+            instance = new FirebaseDAO();
+        }
+        return instance;
+    }
 
-    private static DatabaseReference dbRef = database.getReference();
-
-    public void writeFriendsList(String uid,ArrayList<Friend> friends) {
+    public void writeFriendsList(String uid, ArrayList<Friend> friends) {
         dbRef.child("users").child(uid).child("friends").setValue(friends).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                } else{
-                    Log.e("FirebaseDAO","Failure to write user friend list: "+task.getException().getMessage());
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user friend list: " + task.getException().getMessage());
                 }
             }
         });
     }
 
-    public void writeGroups(String uid,Map<String, Group> groupMap) {
+    public void writeGroups(String uid, Map<String, Group> groupMap) {
 
         dbRef.child("users").child(uid).child("groups").setValue(groupMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                } else{
-                    Log.e("FirebaseDAO","Failure to write user groups: "+task.getException().getMessage());
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user groups: " + task.getException().getMessage());
                 }
             }
         });
@@ -129,49 +127,49 @@ public class FirebaseDAO {
         dbRef.child("users").child(user.getUid()).child("email").setValue(user.getEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Log.i("FirebaseDAO","Success to write email: ");
-                } else{
-                    Log.e("FirebaseDAO","Failure to write user email: "+task.getException().getMessage());
+                if (task.isSuccessful()) {
+                    Log.i("FirebaseDAO", "Success to write email: ");
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user email: " + task.getException().getMessage());
                 }
             }
         });
         dbRef.child("users").child(user.getUid()).child("username").setValue(user.getName()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Log.i("FirebaseDAO","Success to write username: ");
-                } else{
-                    Log.e("FirebaseDAO","Failure to write username: "+task.getException().getMessage());
+                if (task.isSuccessful()) {
+                    Log.i("FirebaseDAO", "Success to write username: ");
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write username: " + task.getException().getMessage());
                 }
             }
         });
 
     }
 
-    public void writeAlerts(String uid,ArrayList<NapAlerts> alerts) {
+    public void writeAlerts(String uid, ArrayList<NapAlerts> alerts) {
         //
         dbRef.child("users").child(uid).child("alerts").setValue(alerts).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                } else{
-                    Log.e("FirebaseDAO","Failure to write user alerts: "+task.getException().getMessage());
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user alerts: " + task.getException().getMessage());
                 }
             }
         });
     }
 
-    public void writeFriendRequest(String uid,ArrayList<FriendRequest> requests) {
+    public void writeFriendRequest(String uid, ArrayList<FriendRequest> requests) {
         //
         dbRef.child("users").child(uid).child("requests").setValue(requests).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                } else{
-                    Log.e("FirebaseDAO","Failure to write user requests: "+task.getException().getMessage());
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user requests: " + task.getException().getMessage());
                 }
             }
         });
@@ -195,20 +193,19 @@ public class FirebaseDAO {
 
     }
 
-    public void removeUser(String uid){
+    public void removeUser(String uid) {
 
         dbRef.child("users").child(uid).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Log.i("FirebaseDAO","Succesfully removed user.");
-                } else{
-                    Log.e("FirebaseDAO","Failure to remove User: "+task.getException().getMessage());
+                if (task.isSuccessful()) {
+                    Log.i("FirebaseDAO", "Succesfully removed user.");
+                } else {
+                    Log.e("FirebaseDAO", "Failure to remove User: " + task.getException().getMessage());
                 }
             }
         });
     }
-
 
 
 }

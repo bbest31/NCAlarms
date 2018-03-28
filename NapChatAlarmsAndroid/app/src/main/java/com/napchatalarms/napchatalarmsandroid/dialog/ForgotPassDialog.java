@@ -79,14 +79,14 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
 
         String emailAddress = emailEntry.getText().toString();
 
-        if(UtilityFunctions.isValidEmail(emailAddress)){
+        if (UtilityFunctions.isValidEmail(emailAddress)) {
             auth.sendPasswordResetEmail(emailAddress)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.i("ForgotPassDialog", "Email sent.");
-                                UtilityFunctions.createEmailSuccessToast(getOwnerActivity(),getLayoutInflater()).show();
+                                UtilityFunctions.createEmailSuccessToast(getOwnerActivity(), getLayoutInflater()).show();
                             } else {
                                 //Email may not exists with an account so we should display some kind of error
                                 Log.i("ForgotPassDialog", "Email could not be sent!");

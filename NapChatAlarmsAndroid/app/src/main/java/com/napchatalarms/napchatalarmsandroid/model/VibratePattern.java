@@ -10,7 +10,7 @@ public class VibratePattern {
     private String name;
     private long[] pattern;
 
-    public VibratePattern(Integer i, String title, long[] pattern){
+    public VibratePattern(Integer i, String title, long[] pattern) {
         this.id = i;
         this.name = title;
         this.pattern = pattern;

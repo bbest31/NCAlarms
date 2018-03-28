@@ -21,8 +21,6 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by bbest on 15/03/18.
  */

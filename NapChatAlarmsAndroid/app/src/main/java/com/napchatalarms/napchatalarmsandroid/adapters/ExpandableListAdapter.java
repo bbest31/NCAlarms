@@ -1,9 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.adapters;
 
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -14,6 +11,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -98,15 +98,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.lblListHeader);
-        switch(groupPosition){
+        switch (groupPosition) {
             case 0:
-                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_rainbow,0);
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_rainbow, 0);
                 break;
             case 1:
-                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_rain,0);
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_rain, 0);
                 break;
             case 2:
-                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_thunderstorm,0);
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_thunderstorm, 0);
                 break;
         }
         lblListHeader.setTypeface(null, Typeface.BOLD);
