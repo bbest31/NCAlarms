@@ -329,4 +329,23 @@ public class UtilityFunctions {
         toast.setView(layout);
         return toast;
     }
+
+    public final static Toast createInvalidCredentials(Activity activity, LayoutInflater inflater) {
+        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 100);
+        View layout = inflater.inflate(R.layout.toast_login_err,
+                (ViewGroup) activity.findViewById(R.id.login_toast_container));
+        toast.setView(layout);
+        return toast;
+    }
+
+    public final static Toast createInvalidEmailToast(Activity activity, LayoutInflater inflater) {
+        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 100);
+        View layout = inflater.inflate(R.layout.toast_invalid_email,
+                (ViewGroup) activity.findViewById(R.id.invalid_email_layout));
+        toast.setView(layout);
+        return toast;
+    }
+
 }

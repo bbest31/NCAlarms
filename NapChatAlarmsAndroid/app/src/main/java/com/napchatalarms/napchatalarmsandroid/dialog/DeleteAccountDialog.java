@@ -81,7 +81,6 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
             default:
                 break;
         }
-        dismiss();
     }
 
     /**
@@ -95,7 +94,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
         String email = emailEntry.getText().toString();
         String pass = passEntry.getText().toString();
 
-        if (email.isEmpty() || pass.isEmpty()) {
+        if (email.trim().isEmpty() || pass.trim().isEmpty()) {
             errText.setVisibility(View.VISIBLE);
         } else {
 // Get auth credentials from the user for re-authentication. The example below shows
@@ -112,6 +111,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                             Log.i("Re-Authentication", "User re-authenticated.");
                             if (task.isSuccessful()) {
                                 deleteAccount();
+                                dismiss();
                             } else {
                                 errText.setVisibility(View.VISIBLE);
                             }

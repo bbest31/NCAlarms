@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -31,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/submit_fact_descrip_edittext"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="32dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/round_purple_btn"
                 android:fontFamily="@font/fredoka_one"
                 android:paddingEnd="45dp"
@@ -41,9 +42,9 @@
                 android:text="@string/submit"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/submit_fact_descrip_edittext" />
 
             <ImageView
                 android:id="@+id/submit_chevron_lft"
@@ -69,12 +70,11 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/fredoka_one"
                 android:text="@string/submit_fact"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -85,9 +85,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/link_src_edittext"
                 android:layout_below="@+id/link_src_edittext"
-                android:layout_marginBottom="88dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/white"
                 android:clickable="true"
                 android:ems="10"
@@ -99,9 +99,9 @@
                 android:lines="12"
                 android:maxLines="20"
                 android:scrollbars="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/submit_fact_btn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/link_src_edittext" />
 
             <EditText
                 android:id="@+id/link_src_edittext"
@@ -109,9 +109,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView5"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
                 android:background="@color/white"
                 android:clickable="true"
                 android:ems="10"
@@ -119,9 +119,9 @@
                 android:focusableInTouchMode="true"
                 android:hint="@string/link_hint"
                 android:inputType="textWebEditText"
-                app:layout_constraintBottom_toTopOf="@+id/submit_fact_descrip_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -129,17 +129,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/submit_fact_text"
-                android:layout_marginBottom="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:text="@string/link_msg"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toTopOf="@+id/link_src_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/submit_fact_text" />
 
         </android.support.constraint.ConstraintLayout>
 

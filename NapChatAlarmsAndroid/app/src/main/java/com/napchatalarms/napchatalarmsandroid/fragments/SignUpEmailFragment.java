@@ -47,11 +47,11 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 String email = emailEditText.getText().toString();
                 int err = 0;
 
-                if (!UtilityFunctions.isValidEmail(email)) {
+                if (!UtilityFunctions.isValidEmail(email) || email.trim().isEmpty()) {
                     err = 1;
                     validCredentials = false;
 
-                } else if (!UtilityFunctions.isValidUsername(username)) {
+                } else if (!UtilityFunctions.isValidUsername(username) || username.trim().isEmpty()) {
                     err = 2;
                     validCredentials = false;
                 }
@@ -78,16 +78,12 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
         Toast toast = null;
         switch (err) {
             case 1:
-                LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.toast_signup_email_err,
-                        (ViewGroup) getActivity().findViewById(R.id.signup_email_err_container));
-                toast.setView(layout);
+                toast = UtilityFunctions.createInvalidEmailToast(getActivity(), getLayoutInflater());
                 break;
             case 2:
                 toast = UtilityFunctions.createInvalidUsernameToast(getActivity(), getLayoutInflater());
                 break;
             default:
-
                 break;
 
         }
