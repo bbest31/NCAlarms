@@ -96,8 +96,8 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
             }
         });
 
-        yesBtn.setEnabled(false);
-        noBtn.setEnabled(false);
+//        yesBtn.setEnabled(false);
+//        noBtn.setEnabled(false);
 
         this.setFact(pageNumber);
 
