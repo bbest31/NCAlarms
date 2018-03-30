@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 
-/**
+/** Dialog for the User to choose a custom vibrate pattern.
  * Created by bbest on 10/03/18.
  */
 public class VibrateDialog extends Dialog implements View.OnClickListener {

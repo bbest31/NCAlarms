@@ -33,7 +33,6 @@
     <string name="submit_fact">Submit Fact</string>
     <string name="support">Support</string>
     <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
-    <string name="create_account">Create Account</string>
     <string name="login">Login</string>
 
     <!--Vibrate Options-->
@@ -61,17 +60,22 @@
         <item>60</item>
     </string-array>
 
+    <string-array name="vibrate_patterns">
+        <item>Off</item>
+        <item>Locomotive</item>
+        <item>Buzzsaw</item>
+        <item>Heartbeat</item>
+        <item>Tip-toe</item>
+    </string-array>
+
     <!--Labels-->
     <string name="dyk">Did you know?</string>
     <string name="default_string">Default</string>
-    <string name="username">Username:</string>
-    <string name="surname">Surname:</string>
-    <string name="first_name">First Name:</string>
     <string name="email">Email:</string>
     <string name="password">Password:</string>
     <string name="already_have_acct">Already have an account?</string>
-    <string name="FirstName">First Name</string>
-    <string name="SurName">Surname</string>
+    <string name="ringtone_label">Ringtone:</string>
+    <string name="vibrate_label">Vibrate:</string>
 
     <!--Button Text-->
     <string name="edit">Edit</string>
@@ -95,7 +99,6 @@
     <string name="dismiss">Dismiss</string>
     <string name="snooze">Snooze</string>
     <string name="create">Create</string>
-    <string name="Save">Save</string>
     <string name="confirm">Confirm</string>
 
 
@@ -108,7 +111,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="about">About</string>
     <string name="rate">Rate App</string>
-    <string name="credits">Credits</string>
     <string name="open_src">Open Source Libraries</string>
     <string name="feedback_bug">Submit Feedback/Problems</string>
     <string name="share">Share App</string>
@@ -127,20 +129,14 @@
     <!--Hints-->
     <string name="email_hint">email</string>
     <string name="pass_hint">password</string>
-    <string name="password_format_error">Password must be at least 8 characters with A–z, 0-9 only.</string>
-    <string name="email_error_message">Please enter a valid email address i.e. johndoe@email.com</string>
     <string name="jane_doe_email_com">janedoe@email.com</string>
     <string name="new_username">username123</string>
     <string name="link_hint">www.example.com</string>
 
     <!--Errors, Warnings & Messages-->
     <string name="invalid_credentials">Invalid Credentials</string>
-    <string name="invalid_pass">Invalid Password</string>
-    <string name="invalid_generic">Invalid Entry</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="invalid_first_name">Invalid Username</string>
-    <string name="invalid_last_name">Invalid Last Name</string>
-    <string name="failed_login">Login Failed</string>
     <string name="email_sent">Email sent!</string>
     <string name="warning">Warning</string>
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
@@ -153,11 +149,10 @@
     <string name="sign_up_email_msg">Please enter an email and username for your account.</string>
     <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
     <string name="signup_pwd_msg">Enter a password.(min 8 characters)</string>
-    <string name="LoginError">*Username or password does not exists.</string>
-    <string name="ResetPassword">Change password by sending a reset password email:</string>
     <string name="Reauthenticate">Please re-authenticate to delete account.</string>
-    <string name="change_email_msg">Please re-authenticate to change email</string>
     <string name="in_progress_message">We\'re working on it!</string>
+    <string name="conn_error">Connection Error!</string>
+    <string name="login_error_message">Login Failed!</string>
 
     <!--Open Source Libraries-->
     <string name="firebase_auth">Firebase Authentication</string>

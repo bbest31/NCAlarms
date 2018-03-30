@@ -136,6 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
      * Firebase encapsulated method to send a verification email to the user's email.
      */
     private void sendEmailVerification() {
+        //noinspection ConstantConditions
         mAuth.getCurrentUser().sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -48,6 +48,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 //        } else {
         //Regular reception of an alarm
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //noinspection ConstantConditions
         if (manager.isNotificationPolicyAccessGranted()) {
             previousFilter = manager.getCurrentInterruptionFilter();
             manager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
@@ -125,7 +126,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             } else {
                 builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM), AudioManager.STREAM_ALARM);
             }
-
+            assert cursor != null;
+            cursor.close();
 
         }
 
@@ -173,6 +175,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void Cancel(Context context, int Id) {
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //noinspection ConstantConditions
         manager.cancel(Id);
     }
 }

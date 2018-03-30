@@ -1,8 +1,9 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
-/**
+/** Model object holding Fact information.
  * Created by bbest on 15/03/18.
  */
+@SuppressWarnings("unused")
 public class Fact {
     private String factDescription;
     private String citation;
@@ -37,6 +38,7 @@ public class Fact {
      *
      * @param factDescription the fact description
      */
+    @SuppressWarnings("unused")
     public void setFactDescription(String factDescription) {
         this.factDescription = factDescription;
     }
@@ -55,6 +57,7 @@ public class Fact {
      *
      * @param citation the citation
      */
+    @SuppressWarnings("unused")
     public void setCitation(String citation) {
         this.citation = citation;
     }

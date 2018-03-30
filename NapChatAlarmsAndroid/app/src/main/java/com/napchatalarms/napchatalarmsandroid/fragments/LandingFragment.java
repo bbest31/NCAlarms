@@ -14,9 +14,10 @@ import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-/**
+/** Fragment users see when opening app that prompts either login options or sign up.
  * Created by bbest on 11/03/18.
  */
+@SuppressWarnings("unused")
 public class LandingFragment extends android.support.v4.app.Fragment {
 
     /**
@@ -38,6 +39,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
     /**
      * Initializing function for the views.
      **/
+    @SuppressWarnings("unused")
     private void initialize(View view) {
         /*
       The Sign up button.
@@ -50,7 +52,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         /*
       The Already have acct text.
      */
-        TextView alreadyHaveAcctText = view.findViewById(R.id.have_acct_text_view);
+        @SuppressWarnings("unused") TextView alreadyHaveAcctText = view.findViewById(R.id.have_acct_text_view);
         /*
       The Fb btn.
      */
@@ -58,11 +60,11 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         /*
       The App name.
      */
-        TextView appName = view.findViewById(R.id.app_name_text);
+        @SuppressWarnings("unused") TextView appName = view.findViewById(R.id.app_name_text);
         /*
       The Divider text.
      */
-        TextView dividerText = view.findViewById(R.id.or_text_view);
+        @SuppressWarnings("unused") TextView dividerText = view.findViewById(R.id.or_text_view);
 
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +80,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 LoginActivity activity = (LoginActivity) getActivity();
+                //noinspection ConstantConditions
                 activity.selectFragment(v);
 
             }

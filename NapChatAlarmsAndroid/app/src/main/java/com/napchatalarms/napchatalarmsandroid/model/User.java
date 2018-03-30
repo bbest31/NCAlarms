@@ -30,6 +30,7 @@ public class User {
     private User() {
         try {
             FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+            //noinspection ConstantConditions
             this.name = fUser.getDisplayName();
             this.email = fUser.getEmail();
             this.uid = fUser.getUid();

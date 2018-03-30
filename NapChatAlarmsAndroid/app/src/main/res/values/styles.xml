@@ -22,10 +22,6 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black</item>
     </style>
-    <style name="NapChatv1" parent="AppTheme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">true</item>
-    </style>
 
     <style name="splashScreenTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>

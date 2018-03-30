@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Static class to hold all the current {@link Fact} contained in this app version.
  * Created by bbest on 15/03/18.
  */
+@SuppressWarnings("unused")
 public class FactHolder {
 
     static private ArrayList<Fact> facts = new ArrayList<>();
@@ -48,6 +49,7 @@ public class FactHolder {
      *
      * @param facts the facts
      */
+    @SuppressWarnings("unused")
     public static void setFacts(ArrayList<Fact> facts) {
         FactHolder.facts = facts;
     }

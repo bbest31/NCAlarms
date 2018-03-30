@@ -32,7 +32,7 @@ public class NapChatControllerTest {
 
     @Before
     public void initializeVarTest() throws Exception{
-        ArrayList<Alarm> alarmArrayList = new ArrayList<>();
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") ArrayList<Alarm> alarmArrayList = new ArrayList<>();
         controller = NapChatController.getInstance();
         instrumentationCtx = InstrumentationRegistry.getContext();
         User user = User.getInstance();

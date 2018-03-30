@@ -3,11 +3,13 @@
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
     android:nestedScrollingEnabled="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="Overdraw">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +28,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/options_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_one"
@@ -108,7 +109,8 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:elevation="1dp"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/Delete_Account"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
@@ -132,7 +134,8 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:elevation="1dp"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/faq"
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
@@ -145,6 +148,7 @@
                 android:layout_marginStart="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/language"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
@@ -171,7 +175,8 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:elevation="1dp"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/upgrade_support"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
@@ -185,6 +190,7 @@
                 android:layout_marginStart="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/invite"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
@@ -198,7 +204,8 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:elevation="1dp"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/rate"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
@@ -235,7 +242,8 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:elevation="1dp"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/open_src"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
@@ -249,7 +257,8 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/options_menu_btn"
                 android:elevation="1dp"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/privacy_policy"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"

@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 
-/**
+/** Dialog box asking for DnD override permission.
  * Created by bbest on 10/03/18.
  */
 public class DnDOverrideDialog extends Dialog implements android.view.View.OnClickListener {

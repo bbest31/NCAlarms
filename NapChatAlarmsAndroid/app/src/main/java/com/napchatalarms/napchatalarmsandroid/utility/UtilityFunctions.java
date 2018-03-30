@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.utility;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -21,6 +22,7 @@ import java.util.List;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class UtilityFunctions {
 
     private static final long[] HEARTBEAT = {0, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500};
@@ -42,11 +44,8 @@ public class UtilityFunctions {
      * @return the boolean
      */
     public static boolean isValidEmail(CharSequence email) {
-        if (email == null) {
-            return false;
-        }
+        return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     /**
@@ -158,6 +157,7 @@ public class UtilityFunctions {
 
         }
 
+        //noinspection ConstantConditions
         return timeMilli;
     }
 
@@ -318,7 +318,7 @@ public class UtilityFunctions {
      * @return toast
      */
     public static Toast createWarningToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_construction_warn,
                 (ViewGroup) activity.findViewById(R.id.warning_toast_container));
@@ -334,7 +334,7 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_email_success,
                 (ViewGroup) activity.findViewById(R.id.email_success_toast_container));
@@ -350,7 +350,7 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_signup_user_err,
                 (ViewGroup) activity.findViewById(R.id.signup_user_err_container));
@@ -366,7 +366,7 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_SHORT);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_alarm_created,
                 (ViewGroup) activity.findViewById(R.id.alarm_created_toast_container));
@@ -381,10 +381,11 @@ public class UtilityFunctions {
      * @param inflater the inflater
      * @return the toast
      */
+    @SuppressWarnings("unused")
     public static Toast createInvalidCredentials(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_login_err,
+        View layout = inflater.inflate(R.layout.toast_invalid_cred,
                 (ViewGroup) activity.findViewById(R.id.login_toast_container));
         toast.setView(layout);
         return toast;
@@ -398,10 +399,28 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createInvalidEmailToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_invalid_email,
                 (ViewGroup) activity.findViewById(R.id.invalid_email_layout));
+        toast.setView(layout);
+        return toast;
+    }
+
+    public static Toast createConnectionErrorToast(Activity activity, LayoutInflater inflater){
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,100);
+        View layout = inflater.inflate(R.layout.toast_conn_error,
+                (ViewGroup) activity.findViewById(R.id.conn_error_layout));
+        toast.setView(layout);
+        return toast;
+    }
+
+    public static Toast createLoginFailToast(Activity activity, LayoutInflater inflater){
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,100);
+        View layout = inflater.inflate(R.layout.toast_login_error,
+                (ViewGroup) activity.findViewById(R.id.login_error_layout));
         toast.setView(layout);
         return toast;
     }

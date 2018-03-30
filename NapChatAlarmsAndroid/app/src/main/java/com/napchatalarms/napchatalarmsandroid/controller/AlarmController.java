@@ -15,7 +15,6 @@ import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
 import com.napchatalarms.napchatalarmsandroid.utility.AlarmReceiver;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +71,7 @@ public class AlarmController {
     public void saveAlarms(Context context) {
         try {
             NapChatController.getInstance().saveUserAlarms(context);
-        } catch (IOException e) {
+        } catch (Exception e) {
             //Log.e("ALRMCNTRL.saveAlarms", e.getMessage());
             e.printStackTrace();
         }
@@ -199,6 +198,7 @@ public class AlarmController {
     public void editAlarm(Context context, int id, int vibrate, int hour, int min, String ringtone, int snooze, List<Integer> repeatDays) {
         Alarm alarm = User.getInstance().getAlarmById(id);
         Boolean wasActive = alarm.getStatus();
+        //noinspection ConstantConditions
         if (alarm != null) {
             if (alarm.getClass() == OneTimeAlarm.class && repeatDays.size() != 0) {
                 //onetime to repeating alarm conversion
@@ -366,6 +366,7 @@ public class AlarmController {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
+        //noinspection ConstantConditions
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.getTime(), pendingIntent);
     }
 
@@ -400,6 +401,7 @@ public class AlarmController {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, oneTimeAlarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
+        //noinspection ConstantConditions
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, oneTimeAlarm.getTime(), pendingIntent);
 
 //        Log.w("Controller Sched 1Time", oneTimeAlarm.toString());
@@ -427,6 +429,7 @@ public class AlarmController {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
+        //noinspection ConstantConditions
         alarmManager.cancel(oneTimePendingIntent(context, alarm));
     }
 
@@ -501,6 +504,7 @@ public class AlarmController {
             pendingIntent = PendingIntent.getBroadcast(context, subId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
+        //noinspection ConstantConditions
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, newTriggerTime, pendingIntent);
     }
 
@@ -540,6 +544,7 @@ public class AlarmController {
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.getBroadcast(context, entry.getValue().getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            //noinspection ConstantConditions
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, entry.getValue().getTime(), pendingIntent);
         }
 
@@ -578,6 +583,7 @@ public class AlarmController {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         for (Map.Entry<Integer, Alarm> entry : alarm.getSubAlarms().entrySet()) {
+            //noinspection ConstantConditions
             alarmManager.cancel(AlarmPendingIntent(context, entry.getValue()));
         }
 

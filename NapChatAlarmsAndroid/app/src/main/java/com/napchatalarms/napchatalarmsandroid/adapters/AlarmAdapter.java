@@ -60,6 +60,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
       The Alarm id.
      */
         TextView alarmId = convertView.findViewById(R.id.hidden_alarm_id);
+        //noinspection ConstantConditions
         alarmId.setText(String.valueOf(alarm.getId()));
 
         //Set the time display string
@@ -93,9 +94,11 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
 
                 if (isChecked) {
                     //Activate alarm
+                    //noinspection ConstantConditions
                     AlarmController.getInstance().activateAlarm(context, checkedAlarm.getId());
                 } else {
                     //Deactivate alarm
+                    //noinspection ConstantConditions
                     AlarmController.getInstance().cancelAlarm(context, checkedAlarm.getId());
                 }
             }

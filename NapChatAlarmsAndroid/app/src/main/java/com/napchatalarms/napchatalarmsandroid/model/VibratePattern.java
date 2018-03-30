@@ -1,8 +1,9 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
-/**
+/** Model class which holds the information for a certain vibration pattern.
  * Created by bbest on 10/03/18.
  */
+@SuppressWarnings("unused")
 public class VibratePattern {
 
     private Integer id;
@@ -37,6 +38,7 @@ public class VibratePattern {
      *
      * @param pattern the pattern
      */
+    @SuppressWarnings("unused")
     public void setPattern(long[] pattern) {
         this.pattern = pattern;
     }
@@ -55,6 +57,7 @@ public class VibratePattern {
      *
      * @param name the name
      */
+    @SuppressWarnings("unused")
     public void setName(String name) {
         this.name = name;
     }
@@ -64,6 +67,7 @@ public class VibratePattern {
      *
      * @return the id
      */
+    @SuppressWarnings("unused")
     public Integer getId() {
         return id;
     }
@@ -73,6 +77,7 @@ public class VibratePattern {
      *
      * @param id the id
      */
+    @SuppressWarnings("unused")
     public void setId(Integer id) {
         this.id = id;
     }

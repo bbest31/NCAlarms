@@ -25,7 +25,6 @@ import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +32,7 @@ import java.util.ArrayList;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class DeleteAccountDialog extends Dialog implements android.view.View.OnClickListener {
 
     /**
@@ -42,6 +42,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
     /**
      * The D.
      */
+    @SuppressWarnings("unused")
     public Dialog d;
     /**
      * The Email entry.
@@ -117,6 +118,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                     .getCredential(email, pass);
 
 // Prompt the user to re-provide their sign-in credentials
+            //noinspection ConstantConditions
             user.reauthenticate(credential)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -146,6 +148,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
             AlarmController.getInstance().cancelAlarm(getContext(), a.getId());
         }
         FirebaseDAO.getInstance().removeUser(User.getInstance().getUid());
+        //noinspection ConstantConditions
         user.unlink(user.getProviderId());
         user.delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -154,7 +157,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                         if (task.isSuccessful()) {
                             try {
                                 NapChatController.getInstance().deleteFiles(getContext());
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             NapChatController.getInstance().uninitializeUser();

@@ -53,6 +53,7 @@ public class OneTimeBuilder extends AlarmBuilder {
     /**
      * Sets the alarms snooze length in minutes.
      **/
+    @SuppressWarnings("UnusedReturnValue")
     public OneTimeBuilder setSnooze(final int length) {
         alarm.setSnoozeLength(length);
         return this;

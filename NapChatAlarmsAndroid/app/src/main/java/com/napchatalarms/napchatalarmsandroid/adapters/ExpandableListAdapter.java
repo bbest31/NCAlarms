@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.adapters;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -18,12 +19,14 @@ import java.util.List;
 /**
  * The type Expandable list adapter.
  */
+@SuppressWarnings("unused")
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private final Context _context;
     private final List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private final HashMap<String, List<String>> _listDataChild;
+    @SuppressWarnings("unused")
     private Drawable thunderId;
 
     /**
@@ -33,13 +36,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
      * @param listDataHeader the list data header
      * @param listChildData  the list child data
      */
+    @SuppressWarnings("unused")
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
-        Drawable softId = context.getResources().getDrawable(R.drawable.ic_rainbow);
-        Drawable mildId = context.getResources().getDrawable(R.drawable.ic_rain);
+       Drawable softId = context.getDrawable(R.drawable.ic_rainbow);
+       Drawable mildId = context.getDrawable(R.drawable.ic_rain);
 
     }
 
@@ -54,6 +58,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return childPosition;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -63,6 +68,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //noinspection ConstantConditions
             convertView = inflater.inflate(R.layout.custom_tone_list_item, null);
         }
 
@@ -94,6 +100,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return groupPosition;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
@@ -101,6 +108,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //noinspection ConstantConditions
             convertView = inflater.inflate(R.layout.custom_tone_list_group, null);
         }
 

@@ -51,17 +51,16 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/or_text_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
 
     <View
-        android:id="@+id/view2"
         android:layout_width="80dp"
         android:layout_height="1dp"
         android:layout_alignEnd="@+id/facebook_btn"
         android:layout_alignTop="@+id/view"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="104dp"
         android:background="@color/off_white"
         app:layout_constraintBottom_toTopOf="@+id/signUp_btn"

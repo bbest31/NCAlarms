@@ -169,6 +169,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AboutActivity.class);
+                //noinspection ConstantConditions
                 getActivity().startActivity(intent);
             }
         });
@@ -185,6 +186,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), OpenSrcLibActivity.class);
+                //noinspection ConstantConditions
                 getActivity().startActivity(intent);
             }
         });
@@ -262,6 +264,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
+        //noinspection ConstantConditions
         getActivity().finish();
     }
 
@@ -271,6 +274,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      * @see FirebaseAuth
      */
     private void resendVerificationEmail() {
+        //noinspection ConstantConditions
         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -327,6 +331,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     private void checkEmailVerification() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //Checks to see if the user has a verified email.
+        //noinspection ConstantConditions
         if (!user.isEmailVerified()) {
             verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -341,7 +346,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
 
                 }
             });
-            verifyEmailBtn.setTextColor(getResources().getColor(R.color.verified_green));
+            //noinspection ConstantConditions
+            verifyEmailBtn.setTextColor(getContext().getColor(R.color.verified_green));
             verifyEmailBtn.setText(R.string.verified);
         }
     }

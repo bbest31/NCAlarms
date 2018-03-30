@@ -3,14 +3,12 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +21,7 @@ import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.dialog.ForgotPassDialog;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-/**
+/** Fragment used to login with current credentials.
  * Created by bbest on 11/03/18.
  */
 public class LoginFragment extends android.support.v4.app.Fragment {
@@ -74,7 +72,8 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 // Check if no view has focus:
                 if (v != null) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    @SuppressWarnings("ConstantConditions") InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    //noinspection ConstantConditions
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
                 login(getContext());
@@ -94,6 +93,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 LoginActivity activity = (LoginActivity) getActivity();
+                //noinspection ConstantConditions
                 activity.selectFragment(v);
             }
         });
@@ -123,6 +123,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
         }
 
         if (validCredentials == Boolean.TRUE) {
+            //noinspection ConstantConditions
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
@@ -135,16 +136,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                             } else {
                                 // If sign in fails, display a message to the user.
 //                                Log.w("signInWithEmail:failure", task.getException());
-                                Toast toast = Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_credentials), Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.TOP, 0, 80);
-                                toast.setText(getActivity().getString(R.string.failed_login));
-
-                                LayoutInflater inflater = getLayoutInflater();
-                                View layout = inflater.inflate(R.layout.toast_login_err,
-                                        (ViewGroup) getActivity().findViewById(R.id.login_toast_container));
-
-                                toast.setView(layout);
-                                toast.show();
+                              UtilityFunctions.createLoginFailToast(getActivity(),getLayoutInflater()).show();
                                 loginNavigationOnSuccess(null, context);
                             }
 
@@ -153,7 +145,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                     });
         } else {
 
-            loginErrToast().show();
+            UtilityFunctions.createInvalidCredentials(getActivity(),getLayoutInflater()).show();
         }
     }
 
@@ -172,21 +164,11 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             //Load user data.
             NapChatController.getInstance().loadUserData(context);
             LoginActivity activity = (LoginActivity) getActivity();
+            //noinspection ConstantConditions
             activity.loginNavigationOnSuccess(currentUser, context);
         }
 
     }
 
-    private Toast loginErrToast() {
-        Toast toast = Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_credentials), Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 80);
-        toast.setText(getActivity().getString(R.string.invalid_credentials));
 
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_login_err,
-                (ViewGroup) getActivity().findViewById(R.id.login_toast_container));
-
-        toast.setView(layout);
-        return toast;
-    }
 }

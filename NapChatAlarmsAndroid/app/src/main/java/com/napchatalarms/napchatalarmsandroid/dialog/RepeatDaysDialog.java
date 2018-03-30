@@ -15,7 +15,7 @@ import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
 import java.util.Iterator;
 import java.util.List;
 
-/**
+/** Dialog for User to select which days of the week the alarm will repeat on.
  * Created by bbest on 02/02/18.
  */
 public class RepeatDaysDialog extends Dialog {

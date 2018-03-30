@@ -12,6 +12,7 @@ import java.util.List;
  * Created by bbest on 11/02/18.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class RepeatingBuilderTest {
     private RepeatingAlarm alarm1;
     private RepeatingAlarm alarm2;

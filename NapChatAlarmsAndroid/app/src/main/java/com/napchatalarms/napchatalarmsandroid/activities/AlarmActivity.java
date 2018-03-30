@@ -138,6 +138,7 @@ public class AlarmActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        //noinspection ConstantConditions
         if (notificationManager.isNotificationPolicyAccessGranted()) {
             notificationManager.setInterruptionFilter(previousFilter);
         }
