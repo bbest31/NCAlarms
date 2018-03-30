@@ -35,6 +35,7 @@ import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
+import com.napchatalarms.napchatalarmsandroid.utility.MusicBox;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.util.ArrayList;
@@ -151,7 +152,6 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
             timePicker.setMinute(calendar.get(Calendar.MINUTE));
 
-            //TODO handle music and custom ringtones
             //Set ringtone name
             Uri uri = Uri.parse(alarm.getRingtoneURI());
             StringBuilder ringtoneStringBuilder = new StringBuilder();
@@ -161,8 +161,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             if (uri.toString().equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())) {
                 ringtoneStringBuilder.append(getString(R.string.default_string));
             } else {
-                //Device/Music ringtone
-                String uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
+                // Device/Music ringtone
+                // check the custom tones
+                String uriName = MusicBox.getNameFromUri(this,uri.toString());
+                if(uriName == null){
+                    uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
+                }
                 ringtoneStringBuilder.append(uriName);
             }
 
