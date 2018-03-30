@@ -31,8 +31,8 @@ public class UtilityFunctions {
     private static final long[] TIPTOE = {0, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150};
 
     private static final VibratePattern LOCOMOTIVE_PATTERN = new VibratePattern(0, "Locomotive", LOCOMOTIVE);
-    private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(1, "Heartbeat", HEARTBEAT);
-    private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(2, "Buzzsaw", BUZZSAW);
+    private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(2, "Heartbeat", HEARTBEAT);
+    private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(1, "Buzzsaw", BUZZSAW);
     private static final VibratePattern TIPTOE_PATTERN = new VibratePattern(3, "Tip-toe", TIPTOE);
 
     /**
@@ -296,10 +296,10 @@ public class UtilityFunctions {
                 pattern = LOCOMOTIVE_PATTERN;
                 break;
             case 1:
-                pattern = HEARTBEAT_PATTERN;
+                pattern = BUZZSAW_PATTERN;
                 break;
             case 2:
-                pattern = BUZZSAW_PATTERN;
+                pattern = HEARTBEAT_PATTERN;
                 break;
             case 3:
                 pattern = TIPTOE_PATTERN;

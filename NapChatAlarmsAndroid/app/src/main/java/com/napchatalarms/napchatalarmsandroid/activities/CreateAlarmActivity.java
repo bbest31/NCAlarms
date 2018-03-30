@@ -95,7 +95,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     /**
      * Vibrate Pattern
      */
-    private Integer vibratePattern;
+    private Integer vibratePattern = -1;
     /**
      * The Repeat days.
      */
@@ -155,13 +155,15 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             //Set ringtone name
             Uri uri = Uri.parse(alarm.getRingtoneURI());
             StringBuilder ringtoneStringBuilder = new StringBuilder();
-            ringtoneStringBuilder.append(getString(R.string.ringtone_label));
+            ringtoneStringBuilder.append(getString(R.string.ringtone_label))
+            .append(" ");
 
             if (uri.toString().equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())) {
                 ringtoneStringBuilder.append(getString(R.string.default_string));
             } else {
+                //Device/Music ringtone
                 String uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
-                ringtoneButton.setText("Ringtone: " + uriName);
+                ringtoneStringBuilder.append(uriName);
             }
 
             ringtoneButton.setText(ringtoneStringBuilder.toString());
@@ -169,31 +171,28 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             //Set vibrate
             StringBuilder vibrateStringBuilder = new StringBuilder();
-            vibrateStringBuilder.append(getString(R.string.vibrate_label));
+            vibrateStringBuilder.append(getString(R.string.vibrate_label))
+            .append(" ");
             String[] vibrateStringArray = getResources().getStringArray(R.array.vibrate_patterns);
             switch (alarm.getVibratePattern()) {
                 case -1:
                     vibrateStringBuilder.append(vibrateStringArray[0]);
                     break;
                 case 0:
-
-                    vibrateStringBuilder.append(vibrateStringArray[3]);
+                    vibrateStringBuilder.append(vibrateStringArray[1]);
                     break;
                 case 1:
-
                     vibrateStringBuilder.append(vibrateStringArray[2]);
                     break;
                 case 2:
-
-                    vibrateStringBuilder.append(vibrateStringArray[1]);
+                    vibrateStringBuilder.append(vibrateStringArray[3]);
                     break;
                 case 3:
-
                     vibrateStringBuilder.append(vibrateStringArray[4]);
                     break;
-
             }
             vibrateBtn.setText(vibrateStringBuilder.toString());
+            vibratePattern = alarm.getVibratePattern();
 
             // set snooze
             int pos = snoozeAdapter.getPosition(String.valueOf(alarm.getSnoozeLength()));
@@ -231,6 +230,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             createAlarmButton.setVisibility(View.VISIBLE);
             StringBuilder ringtoneDefaultString = new StringBuilder();
             ringtoneDefaultString.append(getString(R.string.ringtone_label))
+                    .append(" ")
                     .append(getString(R.string.default_string));
             ringtoneButton.setText(ringtoneDefaultString.toString());
             ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
@@ -239,6 +239,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             vibratePattern = -1;
             StringBuilder vibrateDefaultString = new StringBuilder();
             vibrateDefaultString.append(getString(R.string.vibrate_label))
+                    .append(" ")
                     .append(getResources().getStringArray(R.array.vibrate_patterns)[0]);
             vibrateBtn.setText(vibrateDefaultString.toString());
 
@@ -367,7 +368,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         // Log event
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
-        event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+        if(vibratePattern != -1){
+            event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+        }else{
+            event.putString("VIBRATE","OFF");
+        }
         event.putString("RINGTONE", ringtone);
         mAnalytics.logEvent("CREATE_ALARM", event);
 
@@ -391,7 +396,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         // Log event
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
-        event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibrate).getName());
+        if(vibratePattern != -1){
+            event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+        }else{
+            event.putString("VIBRATE","OFF");
+        }
         event.putString("RINGTONE", ringtone);
         mAnalytics.logEvent("EDIT_ALARM", event);
     }
@@ -459,18 +468,22 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onActivityReenter(int resultCode, Intent data) {
+        StringBuilder vibrateStringBuilder = new StringBuilder();
         switch (resultCode) {
             case RESULT_OK:
                 int pattern = data.getIntExtra("PATTERN", -1);
                 vibratePattern = pattern;
+                vibrateStringBuilder.append(getString(R.string.vibrate_label))
+                .append(" ");
                 if (pattern == -1) {
-                    vibrateBtn.setText("Vibrate: Off");
+                    vibrateStringBuilder.append(getString(R.string.off));
                 } else {
-                    vibrateBtn.setText("Vibrate: " + UtilityFunctions.getVibratePattern(pattern).getName());
+                    vibrateStringBuilder.append(UtilityFunctions.getVibratePattern(pattern).getName());
                 }
                 break;
 
         }
+        vibrateBtn.setText(vibrateStringBuilder.toString());
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
