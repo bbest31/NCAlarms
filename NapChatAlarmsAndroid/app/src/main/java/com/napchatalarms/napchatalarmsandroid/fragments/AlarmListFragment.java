@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -24,22 +25,37 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
 import static android.app.Activity.RESULT_OK;
 
 
+/**
+ * The type Alarm list fragment.
+ */
 public class AlarmListFragment extends android.support.v4.app.Fragment implements View.OnTouchListener {
 
     private final static float CLICK_DRAG_TOLERANCE = 10; // Often, there will be a slight, unintentional, drag when the user taps the FAB, so we need to account for this.
-    //=====ATTRIBUTES=====
-    SwipeMenuListView alarmListView;
-    FloatingActionButton addAlarmButton;
-    AlarmAdapter alarmAdapter;
+    /**
+     * The Alarm list view.
+     */
+//=====ATTRIBUTES=====
+    private SwipeMenuListView alarmListView;
+    /**
+     * The Add alarm button.
+     */
+    private FloatingActionButton addAlarmButton;
+    /**
+     * The Alarm adapter.
+     */
+    private AlarmAdapter alarmAdapter;
     private float downRawX, downRawY;
     private float dX, dY;
 
+    /**
+     * Instantiates a new Alarm list fragment.
+     */
     public AlarmListFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
@@ -53,16 +69,11 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
         updateAlarmList();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     private void initialize(View view) {
-        alarmListView = (SwipeMenuListView) view.findViewById(R.id.alarm_list_view);
+        alarmListView = view.findViewById(R.id.alarm_list_view);
 
 
-        addAlarmButton = (FloatingActionButton) view.findViewById(R.id.add_alarm_btn);
+        addAlarmButton = view.findViewById(R.id.add_alarm_btn);
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +160,10 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
         updateAlarmList();
     }
 
-    public void updateAlarmList() {
+    /**
+     * Update alarm list.
+     */
+    private void updateAlarmList() {
         alarmAdapter = new AlarmAdapter(getContext(), User.getInstance().getAlarmList());
         alarmListView.setAdapter(alarmAdapter);
     }

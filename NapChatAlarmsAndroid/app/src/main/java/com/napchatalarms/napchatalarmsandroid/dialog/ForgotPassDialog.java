@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -23,13 +22,16 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
  *
  * @author bbest
  */
-
 public class ForgotPassDialog extends Dialog implements android.view.View.OnClickListener {
 
-    public Activity c;
+    /**
+     * The D.
+     */
     public Dialog d;
-    public Button send, cancel;
-    public EditText emailEntry;
+    /**
+     * The Email entry.
+     */
+    private EditText emailEntry;
 
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
@@ -38,7 +40,10 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
      */
     public ForgotPassDialog(Activity a) {
         super(a);
-        this.c = a;
+        /*
+      The C.
+     */
+        Activity c = a;
     }
 
     @Override
@@ -46,9 +51,12 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_forgot_password);
-        send = (Button) findViewById(R.id.fgtpass_send_btn);
-        cancel = (Button) findViewById(R.id.fgtpass_cancel_btn);
-        emailEntry = (EditText) findViewById(R.id.password_reset_email_entry);
+        /*
+      The Send.
+     */
+        Button send = findViewById(R.id.forgot_pass_send_btn);
+        Button cancel = findViewById(R.id.forgot_pass_cancel_btn);
+        emailEntry = findViewById(R.id.password_reset_email_entry);
         send.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
@@ -57,10 +65,10 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fgtpass_send_btn:
+            case R.id.forgot_pass_send_btn:
                 sendResetPasswordEmail();
                 break;
-            case R.id.fgtpass_cancel_btn:
+            case R.id.forgot_pass_cancel_btn:
                 dismiss();
                 break;
             default:
@@ -74,7 +82,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
      *
      * @see FirebaseAuth
      */
-    public void sendResetPasswordEmail() {
+    private void sendResetPasswordEmail() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         String emailAddress = emailEntry.getText().toString();
@@ -85,11 +93,11 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Log.i("ForgotPassDialog", "Email sent.");
+//                                Log.i("ForgotPassDialog", "Email sent.");
                                 UtilityFunctions.createEmailSuccessToast(getOwnerActivity(), getLayoutInflater()).show();
                             } else {
                                 //Email may not exists with an account so we should display some kind of error
-                                Log.i("ForgotPassDialog", "Email could not be sent!");
+//                                Log.i("ForgotPassDialog", "Email could not be sent!");
                                 //TODO Custom Toast saying "Email could not be sent!"
                             }
                         }

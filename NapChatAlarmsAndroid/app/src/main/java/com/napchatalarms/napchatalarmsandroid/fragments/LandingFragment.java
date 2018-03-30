@@ -2,6 +2,7 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,32 +17,17 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 /**
  * Created by bbest on 11/03/18.
  */
-
 public class LandingFragment extends android.support.v4.app.Fragment {
 
-    Button signUpButton;
-    Button showLoginBtn;
-    TextView alreadyHaveAcctText;
-    Button fbBtn;
-    TextView appName;
-    TextView dividerText;
-
+    /**
+     * Instantiates a new Landing fragment.
+     */
     public LandingFragment() {
 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_landing, container, false);
@@ -53,12 +39,30 @@ public class LandingFragment extends android.support.v4.app.Fragment {
      * Initializing function for the views.
      **/
     private void initialize(View view) {
-        signUpButton = (Button) view.findViewById(R.id.signUp_btn);
-        showLoginBtn = (Button) view.findViewById(R.id.show_login_btn);
-        alreadyHaveAcctText = (TextView) view.findViewById(R.id.have_acct_text_view);
-        fbBtn = (Button) view.findViewById(R.id.facebook_btn);
-        appName = (TextView) view.findViewById(R.id.app_name_text);
-        dividerText = (TextView) view.findViewById(R.id.or_text_view);
+        /*
+      The Sign up button.
+     */
+        Button signUpButton = view.findViewById(R.id.signUp_btn);
+        /*
+      The Show login btn.
+     */
+        Button showLoginBtn = view.findViewById(R.id.show_login_btn);
+        /*
+      The Already have acct text.
+     */
+        TextView alreadyHaveAcctText = view.findViewById(R.id.have_acct_text_view);
+        /*
+      The Fb btn.
+     */
+        Button fbBtn = view.findViewById(R.id.facebook_btn);
+        /*
+      The App name.
+     */
+        TextView appName = view.findViewById(R.id.app_name_text);
+        /*
+      The Divider text.
+     */
+        TextView dividerText = view.findViewById(R.id.or_text_view);
 
 
         signUpButton.setOnClickListener(new View.OnClickListener() {

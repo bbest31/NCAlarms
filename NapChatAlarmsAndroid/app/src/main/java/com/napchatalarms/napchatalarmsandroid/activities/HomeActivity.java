@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment;
-import com.napchatalarms.napchatalarmsandroid.fragments.OptionsFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.HealthFactsFragment;
-import com.napchatalarms.napchatalarmsandroid.model.User;
+import com.napchatalarms.napchatalarmsandroid.fragments.OptionsFragment;
 
 /**
  * The activity that lists the current <code>User</code> <code>Alarms</code>.
@@ -29,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     /**
      *
      */
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -57,19 +55,16 @@ public class HomeActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             initialize();
         }
-        Log.i("User Info", User.getInstance().toString());
+//        Log.i("User Info", User.getInstance().toString());
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-    public void initialize() {
+    /**
+     * Initialize.
+     */
+    private void initialize() {
         NapChatController.getInstance().initNotificationChannel(getApplicationContext());
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.inflateMenu(R.menu.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
@@ -79,6 +74,11 @@ public class HomeActivity extends AppCompatActivity {
         this.currentFragment = R.id.navigation_home;
     }
 
+    /**
+     * Changes the fragment occupying the layout based on the bottom navigation selection.
+     *
+     * @param view - Bottom Navigation Bar view selection.
+     */
     private void selectFragment(View view) {
         android.support.v4.app.Fragment fragment = null;
         if (view == findViewById(R.id.navigation_home) && currentFragment != R.id.navigation_home) {
@@ -87,20 +87,20 @@ public class HomeActivity extends AppCompatActivity {
         } else if (view == findViewById(R.id.navigation_facts) && currentFragment != R.id.navigation_facts) {
             fragment = new HealthFactsFragment();
             currentFragment = R.id.navigation_facts;
-        } else if(view == findViewById(R.id.navigation_options) && currentFragment != R.id.navigation_options) {
+        } else if (view == findViewById(R.id.navigation_options) && currentFragment != R.id.navigation_options) {
             fragment = new OptionsFragment();
             currentFragment = R.id.navigation_options;
         }
 
-        if(fragment != null){
+        //noinspection StatementWithEmptyBody
+        if (fragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
         } else {
-            Log.w("Home Activity","Already on that fragment.");
+//            Log.w("Home Activity","Already on that fragment.");
         }
 
 
     }
-
 
 
 }

@@ -12,8 +12,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,57 +47,66 @@ import java.util.List;
  */
 public class CreateAlarmActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    final int EXTERNAL_STORAGE_REQUEST = 42;
-    final int CUSTOM_RINGTONE_RESULT_CODE = 80;
-    final int DEVICE_RINGTONE_RESULT_CODE = 14;
-    final int MUSIC_RINGTONE_RESULT_CODE = 19;
+    /**
+     * The External storage request.
+     */
+    private final int EXTERNAL_STORAGE_REQUEST = 42;
+    /**
+     * The Custom ringtone result code.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private final int CUSTOM_RINGTONE_RESULT_CODE = 80;
+    /**
+     * The Device ringtone result code.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private final int DEVICE_RINGTONE_RESULT_CODE = 14;
+    /**
+     * The Music ringtone result code.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private final int MUSIC_RINGTONE_RESULT_CODE = 19;
     /**
      * The Time picker.
      */
 //=====ATTRIBUTES=====
-    TimePicker timePicker;
+    private TimePicker timePicker;
     /**
      * The Vibrate switch.
      */
-    Button vibrateBtn;
+    private Button vibrateBtn;
     /**
      * The Ringtone button.
      */
-    Button ringtoneButton;
+    private Button ringtoneButton;
     /**
      * The Repeat button.
      */
-    Button repeatButton;
-    /**
-     * The Snooze spinner.
-     */
-    Spinner snoozeSelector;
-    /**
-     * The Create alarm button.
-     */
-    Button createAlarmButton;
-    Button editAlarmButton;
+    private Button repeatButton;
     /**
      * The Alarm controller.
      */
-    AlarmController alarmController;
+    private AlarmController alarmController;
     /**
      * The Ringtone.
      */
-    String ringtone;
+    private String ringtone;
     /**
      * Vibrate Pattern
      */
-    Integer vibratePattern;
+    private Integer vibratePattern;
     /**
      * The Repeat days.
      */
-    List<Integer> repeatDays;
+    private List<Integer> repeatDays;
     /**
      * The Snooze length.
      */
-    Integer snoozeLength;
-    Boolean readPermission;
+    private Integer snoozeLength;
+    /**
+     * The Read permission.
+     */
+    private Boolean readPermission;
     private FirebaseAnalytics mAnalytics;
 
     /**
@@ -106,12 +115,15 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     private void initialize() {
         alarmController = AlarmController.getInstance();
 
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
-        vibrateBtn = (Button) findViewById(R.id.vibrate_btn);
-        ringtoneButton = (Button) findViewById(R.id.ringtone_btn);
-        repeatButton = (Button) findViewById(R.id.repeat_btn);
+        timePicker = findViewById(R.id.timePicker);
+        vibrateBtn = findViewById(R.id.vibrate_btn);
+        ringtoneButton = findViewById(R.id.ringtone_btn);
+        repeatButton = findViewById(R.id.repeat_btn);
 
-        snoozeSelector = (Spinner) findViewById(R.id.snooze_spinner);
+        /*
+      The Snooze spinner.
+     */
+        Spinner snoozeSelector = findViewById(R.id.snooze_spinner);
         ArrayAdapter<CharSequence> snoozeAdapter = ArrayAdapter.createFromResource(this
                 , R.array.snooze_array
                 , R.layout.support_simple_spinner_dropdown_item);
@@ -126,7 +138,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         //If we are getting an alarm Id we grab the alarm and populate the views with its attributes.
         if (id != 0) {
             final Alarm alarm = User.getInstance().getAlarmById(id);
-            editAlarmButton = (Button) findViewById(R.id.edit_alarm_btn);
+            /*
+      The Edit alarm button.
+     */
+            Button editAlarmButton = findViewById(R.id.edit_alarm_btn);
             editAlarmButton.setVisibility(View.VISIBLE);
 
             //Set TimePicker time.
@@ -199,7 +214,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             });
 
         } else {
-            createAlarmButton = (Button) findViewById(R.id.create_alarm_btn);
+            /*
+      The Create alarm button.
+     */
+            Button createAlarmButton = findViewById(R.id.create_alarm_btn);
             createAlarmButton.setVisibility(View.VISIBLE);
 
             ringtoneButton.setText("Ringtone: Default");
@@ -265,7 +283,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         });
 
         NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        Log.e("DND PERMISSION", String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
+        // Log.e("DND PERMISSION", String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
         if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
             DnDOverrideDialog overrideDialog = new DnDOverrideDialog(CreateAlarmActivity.this);
             overrideDialog.show();
@@ -302,7 +320,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * @see OneTimeBuilder
      * @see com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder
      */
-    public void createAlarm() {
+    private void createAlarm() {
         if (repeatDays.size() == 0) {
             OneTimeBuilder builder = new OneTimeBuilder();
             Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
@@ -345,7 +363,18 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     }
 
-    public void editAlarm(int id, Integer vibrate, int hour, int minute, String ringtone, int snooze, List<Integer> repeat) {
+    /**
+     * Edit alarm.
+     *
+     * @param id       the id
+     * @param vibrate  the vibrate
+     * @param hour     the hour
+     * @param minute   the minute
+     * @param ringtone the ringtone
+     * @param snooze   the snooze
+     * @param repeat   the repeat
+     */
+    private void editAlarm(int id, Integer vibrate, int hour, int minute, String ringtone, int snooze, List<Integer> repeat) {
         alarmController.editAlarm(getApplicationContext(), id, vibrate, hour, minute, ringtone, snooze, repeat);
         alarmController.saveAlarms(getApplicationContext());
 
@@ -369,7 +398,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     }
 
     /**
-     * @param newDays
+     * Sets repeat days.
+     *
+     * @param newDays the new days
      */
     public void setRepeatDays(List<Integer> newDays) {
         repeatDays = newDays;
@@ -437,7 +468,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         try {
             snoozeLength = Integer.valueOf(String.valueOf(parent.getItemAtPosition(pos)));
         } catch (NumberFormatException e) {
-            Log.e("CreateAlarmActivity", e.getMessage());
+            // Log.e("CreateAlarmActivity", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -448,6 +479,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     }
 
 
+    /**
+     * Sets repeat text.
+     *
+     * @param repeatDays the repeat days
+     */
     public void setRepeatText(List<Integer> repeatDays) {
         //Set the repeat_btn view to reflect the days selected
 
@@ -461,7 +497,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case EXTERNAL_STORAGE_REQUEST: {
                 // If request is cancelled, the result arrays are empty.

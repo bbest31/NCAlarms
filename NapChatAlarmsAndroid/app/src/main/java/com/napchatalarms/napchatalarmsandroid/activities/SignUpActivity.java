@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,11 +32,19 @@ import java.text.SimpleDateFormat;
 // SOURCES: https://firebase.google.com/docs/auth/android
 public class SignUpActivity extends AppCompatActivity {
 
+    /**
+     * The Email.
+     */
     public String email;
+    /**
+     * The Password.
+     */
     public String password;
+    /**
+     * The Username.
+     */
     public String username;
     private FirebaseAuth mAuth;
-    private FirebaseAnalytics mAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("SignUp Activity", "createUserWithEmail:failure", task.getException());
+//                            Log.w("SignUp Activity", "createUserWithEmail:failure", task.getException());
                             signUpNavigationOnSuccess(null, 0);
                             Toast.makeText(SignUpActivity.this, "Failed. Account with email may already exist.", Toast.LENGTH_LONG).show();
 
@@ -95,13 +102,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     /**
-     * Navigation on successfuly sign up to the HomeActivity.
+     * Navigation on successfully sign up to the HomeActivity.
+     *
+     * @param currentUser the current user
+     * @param method      the method
      */
-    public void signUpNavigationOnSuccess(FirebaseUser currentUser, int method) {
+    private void signUpNavigationOnSuccess(FirebaseUser currentUser, @SuppressWarnings("SameParameterValue") int method) {
 
         if (currentUser != null) {
             Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-            mAnalytics = FirebaseAnalytics.getInstance(this);
+            FirebaseAnalytics mAnalytics = FirebaseAnalytics.getInstance(this);
             switch (method) {
                 case 0:
                     //Log event for email sign up
@@ -125,20 +135,26 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Firebase encapsulated method to send a verification email to the user's email.
      */
-    public void sendEmailVerification() {
+    private void sendEmailVerification() {
         mAuth.getCurrentUser().sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        //noinspection StatementWithEmptyBody
                         if (task.isSuccessful()) {
-                            Log.w("SignUp Activity", "Email verification sent.");
+//                            Log.w("SignUp Activity", "Email verification sent.");
 
                         }
                     }
                 });
     }
 
-    public void initProfile(final FirebaseUser user) {
+    /**
+     * Init profile.
+     *
+     * @param user the user
+     */
+    private void initProfile(final FirebaseUser user) {
 
         UserProfileChangeRequest initializeProfile = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username)
@@ -156,13 +172,18 @@ public class SignUpActivity extends AppCompatActivity {
                                 dao.initUserToDB(newUser);
 
                             } catch (Exception e) {
-                                Log.e("SignUpActivity", "Error initializing user files or db index " + e.getMessage());
+//                                Log.e("SignUpActivity", "Error initializing user files or db index " + e.getMessage());
                             }
                         }
                     }
                 });
     }
 
+    /**
+     * Select fragment.
+     *
+     * @param view the view
+     */
     public void selectFragment(View view) {
         android.support.v4.app.Fragment fragment;
         if (view == findViewById(R.id.signup_email_next_btn)) {

@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@SuppressWarnings("NumericOverflow")
 public class UtilityFunctionsTest {
     @Test
     @Ignore

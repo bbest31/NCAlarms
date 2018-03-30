@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -36,11 +35,22 @@ import java.util.ArrayList;
  */
 public class DeleteAccountDialog extends Dialog implements android.view.View.OnClickListener {
 
-    public Activity c;
+    /**
+     * The C.
+     */
+    private final Activity c;
+    /**
+     * The D.
+     */
     public Dialog d;
-    public Button confirm, cancel;
-    public EditText emailEntry;
-    public EditText passEntry;
+    /**
+     * The Email entry.
+     */
+    private EditText emailEntry;
+    /**
+     * The Pass entry.
+     */
+    private EditText passEntry;
     private TextView errText;
 
     /**
@@ -59,11 +69,14 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_delete_account);
-        confirm = (Button) findViewById(R.id.delete_account_confirm_btn);
-        cancel = (Button) findViewById(R.id.delete_account_cancel_btn);
-        emailEntry = (EditText) findViewById(R.id.delete_account_email_editText);
-        passEntry = (EditText) findViewById(R.id.delete_account_pass_editText);
-        errText = (TextView) findViewById(R.id.del_acct_err_text);
+        /*
+      The Confirm.
+     */
+        Button confirm = findViewById(R.id.delete_account_confirm_btn);
+        Button cancel = findViewById(R.id.delete_account_cancel_btn);
+        emailEntry = findViewById(R.id.delete_account_email_editText);
+        passEntry = findViewById(R.id.delete_account_pass_editText);
+        errText = findViewById(R.id.del_acct_err_text);
         confirm.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
@@ -89,7 +102,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
      * @see FirebaseUser
      * @see AuthCredential
      */
-    public void reAuth() {
+    private void reAuth() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = emailEntry.getText().toString();
         String pass = passEntry.getText().toString();
@@ -108,7 +121,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Log.i("Re-Authentication", "User re-authenticated.");
+//                            Log.i("Re-Authentication", "User re-authenticated.");
                             if (task.isSuccessful()) {
                                 deleteAccount();
                                 dismiss();
@@ -126,7 +139,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
      *
      * @see FirebaseAuth
      */
-    public void deleteAccount() {
+    private void deleteAccount() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList<Alarm> alarmArrayList = User.getInstance().getAlarmList();
         for (Alarm a : alarmArrayList) {
@@ -145,7 +158,7 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                                 e.printStackTrace();
                             }
                             NapChatController.getInstance().uninitializeUser();
-                            Log.i("reAuthDeleteAccount", "User account deleted.");
+//                            Log.i("reAuthDeleteAccount", "User account deleted.");
                             Intent intent = new Intent(c, LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             c.startActivity(intent);

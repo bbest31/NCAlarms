@@ -15,30 +15,38 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The type Expandable list adapter.
+ */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private Context _context;
-    private List<String> _listDataHeader; // header titles
+    private final Context _context;
+    private final List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
-    private Drawable softId;
-    private Drawable mildId;
+    private final HashMap<String, List<String>> _listDataChild;
     private Drawable thunderId;
 
+    /**
+     * Instantiates a new Expandable list adapter.
+     *
+     * @param context        the context
+     * @param listDataHeader the list data header
+     * @param listChildData  the list child data
+     */
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
-        softId = context.getResources().getDrawable(R.drawable.ic_rainbow);
-        mildId = context.getResources().getDrawable(R.drawable.ic_rain);
+        Drawable softId = context.getResources().getDrawable(R.drawable.ic_rainbow);
+        Drawable mildId = context.getResources().getDrawable(R.drawable.ic_rain);
 
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosititon) {
+    public Object getChild(int groupPosition, int childPosition) {
         return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .get(childPosititon);
+                .get(childPosition);
     }
 
     @Override
@@ -53,12 +61,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         final String childText = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
+            LayoutInflater inflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.custom_tone_list_item, null);
+            convertView = inflater.inflate(R.layout.custom_tone_list_item, null);
         }
 
-        TextView txtListChild = (TextView) convertView
+        TextView txtListChild = convertView
                 .findViewById(R.id.tone_list_item);
 
         txtListChild.setText(childText);
@@ -91,12 +99,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
+            LayoutInflater inflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.custom_tone_list_group, null);
+            convertView = inflater.inflate(R.layout.custom_tone_list_group, null);
         }
 
-        TextView lblListHeader = (TextView) convertView
+        TextView lblListHeader = convertView
                 .findViewById(R.id.lblListHeader);
         switch (groupPosition) {
             case 0:

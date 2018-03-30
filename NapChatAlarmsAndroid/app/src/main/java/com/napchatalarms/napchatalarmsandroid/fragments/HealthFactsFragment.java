@@ -3,6 +3,7 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -16,31 +17,34 @@ import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
 import com.napchatalarms.napchatalarmsandroid.utility.DepthPageTransformer;
 
 
+/**
+ * The type Health facts fragment.
+ */
 public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
     private static int NUM_PAGES = 0;
-    FactsPageAdapter pageAdapter;
+    /**
+     * The Page adapter.
+     */
+    private FactsPageAdapter pageAdapter;
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
 
+    /**
+     * Instantiates a new Health facts fragment.
+     */
     public HealthFactsFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstance) {
-        super.onCreate(savedInstance);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_facts, container, false);
         initialize(view);
         pageAdapter = new FactsPageAdapter(getActivity().getSupportFragmentManager(), NUM_PAGES);
-        pager = (ViewPager) view.findViewById(R.id.facts_view_pager);
+        pager = view.findViewById(R.id.facts_view_pager);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -68,11 +72,17 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
 
     private void initialize(View view) {
+        //noinspection AccessStaticViaInstance
         NUM_PAGES = FactHolder.getInstance(getActivity()).getFacts().size() + 1;
 
     }
 
-    public void OnPageSelected(final int i) {
+    /**
+     * On page selected.
+     *
+     * @param i the
+     */
+    private void OnPageSelected(final int i) {
         FactFragment fragment = (FactFragment) pageAdapter.instantiateItem(pager, i);
         // Get the next fragment that has been instantiated and tell it that it is invisible.
         if (i != NUM_PAGES - 1) {

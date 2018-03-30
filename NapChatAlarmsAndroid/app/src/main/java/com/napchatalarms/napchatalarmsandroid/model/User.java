@@ -1,14 +1,9 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
-import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Singleton class for the current user.
@@ -24,10 +19,10 @@ public class User {
     private String email;
     private ArrayList<Alarm> alarmList;
     private String uid;
-    private FriendList friendList;
-    private Map<String, Group> groupList;
-    private ArrayList<NapAlerts> alerts;
-    private ArrayList<FriendRequest> friendRequests;
+//    private FriendList friendList;
+//    private Map<String, Group> groupList;
+//    private ArrayList<NapAlerts> alerts;
+//    private ArrayList<FriendRequest> friendRequests;
 
     /**
      * Private Constructor
@@ -40,7 +35,7 @@ public class User {
             this.uid = fUser.getUid();
         } catch (NullPointerException e) {
             e.printStackTrace();
-            Log.e("User", "Failed to init User");
+//            Log.e("User", "Failed to init User");
         }
 
         this.alarmList = new ArrayList<>();
@@ -48,6 +43,8 @@ public class User {
 
     /**
      * Instance method
+     *
+     * @return the instance
      */
     public static User getInstance() {
         if (instance == null) {
@@ -59,7 +56,9 @@ public class User {
     //=====METHODS=====
 
     /**
-     * @param alarm
+     * Add alarm.
+     *
+     * @param alarm the alarm
      */
     public void addAlarm(Alarm alarm) {
         this.alarmList.add(alarm);
@@ -67,6 +66,9 @@ public class User {
 
     /**
      * This method will return an Alarm if an alarm with the provided Id exists, otherwise return null.
+     *
+     * @param Id the id
+     * @return the alarm by id
      */
     public Alarm getAlarmById(int Id) {
 
@@ -76,14 +78,16 @@ public class User {
                 return alarm;
             }
         }
-        Log.e("User.getAlarmById", "Could not retrieve alarm with ID = " + Id);
-        Log.e("User", "Current User Alarms:" + User.getInstance().getAlarmList());
-        Log.e("User", "User Info: " + User.getInstance().toString());
+//        Log.e("User.getAlarmById", "Could not retrieve alarm with ID = " + Id);
+//        Log.e("User", "Current User Alarms:" + User.getInstance().getAlarmList());
+//        Log.e("User", "User Info: " + User.getInstance().toString());
         return null;
     }
 
     /**
      * The alarm in the User's alarm list is deleted that matches the given Id.
+     *
+     * @param id the id
      */
     public void deleteAlarm(int id) {
 
@@ -97,103 +101,127 @@ public class User {
 
     }
 
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-        result.put("friends", friendList);
-        result.put("groups", groupList);
-        result.put("alerts", alerts);
-        result.put("requests", friendRequests);
-
-        return result;
-    }
+//    @Exclude
+//    public Map<String, Object> toMap() {
+//        HashMap<String, Object> result = new HashMap<>();
+//        result.put("uid", uid);
+//        result.put("friends", friendList);
+//        result.put("groups", groupList);
+//        result.put("alerts", alerts);
+//        result.put("requests", friendRequests);
+//
+//        return result;
+//    }
 
 
     //=====GETTERS & SETTERS=====
 
     /**
-     * @return
+     * Gets name.
+     *
+     * @return name
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * @param newName
+     * Sets name.
+     *
+     * @param newName the new name
      */
     public void setName(String newName) {
         this.name = newName;
     }
 
     /**
-     * @return
+     * Gets email.
+     *
+     * @return email
      */
     public String getEmail() {
         return this.email;
     }
 
     /**
-     * @param newEmail
+     * Sets email.
+     *
+     * @param newEmail the new email
      */
     public void setEmail(String newEmail) {
         this.email = newEmail;
     }
 
     /**
-     * @return
+     * Gets alarm list.
+     *
+     * @return alarm list
      */
     public ArrayList<Alarm> getAlarmList() {
         return alarmList;
     }
 
+    /**
+     * Sets alarm list.
+     *
+     * @param list the list
+     */
     public void setAlarmList(ArrayList<Alarm> list) {
         this.alarmList = list;
     }
 
+    /**
+     * Gets uid.
+     *
+     * @return the uid
+     */
     public String getUid() {
         return uid;
     }
 
+    /**
+     * Sets uid.
+     *
+     * @param uid the uid
+     */
     public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public FriendList getFriendList() {
-        return friendList;
-    }
-
-    public void setFriendList(FriendList friendList) {
-        this.friendList = friendList;
-    }
-
-    public Map<String, Group> getGroupMap() {
-        return groupList;
-    }
-
-    public void setGroupMap(Map<String, Group> groupList) {
-        this.groupList = groupList;
-    }
-
-    public ArrayList<NapAlerts> getAlerts() {
-        return alerts;
-    }
-
-    public void setAlerts(ArrayList<NapAlerts> alerts) {
-        this.alerts = alerts;
-    }
-
-    public ArrayList<FriendRequest> getFriendRequests() {
-        return friendRequests;
-    }
-
-    public void setFriendRequests(ArrayList<FriendRequest> friendRequests) {
-        this.friendRequests = friendRequests;
-    }
+//    public FriendList getFriendList() {
+//        return friendList;
+//    }
+//
+//    public void setFriendList(FriendList friendList) {
+//        this.friendList = friendList;
+//    }
+//
+//    public Map<String, Group> getGroupMap() {
+//        return groupList;
+//    }
+//
+//    public void setGroupMap(Map<String, Group> groupList) {
+//        this.groupList = groupList;
+//    }
+//
+//    public ArrayList<NapAlerts> getAlerts() {
+//        return alerts;
+//    }
+//
+//    public void setAlerts(ArrayList<NapAlerts> alerts) {
+//        this.alerts = alerts;
+//    }
+//
+//    public ArrayList<FriendRequest> getFriendRequests() {
+//        return friendRequests;
+//    }
+//
+//    public void setFriendRequests(ArrayList<FriendRequest> friendRequests) {
+//        this.friendRequests = friendRequests;
+//    }
 
     @Override
     public String toString() {
-        String user = "UID: " + this.getUid() + ", E: " + this.getEmail() + ", username: " + this.getName();
-        return user;
+        return "UID: " + this.getUid() + ", E: " + this.getEmail() + ", username: " + this.getName();
     }
 }

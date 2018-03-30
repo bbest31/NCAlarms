@@ -4,9 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,30 +24,57 @@ import java.io.IOException;
  */
 public class AlarmActivity extends AppCompatActivity {
 
-    //=====ATTRIBUTES=====
-    String timeDisplayString;
-    int ID;
-    int subID;
-    int snoozeLength;
-    int previousFilter;
-    int vibrate;
-    String ringtoneURI;
-    String meridianDisplayString;
-    Button dismissButton;
-    Button snoozeButton;
-    TextView timeDisplay;
-    TextView meridianDisplay;
+    /**
+     * The Id.
+     */
+    private int ID;
+    /**
+     * The Sub id.
+     */
+    private int subID;
+    /**
+     * The Snooze length.
+     */
+    private int snoozeLength;
+    /**
+     * The Previous filter.
+     */
+    private int previousFilter;
+    /**
+     * The Vibrate.
+     */
+    private int vibrate;
+    /**
+     * The Ringtone uri.
+     */
+    private String ringtoneURI;
+    /**
+     * The Dismiss button.
+     */
+    private Button dismissButton;
+    /**
+     * The Snooze button.
+     */
+    private Button snoozeButton;
+    /**
+     * The Time display.
+     */
+    private TextView timeDisplay;
+    /**
+     * The Meridian display.
+     */
+    private TextView meridianDisplay;
 
 
     /**
      * Initializing views from xml layout.
      */
-    public void initialize() {
+    private void initialize() {
 
-        dismissButton = (Button) findViewById(R.id.dismiss_btn);
-        snoozeButton = (Button) findViewById(R.id.snooze_btn);
-        timeDisplay = (TextView) findViewById(R.id.time_display_text);
-        meridianDisplay = (TextView) findViewById(R.id.meridan_display_text);
+        dismissButton = findViewById(R.id.dismiss_btn);
+        snoozeButton = findViewById(R.id.snooze_btn);
+        timeDisplay = findViewById(R.id.time_display_text);
+        meridianDisplay = findViewById(R.id.meridan_display_text);
     }
 
     @Override
@@ -69,7 +94,6 @@ public class AlarmActivity extends AppCompatActivity {
 
 
         initialize();
-
 
 
         //=====ONCLICK METHODS=====
@@ -93,21 +117,28 @@ public class AlarmActivity extends AppCompatActivity {
         ID = intent.getIntExtra("ID", 0);
         vibrate = intent.getIntExtra("VIBRATE", -1);
         ringtoneURI = intent.getStringExtra("URI");
-        meridianDisplayString = intent.getStringExtra("MERIDIAN");
-        timeDisplayString = intent.getStringExtra("TIME");
+        /*
+      The Meridian display string.
+     */
+        String meridianDisplayString = intent.getStringExtra("MERIDIAN");
+        /*
+      The Time display string.
+     */
+        String timeDisplayString = intent.getStringExtra("TIME");
         subID = intent.getIntExtra("SUBID", 0);
-        previousFilter = intent.getIntExtra("FILTER",2);
+        previousFilter = intent.getIntExtra("FILTER", 2);
 
 
         timeDisplay.setText(timeDisplayString, TextView.BufferType.NORMAL);
         meridianDisplay.setText(meridianDisplayString, TextView.BufferType.NORMAL);
 
     }
+
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        if(notificationManager.isNotificationPolicyAccessGranted()) {
+        if (notificationManager.isNotificationPolicyAccessGranted()) {
             notificationManager.setInterruptionFilter(previousFilter);
         }
     }
@@ -120,7 +151,7 @@ public class AlarmActivity extends AppCompatActivity {
      *
      * @see AlarmController
      */
-    public void snoozeAlarm() {
+    private void snoozeAlarm() {
         AlarmController.getInstance().snoozeAlarm(this.getApplicationContext(), ID, subID, vibrate, snoozeLength, ringtoneURI);
         finish();
 
@@ -131,12 +162,12 @@ public class AlarmActivity extends AppCompatActivity {
      *
      * @see AlarmController
      */
-    public void dismissAlarm() {
+    private void dismissAlarm() {
         try {
             NapChatController.getInstance().loadUserAlarms(this.getApplicationContext());
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("AlarmActivity", "Could not load user alarms");
+            // Log.e("AlarmActivity", "Could not load user alarms");
         }
         AlarmController.getInstance().dismissAlarm(this.getApplicationContext(), ID, subID);
         finish();

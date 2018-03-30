@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,17 +18,21 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 /**
  * Created by bbest on 12/03/18.
  */
-
 public class SignUpPasswordFragment extends Fragment {
 
-    EditText pwdEditText;
-    Button signUpBtn;
+    /**
+     * The Pwd edit text.
+     */
+    private EditText pwdEditText;
 
+    /**
+     * Instantiates a new Sign up password fragment.
+     */
     public SignUpPasswordFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signup_password, container, false);
@@ -36,8 +41,11 @@ public class SignUpPasswordFragment extends Fragment {
     }
 
     private void initialize(View view) {
-        pwdEditText = (EditText) view.findViewById(R.id.signup_pwd_edittext);
-        signUpBtn = (Button) view.findViewById(R.id.signup_pwd_next_btn);
+        pwdEditText = view.findViewById(R.id.signup_pwd_edittext);
+        /*
+      The Sign up btn.
+     */
+        Button signUpBtn = view.findViewById(R.id.signup_pwd_next_btn);
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,12 +57,12 @@ public class SignUpPasswordFragment extends Fragment {
                     validCredentials = false;
                 }
 
-                if (validCredentials == true) {
+                if (validCredentials) {
                     SignUpActivity activity = (SignUpActivity) getActivity();
                     activity.password = pwdEditText.getText().toString();
                     activity.createNewUser();
                 }
-                if (validCredentials == false) {
+                if (!validCredentials) {
                     //clears password for reentry.
                     Toast toast = errorToast();
 

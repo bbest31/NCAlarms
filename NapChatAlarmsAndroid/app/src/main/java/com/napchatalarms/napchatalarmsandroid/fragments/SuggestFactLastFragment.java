@@ -19,21 +19,25 @@ import java.text.SimpleDateFormat;
 /**
  * Created by bbest on 24/03/18.
  */
-
 public class SuggestFactLastFragment extends FactFragment implements IFactFragment {
     private static final String ARG_PAGE = "submitFact";
     private Button submitBtn;
     private EditText descriptionField;
     private EditText link;
-    private View view;
     private int pageNumber;
 
+    /**
+     * Instantiates a new Suggest fact last fragment.
+     */
     public SuggestFactLastFragment() {
 
     }
 
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     *
+     * @param pageNumber the page number
+     * @return the suggest fact last fragment
      */
     public static SuggestFactLastFragment create(int pageNumber) {
         SuggestFactLastFragment fragment = new SuggestFactLastFragment();
@@ -54,13 +58,13 @@ public class SuggestFactLastFragment extends FactFragment implements IFactFragme
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_suggest_fact_last, container, false);
-        this.view = view;
+        View view1 = view;
 
-        submitBtn = (Button) view.findViewById(R.id.submit_fact_btn);
+        submitBtn = view.findViewById(R.id.submit_fact_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String recepient = getString(R.string.support_email);
+                String recipient = getString(R.string.support_email);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
                 String timestamp = dateFormat.format(System.currentTimeMillis());
                 String subject = "Napchat Fact Submission " + getString(R.string.version_number) + " " + timestamp;
@@ -69,7 +73,7 @@ public class SuggestFactLastFragment extends FactFragment implements IFactFragme
                                 "\n LINK: " + link.getText();
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:" + recepient));
+                emailIntent.setData(Uri.parse("mailto:" + recipient));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
@@ -86,9 +90,9 @@ public class SuggestFactLastFragment extends FactFragment implements IFactFragme
 
         // Set enabled to false so they aren't clickable through the previous fragment.
         submitBtn.setEnabled(false);
-        descriptionField = (EditText) view.findViewById(R.id.submit_fact_descrip_edittext);
+        descriptionField = view.findViewById(R.id.submit_fact_descrip_edittext);
         descriptionField.setEnabled(false);
-        link = (EditText) view.findViewById(R.id.link_src_edittext);
+        link = view.findViewById(R.id.link_src_edittext);
         link.setEnabled(false);
 
 

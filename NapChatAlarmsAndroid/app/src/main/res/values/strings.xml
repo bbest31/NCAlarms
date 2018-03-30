@@ -127,9 +127,9 @@
     <!--Hints-->
     <string name="email_hint">email</string>
     <string name="pass_hint">password</string>
-    <string name="password_format_error">Password must be at least 8 characters with A-z, 0-9 only.</string>
+    <string name="password_format_error">Password must be at least 8 characters with A–z, 0-9 only.</string>
     <string name="email_error_message">Please enter a valid email address i.e. johndoe@email.com</string>
-    <string name="janedoe_email_com">janedoe@email.com</string>
+    <string name="jane_doe_email_com">janedoe@email.com</string>
     <string name="new_username">username123</string>
     <string name="link_hint">www.example.com</string>
 
@@ -157,6 +157,7 @@
     <string name="ResetPassword">Change password by sending a reset password email:</string>
     <string name="Reauthenticate">Please re-authenticate to delete account.</string>
     <string name="change_email_msg">Please re-authenticate to change email</string>
+    <string name="in_progress_message">We\'re working on it!</string>
 
     <!--Open Source Libraries-->
     <string name="firebase_auth">Firebase Authentication</string>

@@ -7,7 +7,7 @@
     <!--Buttons-->
     <color name="dark_blue">#303f9f</color>
     <color name="light_btn_blue">#E3F2FD</color>
-    <color name="light_blue_btn_sel"></color>
+    <color name="light_blue_btn_sel">#99c7ea</color>
     <color name="light_purple">#aa00ff</color>
     <color name="light_purple_sel">#7706b0</color>
     <color name="blood_orange">#F4511E</color>

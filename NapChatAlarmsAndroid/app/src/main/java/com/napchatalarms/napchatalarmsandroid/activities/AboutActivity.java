@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.napchatalarms.napchatalarmsandroid.R;
 
 /**
+ * The activity displaying information about the publishing partying of the application.
+ * As well the version name.
  */
 public class AboutActivity extends AppCompatActivity {
 

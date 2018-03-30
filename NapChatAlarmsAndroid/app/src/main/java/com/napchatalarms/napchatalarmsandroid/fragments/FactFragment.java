@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,6 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  * </p>
  * Created by bbest on 15/03/18.
  */
-
 public class FactFragment extends Fragment implements IFactFragment {
     private static final String ARG_PAGE = "fact";
     private TextView description;
@@ -34,12 +34,18 @@ public class FactFragment extends Fragment implements IFactFragment {
     private FirebaseAnalytics mAnalytics;
 
 
+    /**
+     * Instantiates a new Fact fragment.
+     */
     public FactFragment() {
 
     }
 
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     *
+     * @param pageNumber the page number
+     * @return the fact fragment
      */
     public static FactFragment create(int pageNumber) {
         FactFragment fragment = new FactFragment();
@@ -57,15 +63,15 @@ public class FactFragment extends Fragment implements IFactFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fact, container, false);
-        description = (TextView) view.findViewById(R.id.fact_description);
-        citation = (TextView) view.findViewById(R.id.fact_citation);
-        yesBtn = (Button) view.findViewById(R.id.dyk_yes_btn);
-        noBtn = (Button) view.findViewById(R.id.dyk_no_btn);
-        DYKText = (TextView) view.findViewById(R.id.dyk_text);
+        description = view.findViewById(R.id.fact_description);
+        citation = view.findViewById(R.id.fact_citation);
+        yesBtn = view.findViewById(R.id.dyk_yes_btn);
+        noBtn = view.findViewById(R.id.dyk_no_btn);
+        DYKText = view.findViewById(R.id.dyk_text);
 
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +117,22 @@ public class FactFragment extends Fragment implements IFactFragment {
         return view;
     }
 
-    public void setFact(int factNumber) {
-        Fact fact = FactHolder.getInstance(getActivity()).getFacts().get(factNumber);
+    /**
+     * Sets fact.
+     *
+     * @param factNumber the fact number
+     */
+    void setFact(int factNumber) {
+        @SuppressWarnings("AccessStaticViaInstance") Fact fact = FactHolder.getInstance(getActivity()).getFacts().get(factNumber);
         description.setText(fact.getFactDescription());
         citation.setText(fact.getCitation());
     }
 
+    /**
+     * Gets page number.
+     *
+     * @return the page number
+     */
     public int getPageNumber() {
         return pageNumber;
     }

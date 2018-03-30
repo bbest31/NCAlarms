@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private FirebaseAnalytics mAnalytics;
 
 
     @Override
@@ -68,9 +67,10 @@ public class LoginActivity extends AppCompatActivity {
      * to the Home Activity by confirming the <code>FirebaseUser</code> object for the current user
      * is a non-null object.
      *
+     * @param currentUser the current user
+     * @param context     the context
      * @see FirebaseUser
      */
-
     public void loginNavigationOnSuccess(FirebaseUser currentUser, final Context context) {
 
         if (currentUser != null) {
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
 
             //Log event
-            mAnalytics = FirebaseAnalytics.getInstance(this);
+            FirebaseAnalytics mAnalytics = FirebaseAnalytics.getInstance(this);
             Bundle event = new Bundle();
             SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
             event.putString(FirebaseAnalytics.Param.ACLID, user.getUid());
@@ -92,6 +92,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Select fragment.
+     *
+     * @param view the view
+     */
     public void selectFragment(View view) {
         android.support.v4.app.Fragment fragment;
         if (view == findViewById(R.id.show_login_btn)) {

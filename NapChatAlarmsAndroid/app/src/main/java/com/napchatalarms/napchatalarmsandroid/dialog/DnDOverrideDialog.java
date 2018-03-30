@@ -13,12 +13,12 @@ import com.napchatalarms.napchatalarmsandroid.R;
 /**
  * Created by bbest on 10/03/18.
  */
-
 public class DnDOverrideDialog extends Dialog implements android.view.View.OnClickListener {
 
-    public Activity c;
-    public Button allow;
-    public Button deny;
+    /**
+     * The C.
+     */
+    private final Activity c;
 
     /**
      * Creates a dialog window that uses the default dialog theme.
@@ -38,8 +38,14 @@ public class DnDOverrideDialog extends Dialog implements android.view.View.OnCli
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_dnd_permission);
-        allow = (Button) findViewById(R.id.allow_btn);
-        deny = (Button) findViewById(R.id.deny_btn);
+        /*
+      The Allow.
+     */
+        Button allow = findViewById(R.id.allow_btn);
+        /*
+      The Deny.
+     */
+        Button deny = findViewById(R.id.deny_btn);
         allow.setOnClickListener(this);
         deny.setOnClickListener(this);
 

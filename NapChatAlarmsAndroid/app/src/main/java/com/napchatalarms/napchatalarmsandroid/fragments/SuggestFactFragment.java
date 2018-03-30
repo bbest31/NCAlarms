@@ -17,24 +17,29 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * @// TODO: 26/03/18 Have the text boxes wait for them to send the email before clearing.
- * Created by bbest on 18/03/18.
+ * The type Suggest fact fragment.
+ *
+ * @todo 26/03/18 Have the text boxes wait for them to send the email before clearing. Created by bbest on 18/03/18.
  */
-
 public class SuggestFactFragment extends FactFragment implements IFactFragment {
     private static final String ARG_PAGE = "submitFact";
     private Button submitBtn;
     private EditText descriptionField;
     private EditText link;
-    private View view;
     private int pageNumber;
 
+    /**
+     * Instantiates a new Suggest fact fragment.
+     */
     public SuggestFactFragment() {
 
     }
 
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     *
+     * @param pageNumber the page number
+     * @return the suggest fact fragment
      */
     public static SuggestFactFragment create(int pageNumber) {
         SuggestFactFragment fragment = new SuggestFactFragment();
@@ -55,13 +60,13 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_suggest_fact, container, false);
-        this.view = view;
+        View view1 = view;
 
-        submitBtn = (Button) view.findViewById(R.id.submit_fact_btn);
+        submitBtn = view.findViewById(R.id.submit_fact_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String recepient = getString(R.string.support_email);
+                String recipient = getString(R.string.support_email);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
                 String timestamp = dateFormat.format(System.currentTimeMillis());
                 String subject = "Napchat Fact Submission " + getString(R.string.version_number) + " " + timestamp;
@@ -70,7 +75,7 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
                                 "\n LINK: " + link.getText();
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:" + recepient));
+                emailIntent.setData(Uri.parse("mailto:" + recipient));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
@@ -85,8 +90,8 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
         });
         // Set the view to be disabled so they aren't clickable before the fragment is visible.
         submitBtn.setEnabled(false);
-        descriptionField = (EditText) view.findViewById(R.id.submit_fact_descrip_edittext);
-        link = (EditText) view.findViewById(R.id.link_src_edittext);
+        descriptionField = view.findViewById(R.id.submit_fact_descrip_edittext);
+        link = view.findViewById(R.id.link_src_edittext);
         link.setEnabled(false);
         descriptionField.setEnabled(false);
 

@@ -13,16 +13,18 @@ import com.napchatalarms.napchatalarmsandroid.R;
 /**
  * Created by bbest on 10/03/18.
  */
-
 public class VibrateDialog extends Dialog implements View.OnClickListener {
 
-    public Activity c;
-    Button offBtn;
-    Button locomotiveBtn;
-    Button buzzsawBtn;
-    Button heartbeatBtn;
-    Button tiptoeBtn;
+    /**
+     * The parent Activity.
+     */
+    private final Activity c;
 
+    /**
+     * Instantiates a new Vibrate dialog.
+     *
+     * @param a the a
+     */
     public VibrateDialog(Activity a) {
         super(a);
         this.c = a;
@@ -36,16 +38,34 @@ public class VibrateDialog extends Dialog implements View.OnClickListener {
         initialize();
     }
 
-    public void initialize() {
-        offBtn = (Button) findViewById(R.id.no_vibrate_btn);
+    /**
+     * Initialize.
+     */
+    private void initialize() {
+        /*
+      The Off btn.
+     */
+        Button offBtn = findViewById(R.id.no_vibrate_btn);
         offBtn.setOnClickListener(this);
-        locomotiveBtn = (Button) findViewById(R.id.locomotive_btn);
+        /*
+      The Locomotive btn.
+     */
+        Button locomotiveBtn = findViewById(R.id.locomotive_btn);
         locomotiveBtn.setOnClickListener(this);
-        heartbeatBtn = (Button) findViewById(R.id.heartbeat_btn);
+        /*
+      The Heartbeat btn.
+     */
+        Button heartbeatBtn = findViewById(R.id.heartbeat_btn);
         heartbeatBtn.setOnClickListener(this);
-        buzzsawBtn = (Button) findViewById(R.id.buzzsaw_btn);
+        /*
+      The Buzzsaw btn.
+     */
+        Button buzzsawBtn = findViewById(R.id.buzzsaw_btn);
         buzzsawBtn.setOnClickListener(this);
-        tiptoeBtn = (Button) findViewById(R.id.tiptoe_btn);
+        /*
+      The Tiptoe btn.
+     */
+        Button tiptoeBtn = findViewById(R.id.tiptoe_btn);
         tiptoeBtn.setOnClickListener(this);
     }
 

@@ -20,56 +20,95 @@ import java.util.List;
  */
 public class RepeatDaysDialog extends Dialog {
 
-    public Activity c;
-    CheckBox sunChckBx;
-    CheckBox monChckBox;
-    CheckBox tuesChckBx;
-    CheckBox wedChckBx;
-    CheckBox thursChckBx;
-    CheckBox friChckBx;
-    CheckBox satChckBx;
-    Button okayBtn;
-    List<Integer> repeatDays;
+    /**
+     * The C.
+     */
+    private final Activity c;
+    /**
+     * The Sun check bx.
+     */
+    private CheckBox sunCheckBox;
+    /**
+     * The Mon check box.
+     */
+    private CheckBox monCheckBox;
+    /**
+     * The Tues check bx.
+     */
+    private CheckBox tuesCheckBox;
+    /**
+     * The Wed check bx.
+     */
+    private CheckBox wedCheckBox;
+    /**
+     * The Thurs check bx.
+     */
+    private CheckBox thursCheckBox;
+    /**
+     * The Fri check bx.
+     */
+    private CheckBox friCheckBox;
+    /**
+     * The Sat check bx.
+     */
+    private CheckBox satCheckBox;
+    /**
+     * The Okay btn.
+     */
+    private Button okayBtn;
+    /**
+     * The Repeat days.
+     */
+    private final List<Integer> repeatDays;
 
+    /**
+     * Instantiates a new Repeat days dialog.
+     *
+     * @param a    the a
+     * @param days the days
+     */
     public RepeatDaysDialog(Activity a, List<Integer> days) {
         super(a);
         this.repeatDays = days;
         this.c = a;
     }
 
-    public void initialize() {
-        sunChckBx = (CheckBox) findViewById(R.id.sunday_checkBox);
-        monChckBox = (CheckBox) findViewById(R.id.monday_checkBox);
-        tuesChckBx = (CheckBox) findViewById(R.id.tuesday_checkBox);
-        wedChckBx = (CheckBox) findViewById(R.id.wednesday_checkBox);
-        thursChckBx = (CheckBox) findViewById(R.id.thursday_checkBox);
-        friChckBx = (CheckBox) findViewById(R.id.friday_checkBox);
-        satChckBx = (CheckBox) findViewById(R.id.saturday_checkBox);
-        okayBtn = (Button) findViewById(R.id.repeat_okay_btn);
+    /**
+     * Initialize.
+     */
+    private void initialize() {
+        sunCheckBox = findViewById(R.id.sunday_checkBox);
+        monCheckBox = findViewById(R.id.monday_checkBox);
+        tuesCheckBox = findViewById(R.id.tuesday_checkBox);
+        wedCheckBox = findViewById(R.id.wednesday_checkBox);
+        thursCheckBox = findViewById(R.id.thursday_checkBox);
+        friCheckBox = findViewById(R.id.friday_checkBox);
+        satCheckBox = findViewById(R.id.saturday_checkBox);
+        okayBtn = findViewById(R.id.repeat_okay_btn);
 
 
-        for (Iterator<Integer> iterator = repeatDays.listIterator(); iterator.hasNext(); ) {
-            switch (iterator.next()) {
+        for (Integer repeatDay : repeatDays) {
+            switch (repeatDay) {
                 case 1:
-                    sunChckBx.setChecked(true);
+                    sunCheckBox.setChecked(true);
                     break;
                 case 2:
-                    monChckBox.setChecked(true);
+                    monCheckBox.setChecked(true);
                     break;
                 case 3:
-                    tuesChckBx.setChecked(true);
+                    tuesCheckBox.setChecked(true);
                     break;
                 case 4:
-                    wedChckBx.setChecked(true);
+                    wedCheckBox.setChecked(true);
                     break;
                 case 5:
-                    thursChckBx.setChecked(true);
+                    thursCheckBox.setChecked(true);
                     break;
                 case 6:
-                    friChckBx.setChecked(true);
+                    friCheckBox.setChecked(true);
                     break;
                 case 7:
-                    satChckBx.setChecked(true);
+                    satCheckBox.setChecked(true);
                     break;
             }
         }
@@ -93,15 +132,15 @@ public class RepeatDaysDialog extends Dialog {
             }
         });
 
-        sunChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        sunCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     repeatDays.add(1);
                 } else {
-                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
-                        if (iter.next() == 1) {
-                            iter.remove();
+                    for (Iterator<Integer> integerIterator = repeatDays.iterator(); integerIterator.hasNext(); ) {
+                        if (integerIterator.next() == 1) {
+                            integerIterator.remove();
                         }
                     }
 
@@ -109,91 +148,91 @@ public class RepeatDaysDialog extends Dialog {
             }
         });
 
-        monChckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        monCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     repeatDays.add(2);
                 } else {
-                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
-                        if (iter.next() == 2) {
-                            iter.remove();
+                    for (Iterator<Integer> iterator = repeatDays.iterator(); iterator.hasNext(); ) {
+                        if (iterator.next() == 2) {
+                            iterator.remove();
                         }
                     }
                 }
             }
         });
 
-        tuesChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        tuesCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     repeatDays.add(3);
 
                 } else {
-                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
-                        if (iter.next() == 3) {
-                            iter.remove();
+                    for (Iterator<Integer> iterator = repeatDays.iterator(); iterator.hasNext(); ) {
+                        if (iterator.next() == 3) {
+                            iterator.remove();
                         }
                     }
                 }
             }
         });
 
-        wedChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        wedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     repeatDays.add(4);
                 } else {
-                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
-                        if (iter.next() == 4) {
-                            iter.remove();
+                    for (Iterator<Integer> iterator = repeatDays.iterator(); iterator.hasNext(); ) {
+                        if (iterator.next() == 4) {
+                            iterator.remove();
                         }
                     }
                 }
             }
         });
 
-        thursChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        thursCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     repeatDays.add(5);
                 } else {
-                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
-                        if (iter.next() == 5) {
-                            iter.remove();
+                    for (Iterator<Integer> iterator = repeatDays.iterator(); iterator.hasNext(); ) {
+                        if (iterator.next() == 5) {
+                            iterator.remove();
                         }
                     }
                 }
             }
         });
 
-        friChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        friCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     repeatDays.add(6);
                 } else {
-                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
-                        if (iter.next() == 6) {
-                            iter.remove();
+                    for (Iterator<Integer> iterator = repeatDays.iterator(); iterator.hasNext(); ) {
+                        if (iterator.next() == 6) {
+                            iterator.remove();
                         }
                     }
                 }
             }
         });
 
-        satChckBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        satCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     repeatDays.add(7);
                 } else {
-                    for (Iterator<Integer> iter = repeatDays.iterator(); iter.hasNext(); ) {
-                        if (iter.next() == 7) {
-                            iter.remove();
+                    for (Iterator<Integer> iterator = repeatDays.iterator(); iterator.hasNext(); ) {
+                        if (iterator.next() == 7) {
+                            iterator.remove();
                         }
                     }
                 }

@@ -19,41 +19,28 @@ import com.napchatalarms.napchatalarmsandroid.activities.CustomRingtoneActivity;
  * @author bbest
  */
 public class RingtoneDialog extends Dialog implements android.view.View.OnClickListener {
+    @SuppressWarnings("FieldCanBeLocal")
     private final int CUSTOM_RINGTONE_RESULT_CODE = 80;
+    @SuppressWarnings("FieldCanBeLocal")
     private final int DEVICE_RINGTONE_RESULT_CODE = 14;
+    @SuppressWarnings("FieldCanBeLocal")
     private final int MUSIC_RINGTONE_RESULT_CODE = 19;
     /**
      * The C.
      */
-    public CreateAlarmActivity c;
+    private final CreateAlarmActivity c;
     /**
      * The D.
      */
     public Dialog d;
-    /**
-     * The Cancel.
-     */
-    public Button cancel;
-    /**
-     * The Default btn.
-     */
-    public Button defaultBtn, /**
-     * The Device btn.
-     */
-    deviceBtn, /**
-     * The Music btn.
-     */
-    musicBtn, /**
-     * The Nc btn.
-     */
-    ncBtn;
 
-    private Boolean readPermission;
+    private final Boolean readPermission;
 
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
      *
-     * @param a - Activity to appear over.
+     * @param a                      - Activity to appear over.
+     * @param externalReadPermission the external read permission
      */
     public RingtoneDialog(CreateAlarmActivity a, Boolean externalReadPermission) {
         super(a);
@@ -64,16 +51,22 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
     /**
      * Initialize.
      */
-    public void initialize() {
-        cancel = (Button) findViewById(R.id.cancel_ringtone_btn);
+    private void initialize() {
+        /*
+      The Cancel.
+     */
+        Button cancel = findViewById(R.id.cancel_ringtone_btn);
         cancel.setOnClickListener(this);
-        defaultBtn = (Button) findViewById(R.id.defaultRingtoneButton);
+        /*
+      The Default btn.
+     */
+        Button defaultBtn = findViewById(R.id.defaultRingtoneButton);
         defaultBtn.setOnClickListener(this);
-        deviceBtn = (Button) findViewById(R.id.deviceRingtoneButton);
+        Button deviceBtn = findViewById(R.id.deviceRingtoneButton);
         deviceBtn.setOnClickListener(this);
-        musicBtn = (Button) findViewById(R.id.musicRingtoneButton);
+        Button musicBtn = findViewById(R.id.musicRingtoneButton);
         musicBtn.setOnClickListener(this);
-        ncBtn = (Button) findViewById(R.id.napchatRingtoneButton);
+        Button ncBtn = findViewById(R.id.napchatRingtoneButton);
         ncBtn.setOnClickListener(this);
     }
 

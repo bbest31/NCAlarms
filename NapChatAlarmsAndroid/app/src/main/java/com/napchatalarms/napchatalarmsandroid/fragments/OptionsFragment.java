@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,31 +43,19 @@ import java.util.ArrayList;
  */
 public class OptionsFragment extends android.support.v4.app.Fragment {
 
-    //=====VIEWS=====
-    Button logoutButton;
     private Button verifyEmailBtn;
-    private Button changeNameBtn;
-    private Button resetPassBtn;
-    private Button shareBtn;
-    private Button aboutBtn;
-    private Button deleteAccountBtn;
-    private Button faqBtn;
-    private Button upgradeBtn;
-    private Button privacyPolicyBtn;
-    private Button rateBtn;
-    private Button openSrcBtn;
-    private Button submitFeedbackBtn;
-    private Button languageBtn;
-    private Button inviteBtn;
 
 
+    /**
+     * Instantiates a new Options fragment.
+     */
     public OptionsFragment() {
 
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_options, container, false);
         initialize(view);
         return view;
@@ -79,21 +66,24 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      */
     private void initialize(View view) {
 
-        logoutButton = (Button) view.findViewById(R.id.logout_btn);
-        verifyEmailBtn = (Button) view.findViewById(R.id.verified_email_btn);
-        changeNameBtn = (Button) view.findViewById(R.id.change_username_btn);
-        resetPassBtn = (Button) view.findViewById(R.id.opt_reset_pwd_btn);
-        deleteAccountBtn = (Button) view.findViewById(R.id.delete_account_btn);
-        aboutBtn = (Button) view.findViewById(R.id.about_btn);
-        faqBtn = (Button) view.findViewById(R.id.faq_btn);
-        upgradeBtn = (Button) view.findViewById(R.id.upgrade_btn);
-        privacyPolicyBtn = (Button) view.findViewById(R.id.privacy_policy_btn);
-        rateBtn = (Button) view.findViewById(R.id.rate_btn);
-        shareBtn = (Button) view.findViewById(R.id.share_app_btn);
-        submitFeedbackBtn = (Button) view.findViewById(R.id.feedback_btn);
-        openSrcBtn = (Button) view.findViewById(R.id.open_src_btn);
-        inviteBtn = (Button) view.findViewById(R.id.opt_inv_btn);
-        languageBtn = (Button) view.findViewById(R.id.opt_lang_btn);
+        /*
+      The Logout button.
+     */
+        Button logoutButton = view.findViewById(R.id.logout_btn);
+        verifyEmailBtn = view.findViewById(R.id.verified_email_btn);
+        Button changeNameBtn = view.findViewById(R.id.change_username_btn);
+        Button resetPassBtn = view.findViewById(R.id.opt_reset_pwd_btn);
+        Button deleteAccountBtn = view.findViewById(R.id.delete_account_btn);
+        Button aboutBtn = view.findViewById(R.id.about_btn);
+        Button faqBtn = view.findViewById(R.id.faq_btn);
+        Button upgradeBtn = view.findViewById(R.id.upgrade_btn);
+        Button privacyPolicyBtn = view.findViewById(R.id.privacy_policy_btn);
+        Button rateBtn = view.findViewById(R.id.rate_btn);
+        Button shareBtn = view.findViewById(R.id.share_app_btn);
+        Button submitFeedbackBtn = view.findViewById(R.id.feedback_btn);
+        Button openSrcBtn = view.findViewById(R.id.open_src_btn);
+        Button inviteBtn = view.findViewById(R.id.opt_inv_btn);
+        Button languageBtn = view.findViewById(R.id.opt_lang_btn);
 
 
         checkEmailVerification();
@@ -216,7 +206,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         submitFeedbackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String recepient = getString(R.string.support_email);
+                String recipient = getString(R.string.support_email);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
                 String timestamp = dateFormat.format(System.currentTimeMillis());
                 String subject = "Napchat Feedback Android " + getString(R.string.version_number) + " " + timestamp;
@@ -228,7 +218,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                         "YOUR FEEDBACK BELOW";
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:" + recepient));
+                emailIntent.setData(Uri.parse("mailto:" + recipient));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 emailIntent.putExtra(Intent.EXTRA_TEXT, header);
 
@@ -262,7 +252,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      * @see FirebaseAuth
      * @see NapChatController
      */
-    public void logout() {
+    private void logout() {
         ArrayList<Alarm> alarmArrayList = User.getInstance().getAlarmList();
         for (Alarm a : alarmArrayList) {
             AlarmController.getInstance().cancelAlarm(getContext(), a.getId());
@@ -280,13 +270,13 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      *
      * @see FirebaseAuth
      */
-    public void resendVerificationEmail() {
+    private void resendVerificationEmail() {
         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.i("Options Fragment", "Resent Verification Email successfully");
+//                            Log.i("Options Fragment", "Resent Verification Email successfully");
                             UtilityFunctions.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
                             verifyEmailBtn.setText(R.string.sent);
                             verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
@@ -306,7 +296,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      *
      * @see UtilityFunctions
      */
-    public void changeUsername() {
+    private void changeUsername() {
         ChangeUsernameDialog newUsernameDialog = new ChangeUsernameDialog(getActivity());
         newUsernameDialog.show();
     }
@@ -317,7 +307,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      *
      * @see FirebaseAuth
      */
-    public void resetPassword() {
+    private void resetPassword() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String emailAddress = User.getInstance().getEmail();
 
@@ -328,7 +318,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                         if (task.isSuccessful()) {
                             UtilityFunctions.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
 
-                            Log.i("Options Activity", "Email sent.");
+//                            Log.i("Options Activity", "Email sent.");
                         }
                     }
                 });
@@ -337,7 +327,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     private void checkEmailVerification() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //Checks to see if the user has a verified email.
-        if (user.isEmailVerified() == false) {
+        if (!user.isEmailVerified()) {
             verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

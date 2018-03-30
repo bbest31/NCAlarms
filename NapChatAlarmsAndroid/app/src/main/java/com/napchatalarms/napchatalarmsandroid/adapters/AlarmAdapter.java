@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,22 +20,31 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
+ * The type Alarm adapter.
+ *
  * @author bbest
  */
-
 public class AlarmAdapter extends ArrayAdapter<Alarm> {
-    Context context;
-    TextView alarmId;
-    TextView repeatDaysText;
+    /**
+     * The Context.
+     */
+    private final Context context;
 
+    /**
+     * Instantiates a new Alarm adapter.
+     *
+     * @param context   the context
+     * @param alarmList the alarm list
+     */
     public AlarmAdapter(Context context, ArrayList<Alarm> alarmList) {
         super(context, R.layout.alarm_layout, alarmList);
         this.context = context;
     }
 
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
         //Get the data item for this position
         Alarm alarm = getItem(position);
@@ -46,16 +56,22 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
         //sets the widgets to correspond to variables
 
         //Set hidden id reference
-        alarmId = (TextView) convertView.findViewById(R.id.hidden_alarm_id);
+        /*
+      The Alarm id.
+     */
+        TextView alarmId = convertView.findViewById(R.id.hidden_alarm_id);
         alarmId.setText(String.valueOf(alarm.getId()));
 
         //Set the time display string
-        TextView timeText = (TextView) convertView.findViewById(R.id.time_display_text);
+        TextView timeText = convertView.findViewById(R.id.time_display_text);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         timeText.setText(sdf.format(alarm.getTime()));
 
         //Set the days repeating on
-        repeatDaysText = (TextView) convertView.findViewById(R.id.repeat_days_text);
+        /*
+      The Repeat days text.
+     */
+        TextView repeatDaysText = convertView.findViewById(R.id.repeat_days_text);
         if (alarm.getClass() == RepeatingAlarm.class) {
             String repeatText = UtilityFunctions.generateRepeatText(((RepeatingAlarm) alarm).getRepeatDays());
             if (repeatText != null) {
@@ -67,7 +83,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
         }
 
         //Set the status of the alarm
-        Switch statusSwitch = (Switch) convertView.findViewById(R.id.activate_alarm_switch);
+        Switch statusSwitch = convertView.findViewById(R.id.activate_alarm_switch);
         statusSwitch.setChecked(alarm.getStatus());
 
         statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

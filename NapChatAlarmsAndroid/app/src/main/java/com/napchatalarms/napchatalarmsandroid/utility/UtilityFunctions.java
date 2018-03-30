@@ -14,7 +14,6 @@ import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,7 +21,6 @@ import java.util.List;
  *
  * @author bbest
  */
-
 public class UtilityFunctions {
 
     private static final long[] HEARTBEAT = {0, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500};
@@ -39,8 +37,11 @@ public class UtilityFunctions {
      * This method compares a given input against the email pattern and returns a boolean
      * to indicate whether it is in email format or not.
      * SOURCE: https://stackoverflow.com/questions/9355899/android-email-edittext-validation?noredirect=1&lq=1
+     *
+     * @param email the email
+     * @return the boolean
      */
-    public final static boolean isValidEmail(CharSequence email) {
+    public static boolean isValidEmail(CharSequence email) {
         if (email == null) {
             return false;
         }
@@ -51,8 +52,11 @@ public class UtilityFunctions {
     /**
      * Returns a boolean to indicate whether the password has only alphabetic and numeric characters.
      * SOURCE: https://stackoverflow.com/questions/10344493/android-how-to-set-acceptable-numbers-and-characters-in-edittext
+     *
+     * @param password the password
+     * @return the boolean
      */
-    public final static boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password) {
 
         if (password.length() < 8 || password.trim().isEmpty() || password.length() > 25) {
             return false;
@@ -67,10 +71,12 @@ public class UtilityFunctions {
     }
 
     /**
-     * @param name
-     * @return
+     * Is valid username boolean.
+     *
+     * @param name the name
+     * @return boolean
      */
-    public final static boolean isValidUsername(String name) {
+    public static boolean isValidUsername(String name) {
         boolean valid = true;
         if (name.trim().isEmpty()) {
             valid = false;
@@ -90,8 +96,12 @@ public class UtilityFunctions {
     /**
      * Take in the hour and minute of a time and make a UTC milliseconds such that the
      * returning value is the next occurrence of that time.
-     **/
-    public final static long UTCMilliseconds(int hour, int minute) {
+     *
+     * @param hour   the hour
+     * @param minute the minute
+     * @return the long
+     */
+    public static long UTCMilliseconds(int hour, int minute) {
         Long timeMilli = null;
         //Gets the current date/time
         Calendar cal = Calendar.getInstance();
@@ -152,10 +162,12 @@ public class UtilityFunctions {
     }
 
     /**
-     * @param trigger
-     * @return
+     * Validate one time trigger long.
+     *
+     * @param trigger the trigger
+     * @return long
      */
-    public final static Long validateOneTimeTrigger(Long trigger) {
+    public static Long validateOneTimeTrigger(Long trigger) {
         Calendar currTime = Calendar.getInstance();
         Calendar alarmTime = Calendar.getInstance();
         currTime.setTime(new Date(System.currentTimeMillis()));
@@ -180,10 +192,12 @@ public class UtilityFunctions {
     }
 
     /**
-     * @param trigger
-     * @return
+     * Validate repeat trigger long.
+     *
+     * @param trigger the trigger
+     * @return long
      */
-    public final static Long validateRepeatTrigger(Long trigger) {
+    public static Long validateRepeatTrigger(Long trigger) {
 
         Calendar currTime = Calendar.getInstance();
         Calendar alarmTime = Calendar.getInstance();
@@ -215,7 +229,13 @@ public class UtilityFunctions {
 
     }
 
-    public final static String generateRepeatText(List<Integer> days) {
+    /**
+     * Generate repeat text string.
+     *
+     * @param days the days
+     * @return the string
+     */
+    public static String generateRepeatText(List<Integer> days) {
         Collections.sort(days);
         String repeatText = "";
         if (days.size() != 0 && days.size() != 7) {
@@ -225,8 +245,8 @@ public class UtilityFunctions {
                 repeatText = "Weekdays";
             } else {
 
-                for (Iterator<Integer> iterator = days.listIterator(); iterator.hasNext(); ) {
-                    switch (iterator.next()) {
+                for (Integer day : days) {
+                    switch (day) {
                         case 1:
                             repeatText = repeatText.concat("Sun ");
                             break;
@@ -265,8 +285,11 @@ public class UtilityFunctions {
      * Vibrate pattern is in milliseconds. First number indicates the time to wait
      * to start vibrating when notification fires. Second number is the time to vibrate
      * and then turn off. Subsequent numbers indicate times that the vibration is off,on,off,etc.
-     **/
-    public final static VibratePattern getVibratePattern(Integer i) {
+     *
+     * @param i the
+     * @return the vibrate pattern
+     */
+    public static VibratePattern getVibratePattern(Integer i) {
         VibratePattern pattern = null;
         switch (i) {
             case 0:
@@ -290,11 +313,11 @@ public class UtilityFunctions {
      * "We're working on it!"
      * Used as a placeholder for an onclick method.
      *
-     * @param activity
-     * @param inflater
-     * @return
+     * @param activity the activity
+     * @param inflater the inflater
+     * @return toast
      */
-    public final static Toast createWarningToast(Activity activity, LayoutInflater inflater) {
+    public static Toast createWarningToast(Activity activity, LayoutInflater inflater) {
         Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_construction_warn,
@@ -303,7 +326,14 @@ public class UtilityFunctions {
         return toast;
     }
 
-    public final static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater) {
+    /**
+     * Create email success toast toast.
+     *
+     * @param activity the activity
+     * @param inflater the inflater
+     * @return the toast
+     */
+    public static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater) {
         Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_email_success,
@@ -312,7 +342,14 @@ public class UtilityFunctions {
         return toast;
     }
 
-    public final static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater) {
+    /**
+     * Create invalid username toast toast.
+     *
+     * @param activity the activity
+     * @param inflater the inflater
+     * @return the toast
+     */
+    public static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater) {
         Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_signup_user_err,
@@ -321,7 +358,14 @@ public class UtilityFunctions {
         return toast;
     }
 
-    public final static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater) {
+    /**
+     * Create alarm created toast toast.
+     *
+     * @param activity the activity
+     * @param inflater the inflater
+     * @return the toast
+     */
+    public static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater) {
         Toast toast = Toast.makeText(activity, "", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_alarm_created,
@@ -330,7 +374,14 @@ public class UtilityFunctions {
         return toast;
     }
 
-    public final static Toast createInvalidCredentials(Activity activity, LayoutInflater inflater) {
+    /**
+     * Create invalid credentials toast.
+     *
+     * @param activity the activity
+     * @param inflater the inflater
+     * @return the toast
+     */
+    public static Toast createInvalidCredentials(Activity activity, LayoutInflater inflater) {
         Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_login_err,
@@ -339,7 +390,14 @@ public class UtilityFunctions {
         return toast;
     }
 
-    public final static Toast createInvalidEmailToast(Activity activity, LayoutInflater inflater) {
+    /**
+     * Create invalid email toast toast.
+     *
+     * @param activity the activity
+     * @param inflater the inflater
+     * @return the toast
+     */
+    public static Toast createInvalidEmailToast(Activity activity, LayoutInflater inflater) {
         Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_invalid_email,

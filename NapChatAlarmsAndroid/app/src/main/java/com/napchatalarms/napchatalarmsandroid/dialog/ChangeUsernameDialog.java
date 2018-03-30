@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,10 +22,8 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 /**
  * Created by bbest on 15/03/18.
  */
-
 public class ChangeUsernameDialog extends Dialog {
 
-    private Activity parentActivity;
     private EditText changeNameEditText;
     private Button submitBtn;
     private Button cancelBtn;
@@ -35,16 +31,18 @@ public class ChangeUsernameDialog extends Dialog {
 
 
     /**
-     * @param a
+     * Instantiates a new Change username dialog.
+     *
+     * @param a the a
      */
     public ChangeUsernameDialog(Activity a) {
         super(a);
-        this.parentActivity = a;
+        Activity parentActivity = a;
 
     }
 
     /**
-     * @param savedInstanceState
+     * @param savedInstanceState - instance saved from previous creation.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +70,11 @@ public class ChangeUsernameDialog extends Dialog {
     /**
      * Initializes view components for {@link com.napchatalarms.napchatalarmsandroid.activities.AboutActivity}.
      */
-    public void initialize() {
-        changeNameEditText = (EditText) findViewById(R.id.new_name_edittext);
-        submitBtn = (Button) findViewById(R.id.submit_new_name_btn);
-        cancelBtn = (Button) findViewById(R.id.new_name_cancel_btn);
-        errText = (TextView) findViewById(R.id.change_usrnm_err_text);
+    private void initialize() {
+        changeNameEditText = findViewById(R.id.new_name_edittext);
+        submitBtn = findViewById(R.id.submit_new_name_btn);
+        cancelBtn = findViewById(R.id.new_name_cancel_btn);
+        errText = findViewById(R.id.change_usrnm_err_text);
 
     }
 
@@ -101,8 +99,8 @@ public class ChangeUsernameDialog extends Dialog {
                             if (task.isSuccessful()) {
                                 User.getInstance().setName(newName);
                                 changeNameEditText.setText("");
-                                Toast.makeText(parentActivity, "Username successfully changed!", Toast.LENGTH_LONG).show();
-                                Log.i("Options Activity", "The User's username has been updated successfully");
+//                                Toast.makeText(parentActivity, "Username successfully changed!", Toast.LENGTH_LONG).show();
+//                                Log.i("Options Activity", "The User's username has been updated successfully");
                             } else {
                                 errText.setVisibility(View.VISIBLE);
                             }

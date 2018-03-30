@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class RepeatingBuilder extends AlarmBuilder {
 
-    private RepeatingAlarm alarm;
+    private final RepeatingAlarm alarm;
 
     /**
      * Instantiates a new Repeating builder.
@@ -22,7 +22,6 @@ public class RepeatingBuilder extends AlarmBuilder {
         alarm = new RepeatingAlarm();
     }
 
-    @Override
     public RepeatingAlarm build() {
         return alarm;
     }
@@ -30,6 +29,7 @@ public class RepeatingBuilder extends AlarmBuilder {
     /**
      * This method needs to be called first when building Repeating alarms. @param days the days
      *
+     * @param days the days
      * @return the repeating builder
      */
     public RepeatingBuilder initialize(final List<Integer> days) {
@@ -41,7 +41,6 @@ public class RepeatingBuilder extends AlarmBuilder {
         return this;
     }
 
-    @Override
     public RepeatingBuilder setTime(final long triggerTime) {
         alarm.setTime(triggerTime);
         Map<Integer, Alarm> subAlarms = alarm.getSubAlarms();
@@ -56,7 +55,6 @@ public class RepeatingBuilder extends AlarmBuilder {
         return this;
     }
 
-    @Override
     public RepeatingBuilder setRingtoneURI(final String uri) {
         alarm.setRingtoneURI(uri);
         Map<Integer, Alarm> subAlarms = alarm.getSubAlarms();
@@ -67,7 +65,6 @@ public class RepeatingBuilder extends AlarmBuilder {
         return this;
     }
 
-    @Override
     public RepeatingBuilder setVibrate(final int vibrate) {
         alarm.setVibratePattern(vibrate);
         Map<Integer, Alarm> subAlarms = alarm.getSubAlarms();
@@ -78,7 +75,6 @@ public class RepeatingBuilder extends AlarmBuilder {
         return this;
     }
 
-    @Override
     public RepeatingBuilder setSnooze(final int length) {
         alarm.setSnoozeLength(length);
         Map<Integer, Alarm> subAlarms = alarm.getSubAlarms();
@@ -94,6 +90,7 @@ public class RepeatingBuilder extends AlarmBuilder {
      *
      * @return repeating builder
      */
+    @SuppressWarnings("UnusedReturnValue")
     public RepeatingBuilder setInterval() {
         Map<Integer, Alarm> subAlarms = alarm.getSubAlarms();
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet()) {

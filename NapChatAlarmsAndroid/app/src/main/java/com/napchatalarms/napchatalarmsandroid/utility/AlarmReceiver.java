@@ -22,9 +22,11 @@ import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
  *
  * @author bbest
  */
-
 public class AlarmReceiver extends BroadcastReceiver {
-    int previousFilter;
+    /**
+     * The Previous filter.
+     */
+    private int previousFilter;
 
 
     @Override
@@ -63,8 +65,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent cancel = new Intent("Dismiss");
         PendingIntent cancelPending;
         if (subId == 0) {
+            //noinspection UnusedAssignment
             cancelPending = PendingIntent.getBroadcast(context, id, cancel, PendingIntent.FLAG_CANCEL_CURRENT);
         } else {
+            //noinspection UnusedAssignment
             cancelPending = PendingIntent.getBroadcast(context, subId, cancel, PendingIntent.FLAG_CANCEL_CURRENT);
         }
 
@@ -162,6 +166,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     /**
      * Cancels a current notification alarm from continuing to fire. Used to dismiss as well/.
+     *
+     * @param context the context
+     * @param Id      the id
      */
     public void Cancel(Context context, int Id) {
 

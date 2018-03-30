@@ -75,7 +75,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3"
-            tools:listitem="@layout/alarm_layout"></com.baoyz.swipemenulistview.SwipeMenuListView>
+            tools:listitem="@layout/alarm_layout" />
 
     </android.support.constraint.ConstraintLayout>
 

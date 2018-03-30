@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.napchatalarms.napchatalarmsandroid.R;
 
 
+/**
+ * The type Open src lib activity.
+ */
 public class OpenSrcLibActivity extends AppCompatActivity {
 
 

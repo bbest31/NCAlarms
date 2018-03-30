@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * The type Repeating alarm.
+ *
  * @author bbest
  */
-
 public class RepeatingAlarm extends Alarm implements Serializable {
 
     //=====ATTRIBUTES=====
@@ -27,7 +28,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      */
     public RepeatingAlarm() {
         super();
-        subAlarms = new HashMap<Integer, Alarm>();
+        subAlarms = new HashMap<>();
     }
     //=====METHODS=====
 
@@ -42,6 +43,9 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      * until they match.
      * </p>
      *
+     * @param day         the day
+     * @param triggerTime the trigger time
+     * @return the long
      * @see Calendar
      */
     public long calculateTrigger(int day, long triggerTime) {
@@ -66,40 +70,46 @@ public class RepeatingAlarm extends Alarm implements Serializable {
     }
 
     /**
-     * @return
+     * @return String description of the RepeatingAlarm
      */
     @Override
     public String toString() {
-        String alarmStr = "ID: " + this.getId() + " Active: " + this.getStatus() + "\n <Sub-Alarms> \n";
+        StringBuilder alarmStr = new StringBuilder("ID: " + this.getId() + " Active: " + this.getStatus() + "\n <Sub-Alarms> \n");
 
         for (Map.Entry<Integer, Alarm> entry : subAlarms.entrySet()) {
-            alarmStr = alarmStr + entry.getValue().toString() + " \n ";
+            alarmStr.append(entry.getValue().toString()).append(" \n ");
         }
 
-        alarmStr = alarmStr.concat("</Sub-Alarms>\n" + repeatDays);
+        alarmStr = new StringBuilder(alarmStr.toString().concat("</Sub-Alarms>\n" + repeatDays));
 
-        return alarmStr;
+        return alarmStr.toString();
     }
 
     //=====GETTERS=====
 
     /**
-     * @return
+     * Gets sub alarms.
+     *
+     * @return sub alarms
      */
     public Map<Integer, Alarm> getSubAlarms() {
         return this.subAlarms;
     }
 
     /**
-     * @param subAlarms
+     * Sets sub alarms.
+     *
+     * @param subAlarms the sub alarms
      */
     public void setSubAlarms(Map<Integer, Alarm> subAlarms) {
         this.subAlarms = subAlarms;
     }
 
     /**
-     * @param Id
-     * @return
+     * Gets sub alarm by id.
+     *
+     * @param Id the id
+     * @return sub alarm by id
      */
     public Alarm getSubAlarmById(int Id) {
         return this.subAlarms.get(Id);
@@ -108,28 +118,36 @@ public class RepeatingAlarm extends Alarm implements Serializable {
     //=====SETTERS=====
 
     /**
-     * @return
+     * Gets repeat days.
+     *
+     * @return repeat days
      */
     public List<Integer> getRepeatDays() {
         return repeatDays;
     }
 
     /**
-     * @param repeatDays
+     * Sets repeat days.
+     *
+     * @param repeatDays the repeat days
      */
     public void setRepeatDays(List<Integer> repeatDays) {
         this.repeatDays = repeatDays;
     }
 
     /**
-     * @param alarm
+     * Add sub alarm.
+     *
+     * @param alarm the alarm
      */
     public void addSubAlarm(Alarm alarm) {
         this.subAlarms.put(alarm.getId(), alarm);
     }
 
     /**
-     * @param alarm
+     * Remove sub alarm.
+     *
+     * @param alarm the alarm
      */
     public void removeSubAlarm(Alarm alarm) {
         this.subAlarms.remove(alarm.getId());

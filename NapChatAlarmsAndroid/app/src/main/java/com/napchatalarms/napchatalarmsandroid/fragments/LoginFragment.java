@@ -3,7 +3,6 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,23 +26,26 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 /**
  * Created by bbest on 11/03/18.
  */
-
 public class LoginFragment extends android.support.v4.app.Fragment {
 
-    EditText emailEditText;
-    EditText passwordEditText;
-    Button loginButton;
-    Button forgotPasswordBtn;
-    Button backBtn;
-    private String email;
-    private String password;
+    /**
+     * The Email edit text.
+     */
+    private EditText emailEditText;
+    /**
+     * The Password edit text.
+     */
+    private EditText passwordEditText;
 
+    /**
+     * Instantiates a new Login fragment.
+     */
     public LoginFragment() {
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
@@ -52,11 +54,20 @@ public class LoginFragment extends android.support.v4.app.Fragment {
     }
 
     private void initialize(View v) {
-        emailEditText = (EditText) v.findViewById(R.id.login_email_editText);
-        passwordEditText = (EditText) v.findViewById(R.id.login_password_editText);
-        loginButton = (Button) v.findViewById(R.id.login_btn);
-        forgotPasswordBtn = (Button) v.findViewById(R.id.forgotPass_btn);
-        backBtn = (Button) v.findViewById(R.id.back_btn);
+        emailEditText = v.findViewById(R.id.login_email_editText);
+        passwordEditText = v.findViewById(R.id.login_password_editText);
+        /*
+      The Login button.
+     */
+        Button loginButton = v.findViewById(R.id.login_btn);
+        /*
+      The Forgot password btn.
+     */
+        Button forgotPasswordBtn = v.findViewById(R.id.forgotPass_btn);
+        /*
+      The Back btn.
+     */
+        Button backBtn = v.findViewById(R.id.back_btn);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +85,8 @@ public class LoginFragment extends android.support.v4.app.Fragment {
         forgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ForgotPassDialog fgtpassDialog = new ForgotPassDialog(getActivity());
-                fgtpassDialog.show();
+                ForgotPassDialog forgotPassDialog = new ForgotPassDialog(getActivity());
+                forgotPassDialog.show();
             }
         });
 
@@ -94,35 +105,36 @@ public class LoginFragment extends android.support.v4.app.Fragment {
      * This method will grab the credentials entered into the TextViews and assign their values to the
      * local strings. Method then passes those strings in to the Firebase method signInWithEmailAndPassword().
      *
+     * @param context the context
      * @see UtilityFunctions
      */
-    public void login(final Context context) {
+    private void login(final Context context) {
 
-        Boolean validcreds = Boolean.TRUE;
+        Boolean validCredentials = Boolean.TRUE;
 
-        email = emailEditText.getText().toString();
+        String email = emailEditText.getText().toString();
         if (!UtilityFunctions.isValidEmail(email)) {
-            validcreds = Boolean.FALSE;
+            validCredentials = Boolean.FALSE;
         }
 
-        password = passwordEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
         if (password.isEmpty()) {
-            validcreds = Boolean.FALSE;
+            validCredentials = Boolean.FALSE;
         }
 
-        if (validcreds == Boolean.TRUE) {
+        if (validCredentials == Boolean.TRUE) {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.i("Login Activity", "signInWithEmail:success");
+//                                Log.i("Login Activity", "signInWithEmail:success");
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 loginNavigationOnSuccess(user, context);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w("signInWithEmail:failure", task.getException());
+//                                Log.w("signInWithEmail:failure", task.getException());
                                 Toast toast = Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_credentials), Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.TOP, 0, 80);
                                 toast.setText(getActivity().getString(R.string.failed_login));
@@ -150,10 +162,11 @@ public class LoginFragment extends android.support.v4.app.Fragment {
      * to the Home Activity by confirming the <code>FirebaseUser</code> object for the current user
      * is a non-null object.
      *
+     * @param currentUser the current user
+     * @param context     the context
      * @see FirebaseUser
      */
-
-    public void loginNavigationOnSuccess(FirebaseUser currentUser, final Context context) {
+    private void loginNavigationOnSuccess(FirebaseUser currentUser, final Context context) {
 
         if (currentUser != null) {
             //Load user data.

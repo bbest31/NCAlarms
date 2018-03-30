@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +16,25 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 /**
  * Created by bbest on 12/03/18.
  */
-
 public class SignUpEmailFragment extends android.support.v4.app.Fragment {
 
-    Button nextButton;
-    EditText emailEditText;
-    EditText usernameEditText;
+    /**
+     * The Email edit text.
+     */
+    private EditText emailEditText;
+    /**
+     * The Username edit text.
+     */
+    private EditText usernameEditText;
 
+    /**
+     * Instantiates a new Sign up email fragment.
+     */
     public SignUpEmailFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signup_email_usrnm, container, false);
@@ -35,9 +43,12 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
     }
 
     private void initialize(View view) {
-        nextButton = (Button) view.findViewById(R.id.signup_email_next_btn);
-        emailEditText = (EditText) view.findViewById(R.id.signup_email_edittext);
-        usernameEditText = (EditText) view.findViewById(R.id.signup_username_edittext);
+        /*
+      The Next button.
+     */
+        Button nextButton = view.findViewById(R.id.signup_email_next_btn);
+        emailEditText = view.findViewById(R.id.signup_email_edittext);
+        usernameEditText = view.findViewById(R.id.signup_username_edittext);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +68,13 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 }
 
 
-                if (validCredentials == true) {
+                if (validCredentials) {
                     SignUpActivity activity = (SignUpActivity) getActivity();
                     activity.email = email;
                     activity.username = username;
                     activity.selectFragment(v);
                 }
-                if (validCredentials == false) {
+                if (!validCredentials) {
                     Toast toast = errorToast(err);
                     toast.show();
 
