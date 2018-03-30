@@ -7,14 +7,13 @@ import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
  *
  * @author bbest
  */
-
 public class OneTimeBuilder extends AlarmBuilder {
 
-    private OneTimeAlarm alarm;
+    private final OneTimeAlarm alarm;
 
     /**
      * Public constructor than initializes a new OneTimeAlarm.
-     **/
+     */
     public OneTimeBuilder() {
         alarm = new OneTimeAlarm();
     }
@@ -22,7 +21,6 @@ public class OneTimeBuilder extends AlarmBuilder {
     /**
      * Returns the OneTimeAlarm object that has been built.
      **/
-    @Override
     public OneTimeAlarm build() {
         return alarm;
     }
@@ -30,7 +28,6 @@ public class OneTimeBuilder extends AlarmBuilder {
     /**
      * Sets the alarms trigger time.
      **/
-    @Override
     public OneTimeBuilder setTime(final long triggerTime) {
         alarm.setTime(triggerTime);
         return this;
@@ -39,7 +36,6 @@ public class OneTimeBuilder extends AlarmBuilder {
     /**
      * Sets the alarms ringtone uri.
      **/
-    @Override
     public OneTimeBuilder setRingtoneURI(final String uri) {
 
         alarm.setRingtoneURI(uri);
@@ -49,7 +45,6 @@ public class OneTimeBuilder extends AlarmBuilder {
     /**
      * Sets the alarms vibrate settings to on or off.
      **/
-    @Override
     public OneTimeBuilder setVibrate(final int vibrate) {
         alarm.setVibratePattern(vibrate);
         return this;
@@ -58,7 +53,6 @@ public class OneTimeBuilder extends AlarmBuilder {
     /**
      * Sets the alarms snooze length in minutes.
      **/
-    @Override
     public OneTimeBuilder setSnooze(final int length) {
         alarm.setSnoozeLength(length);
         return this;

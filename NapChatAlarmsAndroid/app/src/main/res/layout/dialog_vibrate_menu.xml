@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/locomotive_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/off_white"
+        android:elevation="1dp"
+        android:fontFamily="@font/fredoka_one"
+        android:paddingEnd="45dp"
+        android:paddingStart="45dp"
+        android:text="@string/locomotive"
+        app:layout_constraintBottom_toTopOf="@+id/buzzsaw_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buzzsaw_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/off_white"
+        android:elevation="1dp"
+        android:fontFamily="@font/fredoka_one"
+        android:paddingEnd="45dp"
+        android:paddingStart="45dp"
+        android:text="@string/buzzsaw"
+        app:layout_constraintBottom_toTopOf="@+id/heartbeat_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/heartbeat_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/off_white"
+        android:elevation="1dp"
+        android:fontFamily="@font/fredoka_one"
+        android:paddingEnd="45dp"
+        android:paddingStart="45dp"
+        android:text="@string/heartbeat"
+        app:layout_constraintBottom_toTopOf="@+id/tiptoe_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/tiptoe_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/off_white"
+        android:elevation="1dp"
+        android:fontFamily="@font/fredoka_one"
+        android:paddingEnd="45dp"
+        android:paddingStart="45dp"
+        android:text="@string/tiptoe"
+        app:layout_constraintBottom_toTopOf="@+id/no_vibrate_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/no_vibrate_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/off_white"
+        android:elevation="1dp"
+        android:fontFamily="@font/fredoka_one"
+        android:paddingEnd="45dp"
+        android:paddingStart="45dp"
+        android:text="@string/off"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -1,128 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    >
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:nestedScrollingEnabled="true"
+    android:orientation="vertical">
 
-    <CheckedTextView
-        android:id="@+id/verified_email_check"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/verified_green"
-        android:checkMark="@android:drawable/checkbox_on_background"
-        android:checked="true"
-        android:text="@string/verified_email"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light" />
+        android:layout_height="match_parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/resend_verficiationemail_btn"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/Resend" />
-
-    <TextView
-        android:id="@+id/change_email_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/change_email"
-        android:textColor="@android:color/black" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/change_email_edittext"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/janedoe_email_com"
-            android:inputType="textEmailAddress"
-            android:singleLine="true" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/change_email_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Save" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/options_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:padding="10dp"
+                android:text="@string/Options"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/change_name_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/change_name"
-        android:textColor="@android:color/black" />
+            <Button
+                android:id="@+id/verified_email_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/verify"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <Button
+                android:id="@+id/opt_reset_pwd_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/reset_password"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/change_username_edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/new_username"
-            android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/change_name_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:text="@string/Save"
-            android:textAlignment="center" />
+            <Button
+                android:id="@+id/change_username_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/change_name"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/logout_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/logout"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/reset_password_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <Button
+                android:id="@+id/delete_account_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:text="@string/Delete_Account"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/reset_password_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/ResetPassword"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:padding="10dp"
+                android:text="@string/support"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/reset_password_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Send" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/faq_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:text="@string/faq"
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/logout_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
-        android:text="@string/logout"
-        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-        android:textSize="24sp" />
+            <Button
+                android:id="@+id/opt_lang_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:paddingStart="10dp"
+                android:text="@string/language"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/delete_account_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Delete_Account" />
+            <Button
+                android:id="@+id/feedback_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:text="@string/feedback_bug"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
-</LinearLayout>
+            <Button
+                android:id="@+id/upgrade_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:text="@string/upgrade_support"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/opt_inv_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:paddingStart="10dp"
+                android:text="@string/invite"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/rate_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:text="@string/rate"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/share_app_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:text="@string/share"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:padding="10dp"
+                android:text="@string/about"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/open_src_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:text="@string/open_src"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/privacy_policy_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:text="@string/privacy_policy"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/about_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/options_menu_btn"
+                android:elevation="1dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/about"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
 

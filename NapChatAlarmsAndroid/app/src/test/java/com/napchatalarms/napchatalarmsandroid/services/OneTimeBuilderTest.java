@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
 
 
 public class OneTimeBuilderTest {
-    OneTimeAlarm alarm;
-    Long time;
+    private OneTimeAlarm alarm;
+    private Long time;
     @Before
     public void init(){
         OneTimeBuilder builder = new OneTimeBuilder();

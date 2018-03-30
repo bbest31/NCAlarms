@@ -1,6 +1,5 @@
 package com.napchatalarms.napchatalarmsandroid.services;
 
-import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 
 import org.junit.Before;
@@ -8,15 +7,14 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by bbest on 11/02/18.
  */
 
 public class RepeatingBuilderTest {
-    RepeatingAlarm alarm1;
-    RepeatingAlarm alarm2;
+    private RepeatingAlarm alarm1;
+    private RepeatingAlarm alarm2;
 
     @Before
     public void init(){

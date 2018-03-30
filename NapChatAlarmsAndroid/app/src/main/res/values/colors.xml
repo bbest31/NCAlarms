@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#a50abf</color>
+
+    <!--Buttons-->
+    <color name="dark_blue">#303f9f</color>
+    <color name="light_btn_blue">#E3F2FD</color>
+    <color name="light_blue_btn_sel">#99c7ea</color>
+    <color name="light_purple">#aa00ff</color>
+    <color name="light_purple_sel">#7706b0</color>
+    <color name="blood_orange">#F4511E</color>
+    <color name="blood_orange_sel">#cc3303</color>
+    <color name="fab_blue_norm">#00CFFA</color>
+    <color name="fab_blue_sel">#0199b8</color>
+    <color name="light_blue_sel">#9ec7db</color>
+    <color name="neutral_btn_norm">#f6f6f6</color>
+    <color name="neutral_btn_sel">#cccbcb</color>
+    <color name="violet_btn_norm">#CC99CC</color>
+    <color name="violet_btn_sel">#996699</color>
+    <color name="grazing_green_norm">#76FF03</color>
+    <color name="grazing_green_sel">#57be00</color>
+    <color name="snooze_btn_norm">#ffb300</color>
+    <color name="snooze_btn_sel">#d29607</color>
+
+    <!--Neutrals-->
+    <color name="dark_grey">#696969</color>
+    <color name="cardview_grey">#BBEEEEEE</color>
+    <color name="off_white">#f0eded</color>
+    <color name="sel_grey">#c1bdbd</color>
+    <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+
+    <!--Gradient colors-->
+    <color name="main_purple">#6200EA</color>
+    <color name="second_purple">#651FFF</color>
+    <color name="deep_amber">#FFB300</color>
+
+    <color name="wake_blue">#0277BD</color>
+    <color name="wake_light_blue">#03A9F4</color>
+    <color name="wake_lightest_blue">#E1F5FE</color>
+
+    <!--Positives & Negatives-->
     <color name="unverified_red">#ff0000</color>
     <color name="verified_green">#0ea30e</color>
-    <color name="black">#000000</color>
+
+    <!--Misc-->
+    <color name="facebook_blue">#4267B2</color>
+    <color name="bright_teal">#18ffff</color>
+    <color name="main_amber">#FFCA28</color>
+    <color name="light_purple2">#B39DDB</color>
+
 </resources>

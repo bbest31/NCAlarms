@@ -16,7 +16,7 @@ public class Alarm implements Serializable {
     private String ringtoneURI;
     private Integer vibratePattern;
     private int snoozeLength;
-    private int id;
+    private final int id;
     private Boolean isActive;
     /**
      * 604,800,000:per week, 86,400,000:everyday,
@@ -34,7 +34,7 @@ public class Alarm implements Serializable {
     //=====METHODS=====
 
     /**
-     *
+     * Activate.
      */
     public void Activate() {
         this.isActive = Boolean.TRUE;
@@ -45,7 +45,7 @@ public class Alarm implements Serializable {
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm aa ");
 
-        String alarm = "Id: " + this.getId() +
+        return "Id: " + this.getId() +
                 " Trigger: " + this.getTime() +
                 " Time: " + sdf.format(new Date(this.getTime())) +
                 " Interval:" + this.getInterval() +
@@ -53,25 +53,28 @@ public class Alarm implements Serializable {
                 " Vibrate Pattern: " + this.getVibratePattern() +
                 " RingtoneURI: " + this.getRingtoneURI() +
                 " isActive: " + this.getStatus();
-        return alarm;
     }
 
     /**
-     *
+     * Deactivate.
      */
     public void Deactivate() {
         this.isActive = Boolean.FALSE;
     }
 
     /**
-     * @return
+     * Gets status.
+     *
+     * @return status
      */
     public Boolean getStatus() {
         return this.isActive;
     }
 
     /**
-     * @return
+     * Gets id.
+     *
+     * @return id
      */
     public int getId() {
         return this.id;
@@ -80,28 +83,36 @@ public class Alarm implements Serializable {
     //=====GETTERS=====
 
     /**
-     * @return
+     * Gets time.
+     *
+     * @return time
      */
     public long getTime() {
         return this.triggerTime;
     }
 
     /**
-     * @param time
+     * Sets time.
+     *
+     * @param time the time
      */
     public void setTime(long time) {
         this.triggerTime = time;
     }
 
     /**
-     * @return
+     * Gets ringtone uri.
+     *
+     * @return ringtone uri
      */
     public String getRingtoneURI() {
         return this.ringtoneURI;
     }
 
     /**
-     * @param uri
+     * Sets ringtone uri.
+     *
+     * @param uri the uri
      */
     public void setRingtoneURI(String uri) {
         this.ringtoneURI = uri;
@@ -111,37 +122,55 @@ public class Alarm implements Serializable {
     //=====SETTERS=====
 
     /**
-     * @return
+     * Gets snooze length.
+     *
+     * @return snooze length
      */
     public int getSnoozeLength() {
         return this.snoozeLength;
     }
 
     /**
-     * @param length
+     * Sets snooze length.
+     *
+     * @param length the length
      */
     public void setSnoozeLength(int length) {
         this.snoozeLength = length;
     }
 
     /**
-     * @return
+     * Gets interval.
+     *
+     * @return interval
      */
-    public long getInterval() {
+    private long getInterval() {
         return this.interval;
     }
 
     /**
-     * @param interval
+     * Sets interval.
+     *
+     * @param interval the interval
      */
     public void setInterval(long interval) {
         this.interval = interval;
     }
 
+    /**
+     * Gets vibrate pattern.
+     *
+     * @return the vibrate pattern
+     */
     public Integer getVibratePattern() {
         return vibratePattern;
     }
 
+    /**
+     * Sets vibrate pattern.
+     *
+     * @param vibratePattern the vibrate pattern
+     */
     public void setVibratePattern(Integer vibratePattern) {
         this.vibratePattern = vibratePattern;
     }

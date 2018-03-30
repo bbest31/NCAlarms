@@ -10,7 +10,6 @@ import java.util.Date;
  *
  * @author bbest
  */
-
 public class OneTimeAlarm extends Alarm implements Serializable {
 
     /**
@@ -24,14 +23,13 @@ public class OneTimeAlarm extends Alarm implements Serializable {
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm aa ");
 
-        String alarm = "Id: " + this.getId() +
+        return "Id: " + this.getId() +
                 " Trigger: " + this.getTime() +
                 " Time: " + sdf.format(new Date(this.getTime())) +
                 " Snooze Length: " + this.getSnoozeLength() +
                 " Vibrate Pattern: " + this.getVibratePattern() +
                 " RingtoneURI: " + this.getRingtoneURI() +
                 " isActive: " + this.getStatus();
-        return alarm;
     }
 
 }

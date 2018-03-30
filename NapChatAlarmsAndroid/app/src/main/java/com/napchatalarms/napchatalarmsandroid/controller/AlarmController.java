@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
@@ -27,7 +26,6 @@ import java.util.Map;
  *
  * @author bbest
  */
-
 public class AlarmController {
 
     private static final AlarmController ourInstance = new AlarmController();
@@ -42,7 +40,9 @@ public class AlarmController {
     }
 
     /**
-     * @return
+     * Gets instance.
+     *
+     * @return instance instance
      */
     public static AlarmController getInstance() {
 
@@ -54,18 +54,20 @@ public class AlarmController {
     /**
      * Sets alarm status to active
      * Adds to the user list and schedules alarm.
-     * @param context
-     * @param alarm
+     *
+     * @param context the context
+     * @param alarm   the alarm
      */
     public void createAlarm(Context context, Alarm alarm) {
         alarm.Activate();
         addAlarmToUser(alarm, context);
-        Log.w("New Alarm ID",String.valueOf(alarm.getId()));
-        Toast.makeText(context, "Alarm Created!", Toast.LENGTH_LONG).show();
+//        Log.w("New Alarm ID", String.valueOf(alarm.getId()));
     }
 
     /**
-     * @param context
+     * Save alarms.
+     *
+     * @param context the context
      */
     public void saveAlarms(Context context) {
         try {
@@ -79,8 +81,11 @@ public class AlarmController {
 
     /**
      * Adds the created alarm to the User list in order to be saved.
+     *
+     * @param alarm   the alarm
+     * @param context the context
      */
-    public void addAlarmToUser(Alarm alarm, Context context) {
+    private void addAlarmToUser(Alarm alarm, Context context) {
         User user = User.getInstance();
         user.addAlarm(alarm);
         saveAlarms(context);
@@ -88,6 +93,9 @@ public class AlarmController {
 
     /**
      * Schedules an alarm to fire at its programmed time.
+     *
+     * @param context the context
+     * @param alarm   the alarm
      */
     public void scheduleAlarm(Context context, Alarm alarm) {
         if (alarm.getClass() == OneTimeAlarm.class) {
@@ -100,8 +108,10 @@ public class AlarmController {
     }
 
     /**
-     * @param context
-     * @param id
+     * Activate alarm.
+     *
+     * @param context the context
+     * @param id      the id
      */
     public void activateAlarm(Context context, int id) {
         validateTriggerTime(id);
@@ -115,9 +125,9 @@ public class AlarmController {
      * When an alarm is activated from the home screen we need to
      * adjust the alarms trigger time to ensure its current one isn't a time in the past.
      *
-     * @param id
+     * @param id the id
      */
-    public void validateTriggerTime(int id) {
+    private void validateTriggerTime(int id) {
         Alarm alarm = User.getInstance().getAlarmById(id);
         if (alarm.getClass() == OneTimeAlarm.class) {
 
@@ -137,12 +147,16 @@ public class AlarmController {
 
     /**
      * Delete an alarm based on its Id and de-schedule it, this method handles both OneTime and Repeating Alarms.
+     *
+     * @param context the context
+     * @param id      the id
      */
     public void deleteAlarm(Context context, int id) {
 
         Alarm alarm = User.getInstance().getAlarmById(id);
 
         //Alarm is currently Active
+        //noinspection StatementWithEmptyBody
         if (alarm.getStatus()) {
             cancelAlarm(context, id);
         } else {
@@ -154,6 +168,9 @@ public class AlarmController {
 
     /**
      * De-schedule and alarm and set its Active status to False.
+     *
+     * @param context the context
+     * @param id      the id
      */
     public void cancelAlarm(Context context, int id) {
         Alarm alarm = User.getInstance().getAlarmById(id);
@@ -169,6 +186,15 @@ public class AlarmController {
 
     /**
      * Update the attributes of an alarm.
+     *
+     * @param context    the context
+     * @param id         the id
+     * @param vibrate    the vibrate
+     * @param hour       the hour
+     * @param min        the min
+     * @param ringtone   the ringtone
+     * @param snooze     the snooze
+     * @param repeatDays the repeat days
      */
     public void editAlarm(Context context, int id, int vibrate, int hour, int min, String ringtone, int snooze, List<Integer> repeatDays) {
         Alarm alarm = User.getInstance().getAlarmById(id);
@@ -188,13 +214,13 @@ public class AlarmController {
                 RepeatingAlarm newAlarm = builder.build();
                 deleteAlarm(context, id);
                 createAlarm(context, newAlarm);
-                if(wasActive){
-                    scheduleAlarm(context,newAlarm);
-                }else{
+                if (wasActive) {
+                    scheduleAlarm(context, newAlarm);
+                } else {
                     newAlarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(1T->R)",newAlarm.toString());
+//                Log.w("Edit Alarm(1T->R)", newAlarm.toString());
 
 
             } else if (alarm.getClass() == RepeatingAlarm.class && repeatDays.size() == 0) {
@@ -209,13 +235,13 @@ public class AlarmController {
                 OneTimeAlarm newAlarm = builder.build();
                 deleteAlarm(context, id);
                 createAlarm(context, newAlarm);
-                if(wasActive){
-                    scheduleAlarm(context,newAlarm);
-                }else{
+                if (wasActive) {
+                    scheduleAlarm(context, newAlarm);
+                } else {
                     newAlarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(R->1T)",newAlarm.toString());
+//                Log.w("Edit Alarm(R->1T)", newAlarm.toString());
 
             } else if (alarm.getClass() == OneTimeAlarm.class && repeatDays.size() == 0) {
                 //Onetime alarm staying the same type
@@ -225,14 +251,14 @@ public class AlarmController {
                 alarm.setVibratePattern(vibrate);
                 Long trig = UtilityFunctions.UTCMilliseconds(hour, min);
                 alarm.setTime(trig);
-                if(wasActive){
+                if (wasActive) {
                     alarm.Activate();
                     scheduleAlarm(context, alarm);
-                }else{
+                } else {
                     alarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(1T->1T)",alarm.toString());
+//                Log.w("Edit Alarm(1T->1T)", alarm.toString());
 
             } else {
                 //repeating stays repeating
@@ -247,13 +273,13 @@ public class AlarmController {
                 RepeatingAlarm newAlarm = builder.build();
                 deleteAlarm(context, id);
                 createAlarm(context, newAlarm);
-                if(wasActive){
-                    scheduleAlarm(context,newAlarm);
-                }else{
+                if (wasActive) {
+                    scheduleAlarm(context, newAlarm);
+                } else {
                     newAlarm.Deactivate();
                 }
                 saveAlarms(context);
-                Log.w("Edit Alarm(R->R)",newAlarm.toString());
+//                Log.w("Edit Alarm(R->R)", newAlarm.toString());
             }
         } else {
             Toast.makeText(context, "Error editing alarm", Toast.LENGTH_LONG).show();
@@ -263,6 +289,10 @@ public class AlarmController {
 
     /**
      * Stop the current sounding alarm from firing.
+     *
+     * @param context the context
+     * @param Id      the id
+     * @param subId   the sub id
      */
     public void dismissAlarm(Context context, int Id, int subId) {
         Alarm alarm = User.getInstance().getAlarmById(Id);
@@ -279,11 +309,13 @@ public class AlarmController {
     }
 
     /**
-     * @param context
-     * @param alarm
-     * @return
+     * Alarm pending intent pending intent.
+     *
+     * @param context the context
+     * @param alarm   the alarm
+     * @return pending intent
      */
-    public PendingIntent AlarmPendingIntent(Context context, Alarm alarm) {
+    private PendingIntent AlarmPendingIntent(Context context, Alarm alarm) {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Get the time in string format with the meridian
@@ -308,10 +340,12 @@ public class AlarmController {
     }
 
     /**
-     * @param context
-     * @param alarm
+     * Reschedule sub alarm.
+     *
+     * @param context the context
+     * @param alarm   the alarm
      */
-    public void rescheduleSubAlarm(Context context, Alarm alarm) {
+    private void rescheduleSubAlarm(Context context, Alarm alarm) {
         //Get the time in string format with the meridian
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
@@ -340,8 +374,11 @@ public class AlarmController {
 
     /**
      * Schedule a one-time-alarm with the system.
+     *
+     * @param context      the context
+     * @param oneTimeAlarm the one time alarm
      */
-    public void scheduleOneTimeAlarm(Context context, OneTimeAlarm oneTimeAlarm) {
+    private void scheduleOneTimeAlarm(Context context, OneTimeAlarm oneTimeAlarm) {
 
         //Get the time in string format with the meridian
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
@@ -365,13 +402,16 @@ public class AlarmController {
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, oneTimeAlarm.getTime(), pendingIntent);
 
-        Log.w("Controller Sched 1Time", oneTimeAlarm.toString());
+//        Log.w("Controller Sched 1Time", oneTimeAlarm.toString());
     }
 
     /**
      * Dismiss the alarm and set its Active status to False.
+     *
+     * @param context the context
+     * @param Id      the id
      */
-    public void dismissOneTime(Context context, int Id) {
+    private void dismissOneTime(Context context, int Id) {
 
         alarmReceiver.Cancel(context, Id);
     }
@@ -379,15 +419,25 @@ public class AlarmController {
     /**
      * This method is used when an active one-time-alarm is set to de-active
      * from the Home Activity and we must cancel the pending alarm.
+     *
+     * @param context the context
+     * @param alarm   the alarm
      */
-    public void cancelOneTime(Context context, OneTimeAlarm alarm) {
+    private void cancelOneTime(Context context, OneTimeAlarm alarm) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.cancel(oneTimePendingIntent(context, alarm));
     }
 
-    public PendingIntent oneTimePendingIntent(Context context, OneTimeAlarm alarm) {
+    /**
+     * One time pending intent pending intent.
+     *
+     * @param context the context
+     * @param alarm   the alarm
+     * @return the pending intent
+     */
+    private PendingIntent oneTimePendingIntent(Context context, OneTimeAlarm alarm) {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Get the time in string format with the meridian
@@ -412,11 +462,14 @@ public class AlarmController {
     }
 
     /**
-     * @param context
-     * @param ID
-     * @param vibrate
-     * @param snooze
-     * @param ringtone
+     * Snooze alarm.
+     *
+     * @param context  the context
+     * @param ID       the id
+     * @param subId    the sub id
+     * @param vibrate  the vibrate
+     * @param snooze   the snooze
+     * @param ringtone the ringtone
      */
     public void snoozeAlarm(Context context, int ID, int subId, int vibrate, int snooze, String ringtone) {
 
@@ -455,8 +508,12 @@ public class AlarmController {
     //==REPEATING METHODS==
 
     /**
-     * */
-    public void scheduleRepeatingAlarm(Context context, RepeatingAlarm alarm) {
+     * Schedule repeating alarm.
+     *
+     * @param context the context
+     * @param alarm   the alarm
+     */
+    private void scheduleRepeatingAlarm(Context context, RepeatingAlarm alarm) {
 
         //Get the time in string format with the meridian
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
@@ -486,14 +543,18 @@ public class AlarmController {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, entry.getValue().getTime(), pendingIntent);
         }
 
-        Log.w("Controller Sched Repeat", alarm.toString());
+//        Log.w("Controller Sched Repeat", alarm.toString());
 
     }
 
     /**
      * Stop the current sounding sub-Alarm from firing.
+     *
+     * @param context the context
+     * @param id      the id
+     * @param subId   the sub id
      */
-    public void dismissRepeatingAlarm(Context context, int id, int subId) {
+    private void dismissRepeatingAlarm(Context context, int id, int subId) {
 
         alarmReceiver.Cancel(context, subId);
         //reschedule for next week.
@@ -508,8 +569,11 @@ public class AlarmController {
 
     /**
      * De-schedules the sub-Alarms
+     *
+     * @param context the context
+     * @param alarm   the alarm
      */
-    public void cancelRepeating(Context context, RepeatingAlarm alarm) {
+    private void cancelRepeating(Context context, RepeatingAlarm alarm) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
