@@ -17,10 +17,13 @@ public class FactHolder {
     static private FactHolder instance = null;
 
     private FactHolder(Context context) {
-        facts.add(new Fact(context.getString(R.string.sleep_fact1_description), context.getString(R.string.sleep_fact1_citation)));
-        facts.add(new Fact(context.getString(R.string.sleep_fact2_description), context.getString(R.string.sleep_fact2_citation)));
-        facts.add(new Fact(context.getString(R.string.sleep_fact3_description), context.getString(R.string.sleep_fact3_citation)));
-    }
+        String[] citations = context.getResources().getStringArray(R.array.fact_citations);
+        String[] descriptions = context.getResources().getStringArray(R.array.fact_descriptions);
+        for (int i=0;i < citations.length; i++){
+            facts.add(new Fact(descriptions[i],citations[i]));
+        }
+
+         }
 
     /**
      * Gets instance.

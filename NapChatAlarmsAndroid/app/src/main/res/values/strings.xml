@@ -184,13 +184,24 @@
     <string name="right_chev">right chevron</string>
 
     <!--Sleep Facts-->
-    <string name="sleep_fact1_description">Alcohol prevents your brain from entering REM sleep.</string>
+    <string name="sleep_fact1_description">.</string>
     <string name="sleep_fact1_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
     <string name="sleep_fact2_description">This is another sleep fact about the health benefits of getting a good nights rest.</string>
     <string name="sleep_fact2_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
     <string name="sleep_fact3_description">This is another sleep fact about the health benefits of getting a good nights rest.</string>
     <string name="sleep_fact3_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
 
+    <string-array name="fact_citations">
+        <item>Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817</item>
+        <item>Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817</item>
+        <item>Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817</item>
+    </string-array>
+
+    <string-array name="fact_descriptions">
+        <item>Alcohol prevents your brain from entering REM sleep</item>
+        <item>This is another sleep fact about the health benefits of getting a good nights rest.</item>
+        <item>This is another sleep fact about the health benefits of getting a good nights rest.</item>
+    </string-array>
     <!--Misc-->
     <string name="or">or</string>
     <string name="title_activity_alarm">Alarm Activity</string>
