@@ -15,6 +15,16 @@
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
+    <string name="weekends">Weekends</string>
+    <string name="weekdays">Weekdays</string>
+    <string name="everyday">Everyday</string>
+    <string name="sunday_short">Sun</string>
+    <string name="monday_short">Mon</string>
+    <string name="tuesday_short">Tues</string>
+    <string name="wednesday_short">Wed</string>
+    <string name="thursday_short">Thurs</string>
+    <string name="friday_short">Fri</string>
+    <string name="saturday_short">Sat</string>
 
     <!--Image content Descriptions-->
     <string name="logo_descrip">Napchat Pillow Logo</string>
@@ -74,8 +84,9 @@
     <string name="email">Email:</string>
     <string name="password">Password:</string>
     <string name="already_have_acct">Already have an account?</string>
-    <string name="ringtone_label">Ringtone:</string>
-    <string name="vibrate_label">Vibrate:</string>
+    <string name="ringtone_label">Ringtone: %s</string>
+    <string name="vibrate_label">Vibrate: %s</string>
+    <string name="repeat_label">Repeat: %s</string>
 
     <!--Button Text-->
     <string name="edit">Edit</string>
@@ -153,6 +164,7 @@
     <string name="in_progress_message">We\'re working on it!</string>
     <string name="conn_error">Connection Error!</string>
     <string name="login_error_message">Login Failed!</string>
+    <string name="system_error_message">System Error!</string>
 
     <!--Open Source Libraries-->
     <string name="firebase_auth">Firebase Authentication</string>

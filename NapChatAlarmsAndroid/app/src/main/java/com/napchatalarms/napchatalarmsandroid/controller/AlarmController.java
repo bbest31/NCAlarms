@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.controller;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -319,9 +320,9 @@ public class AlarmController {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         //Provide Settings
@@ -347,9 +348,9 @@ public class AlarmController {
      */
     private void rescheduleSubAlarm(Context context, Alarm alarm) {
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -382,9 +383,9 @@ public class AlarmController {
     private void scheduleOneTimeAlarm(Context context, OneTimeAlarm oneTimeAlarm) {
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(oneTimeAlarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(oneTimeAlarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -444,9 +445,9 @@ public class AlarmController {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         //Provide Settings
@@ -480,9 +481,9 @@ public class AlarmController {
         long newTriggerTime = currentTime + snooze * 60000;
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(newTriggerTime));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(newTriggerTime));
 
 
@@ -520,9 +521,9 @@ public class AlarmController {
     private void scheduleRepeatingAlarm(Context context, RepeatingAlarm alarm) {
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

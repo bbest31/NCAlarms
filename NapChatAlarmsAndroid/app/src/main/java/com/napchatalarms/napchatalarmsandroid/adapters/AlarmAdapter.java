@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
 
         //Set the time display string
         TextView timeText = convertView.findViewById(R.id.time_display_text);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         timeText.setText(sdf.format(alarm.getTime()));
 
         //Set the days repeating on
@@ -74,7 +75,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
      */
         TextView repeatDaysText = convertView.findViewById(R.id.repeat_days_text);
         if (alarm.getClass() == RepeatingAlarm.class) {
-            String repeatText = UtilityFunctions.generateRepeatText(((RepeatingAlarm) alarm).getRepeatDays());
+            String repeatText = UtilityFunctions.generateRepeatText(((RepeatingAlarm) alarm).getRepeatDays(), context);
             if (repeatText != null) {
                 repeatDaysText.setText(repeatText);
                 repeatDaysText.setVisibility(View.VISIBLE);

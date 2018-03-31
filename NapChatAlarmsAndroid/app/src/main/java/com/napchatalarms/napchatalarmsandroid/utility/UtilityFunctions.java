@@ -2,6 +2,7 @@ package com.napchatalarms.napchatalarmsandroid.utility;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class UtilityFunctions {
     private static final long[] LOCOMOTIVE = {0, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600};
     private static final long[] TIPTOE = {0, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150};
 
+    //TODO need to have Vibrate Pattern names from strings.xml
     private static final VibratePattern LOCOMOTIVE_PATTERN = new VibratePattern(0, "Locomotive", LOCOMOTIVE);
     private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(2, "Heartbeat", HEARTBEAT);
     private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(1, "Buzzsaw", BUZZSAW);
@@ -235,38 +237,44 @@ public class UtilityFunctions {
      * @param days the days
      * @return the string
      */
-    public static String generateRepeatText(List<Integer> days) {
+    public static String generateRepeatText(List<Integer> days, Context context) {
         Collections.sort(days);
         String repeatText = "";
         if (days.size() != 0 && days.size() != 7) {
             if (days.contains(1) && days.contains(7) && days.size() == 2) {
-                repeatText = "Weekends";
+                repeatText = context.getString(R.string.weekends);
             } else if (!days.contains(1) && !days.contains(7) && days.size() == 5) {
-                repeatText = "Weekdays";
+                repeatText = context.getString(R.string.weekdays);
             } else {
 
                 for (Integer day : days) {
                     switch (day) {
                         case 1:
-                            repeatText = repeatText.concat("Sun ");
+                            repeatText = repeatText.concat(context.getString(R.string.sunday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 2:
-                            repeatText = repeatText.concat("Mon ");
+                            repeatText = repeatText.concat(context.getString(R.string.monday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 3:
-                            repeatText = repeatText.concat("Tues ");
+                            repeatText = repeatText.concat(context.getString(R.string.tuesday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 4:
-                            repeatText = repeatText.concat("Wed ");
+                            repeatText = repeatText.concat(context.getString(R.string.wednesday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 5:
-                            repeatText = repeatText.concat("Thurs ");
+                            repeatText = repeatText.concat(context.getString(R.string.thursday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 6:
-                            repeatText = repeatText.concat("Fri ");
+                            repeatText = repeatText.concat(context.getString(R.string.friday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 7:
-                            repeatText = repeatText.concat("Sat ");
+                            repeatText = repeatText.concat(context.getString(R.string.saturday_short));
                             break;
                     }
                 }
@@ -274,7 +282,7 @@ public class UtilityFunctions {
 
             return repeatText;
         } else if (days.size() == 7) {
-            repeatText = "Every Day";
+            repeatText = context.getString(R.string.everyday);
             return repeatText;
         } else {
             return null;

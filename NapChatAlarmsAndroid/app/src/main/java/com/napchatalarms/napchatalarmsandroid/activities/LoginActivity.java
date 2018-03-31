@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             //Log event
             FirebaseAnalytics mAnalytics = FirebaseAnalytics.getInstance(this);
             Bundle event = new Bundle();
-            SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
             event.putString(FirebaseAnalytics.Param.ACLID, user.getUid());
             event.putString("DATE", format.format(System.currentTimeMillis()));
             mAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, event);

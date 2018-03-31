@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -116,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
                 case 0:
                     //Log event for email sign up
                     Bundle event = new Bundle();
-                    SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
                     event.putString(FirebaseAnalytics.Param.ACLID, currentUser.getUid());
                     event.putString("DATE", format.format(System.currentTimeMillis()));
                     event.putString("METHOD", "EMAIL");

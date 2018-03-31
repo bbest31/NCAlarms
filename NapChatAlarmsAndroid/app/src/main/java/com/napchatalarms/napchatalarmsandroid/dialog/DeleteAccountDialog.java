@@ -167,7 +167,8 @@ public class DeleteAccountDialog extends Dialog implements android.view.View.OnC
                             c.startActivity(intent);
                             c.finish();
                         } else {
-                            errText.setText("System Error");
+                            //noinspection ConstantConditions
+                            errText.setText(getOwnerActivity().getString(R.string.system_error_message));
                             errText.setVisibility(View.VISIBLE);
                         }
                     }

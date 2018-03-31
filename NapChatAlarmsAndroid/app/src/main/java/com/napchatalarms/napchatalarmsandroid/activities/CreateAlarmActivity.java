@@ -35,7 +35,7 @@ import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
-import com.napchatalarms.napchatalarmsandroid.utility.MusicBox;
+import com.napchatalarms.napchatalarmsandroid.utility.JukeBox;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.util.ArrayList;
@@ -154,48 +154,43 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             //Set ringtone name
             Uri uri = Uri.parse(alarm.getRingtoneURI());
-            StringBuilder ringtoneStringBuilder = new StringBuilder();
-            ringtoneStringBuilder.append(getString(R.string.ringtone_label))
-            .append(" ");
+            String uriName;
 
             if (uri.toString().equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())) {
-                ringtoneStringBuilder.append(getString(R.string.default_string));
+                uriName = getString(R.string.default_string);
             } else {
                 // Device/Music ringtone
                 // check the custom tones
-                String uriName = MusicBox.getNameFromUri(this,uri.toString());
-                if(uriName == null){
+                uriName = JukeBox.getNameFromUri(this, uri.toString());
+                if (uriName == null) {
                     uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
                 }
-                ringtoneStringBuilder.append(uriName);
             }
 
-            ringtoneButton.setText(ringtoneStringBuilder.toString());
+            ringtoneButton.setText(getString(R.string.ringtone_label, uriName));
             ringtone = alarm.getRingtoneURI();
 
             //Set vibrate
-            StringBuilder vibrateStringBuilder = new StringBuilder();
-            vibrateStringBuilder.append(getString(R.string.vibrate_label))
-            .append(" ");
+            String vibrateString = "";
             String[] vibrateStringArray = getResources().getStringArray(R.array.vibrate_patterns);
             switch (alarm.getVibratePattern()) {
                 case -1:
-                    vibrateStringBuilder.append(vibrateStringArray[0]);
+                    vibrateString = vibrateStringArray[0];
                     break;
                 case 0:
-                    vibrateStringBuilder.append(vibrateStringArray[1]);
+                    vibrateString = vibrateStringArray[1];
                     break;
                 case 1:
-                    vibrateStringBuilder.append(vibrateStringArray[2]);
+                    vibrateString = vibrateStringArray[2];
                     break;
                 case 2:
-                    vibrateStringBuilder.append(vibrateStringArray[3]);
+                    vibrateString = vibrateStringArray[3];
                     break;
                 case 3:
-                    vibrateStringBuilder.append(vibrateStringArray[4]);
+                    vibrateString = vibrateStringArray[4];
                     break;
             }
-            vibrateBtn.setText(vibrateStringBuilder.toString());
+            vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
             vibratePattern = alarm.getVibratePattern();
 
             // set snooze
@@ -232,20 +227,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
             Button createAlarmButton = findViewById(R.id.create_alarm_btn);
             createAlarmButton.setVisibility(View.VISIBLE);
-            StringBuilder ringtoneDefaultString = new StringBuilder();
-            ringtoneDefaultString.append(getString(R.string.ringtone_label))
-                    .append(" ")
-                    .append(getString(R.string.default_string));
-            ringtoneButton.setText(ringtoneDefaultString.toString());
+            ringtoneButton.setText(getString(R.string.ringtone_label, getString(R.string.default_string)));
             ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
 
 
             vibratePattern = -1;
-            StringBuilder vibrateDefaultString = new StringBuilder();
-            vibrateDefaultString.append(getString(R.string.vibrate_label))
-                    .append(" ")
-                    .append(getResources().getStringArray(R.array.vibrate_patterns)[0]);
-            vibrateBtn.setText(vibrateDefaultString.toString());
+            vibrateBtn.setText(getString(R.string.vibrate_label, getResources().getStringArray(R.array.vibrate_patterns)[0]));
 
             repeatDays = new ArrayList<>();
 
@@ -313,7 +300,6 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         });
 
 
-
     }
 
     //=====METHODS=====
@@ -372,10 +358,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         // Log event
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
-        if(vibratePattern != -1){
+        if (vibratePattern != -1) {
             event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
-        }else{
-            event.putString("VIBRATE","OFF");
+        } else {
+            event.putString("VIBRATE", "OFF");
         }
         event.putString("RINGTONE", ringtone);
         mAnalytics.logEvent("CREATE_ALARM", event);
@@ -400,10 +386,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         // Log event
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
-        if(vibratePattern != -1){
+        if (vibratePattern != -1) {
             event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
-        }else{
-            event.putString("VIBRATE","OFF");
+        } else {
+            event.putString("VIBRATE", "OFF");
         }
         event.putString("RINGTONE", ringtone);
         mAnalytics.logEvent("EDIT_ALARM", event);
@@ -417,7 +403,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
     public void setRingtone(String uri, String name) {
         ringtone = uri;
-        ringtoneButton.setText("Ringtone: " + name);
+        ringtoneButton.setText(getString(R.string.ringtone_label, name));
     }
 
     /**
@@ -472,22 +458,20 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onActivityReenter(int resultCode, Intent data) {
-        StringBuilder vibrateStringBuilder = new StringBuilder();
+        String vibrateString = "";
         switch (resultCode) {
             case RESULT_OK:
                 int pattern = data.getIntExtra("PATTERN", -1);
                 vibratePattern = pattern;
-                vibrateStringBuilder.append(getString(R.string.vibrate_label))
-                .append(" ");
                 if (pattern == -1) {
-                    vibrateStringBuilder.append(getString(R.string.off));
+                    vibrateString = getString(R.string.off);
                 } else {
-                    vibrateStringBuilder.append(UtilityFunctions.getVibratePattern(pattern).getName());
+                    vibrateString = UtilityFunctions.getVibratePattern(pattern).getName();
                 }
                 break;
 
         }
-        vibrateBtn.setText(vibrateStringBuilder.toString());
+        vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -515,11 +499,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     public void setRepeatText(List<Integer> repeatDays) {
         //Set the repeat_btn view to reflect the days selected
 
-        String text = UtilityFunctions.generateRepeatText(repeatDays);
+        String text = UtilityFunctions.generateRepeatText(repeatDays, this);
         if (text != null) {
-            repeatButton.setText("Repeat: " + text);
+            repeatButton.setText(getString(R.string.repeat_label, text));
         } else {
-            repeatButton.setText("Repeat");
+            repeatButton.setText(getString(R.string.repeat_label));
         }
     }
 

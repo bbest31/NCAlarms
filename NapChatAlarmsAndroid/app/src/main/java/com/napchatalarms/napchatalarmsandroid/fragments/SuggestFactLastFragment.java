@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,7 +67,7 @@ public class SuggestFactLastFragment extends FactFragment implements IFactFragme
             @Override
             public void onClick(View v) {
                 String recipient = getString(R.string.support_email);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
+                @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
                 String timestamp = dateFormat.format(System.currentTimeMillis());
                 String subject = "Napchat Fact Submission " + getString(R.string.version_number) + " " + timestamp;
                 String body =

@@ -12,8 +12,8 @@
     <color name="fab_blue_norm">#00CFFA</color>
     <color name="fab_blue_sel">#0199b8</color>
     <color name="light_blue_sel">#9ec7db</color>
-    <color name="neutral_btn_norm">#f6f6f6</color>
-    <color name="neutral_btn_sel">#cccbcb</color>
+    <color name="neutral_btn_norm">#d7d4d4</color>
+    <color name="neutral_btn_sel">#999898</color>
     <color name="violet_btn_norm">#CC99CC</color>
     <color name="violet_btn_sel">#996699</color>
     <color name="grazing_green_norm">#76FF03</color>

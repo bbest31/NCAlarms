@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -209,7 +210,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 String recipient = getString(R.string.support_email);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
+                @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
                 String timestamp = dateFormat.format(System.currentTimeMillis());
                 String subject = "Napchat Feedback Android " + getString(R.string.version_number) + " " + timestamp;
                 String header = "---------------\n" +
