@@ -44,6 +44,7 @@
     <string name="support">Support</string>
     <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
     <string name="login">Login</string>
+    <string name="credits">Credits</string>
 
     <!--Vibrate Options-->
     <string name="locomotive">Locomotive</string>
@@ -194,5 +195,8 @@
     <string name="or">or</string>
     <string name="title_activity_alarm">Alarm Activity</string>
     <string name="title_activity_home">Home Activity</string>
+    <string name="credit_message">
+        Special Thanks to: \n \n Icons designed by:  \n \n Freepik from www.flaticon.com \n Wissawa Khamsriwath from www.flaticon.com \n Smashicons from www.flaticon.com \n Vectors Market from www.flaticon.com
+    </string>
 
 </resources>

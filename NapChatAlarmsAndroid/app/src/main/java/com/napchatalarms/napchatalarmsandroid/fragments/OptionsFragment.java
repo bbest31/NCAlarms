@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.AboutActivity;
+import com.napchatalarms.napchatalarmsandroid.activities.CreditActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.OpenSrcLibActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
@@ -85,6 +86,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         Button openSrcBtn = view.findViewById(R.id.open_src_btn);
         Button inviteBtn = view.findViewById(R.id.opt_inv_btn);
         Button languageBtn = view.findViewById(R.id.opt_lang_btn);
+        Button creditsBtn = view.findViewById(R.id.credits_btn);
 
 
         checkEmailVerification();
@@ -203,6 +205,14 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+            }
+        });
+
+        creditsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CreditActivity.class);
+                getActivity().startActivity(intent);
             }
         });
 

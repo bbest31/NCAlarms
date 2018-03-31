@@ -11,12 +11,12 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".activities.LoginActivity"
@@ -35,7 +35,7 @@
             android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AlarmActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -51,6 +51,7 @@
         <activity android:name=".activities.CustomRingtoneActivity" />
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.OpenSrcLibActivity" />
+        <activity android:name=".activities.CreditActivity"></activity>
     </application>
 
 </manifest>
