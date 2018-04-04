@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 
-/**
+/** Dialog for the User to choose a custom vibrate pattern.
  * Created by bbest on 10/03/18.
  */
 public class VibrateDialog extends Dialog implements View.OnClickListener {
@@ -84,12 +84,12 @@ public class VibrateDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.buzzsaw_btn:
                 Intent buzzsaw_data = new Intent();
-                buzzsaw_data.putExtra("PATTERN", 2);
+                buzzsaw_data.putExtra("PATTERN", 1);
                 c.onActivityReenter(Activity.RESULT_OK, buzzsaw_data);
                 break;
             case R.id.heartbeat_btn:
                 Intent hearbeat_data = new Intent();
-                hearbeat_data.putExtra("PATTERN", 1);
+                hearbeat_data.putExtra("PATTERN", 2);
                 c.onActivityReenter(Activity.RESULT_OK, hearbeat_data);
                 break;
             case R.id.tiptoe_btn:

@@ -18,6 +18,7 @@ import com.napchatalarms.napchatalarmsandroid.activities.CustomRingtoneActivity;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class RingtoneDialog extends Dialog implements android.view.View.OnClickListener {
     @SuppressWarnings("FieldCanBeLocal")
     private final int CUSTOM_RINGTONE_RESULT_CODE = 80;
@@ -32,6 +33,7 @@ public class RingtoneDialog extends Dialog implements android.view.View.OnClickL
     /**
      * The D.
      */
+    @SuppressWarnings("unused")
     public Dialog d;
 
     private final Boolean readPermission;

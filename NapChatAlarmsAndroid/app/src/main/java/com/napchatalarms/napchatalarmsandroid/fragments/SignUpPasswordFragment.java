@@ -3,19 +3,17 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-/**
+/** Sign up flow fragment where User enters a valid password.
  * Created by bbest on 12/03/18.
  */
 public class SignUpPasswordFragment extends Fragment {
@@ -59,30 +57,18 @@ public class SignUpPasswordFragment extends Fragment {
 
                 if (validCredentials) {
                     SignUpActivity activity = (SignUpActivity) getActivity();
+                    //noinspection ConstantConditions
                     activity.password = pwdEditText.getText().toString();
                     activity.createNewUser();
                 }
                 if (!validCredentials) {
                     //clears password for reentry.
-                    Toast toast = errorToast();
-
-                    toast.show();
+                   UtilityFunctions.createInvalidCredentials(getActivity(),getLayoutInflater()).show();
                     pwdEditText.setText("");
                 }
             }
         });
     }
 
-    private Toast errorToast() {
-        Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 500);
-
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_signup_pass_err,
-                (ViewGroup) getActivity().findViewById(R.id.signup_pass_err_container));
-
-        toast.setView(layout);
-        return toast;
-    }
 
 }

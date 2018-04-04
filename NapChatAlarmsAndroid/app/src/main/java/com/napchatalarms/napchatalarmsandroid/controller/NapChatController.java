@@ -25,6 +25,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class NapChatController {
 
     private static final NapChatController instance = new NapChatController();
@@ -63,14 +64,14 @@ public class NapChatController {
      * Create user settings file.
      *
      * @param context the context
-     * @throws IOException the io exception
      */
+    @SuppressWarnings("unused")
     private void createUserSettingsFile(Context context) {
 
-        User user = User.getInstance();
+        @SuppressWarnings("unused") User user = User.getInstance();
 
         String filename = formatEmail(User.getInstance().getEmail()) + "SETT.ser";
-        File settingsFile = new File(context.getFilesDir().getAbsolutePath(), filename);
+        @SuppressWarnings("unused") File settingsFile = new File(context.getFilesDir().getAbsolutePath(), filename);
         //settingsFile.createNewFile();
 
     }
@@ -95,7 +96,6 @@ public class NapChatController {
      * Save user alarms.
      *
      * @param context the context
-     * @throws IOException the io exception
      */
     public void saveUserAlarms(Context context) {
         try {
@@ -127,7 +127,7 @@ public class NapChatController {
             User user = User.getInstance();
             FileInputStream file = context.openFileInput(formatEmail(user.getEmail()) + "ALRM.ser");
             ObjectInputStream inputStream = new ObjectInputStream(file);
-            ArrayList<Alarm> list = (ArrayList<Alarm>) inputStream.readObject();
+            @SuppressWarnings("unchecked") ArrayList<Alarm> list = (ArrayList<Alarm>) inputStream.readObject();
             user.setAlarmList(list);
             inputStream.close();
             file.close();
@@ -146,7 +146,6 @@ public class NapChatController {
      * Delete files.
      *
      * @param context the context
-     * @throws IOException the io exception
      */
     public void deleteFiles(Context context) {
 
@@ -189,6 +188,7 @@ public class NapChatController {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(
                     NOTIFICATION_SERVICE);
             try {
+                //noinspection ConstantConditions
                 notificationManager.getNotificationChannel("alarm");
             } catch (RuntimeException e) {
                 // Create the NotificationChannel, but only on API 26+ because
@@ -198,6 +198,7 @@ public class NapChatController {
                 String description = "application alarms";
                 NotificationChannel channel = new NotificationChannel("alarm", name, NotificationManager.IMPORTANCE_HIGH);
                 channel.setDescription(description);
+                //noinspection ConstantConditions
                 notificationManager.createNotificationChannel(channel);
             }
         }
@@ -218,8 +219,11 @@ public class NapChatController {
      * Load user info.
      */
     private void loadUserInfo() {
+        //noinspection ConstantConditions
         User.getInstance().setName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        //noinspection ConstantConditions
         User.getInstance().setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        //noinspection ConstantConditions
         User.getInstance().setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 

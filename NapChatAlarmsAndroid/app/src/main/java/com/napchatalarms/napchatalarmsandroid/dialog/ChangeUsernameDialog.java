@@ -19,7 +19,7 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-/**
+/** Dialog box used to change the User's username.
  * Created by bbest on 15/03/18.
  */
 public class ChangeUsernameDialog extends Dialog {
@@ -37,7 +37,6 @@ public class ChangeUsernameDialog extends Dialog {
      */
     public ChangeUsernameDialog(Activity a) {
         super(a);
-        Activity parentActivity = a;
 
     }
 
@@ -92,6 +91,7 @@ public class ChangeUsernameDialog extends Dialog {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .build();
+            //noinspection ConstantConditions
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

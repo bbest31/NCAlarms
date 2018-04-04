@@ -1,6 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import com.napchatalarms.napchatalarmsandroid.model.Fact;
 import com.napchatalarms.napchatalarmsandroid.model.FactHolder;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
-/**
+/** Fact fragment but has layout without left chevron.
  * Created by bbest on 18/03/18.
  */
 public class FirstFactFragment extends FactFragment implements IFactFragment {
@@ -54,12 +55,13 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //noinspection ConstantConditions
         pageNumber = getArguments().getInt(ARG_PAGE);
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_first_fact, container, false);
         description = view.findViewById(R.id.fact_description);
@@ -74,6 +76,7 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_yes_msg));
                 noBtn.setVisibility(View.INVISIBLE);
                 yesBtn.setVisibility(View.INVISIBLE);
+                //noinspection ConstantConditions
                 mAnalytics = FirebaseAnalytics.getInstance(getActivity());
                 Bundle event = new Bundle();
                 event.putString("DYK_ANSWER", "Y");
@@ -92,6 +95,7 @@ public class FirstFactFragment extends FactFragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_no_msg));
                 yesBtn.setVisibility(View.INVISIBLE);
                 noBtn.setVisibility(View.INVISIBLE);
+                //noinspection ConstantConditions
                 mAnalytics = FirebaseAnalytics.getInstance(getActivity());
                 Bundle event = new Bundle();
                 event.putString("DYK_ANSWER", "N");

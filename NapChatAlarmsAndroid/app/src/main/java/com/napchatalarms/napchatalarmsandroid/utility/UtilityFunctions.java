@@ -1,6 +1,8 @@
 package com.napchatalarms.napchatalarmsandroid.utility;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import java.util.List;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class UtilityFunctions {
 
     private static final long[] HEARTBEAT = {0, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500};
@@ -28,9 +31,10 @@ public class UtilityFunctions {
     private static final long[] LOCOMOTIVE = {0, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600};
     private static final long[] TIPTOE = {0, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150};
 
+    //TODO need to have Vibrate Pattern names from strings.xml
     private static final VibratePattern LOCOMOTIVE_PATTERN = new VibratePattern(0, "Locomotive", LOCOMOTIVE);
-    private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(1, "Heartbeat", HEARTBEAT);
-    private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(2, "Buzzsaw", BUZZSAW);
+    private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(2, "Heartbeat", HEARTBEAT);
+    private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(1, "Buzzsaw", BUZZSAW);
     private static final VibratePattern TIPTOE_PATTERN = new VibratePattern(3, "Tip-toe", TIPTOE);
 
     /**
@@ -42,11 +46,8 @@ public class UtilityFunctions {
      * @return the boolean
      */
     public static boolean isValidEmail(CharSequence email) {
-        if (email == null) {
-            return false;
-        }
+        return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     /**
@@ -158,6 +159,7 @@ public class UtilityFunctions {
 
         }
 
+        //noinspection ConstantConditions
         return timeMilli;
     }
 
@@ -235,38 +237,44 @@ public class UtilityFunctions {
      * @param days the days
      * @return the string
      */
-    public static String generateRepeatText(List<Integer> days) {
+    public static String generateRepeatText(List<Integer> days, Context context) {
         Collections.sort(days);
         String repeatText = "";
         if (days.size() != 0 && days.size() != 7) {
             if (days.contains(1) && days.contains(7) && days.size() == 2) {
-                repeatText = "Weekends";
+                repeatText = context.getString(R.string.weekends);
             } else if (!days.contains(1) && !days.contains(7) && days.size() == 5) {
-                repeatText = "Weekdays";
+                repeatText = context.getString(R.string.weekdays);
             } else {
 
                 for (Integer day : days) {
                     switch (day) {
                         case 1:
-                            repeatText = repeatText.concat("Sun ");
+                            repeatText = repeatText.concat(context.getString(R.string.sunday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 2:
-                            repeatText = repeatText.concat("Mon ");
+                            repeatText = repeatText.concat(context.getString(R.string.monday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 3:
-                            repeatText = repeatText.concat("Tues ");
+                            repeatText = repeatText.concat(context.getString(R.string.tuesday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 4:
-                            repeatText = repeatText.concat("Wed ");
+                            repeatText = repeatText.concat(context.getString(R.string.wednesday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 5:
-                            repeatText = repeatText.concat("Thurs ");
+                            repeatText = repeatText.concat(context.getString(R.string.thursday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 6:
-                            repeatText = repeatText.concat("Fri ");
+                            repeatText = repeatText.concat(context.getString(R.string.friday_short));
+                            repeatText = repeatText.concat(" ");
                             break;
                         case 7:
-                            repeatText = repeatText.concat("Sat ");
+                            repeatText = repeatText.concat(context.getString(R.string.saturday_short));
                             break;
                     }
                 }
@@ -274,7 +282,7 @@ public class UtilityFunctions {
 
             return repeatText;
         } else if (days.size() == 7) {
-            repeatText = "Every Day";
+            repeatText = context.getString(R.string.everyday);
             return repeatText;
         } else {
             return null;
@@ -296,10 +304,10 @@ public class UtilityFunctions {
                 pattern = LOCOMOTIVE_PATTERN;
                 break;
             case 1:
-                pattern = HEARTBEAT_PATTERN;
+                pattern = BUZZSAW_PATTERN;
                 break;
             case 2:
-                pattern = BUZZSAW_PATTERN;
+                pattern = HEARTBEAT_PATTERN;
                 break;
             case 3:
                 pattern = TIPTOE_PATTERN;
@@ -318,7 +326,7 @@ public class UtilityFunctions {
      * @return toast
      */
     public static Toast createWarningToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_construction_warn,
                 (ViewGroup) activity.findViewById(R.id.warning_toast_container));
@@ -334,7 +342,7 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_email_success,
                 (ViewGroup) activity.findViewById(R.id.email_success_toast_container));
@@ -350,7 +358,7 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_signup_user_err,
                 (ViewGroup) activity.findViewById(R.id.signup_user_err_container));
@@ -366,7 +374,7 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_SHORT);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_alarm_created,
                 (ViewGroup) activity.findViewById(R.id.alarm_created_toast_container));
@@ -381,10 +389,11 @@ public class UtilityFunctions {
      * @param inflater the inflater
      * @return the toast
      */
+    @SuppressWarnings("unused")
     public static Toast createInvalidCredentials(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_login_err,
+        View layout = inflater.inflate(R.layout.toast_invalid_cred,
                 (ViewGroup) activity.findViewById(R.id.login_toast_container));
         toast.setView(layout);
         return toast;
@@ -398,10 +407,28 @@ public class UtilityFunctions {
      * @return the toast
      */
     public static Toast createInvalidEmailToast(Activity activity, LayoutInflater inflater) {
-        Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
         View layout = inflater.inflate(R.layout.toast_invalid_email,
                 (ViewGroup) activity.findViewById(R.id.invalid_email_layout));
+        toast.setView(layout);
+        return toast;
+    }
+
+    public static Toast createConnectionErrorToast(Activity activity, LayoutInflater inflater){
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,100);
+        View layout = inflater.inflate(R.layout.toast_conn_error,
+                (ViewGroup) activity.findViewById(R.id.conn_error_layout));
+        toast.setView(layout);
+        return toast;
+    }
+
+    public static Toast createLoginFailToast(Activity activity, LayoutInflater inflater){
+        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP,0,100);
+        View layout = inflater.inflate(R.layout.toast_login_error,
+                (ViewGroup) activity.findViewById(R.id.login_error_layout));
         toast.setView(layout);
         return toast;
     }

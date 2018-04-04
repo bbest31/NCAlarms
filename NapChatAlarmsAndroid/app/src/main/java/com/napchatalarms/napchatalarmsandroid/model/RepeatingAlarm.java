@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.Map;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class RepeatingAlarm extends Alarm implements Serializable {
 
     //=====ATTRIBUTES=====
@@ -26,6 +29,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      * Constructor determines the number of sub-Alarms it needs to make based on
      * the integer list days, each integer in days corresponds to what day of the week (1-7).
      */
+    @SuppressLint("UseSparseArrays")
     public RepeatingAlarm() {
         super();
         subAlarms = new HashMap<>();
@@ -101,6 +105,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      *
      * @param subAlarms the sub alarms
      */
+    @SuppressWarnings("unused")
     public void setSubAlarms(Map<Integer, Alarm> subAlarms) {
         this.subAlarms = subAlarms;
     }
@@ -149,6 +154,7 @@ public class RepeatingAlarm extends Alarm implements Serializable {
      *
      * @param alarm the alarm
      */
+    @SuppressWarnings("unused")
     public void removeSubAlarm(Alarm alarm) {
         this.subAlarms.remove(alarm.getId());
     }

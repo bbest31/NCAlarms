@@ -12,6 +12,7 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  * Data access object that connects and reads/writes to the Firebase Realtime Database.
  * Created by bbest on 10/02/18.
  */
+@SuppressWarnings("unused")
 public class FirebaseDAO {
 
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -186,6 +187,7 @@ public class FirebaseDAO {
      *
      * @return the database
      */
+    @SuppressWarnings("unused")
     public FirebaseDatabase getDatabase() {
         return database;
     }
@@ -195,6 +197,7 @@ public class FirebaseDAO {
      *
      * @return the db ref
      */
+    @SuppressWarnings("unused")
     public DatabaseReference getDbRef() {
         dbRef.keepSynced(true);
         return dbRef;

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#a50abf</color>
 
     <!--Buttons-->
     <color name="dark_blue">#303f9f</color>
     <color name="light_btn_blue">#E3F2FD</color>
-    <color name="light_blue_btn_sel">#99c7ea</color>
     <color name="light_purple">#aa00ff</color>
     <color name="light_purple_sel">#7706b0</color>
     <color name="blood_orange">#F4511E</color>
@@ -15,8 +12,8 @@
     <color name="fab_blue_norm">#00CFFA</color>
     <color name="fab_blue_sel">#0199b8</color>
     <color name="light_blue_sel">#9ec7db</color>
-    <color name="neutral_btn_norm">#f6f6f6</color>
-    <color name="neutral_btn_sel">#cccbcb</color>
+    <color name="neutral_btn_norm">#d7d4d4</color>
+    <color name="neutral_btn_sel">#999898</color>
     <color name="violet_btn_norm">#CC99CC</color>
     <color name="violet_btn_sel">#996699</color>
     <color name="grazing_green_norm">#76FF03</color>
@@ -26,7 +23,6 @@
 
     <!--Neutrals-->
     <color name="dark_grey">#696969</color>
-    <color name="cardview_grey">#BBEEEEEE</color>
     <color name="off_white">#f0eded</color>
     <color name="sel_grey">#c1bdbd</color>
     <color name="black">#000000</color>
@@ -49,6 +45,5 @@
     <color name="facebook_blue">#4267B2</color>
     <color name="bright_teal">#18ffff</color>
     <color name="main_amber">#FFCA28</color>
-    <color name="light_purple2">#B39DDB</color>
 
 </resources>

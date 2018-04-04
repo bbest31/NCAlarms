@@ -23,6 +23,7 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
  * </p>
  * Created by bbest on 15/03/18.
  */
+@SuppressWarnings("unused")
 public class FactFragment extends Fragment implements IFactFragment {
     private static final String ARG_PAGE = "fact";
     private TextView description;
@@ -58,6 +59,7 @@ public class FactFragment extends Fragment implements IFactFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //noinspection ConstantConditions
         pageNumber = getArguments().getInt(ARG_PAGE);
     }
 
@@ -79,6 +81,7 @@ public class FactFragment extends Fragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_yes_msg));
                 noBtn.setVisibility(View.INVISIBLE);
                 yesBtn.setVisibility(View.INVISIBLE);
+                //noinspection ConstantConditions
                 mAnalytics = FirebaseAnalytics.getInstance(getActivity());
                 //Log event
                 Bundle event = new Bundle();
@@ -98,6 +101,7 @@ public class FactFragment extends Fragment implements IFactFragment {
                 DYKText.setText(getString(R.string.fact_no_msg));
                 yesBtn.setVisibility(View.INVISIBLE);
                 noBtn.setVisibility(View.INVISIBLE);
+                //noinspection ConstantConditions
                 mAnalytics = FirebaseAnalytics.getInstance(getActivity());
                 Bundle event = new Bundle();
                 event.putString("DYK_ANSWER", "N");
@@ -133,6 +137,7 @@ public class FactFragment extends Fragment implements IFactFragment {
      *
      * @return the page number
      */
+    @SuppressWarnings("unused")
     public int getPageNumber() {
         return pageNumber;
     }

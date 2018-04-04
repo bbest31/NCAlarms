@@ -7,15 +7,15 @@ import com.napchatalarms.napchatalarmsandroid.model.Alarm;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class AlarmBuilder {
-
-    private final Alarm alarm;
 
     /**
      * Instantiates a new Alarm builder.
      */
+    @SuppressWarnings("unused")
     AlarmBuilder() {
-        alarm = new Alarm();
+        @SuppressWarnings("unused") Alarm alarm = new Alarm();
     }
 
 }

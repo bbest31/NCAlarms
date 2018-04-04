@@ -1,8 +1,10 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import java.text.SimpleDateFormat;
  *
  * @todo 26/03/18 Have the text boxes wait for them to send the email before clearing. Created by bbest on 18/03/18.
  */
+@SuppressWarnings("unused")
 public class SuggestFactFragment extends FactFragment implements IFactFragment {
     private static final String ARG_PAGE = "submitFact";
     private Button submitBtn;
@@ -41,6 +44,7 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
      * @param pageNumber the page number
      * @return the suggest fact fragment
      */
+    @SuppressWarnings("unused")
     public static SuggestFactFragment create(int pageNumber) {
         SuggestFactFragment fragment = new SuggestFactFragment();
         Bundle args = new Bundle();
@@ -52,22 +56,22 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //noinspection ConstantConditions
         pageNumber = getArguments().getInt(ARG_PAGE);
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_suggest_fact, container, false);
-        View view1 = view;
 
         submitBtn = view.findViewById(R.id.submit_fact_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String recipient = getString(R.string.support_email);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
+                @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
                 String timestamp = dateFormat.format(System.currentTimeMillis());
                 String subject = "Napchat Fact Submission " + getString(R.string.version_number) + " " + timestamp;
                 String body =

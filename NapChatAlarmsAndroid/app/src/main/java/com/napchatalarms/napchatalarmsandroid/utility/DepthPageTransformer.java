@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-/**
+/** Conducts the page animation for the ViewPager.
  * Created by bbest on 15/03/18.
  */
 public class DepthPageTransformer implements ViewPager.PageTransformer {

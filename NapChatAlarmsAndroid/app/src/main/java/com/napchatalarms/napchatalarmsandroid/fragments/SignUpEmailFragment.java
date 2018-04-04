@@ -13,7 +13,7 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-/**
+/** Fragment in signup process where the User enters there desired email and username.
  * Created by bbest on 12/03/18.
  */
 public class SignUpEmailFragment extends android.support.v4.app.Fragment {
@@ -70,6 +70,7 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
 
                 if (validCredentials) {
                     SignUpActivity activity = (SignUpActivity) getActivity();
+                    //noinspection ConstantConditions
                     activity.email = email;
                     activity.username = username;
                     activity.selectFragment(v);

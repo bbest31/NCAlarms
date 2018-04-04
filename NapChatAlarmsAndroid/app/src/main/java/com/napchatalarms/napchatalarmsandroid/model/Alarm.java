@@ -1,5 +1,7 @@
 package com.napchatalarms.napchatalarmsandroid.model;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +45,7 @@ public class Alarm implements Serializable {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm aa ");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm aa ");
 
         return "Id: " + this.getId() +
                 " Trigger: " + this.getTime() +

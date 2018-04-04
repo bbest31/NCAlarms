@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
         navigation.setItemIconTintList(null);
-        navigation.setItemTextColor(getResources().getColorStateList(R.color.bottom_nav_colors));
+        navigation.setItemTextColor(getColorStateList(R.color.bottom_nav_colors));
         selectFragment(findViewById(R.id.navigation_home));
         this.currentFragment = R.id.navigation_home;
     }

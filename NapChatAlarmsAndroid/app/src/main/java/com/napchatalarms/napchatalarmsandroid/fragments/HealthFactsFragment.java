@@ -20,6 +20,7 @@ import com.napchatalarms.napchatalarmsandroid.utility.DepthPageTransformer;
 /**
  * The type Health facts fragment.
  */
+@SuppressWarnings("unused")
 public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
     private static int NUM_PAGES = 0;
@@ -28,6 +29,7 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
      */
     private FactsPageAdapter pageAdapter;
     private ViewPager pager;
+    @SuppressWarnings("unused")
     private PagerAdapter pagerAdapter;
 
     /**
@@ -43,6 +45,7 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_facts, container, false);
         initialize(view);
+        //noinspection ConstantConditions
         pageAdapter = new FactsPageAdapter(getActivity().getSupportFragmentManager(), NUM_PAGES);
         pager = view.findViewById(R.id.facts_view_pager);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -55,6 +58,7 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
             public void onPageSelected(int position) {
                 // Hide the soft keyboard if still up
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                //noinspection ConstantConditions
                 imm.hideSoftInputFromWindow(pager.getWindowToken(), 0);
                 OnPageSelected(position);
             }
@@ -71,7 +75,8 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
     }
 
 
-    private void initialize(View view) {
+    @SuppressWarnings("unused")
+    private void initialize(@SuppressWarnings("unused") View view) {
         //noinspection AccessStaticViaInstance
         NUM_PAGES = FactHolder.getInstance(getActivity()).getFacts().size() + 1;
 
@@ -87,10 +92,12 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
         // Get the next fragment that has been instantiated and tell it that it is invisible.
         if (i != NUM_PAGES - 1) {
             FactFragment nextFragment = (FactFragment) pageAdapter.instantiateItem(pager, i + 1);
+            //noinspection ConstantConditions
             if (nextFragment != null) {
                 nextFragment.onBecameInvisible();
             }
         }
+        //noinspection ConstantConditions
         if (fragment != null) {
             fragment.onBecameVisible();
 

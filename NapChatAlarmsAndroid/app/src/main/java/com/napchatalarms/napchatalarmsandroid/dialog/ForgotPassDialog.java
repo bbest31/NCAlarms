@@ -22,11 +22,13 @@ import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
  *
  * @author bbest
  */
+@SuppressWarnings("unused")
 public class ForgotPassDialog extends Dialog implements android.view.View.OnClickListener {
 
     /**
      * The D.
      */
+    @SuppressWarnings("unused")
     public Dialog d;
     /**
      * The Email entry.
@@ -43,7 +45,6 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
         /*
       The C.
      */
-        Activity c = a;
     }
 
     @Override
@@ -98,13 +99,12 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                             } else {
                                 //Email may not exists with an account so we should display some kind of error
 //                                Log.i("ForgotPassDialog", "Email could not be sent!");
-                                //TODO Custom Toast saying "Email could not be sent!"
+                                UtilityFunctions.createConnectionErrorToast(getOwnerActivity(), getLayoutInflater()).show();
                             }
                         }
                     });
         } else {
-            //TODO Custom Toast saying "Email could not be sent!"
-
+            UtilityFunctions.createConnectionErrorToast(getOwnerActivity(), getLayoutInflater()).show();
         }
 
 

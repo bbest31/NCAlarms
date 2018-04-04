@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -69,6 +70,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
         updateAlarmList();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initialize(View view) {
         alarmListView = view.findViewById(R.id.alarm_list_view);
 
@@ -77,6 +79,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //noinspection ConstantConditions
                 addAlarmButton.setBackgroundColor(getActivity().getColor(R.color.fab_blue_sel));
                 Intent createAlarmIntent = new Intent(getActivity(), CreateAlarmActivity.class);
                 createAlarmIntent.putExtra("ID", 0);
@@ -95,6 +98,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getContext());
                 // set item background
+                //noinspection ConstantConditions
                 openItem.setBackground(getActivity().getDrawable(R.drawable.circle_blue_btn));
                 // set item width
                 openItem.setWidth(300);
@@ -135,6 +139,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
                         Alarm editAlarm = alarmAdapter.getItem(position);
                         Intent intent = new Intent(getActivity(), CreateAlarmActivity.class);
                         try {
+                            //noinspection ConstantConditions
                             intent.putExtra("ID", editAlarm.getId());
                             startActivityForResult(intent, 1);
                             updateAlarmList();
@@ -145,6 +150,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
                     case 1:
                         // delete
                         Alarm deleteAlarm = alarmAdapter.getItem(position);
+                        //noinspection ConstantConditions
                         AlarmController.getInstance().deleteAlarm(getContext(), deleteAlarm.getId());
                         updateAlarmList();
                         break;
@@ -228,11 +234,10 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
             float upDX = upRawX - downRawX;
             float upDY = upRawY - downRawY;
 
-            if (Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(upDY) < CLICK_DRAG_TOLERANCE) { // A click
-                return view.performClick();
-            } else { // A drag
-                return true; // Consumed
-            }
+            // A click
+            return !(Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(upDY) < CLICK_DRAG_TOLERANCE) || view.performClick();
+// A drag
+// Consumed
 
         } else {
             return view.onTouchEvent(motionEvent);

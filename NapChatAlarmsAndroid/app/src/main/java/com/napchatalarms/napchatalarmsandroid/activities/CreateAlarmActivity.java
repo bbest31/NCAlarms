@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.napchatalarms.napchatalarmsandroid.R;
@@ -34,6 +35,7 @@ import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
+import com.napchatalarms.napchatalarmsandroid.utility.JukeBox;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     /**
      * Vibrate Pattern
      */
-    private Integer vibratePattern;
+    private Integer vibratePattern = -1;
     /**
      * The Repeat days.
      */
@@ -152,38 +154,44 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
             //Set ringtone name
             Uri uri = Uri.parse(alarm.getRingtoneURI());
+            String uriName;
+
             if (uri.toString().equals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())) {
-                ringtoneButton.setText("Ringtone: Default");
+                uriName = getString(R.string.default_string);
             } else {
-                String uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
-                ringtoneButton.setText("Ringtone: " + uriName);
+                // Device/Music ringtone
+                // check the custom tones
+                uriName = JukeBox.getNameFromUri(this, uri.toString());
+                if (uriName == null) {
+                    uriName = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
+                }
             }
+
+            ringtoneButton.setText(getString(R.string.ringtone_label, uriName));
             ringtone = alarm.getRingtoneURI();
 
             //Set vibrate
+            String vibrateString = "";
+            String[] vibrateStringArray = getResources().getStringArray(R.array.vibrate_patterns);
             switch (alarm.getVibratePattern()) {
                 case -1:
-
-                    vibrateBtn.setText("Vibrate: Off");
+                    vibrateString = vibrateStringArray[0];
                     break;
                 case 0:
-
-                    vibrateBtn.setText("Vibrate: Heartbeat");
+                    vibrateString = vibrateStringArray[1];
                     break;
                 case 1:
-
-                    vibrateBtn.setText("Vibrate: Buzzsaw");
+                    vibrateString = vibrateStringArray[2];
                     break;
                 case 2:
-
-                    vibrateBtn.setText("Vibrate: Locomotive");
+                    vibrateString = vibrateStringArray[3];
                     break;
                 case 3:
-
-                    vibrateBtn.setText("Vibrate: Tip-toe");
+                    vibrateString = vibrateStringArray[4];
                     break;
-
             }
+            vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
+            vibratePattern = alarm.getVibratePattern();
 
             // set snooze
             int pos = snoozeAdapter.getPosition(String.valueOf(alarm.getSnoozeLength()));
@@ -219,13 +227,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
             Button createAlarmButton = findViewById(R.id.create_alarm_btn);
             createAlarmButton.setVisibility(View.VISIBLE);
-
-            ringtoneButton.setText("Ringtone: Default");
+            ringtoneButton.setText(getString(R.string.ringtone_label, getString(R.string.default_string)));
             ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
 
 
             vibratePattern = -1;
-            vibrateBtn.setText("Vibrate: Off");
+            vibrateBtn.setText(getString(R.string.vibrate_label, getResources().getStringArray(R.array.vibrate_patterns)[0]));
 
             repeatDays = new ArrayList<>();
 
@@ -249,10 +256,13 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
         initialize();
-        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            readPermission = true;
-        } else {
-            readPermission = false;
+        readPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        assert mNotificationManager != null;
+        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+            DnDOverrideDialog overrideDialog = new DnDOverrideDialog(CreateAlarmActivity.this);
+            overrideDialog.show();
         }
 
         //=====ONCLICK METHODS=====
@@ -260,6 +270,20 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // Explain to the user why we need to read the contacts
+                    // Should we show an explanation?
+                    //TODO make proper permission explanation
+                    if (shouldShowRequestPermissionRationale(
+                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        Toast.makeText(CreateAlarmActivity.this, "Need Permission", Toast.LENGTH_SHORT).show();
+
+                    }
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            EXTERNAL_STORAGE_REQUEST);
+                }
                 RingtoneDialog ringtoneDialog = new RingtoneDialog(CreateAlarmActivity.this, readPermission);
                 ringtoneDialog.show();
 
@@ -282,31 +306,6 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
-        NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        // Log.e("DND PERMISSION", String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
-        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
-            DnDOverrideDialog overrideDialog = new DnDOverrideDialog(CreateAlarmActivity.this);
-            overrideDialog.show();
-        }
-
-        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Explain to the user why we need to read the contacts
-            // Should we show an explanation?
-            if (shouldShowRequestPermissionRationale(
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-            }
-
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    EXTERNAL_STORAGE_REQUEST);
-
-            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-            // app-defined int constant that should be quite unique
-
-            return;
-        }
 
     }
 
@@ -321,6 +320,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * @see com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder
      */
     private void createAlarm() {
+
+
+        // Log.e("DND PERMISSION", String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
+        //noinspection ConstantConditions
+
         if (repeatDays.size() == 0) {
             OneTimeBuilder builder = new OneTimeBuilder();
             Long trigger = UtilityFunctions.UTCMilliseconds(timePicker.getHour(), timePicker.getMinute());
@@ -357,7 +361,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         // Log event
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
-        event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+        if (vibratePattern != -1) {
+            event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+        } else {
+            event.putString("VIBRATE", "OFF");
+        }
         event.putString("RINGTONE", ringtone);
         mAnalytics.logEvent("CREATE_ALARM", event);
 
@@ -381,7 +389,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         // Log event
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
-        event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibrate).getName());
+        if (vibratePattern != -1) {
+            event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+        } else {
+            event.putString("VIBRATE", "OFF");
+        }
         event.putString("RINGTONE", ringtone);
         mAnalytics.logEvent("EDIT_ALARM", event);
     }
@@ -394,7 +406,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
     public void setRingtone(String uri, String name) {
         ringtone = uri;
-        ringtoneButton.setText("Ringtone: " + name);
+        ringtoneButton.setText(getString(R.string.ringtone_label, name));
     }
 
     /**
@@ -424,7 +436,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                     //get the song title
                     ContentResolver cr = this.getContentResolver();
                     String[] projection = {MediaStore.Audio.Media.TITLE};
-                    Cursor cursor = cr.query(musicUri, projection, null, null, null);
+                    @SuppressWarnings("ConstantConditions") Cursor cursor = cr.query(musicUri, projection, null, null, null);
 
                     if (cursor != null) {
                         while (cursor.moveToNext()) {
@@ -432,7 +444,8 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                             title = cursor.getString(titleIndex);
                         }
                     }
-
+                    assert cursor != null;
+                    cursor.close();
                     setRingtone(String.valueOf(musicUri), title);
                     break;
                 case CUSTOM_RINGTONE_RESULT_CODE:
@@ -448,18 +461,20 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onActivityReenter(int resultCode, Intent data) {
+        String vibrateString = "";
         switch (resultCode) {
             case RESULT_OK:
                 int pattern = data.getIntExtra("PATTERN", -1);
                 vibratePattern = pattern;
                 if (pattern == -1) {
-                    vibrateBtn.setText("Vibrate: Off");
+                    vibrateString = getString(R.string.off);
                 } else {
-                    vibrateBtn.setText("Vibrate: " + UtilityFunctions.getVibratePattern(pattern).getName());
+                    vibrateString = UtilityFunctions.getVibratePattern(pattern).getName();
                 }
                 break;
 
         }
+        vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -487,11 +502,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
     public void setRepeatText(List<Integer> repeatDays) {
         //Set the repeat_btn view to reflect the days selected
 
-        String text = UtilityFunctions.generateRepeatText(repeatDays);
+        String text = UtilityFunctions.generateRepeatText(repeatDays, this);
         if (text != null) {
-            repeatButton.setText("Repeat: " + text);
+            repeatButton.setText(getString(R.string.repeat_label, text));
         } else {
-            repeatButton.setText("Repeat");
+            repeatButton.setText(getString(R.string.repeat_label));
         }
     }
 
@@ -501,18 +516,11 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         switch (requestCode) {
             case EXTERNAL_STORAGE_REQUEST: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay!
-                    readPermission = true;
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    readPermission = false;
-                }
-                return;
+                // permission was granted, yay!
+// permission denied, boo! Disable the
+// functionality that depends on this permission.
+                readPermission = grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED;
             }
 
             // other 'case' lines to check for other

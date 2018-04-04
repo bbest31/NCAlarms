@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.controller;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -15,7 +16,6 @@ import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
 import com.napchatalarms.napchatalarmsandroid.utility.AlarmReceiver;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +72,7 @@ public class AlarmController {
     public void saveAlarms(Context context) {
         try {
             NapChatController.getInstance().saveUserAlarms(context);
-        } catch (IOException e) {
+        } catch (Exception e) {
             //Log.e("ALRMCNTRL.saveAlarms", e.getMessage());
             e.printStackTrace();
         }
@@ -199,6 +199,7 @@ public class AlarmController {
     public void editAlarm(Context context, int id, int vibrate, int hour, int min, String ringtone, int snooze, List<Integer> repeatDays) {
         Alarm alarm = User.getInstance().getAlarmById(id);
         Boolean wasActive = alarm.getStatus();
+        //noinspection ConstantConditions
         if (alarm != null) {
             if (alarm.getClass() == OneTimeAlarm.class && repeatDays.size() != 0) {
                 //onetime to repeating alarm conversion
@@ -319,9 +320,9 @@ public class AlarmController {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         //Provide Settings
@@ -347,9 +348,9 @@ public class AlarmController {
      */
     private void rescheduleSubAlarm(Context context, Alarm alarm) {
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -366,6 +367,7 @@ public class AlarmController {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
+        //noinspection ConstantConditions
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.getTime(), pendingIntent);
     }
 
@@ -381,9 +383,9 @@ public class AlarmController {
     private void scheduleOneTimeAlarm(Context context, OneTimeAlarm oneTimeAlarm) {
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(oneTimeAlarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(oneTimeAlarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -400,6 +402,7 @@ public class AlarmController {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, oneTimeAlarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
+        //noinspection ConstantConditions
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, oneTimeAlarm.getTime(), pendingIntent);
 
 //        Log.w("Controller Sched 1Time", oneTimeAlarm.toString());
@@ -427,6 +430,7 @@ public class AlarmController {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
+        //noinspection ConstantConditions
         alarmManager.cancel(oneTimePendingIntent(context, alarm));
     }
 
@@ -441,9 +445,9 @@ public class AlarmController {
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         //Provide Settings
@@ -473,13 +477,19 @@ public class AlarmController {
      */
     public void snoozeAlarm(Context context, int ID, int subId, int vibrate, int snooze, String ringtone) {
 
+        if(subId != 0){
+            alarmReceiver.Cancel(context,subId);
+        } else {
+            alarmReceiver.Cancel(context,ID);
+        }
+
         long currentTime = System.currentTimeMillis();
         long newTriggerTime = currentTime + snooze * 60000;
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(newTriggerTime));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(newTriggerTime));
 
 
@@ -501,6 +511,7 @@ public class AlarmController {
             pendingIntent = PendingIntent.getBroadcast(context, subId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
+        //noinspection ConstantConditions
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, newTriggerTime, pendingIntent);
     }
 
@@ -516,9 +527,9 @@ public class AlarmController {
     private void scheduleRepeatingAlarm(Context context, RepeatingAlarm alarm) {
 
         //Get the time in string format with the meridian
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm");
         String timeString = timeFormatter.format(new Date(alarm.getTime()));
-        SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat meridianFormatter = new SimpleDateFormat("a");
         String meridianString = meridianFormatter.format(new Date(alarm.getTime()));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -540,6 +551,7 @@ public class AlarmController {
             PendingIntent pendingIntent;
             pendingIntent = PendingIntent.getBroadcast(context, entry.getValue().getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            //noinspection ConstantConditions
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, entry.getValue().getTime(), pendingIntent);
         }
 
@@ -578,6 +590,7 @@ public class AlarmController {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         for (Map.Entry<Integer, Alarm> entry : alarm.getSubAlarms().entrySet()) {
+            //noinspection ConstantConditions
             alarmManager.cancel(AlarmPendingIntent(context, entry.getValue()));
         }
 

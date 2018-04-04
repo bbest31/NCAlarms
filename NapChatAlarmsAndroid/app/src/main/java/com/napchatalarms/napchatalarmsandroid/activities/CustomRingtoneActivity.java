@@ -9,6 +9,7 @@ import android.widget.ExpandableListView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.adapters.ExpandableListAdapter;
+import com.napchatalarms.napchatalarmsandroid.utility.JukeBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,7 +120,7 @@ public class CustomRingtoneActivity extends AppCompatActivity {
                 // determine the child selection
                 switch (childPosition) {
                     case 0:
-                        uri = "android.resource://" + getPackageName() + "/" + R.raw.bamboo_forest;
+                        uri = JukeBox.getUriFromName(this,getString(R.string.bamboo));
                         break;
                 }
                 break;
@@ -128,16 +129,16 @@ public class CustomRingtoneActivity extends AppCompatActivity {
                 // determine the child selection
                 switch (childPosition) {
                     case 0:
-                        uri = "android.resource://" + getPackageName() + "/" + R.raw.alley_cat;
+                        uri = JukeBox.getUriFromName(this, getString(R.string.alleycat));
                         break;
                 }
                 break;
-            case 3:
+            case 2:
                 // Thunderous section
                 // determine the child selection
                 switch (childPosition) {
                     case 0:
-                        uri = "android.resource://" + getPackageName() + "/" + R.raw.steampunk;
+                        uri = JukeBox.getUriFromName(this, getString(R.string.steampunk));
                         break;
                 }
                 break;

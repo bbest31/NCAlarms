@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
  */
 
 
+@SuppressWarnings("DefaultFileTemplate")
 public class OneTimeBuilderTest {
     private OneTimeAlarm alarm;
     private Long time;

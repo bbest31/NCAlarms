@@ -1,8 +1,10 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import com.napchatalarms.napchatalarmsandroid.abstractions.IFactFragment;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-/**
+/** Suggest Fact fragment without right chevron.
  * Created by bbest on 24/03/18.
  */
 public class SuggestFactLastFragment extends FactFragment implements IFactFragment {
@@ -50,22 +52,22 @@ public class SuggestFactLastFragment extends FactFragment implements IFactFragme
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //noinspection ConstantConditions
         pageNumber = getArguments().getInt(ARG_PAGE);
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_suggest_fact_last, container, false);
-        View view1 = view;
 
         submitBtn = view.findViewById(R.id.submit_fact_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String recipient = getString(R.string.support_email);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
+                @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY hh:mm aa");
                 String timestamp = dateFormat.format(System.currentTimeMillis());
                 String subject = "Napchat Fact Submission " + getString(R.string.version_number) + " " + timestamp;
                 String body =

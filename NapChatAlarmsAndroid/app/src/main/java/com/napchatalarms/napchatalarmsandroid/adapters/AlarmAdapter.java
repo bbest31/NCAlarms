@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -60,11 +61,12 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
       The Alarm id.
      */
         TextView alarmId = convertView.findViewById(R.id.hidden_alarm_id);
+        //noinspection ConstantConditions
         alarmId.setText(String.valueOf(alarm.getId()));
 
         //Set the time display string
         TextView timeText = convertView.findViewById(R.id.time_display_text);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         timeText.setText(sdf.format(alarm.getTime()));
 
         //Set the days repeating on
@@ -73,7 +75,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
      */
         TextView repeatDaysText = convertView.findViewById(R.id.repeat_days_text);
         if (alarm.getClass() == RepeatingAlarm.class) {
-            String repeatText = UtilityFunctions.generateRepeatText(((RepeatingAlarm) alarm).getRepeatDays());
+            String repeatText = UtilityFunctions.generateRepeatText(((RepeatingAlarm) alarm).getRepeatDays(), context);
             if (repeatText != null) {
                 repeatDaysText.setText(repeatText);
                 repeatDaysText.setVisibility(View.VISIBLE);
@@ -93,9 +95,11 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
 
                 if (isChecked) {
                     //Activate alarm
+                    //noinspection ConstantConditions
                     AlarmController.getInstance().activateAlarm(context, checkedAlarm.getId());
                 } else {
                     //Deactivate alarm
+                    //noinspection ConstantConditions
                     AlarmController.getInstance().cancelAlarm(context, checkedAlarm.getId());
                 }
             }
