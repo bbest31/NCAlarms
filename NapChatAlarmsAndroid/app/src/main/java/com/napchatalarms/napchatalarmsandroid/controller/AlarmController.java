@@ -477,6 +477,12 @@ public class AlarmController {
      */
     public void snoozeAlarm(Context context, int ID, int subId, int vibrate, int snooze, String ringtone) {
 
+        if(subId != 0){
+            alarmReceiver.Cancel(context,subId);
+        } else {
+            alarmReceiver.Cancel(context,ID);
+        }
+
         long currentTime = System.currentTimeMillis();
         long newTriggerTime = currentTime + snooze * 60000;
 

@@ -2,6 +2,7 @@
 
     <!--Info-->
     <string name="app_name">Napchat</string>
+    <string name="app_full_name">Napchat Alarms</string>
     <string name="company_name">by Brandon Best</string>
     <string name="version_number">v0.1.0.0</string>
     <string name="license">Licenses</string>
@@ -184,23 +185,22 @@
     <string name="right_chev">right chevron</string>
 
     <!--Sleep Facts-->
-    <string name="sleep_fact1_description">.</string>
-    <string name="sleep_fact1_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
-    <string name="sleep_fact2_description">This is another sleep fact about the health benefits of getting a good nights rest.</string>
-    <string name="sleep_fact2_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
-    <string name="sleep_fact3_description">This is another sleep fact about the health benefits of getting a good nights rest.</string>
-    <string name="sleep_fact3_citation">Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817.</string>
-
+    <!--Citation MAX CHAR: 250-->
     <string-array name="fact_citations">
-        <item>Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817</item>
-        <item>Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817</item>
-        <item>Mazan MR, Hoffman AM. 2001. Effects of aerosolized albuterol on physiologic responses to exercise in standardbreds. Am J Vet Res. 62(11):1812–1817</item>
+          <item>Takuro Endo, Corinne Roth, Hans-Peter Landolt, Esther Werth, Daniel Aeschbach, Peter Achermann, and Alexander A. Borbély American Journal of Physiology-Regulatory, Integrative and Comparative Physiology 1998 274:4, R1186-R1194</item>
+        <item>Maude Bouchard, Caroline Drapeau, Julie Carrier. The effects of stress on sleep in older adults. Department of Psychology, Université de Montréal, Montreal, QC, Canada.</item>
+        <item>Maude Bouchard, Caroline Drapeau, Julie Carrier. Challenges of the sleep wake cycle. Department of Psychology, Université de Montréal, Montreal, QC, Canada.</item>
+        <item>Jean–Philippe Chaput, Suzy L. Wong and Isabelle Michaud.Duration and quality of sleep among Canadians aged 18 to 79.(Statistics Canada, Catalogue Catalogue no. 82–003-X) September 20th 2017.</item>
+        <item>Chiara M. Portas, Karsten Krakow, Phillip Allen, Oliver Josephs, Jorge L. Armony, Chris D. Frith, Auditory Processing across the Sleep–Wake Cycle: Simultaneous EEG and fMRI Monitoring in Humans, Neuron, Volume 28, Issue 3, 2000, Pages 991–999, ISSN 0896–6273</item>
     </string-array>
 
+    <!--Description MAX CHAR: 400-->
     <string-array name="fact_descriptions">
-        <item>Alcohol prevents your brain from entering REM sleep</item>
-        <item>This is another sleep fact about the health benefits of getting a good nights rest.</item>
-        <item>This is another sleep fact about the health benefits of getting a good nights rest.</item>
+        <item>Scientist have observed that the human body will compensate for lack of REM sleep and will in fact on the next uninterrupted night of sleep increase the duration of REM sleep to help yourself recover properly.</item>
+        <item>Several other factors, such as stress, have been proposed to significantly increase the vulnerability of the sleep-wake cycle to the effects of aging. It has been shown for example that a similar stress experience may have a greater negative impact on sleep in older people than in young adults.</item>
+        <item>Starting in the middle years of life (around 40 years old), older adults become more sensitive to challenges imposed upon their sleep-wake cycle. For example, older people often adapt more slowly to jetlag. Adjusting to shift work can also be more difficult as one gets older. Conjointly, older people may have more difficulties or take more time to recover from sleep deprivation. Thus, the sleep-wake cycle often becomes more fragile with increasing age. </item>
+        <item>People aged 18 to 64 with higher household education and income were more likely to report sleeping the recommended number of hours per night, compared with those with less education and lower incomes. </item>
+        <item>Data suggests that the sleeping brain can process auditory stimuli and detect meaningful events. This is why having your TV on during sleep can hinder your sleep and hearing your name in the your sleep registers a stronger response in the brain than other stimuli.</item>
     </string-array>
     <!--Misc-->
     <string name="or">or</string>

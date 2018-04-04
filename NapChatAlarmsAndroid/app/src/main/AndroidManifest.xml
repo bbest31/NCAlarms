@@ -13,7 +13,7 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/app_full_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -51,7 +51,7 @@
         <activity android:name=".activities.CustomRingtoneActivity" />
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.OpenSrcLibActivity" />
-        <activity android:name=".activities.CreditActivity"></activity>
+        <activity android:name=".activities.CreditActivity" />
     </application>
 
 </manifest>

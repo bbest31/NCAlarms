@@ -212,6 +212,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CreditActivity.class);
+                //noinspection ConstantConditions
                 getActivity().startActivity(intent);
             }
         });

@@ -257,6 +257,13 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_create_alarm);
         initialize();
         readPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        assert mNotificationManager != null;
+        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+            DnDOverrideDialog overrideDialog = new DnDOverrideDialog(CreateAlarmActivity.this);
+            overrideDialog.show();
+        }
 
         //=====ONCLICK METHODS=====
 
@@ -314,13 +321,9 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      */
     private void createAlarm() {
 
-        NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
         // Log.e("DND PERMISSION", String.valueOf(mNotificationManager.isNotificationPolicyAccessGranted()));
         //noinspection ConstantConditions
-        if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
-            DnDOverrideDialog overrideDialog = new DnDOverrideDialog(CreateAlarmActivity.this);
-            overrideDialog.show();
-        }
 
         if (repeatDays.size() == 0) {
             OneTimeBuilder builder = new OneTimeBuilder();
