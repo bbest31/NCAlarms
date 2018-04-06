@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +36,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
      */
     private EditText emailEntry;
 
+    private TextView errText;
     /**
      * Public constructor taking in the <code>Activity</code> to appear over.
      *
@@ -58,6 +60,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
         Button send = findViewById(R.id.forgot_pass_send_btn);
         Button cancel = findViewById(R.id.forgot_pass_cancel_btn);
         emailEntry = findViewById(R.id.password_reset_email_entry);
+        errText = findViewById(R.id.forgot_password_error_text);
         send.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
@@ -75,7 +78,6 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
             default:
                 break;
         }
-        dismiss();
     }
 
     /**
@@ -95,16 +97,18 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
 //                                Log.i("ForgotPassDialog", "Email sent.");
-                                UtilityFunctions.createEmailSuccessToast(getOwnerActivity(), getLayoutInflater()).show();
+                                //UtilityFunctions.createEmailSuccessToast(getOwnerActivity(), getLayoutInflater()).show();
+                                dismiss();
                             } else {
                                 //Email may not exists with an account so we should display some kind of error
 //                                Log.i("ForgotPassDialog", "Email could not be sent!");
-                                UtilityFunctions.createConnectionErrorToast(getOwnerActivity(), getLayoutInflater()).show();
+                               // UtilityFunctions.createConnectionErrorToast(getOwnerActivity(), getLayoutInflater()).show();
+                                errText.setVisibility(View.VISIBLE);
                             }
                         }
                     });
         } else {
-            UtilityFunctions.createConnectionErrorToast(getOwnerActivity(), getLayoutInflater()).show();
+            errText.setVisibility(View.VISIBLE);
         }
 
 

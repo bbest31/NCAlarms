@@ -4,7 +4,7 @@
     <string name="app_name">Napchat</string>
     <string name="app_full_name">Napchat Alarms</string>
     <string name="company_name">by Brandon Best</string>
-    <string name="version_number">v0.1.0.0-alpha</string>
+    <string name="version_number">v0.1.0.1-alpha</string>
     <string name="license">Licenses</string>
     <string name="support_email">bbest.dev@gmail.com</string>
 
@@ -155,6 +155,7 @@
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
     <string name="sent">Sent</string>
     <string name="link_msg">Academic research papers, journals, and articles only. Preferably peer reviewed.</string>
+    <string name="forgot_password_error_message">*Email not associated with an account.</string>
     <string name="alarm_created">Alarm Created!</string>
     <string name="fact_yes_msg">You\'re so smart!</string>
     <string name="fact_no_msg">Well now you know!</string>
