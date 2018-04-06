@@ -9,7 +9,7 @@ android {
         applicationId "com.napchatalarms.napchatalarmsandroid"
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 2
+        versionCode 3
         versionName "0.1.0.0-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
