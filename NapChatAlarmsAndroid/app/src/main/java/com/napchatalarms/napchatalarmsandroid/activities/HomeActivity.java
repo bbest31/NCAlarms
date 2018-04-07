@@ -1,12 +1,16 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.napchatalarms.napchatalarmsandroid.BuildConfig;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment;
@@ -57,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 //        Log.i("User Info", User.getInstance().toString());
 
+
     }
 
     /**
@@ -72,6 +77,8 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setItemTextColor(getColorStateList(R.color.bottom_nav_colors));
         selectFragment(findViewById(R.id.navigation_home));
         this.currentFragment = R.id.navigation_home;
+        checkFirstRun();
+
     }
 
     /**
@@ -99,6 +106,43 @@ public class HomeActivity extends AppCompatActivity {
 //            Log.w("Home Activity","Already on that fragment.");
         }
 
+
+    }
+
+    private void checkFirstRun(){
+        final String PREFS_NAME = getPackageName();
+        final String PREF_VERSION_CODE_KEY = getString(R.string.version_code);
+        final int DOESNT_EXIST = -1;
+
+        // Get current version code
+        int currentVersionCode = BuildConfig.VERSION_CODE;
+
+        // Get saved version code
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+
+        // Check for first run or upgrade
+        if (currentVersionCode == savedVersionCode) {
+
+            // This is just a normal run
+            return;
+
+        } else if (savedVersionCode == DOESNT_EXIST) {
+
+            // TODO This is a new install (or the user cleared the shared preferences)
+            //Show tutorial
+          //  Log.w("HOME","This is a new install");
+            Intent onboardIntent = new Intent(this,OnboardingActivity.class);
+            startActivity(onboardIntent);
+
+        } else if (currentVersionCode > savedVersionCode) {
+
+            // TODO This is an upgrade
+      //      Log.w("HOME","This is a upgrade");
+        }
+
+        // Update the shared preferences with the current version code
+        prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
 
     }
 

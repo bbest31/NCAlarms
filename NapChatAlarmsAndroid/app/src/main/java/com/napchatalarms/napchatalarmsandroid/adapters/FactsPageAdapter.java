@@ -6,8 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.napchatalarms.napchatalarmsandroid.fragments.FactFragment;
-import com.napchatalarms.napchatalarmsandroid.fragments.FirstFactFragment;
-import com.napchatalarms.napchatalarmsandroid.fragments.SuggestFactLastFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.SuggestFactFragment;
 
 /**
  * Page Adapter class for {@link FactFragment}.
@@ -32,10 +31,8 @@ public class FactsPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = FactFragment.create(position);
-        if (position == 0) {
-            fragment = FirstFactFragment.create(position);
-        } else if (position == count - 1) {
-            fragment = SuggestFactLastFragment.create(position);
+        if (position == count - 1) {
+            fragment = SuggestFactFragment.create(position);
         }
         return fragment;
     }
