@@ -86,8 +86,10 @@ public class OnboardingActivity extends AppCompatActivity {
             dots[i] = new ImageView(this);
             if(i == position){
                 dots[i].setImageDrawable(getDrawable(R.drawable.dot_selected));
+                dots[i].setPadding(2,0,2,0);
             } else{
                 dots[i].setImageDrawable(getDrawable(R.drawable.dot_default));
+                dots[i].setPadding(2,0,2,0);
             }
 
             DotsLayout.addView(dots[i]);

@@ -125,7 +125,8 @@ public class HomeActivity extends AppCompatActivity {
         if (currentVersionCode == savedVersionCode) {
 
             // This is just a normal run
-            return;
+           return;
+
 
         } else if (savedVersionCode == DOESNT_EXIST) {
 
