@@ -29,13 +29,11 @@ public class UtilityFunctions {
     private static final long[] HEARTBEAT = {0, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500};
     private static final long[] BUZZSAW = {0, 10000};
     private static final long[] LOCOMOTIVE = {0, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600, 500, 100, 500, 600};
-    private static final long[] TIPTOE = {0, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150};
 
     //TODO need to have Vibrate Pattern names from strings.xml
     private static final VibratePattern LOCOMOTIVE_PATTERN = new VibratePattern(0, "Locomotive", LOCOMOTIVE);
     private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(2, "Heartbeat", HEARTBEAT);
     private static final VibratePattern BUZZSAW_PATTERN = new VibratePattern(1, "Buzzsaw", BUZZSAW);
-    private static final VibratePattern TIPTOE_PATTERN = new VibratePattern(3, "Tip-toe", TIPTOE);
 
     /**
      * This method compares a given input against the email pattern and returns a boolean
@@ -308,9 +306,6 @@ public class UtilityFunctions {
                 break;
             case 2:
                 pattern = HEARTBEAT_PATTERN;
-                break;
-            case 3:
-                pattern = TIPTOE_PATTERN;
                 break;
         }
         return pattern;

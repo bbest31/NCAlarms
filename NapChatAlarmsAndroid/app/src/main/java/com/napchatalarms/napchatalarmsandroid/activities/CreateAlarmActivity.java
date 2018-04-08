@@ -461,6 +461,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onActivityReenter(int resultCode, Intent data) {
+
         String vibrateString = "";
         switch (resultCode) {
             case RESULT_OK:
@@ -471,10 +472,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 } else {
                     vibrateString = UtilityFunctions.getVibratePattern(pattern).getName();
                 }
+                vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
                 break;
-
+            case RESULT_CANCELED:
+                break;
         }
-        vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
+
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
