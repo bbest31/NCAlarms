@@ -36,6 +36,7 @@ import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.services.OneTimeBuilder;
 import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
 import com.napchatalarms.napchatalarmsandroid.utility.JukeBox;
+import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.util.ArrayList;
@@ -356,7 +357,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
         }
         alarmController.saveAlarms(getApplicationContext());
-        UtilityFunctions.createAlarmCreatedToast(this, getLayoutInflater()).show();
+        Toaster.createAlarmCreatedToast(this, getLayoutInflater()).show();
 
         // Log event
         mAnalytics = FirebaseAnalytics.getInstance(this);

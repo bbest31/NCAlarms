@@ -17,6 +17,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class to hold all functions that may be useful by a multitude of classes.
@@ -60,8 +62,9 @@ public class UtilityFunctions {
         if (password.length() < 8 || password.trim().isEmpty() || password.length() > 25) {
             return false;
         }
+        Pattern regex = Pattern.compile("[!@#$%^&*]");
         for (int i = 0; i < password.length(); i++) {
-            if (!Character.isLetterOrDigit(password.charAt(i))) {
+            if (!Character.isLetterOrDigit(password.charAt(i)) && !regex.matcher(String.valueOf(password.charAt(i))).matches() ) {
                 return false;
             }
         }
@@ -309,123 +312,6 @@ public class UtilityFunctions {
                 break;
         }
         return pattern;
-    }
-
-    /**
-     * Constructs a custom toast near the top of the activity of an amber color with the message
-     * "We're working on it!"
-     * Used as a placeholder for an onclick method.
-     *
-     * @param activity the activity
-     * @param inflater the inflater
-     * @return toast
-     */
-    public static Toast createWarningToast(Activity activity, LayoutInflater inflater) {
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_construction_warn,
-                (ViewGroup) activity.findViewById(R.id.warning_toast_container));
-        toast.setView(layout);
-        return toast;
-    }
-
-    /**
-     * Create email success toast toast.
-     *
-     * @param activity the activity
-     * @param inflater the inflater
-     * @return the toast
-     */
-    public static Toast createEmailSuccessToast(Activity activity, LayoutInflater inflater) {
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_email_success,
-                (ViewGroup) activity.findViewById(R.id.email_success_toast_container));
-        toast.setView(layout);
-        return toast;
-    }
-
-    /**
-     * Create invalid username toast toast.
-     *
-     * @param activity the activity
-     * @param inflater the inflater
-     * @return the toast
-     */
-    public static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater) {
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_signup_user_err,
-                (ViewGroup) activity.findViewById(R.id.signup_user_err_container));
-        toast.setView(layout);
-        return toast;
-    }
-
-    /**
-     * Create alarm created toast toast.
-     *
-     * @param activity the activity
-     * @param inflater the inflater
-     * @return the toast
-     */
-    public static Toast createAlarmCreatedToast(Activity activity, LayoutInflater inflater) {
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_alarm_created,
-                (ViewGroup) activity.findViewById(R.id.alarm_created_toast_container));
-        toast.setView(layout);
-        return toast;
-    }
-
-    /**
-     * Create invalid credentials toast.
-     *
-     * @param activity the activity
-     * @param inflater the inflater
-     * @return the toast
-     */
-    @SuppressWarnings("unused")
-    public static Toast createInvalidCredentials(Activity activity, LayoutInflater inflater) {
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_invalid_cred,
-                (ViewGroup) activity.findViewById(R.id.login_toast_container));
-        toast.setView(layout);
-        return toast;
-    }
-
-    /**
-     * Create invalid email toast toast.
-     *
-     * @param activity the activity
-     * @param inflater the inflater
-     * @return the toast
-     */
-    public static Toast createInvalidEmailToast(Activity activity, LayoutInflater inflater) {
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_invalid_email,
-                (ViewGroup) activity.findViewById(R.id.invalid_email_layout));
-        toast.setView(layout);
-        return toast;
-    }
-
-    public static Toast createConnectionErrorToast(Activity activity, LayoutInflater inflater){
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP,0,100);
-        View layout = inflater.inflate(R.layout.toast_conn_error,
-                (ViewGroup) activity.findViewById(R.id.conn_error_layout));
-        toast.setView(layout);
-        return toast;
-    }
-
-    public static Toast createLoginFailToast(Activity activity, LayoutInflater inflater){
-        @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity,"",Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP,0,100);
-        View layout = inflater.inflate(R.layout.toast_login_error,
-                (ViewGroup) activity.findViewById(R.id.login_error_layout));
-        toast.setView(layout);
-        return toast;
     }
 
 }

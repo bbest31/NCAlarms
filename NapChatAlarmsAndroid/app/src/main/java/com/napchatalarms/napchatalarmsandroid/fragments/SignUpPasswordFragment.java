@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
+import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 /** Sign up flow fragment where User enters a valid password.
@@ -63,7 +64,7 @@ public class SignUpPasswordFragment extends Fragment {
                 }
                 if (!validCredentials) {
                     //clears password for reentry.
-                   UtilityFunctions.createInvalidCredentials(getActivity(),getLayoutInflater()).show();
+                   Toaster.createInvalidCredentials(getActivity(),getLayoutInflater()).show();
                     pwdEditText.setText("");
                 }
             }

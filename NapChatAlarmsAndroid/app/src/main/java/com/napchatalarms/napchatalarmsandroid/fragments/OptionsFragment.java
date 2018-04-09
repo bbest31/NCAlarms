@@ -30,6 +30,7 @@ import com.napchatalarms.napchatalarmsandroid.dialog.ChangeUsernameDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.DeleteAccountDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
+import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.text.DateFormat;
@@ -138,14 +139,14 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         upgradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         faqBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
@@ -160,28 +161,28 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         whatsNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(),getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(),getLayoutInflater()).show();
             }
         });
 
         rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         privacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
@@ -215,14 +216,14 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         inviteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
         languageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
@@ -311,7 +312,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
 //                            Log.i("Options Fragment", "Resent Verification Email successfully");
-                            UtilityFunctions.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
+                            Toaster.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
                             verifyEmailBtn.setText(R.string.sent);
                             verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -350,7 +351,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            UtilityFunctions.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
+                            Toaster.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
 
 //                            Log.i("Options Activity", "Email sent.");
                         }

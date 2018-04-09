@@ -1,7 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.dialog.ForgotPassDialog;
+import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 /** Fragment used to login with current credentials.
@@ -137,7 +137,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                             } else {
                                 // If sign in fails, display a message to the user.
 //                                Log.w("signInWithEmail:failure", task.getException());
-                              UtilityFunctions.createLoginFailToast(getActivity(),getLayoutInflater()).show();
+                              Toaster.createLoginFailToast(getActivity(),getLayoutInflater()).show();
                                 loginNavigationOnSuccess(null, context);
                             }
 
@@ -146,7 +146,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                     });
         } else {
 
-            UtilityFunctions.createInvalidCredentials(getActivity(),getLayoutInflater()).show();
+            Toaster.createInvalidCredentials(getActivity(),getLayoutInflater()).show();
         }
     }
 
