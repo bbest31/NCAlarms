@@ -136,7 +136,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         if (vibrate != -1) {
 
-            VibratePattern pattern = UtilityFunctions.getVibratePattern(vibrate);
+            VibratePattern pattern = VibrateLibrary.getVibratePattern(vibrate);
             builder.setVibrate(pattern.getPattern());
         }
 

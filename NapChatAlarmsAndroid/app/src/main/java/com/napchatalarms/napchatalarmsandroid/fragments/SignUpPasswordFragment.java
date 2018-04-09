@@ -11,8 +11,8 @@ import android.widget.EditText;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
+import com.napchatalarms.napchatalarmsandroid.utility.InputValidator;
 import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
-import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 /** Sign up flow fragment where User enters a valid password.
  * Created by bbest on 12/03/18.
@@ -52,7 +52,7 @@ public class SignUpPasswordFragment extends Fragment {
                 Boolean validCredentials = true;
 
                 String password = pwdEditText.getText().toString();
-                if (!UtilityFunctions.isValidPassword(password)) {
+                if (!InputValidator.isValidPassword(password)) {
                     validCredentials = false;
                 }
 

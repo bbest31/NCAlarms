@@ -19,6 +19,7 @@ import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.dialog.ForgotPassDialog;
+import com.napchatalarms.napchatalarmsandroid.utility.InputValidator;
 import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
@@ -114,7 +115,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
         Boolean validCredentials = Boolean.TRUE;
 
         String email = emailEditText.getText().toString();
-        if (!UtilityFunctions.isValidEmail(email)) {
+        if (!InputValidator.isValidEmail(email)) {
             validCredentials = Boolean.FALSE;
         }
 

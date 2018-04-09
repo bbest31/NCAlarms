@@ -38,6 +38,7 @@ import com.napchatalarms.napchatalarmsandroid.services.RepeatingBuilder;
 import com.napchatalarms.napchatalarmsandroid.utility.JukeBox;
 import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
+import com.napchatalarms.napchatalarmsandroid.utility.VibrateLibrary;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -363,7 +364,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
         if (vibratePattern != -1) {
-            event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+            event.putString("VIBRATE", VibrateLibrary.getVibratePattern(vibratePattern).getName());
         } else {
             event.putString("VIBRATE", "OFF");
         }
@@ -391,7 +392,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle event = new Bundle();
         if (vibratePattern != -1) {
-            event.putString("VIBRATE", UtilityFunctions.getVibratePattern(vibratePattern).getName());
+            event.putString("VIBRATE", VibrateLibrary.getVibratePattern(vibratePattern).getName());
         } else {
             event.putString("VIBRATE", "OFF");
         }
@@ -471,7 +472,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
                 if (pattern == -1) {
                     vibrateString = getString(R.string.off);
                 } else {
-                    vibrateString = UtilityFunctions.getVibratePattern(pattern).getName();
+                    vibrateString = VibrateLibrary.getVibratePattern(pattern).getName();
                 }
                 vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
                 break;

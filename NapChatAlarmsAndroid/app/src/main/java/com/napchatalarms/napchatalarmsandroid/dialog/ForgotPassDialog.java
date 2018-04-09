@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
+import com.napchatalarms.napchatalarmsandroid.utility.InputValidator;
 
 
 /**
@@ -90,7 +90,7 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
 
         String emailAddress = emailEntry.getText().toString();
 
-        if (UtilityFunctions.isValidEmail(emailAddress)) {
+        if (InputValidator.isValidEmail(emailAddress)) {
             auth.sendPasswordResetEmail(emailAddress)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
