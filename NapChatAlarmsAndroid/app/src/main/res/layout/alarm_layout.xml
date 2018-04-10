@@ -39,7 +39,7 @@
                     android:paddingRight="15dp"
                     android:paddingTop="15dp"
                     android:text="@string/blanktime"
-                    android:textSize="36sp"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
