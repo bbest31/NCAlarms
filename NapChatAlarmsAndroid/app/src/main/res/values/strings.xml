@@ -213,11 +213,13 @@
 
     <!--Onboarding Titles-->
     <string-array name="onboarding_titles">
+        <item>Add Alarm Button</item>
         <item>Edit and Delete</item>
         <item>Facts</item>
     </string-array>
     <!--Onboarding Captions-->
     <string-array name="onboarding_captions">
+        <item>Freely drag the add alarm button at your whim!</item>
         <item>Swipe left on alarms to edit or delete</item>
         <item>Swipe left or right on our health facts to navigate</item>
     </string-array>

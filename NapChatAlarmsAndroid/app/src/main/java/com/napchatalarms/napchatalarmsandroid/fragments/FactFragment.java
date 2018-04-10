@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -31,6 +32,7 @@ public class FactFragment extends Fragment implements IFactFragment {
     private Button yesBtn;
     private Button noBtn;
     private TextView DYKText;
+    private ScrollView scrollView;
     private int pageNumber;
     private FirebaseAnalytics mAnalytics;
 
@@ -74,6 +76,9 @@ public class FactFragment extends Fragment implements IFactFragment {
         yesBtn = view.findViewById(R.id.dyk_yes_btn);
         noBtn = view.findViewById(R.id.dyk_no_btn);
         DYKText = view.findViewById(R.id.dyk_text);
+        scrollView = view.findViewById(R.id.fact_scrollview);
+
+        scrollView.setScrollbarFadingEnabled(false);
 
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
