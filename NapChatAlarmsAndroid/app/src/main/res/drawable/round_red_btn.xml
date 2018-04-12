@@ -3,12 +3,12 @@
     <item
         android:state_focused="true"
         android:state_pressed="true"
-        android:drawable="@drawable/circle_red_btn_sel" />
+        android:drawable="@drawable/round_red_btn_sel" />
 
     <item
         android:state_focused="false"
         android:state_pressed="true"
-        android:drawable="@drawable/circle_red_btn_sel" />
+        android:drawable="@drawable/round_red_btn_sel" />
 
-    <item android:drawable="@drawable/circle_red_btn_norm" />
+    <item android:drawable="@drawable/round_red_btn_norm" />
 </selector>

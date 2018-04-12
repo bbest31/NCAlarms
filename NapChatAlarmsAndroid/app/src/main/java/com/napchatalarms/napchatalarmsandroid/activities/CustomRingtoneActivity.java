@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
@@ -30,6 +31,9 @@ public class CustomRingtoneActivity extends AppCompatActivity {
     private HashMap<String, List<String>> listDataChild;
     private Intent returnIntent;
     private String uri;
+    private String name;
+    private Button okayButton;
+    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class CustomRingtoneActivity extends AppCompatActivity {
       The Exp list view.
      */
         ExpandableListView expListView = findViewById(R.id.custom_tone_listview);
+        okayButton = findViewById(R.id.custom_ringtone_ok_btn);
+        cancelButton = findViewById(R.id.custom_ringtone_cancel_btn);
 
         // preparing list data
         prepareListData();
@@ -64,13 +70,29 @@ public class CustomRingtoneActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                 setUri(groupPosition, childPosition);
-                String name = getToneName(groupPosition, childPosition);
-                returnIntent = new Intent();
-                returnIntent.putExtra("URI", String.valueOf(uri));
-                returnIntent.putExtra("NAME", name);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+                name = getToneName(groupPosition, childPosition);
+
                 return false;
+            }
+        });
+
+        okayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (uri != null && name != null) {
+                    returnIntent = new Intent();
+                    returnIntent.putExtra("URI", String.valueOf(uri));
+                    returnIntent.putExtra("NAME", name);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -120,7 +142,7 @@ public class CustomRingtoneActivity extends AppCompatActivity {
                 // determine the child selection
                 switch (childPosition) {
                     case 0:
-                        uri = JukeBox.getUriFromName(this,getString(R.string.bamboo));
+                        uri = JukeBox.getUriFromName(this, getString(R.string.bamboo));
                         break;
                 }
                 break;

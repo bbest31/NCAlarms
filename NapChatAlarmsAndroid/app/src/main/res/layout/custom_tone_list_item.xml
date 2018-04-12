@@ -14,6 +14,6 @@
         android:paddingBottom="5dp"
         android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
         android:paddingTop="5dp"
-        android:textSize="18sp"
+        android:textSize="24sp"
         tools:ignore="RtlSymmetry" />
 </LinearLayout>
