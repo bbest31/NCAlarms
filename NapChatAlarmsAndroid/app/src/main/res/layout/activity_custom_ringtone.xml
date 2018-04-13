@@ -9,6 +9,7 @@
 
     <ExpandableListView
         android:id="@+id/custom_tone_listview"
+        android:choiceMode="singleChoice"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -43,9 +44,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:background="@drawable/round_edit_btn"
+            android:background="@drawable/round_red_btn"
             android:fontFamily="@font/fredoka_one"
-            android:text="@string/okay"
+            android:text="@string/cancel"
             android:textColor="@color/white" />
 
         <Button
@@ -56,9 +57,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:background="@drawable/round_red_btn"
+            android:background="@drawable/round_edit_btn"
             android:fontFamily="@font/fredoka_one"
-            android:text="@string/cancel"
+            android:text="@string/okay"
             android:textColor="@color/white" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

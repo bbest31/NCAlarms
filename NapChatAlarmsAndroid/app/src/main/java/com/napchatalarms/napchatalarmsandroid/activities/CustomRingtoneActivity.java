@@ -2,6 +2,8 @@ package com.napchatalarms.napchatalarmsandroid.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,6 +36,7 @@ public class CustomRingtoneActivity extends AppCompatActivity {
     private String name;
     private Button okayButton;
     private Button cancelButton;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,18 @@ public class CustomRingtoneActivity extends AppCompatActivity {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
+                //set choice
+                int index = parent.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPosition, childPosition));
+                parent.setItemChecked(index, true);
+                //stop any previously playing music
+                stopMusic();
+                // set the new values to pass
                 setUri(groupPosition, childPosition);
                 name = getToneName(groupPosition, childPosition);
-
+                // play preview
+                mediaPlayer = MediaPlayer.create(getApplicationContext(), getIdByPosition(groupPosition, childPosition));
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.start();
                 return false;
             }
         });
@@ -80,6 +91,7 @@ public class CustomRingtoneActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (uri != null && name != null) {
+                    stopMusic();
                     returnIntent = new Intent();
                     returnIntent.putExtra("URI", String.valueOf(uri));
                     returnIntent.putExtra("NAME", name);
@@ -92,6 +104,9 @@ public class CustomRingtoneActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopMusic();
+                returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED,returnIntent);
                 finish();
             }
         });
@@ -206,6 +221,55 @@ public class CustomRingtoneActivity extends AppCompatActivity {
                 break;
         }
         return name;
+    }
+
+    /**
+     * Returns the Id of the Raw music file based on the position in the list view.
+     * @param groupPosition
+     * @param childPosition
+     * @return
+     */
+    private int getIdByPosition(int groupPosition, int childPosition){
+        int id = -1;
+        switch (groupPosition) {
+            case 0:
+                // Soft section
+                // determine the child selection
+                switch (childPosition) {
+                    case 0:
+                        id = R.raw.bamboo_forest;
+                        break;
+                }
+                break;
+            case 1:
+                // Mild section
+                // determine the child selection
+                switch (childPosition) {
+                    case 0:
+                        id = R.raw.alley_cat;
+                        break;
+                }
+                break;
+            case 2:
+                // Thunderous section
+                // determine the child selection
+                switch (childPosition) {
+                    case 0:
+                        id = R.raw.steampunk;
+                        break;
+                }
+                break;
+        }
+
+        return id;
+    }
+
+    private void stopMusic(){
+        if(mediaPlayer != null){
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+            }
+        }
     }
 
 }
