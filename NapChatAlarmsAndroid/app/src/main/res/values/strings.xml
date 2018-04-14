@@ -8,6 +8,8 @@
     <string name="version_code">6</string>
     <string name="license">Licenses</string>
     <string name="support_email">bbest.dev@gmail.com</string>
+    <string name="channel_name">NAPCHATALARMCHANNEL</string>
+    <string name="channel_description">Notification channel for Napchat Alarms</string>
 
     <!--Days of the week-->
     <string name="sunday">Sunday</string>

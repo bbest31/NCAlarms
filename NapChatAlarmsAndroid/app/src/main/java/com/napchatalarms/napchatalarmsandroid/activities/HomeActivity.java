@@ -1,10 +1,15 @@
 package com.napchatalarms.napchatalarmsandroid.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,6 +33,7 @@ import com.napchatalarms.napchatalarmsandroid.fragments.OptionsFragment;
  */
 public class HomeActivity extends AppCompatActivity {
     private int currentFragment;
+    private final String CHANNEL_ID = "NAPCHATALARMS";
     /**
      *
      */
@@ -60,6 +66,19 @@ public class HomeActivity extends AppCompatActivity {
             initialize();
         }
 //        Log.i("User Info", User.getInstance().toString());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel, but only on API 26+ because
+            // the NotificationChannel class is new and not in the support library
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
 
 
     }
@@ -130,9 +149,6 @@ public class HomeActivity extends AppCompatActivity {
 
         } else if (savedVersionCode == DOESNT_EXIST) {
 
-            // TODO This is a new install (or the user cleared the shared preferences)
-            //Show tutorial
-          //  Log.w("HOME","This is a new install");
             Intent onboardIntent = new Intent(this,OnboardingActivity.class);
             startActivity(onboardIntent);
 

@@ -27,6 +27,7 @@ public class AlarmReceiver extends BroadcastReceiver {
      * The Previous filter.
      */
     private int previousFilter;
+    private final String CHANNEL_ID = "NAPCHATALARMS";
 
 
     @Override
@@ -46,6 +47,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 //                AlarmController.getInstance().snoozeAlarm(context,id,sub,vib,snooze,ring);
 //            }
 //        } else {
+
         //Regular reception of an alarm
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         //noinspection ConstantConditions
@@ -94,7 +96,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             pendingAlarmIntent = PendingIntent.getActivity(context, id, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "alarm");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID );
 
         //Build Notification
         builder.setCategory(Notification.CATEGORY_ALARM)
