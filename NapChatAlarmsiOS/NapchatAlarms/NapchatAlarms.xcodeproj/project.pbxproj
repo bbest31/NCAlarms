@@ -17,6 +17,9 @@
 		D2205690208D2F230050BA82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D220568E208D2F230050BA82 /* LaunchScreen.storyboard */; };
 		D220569B208D2F230050BA82 /* NapchatAlarmsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D220569A208D2F230050BA82 /* NapchatAlarmsTests.swift */; };
 		D22056A6208D2F230050BA82 /* NapchatAlarmsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22056A5208D2F230050BA82 /* NapchatAlarmsUITests.swift */; };
+		D22056BF208D35940050BA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D22056BE208D35940050BA82 /* GoogleService-Info.plist */; };
+		D22056C0208D35940050BA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D22056BE208D35940050BA82 /* GoogleService-Info.plist */; };
+		D22056C1208D35940050BA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D22056BE208D35940050BA82 /* GoogleService-Info.plist */; };
 		DD20D99DE034531E68932544 /* Pods_NapchatAlarmsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39947979B241B3E5CB5854CD /* Pods_NapchatAlarmsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +63,7 @@
 		D22056A1208D2F230050BA82 /* NapchatAlarmsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NapchatAlarmsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22056A5208D2F230050BA82 /* NapchatAlarmsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapchatAlarmsUITests.swift; sourceTree = "<group>"; };
 		D22056A7208D2F230050BA82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D22056BE208D35940050BA82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F8462010B7B90C9E18DB4DD2 /* Pods-NapchatAlarmsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NapchatAlarmsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NapchatAlarmsTests/Pods-NapchatAlarmsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +140,7 @@
 				D220568C208D2F230050BA82 /* Assets.xcassets */,
 				D220568E208D2F230050BA82 /* LaunchScreen.storyboard */,
 				D2205691208D2F230050BA82 /* Info.plist */,
+				D22056BE208D35940050BA82 /* GoogleService-Info.plist */,
 			);
 			path = NapchatAlarms;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 				D220567C208D2F220050BA82 /* Sources */,
 				D220567D208D2F220050BA82 /* Frameworks */,
 				D220567E208D2F220050BA82 /* Resources */,
+				E44081F2E665ADB6E6370721 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -276,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2205690208D2F230050BA82 /* LaunchScreen.storyboard in Resources */,
+				D22056BF208D35940050BA82 /* GoogleService-Info.plist in Resources */,
 				D220568D208D2F230050BA82 /* Assets.xcassets in Resources */,
 				D220568B208D2F220050BA82 /* Main.storyboard in Resources */,
 			);
@@ -285,6 +292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D22056C0208D35940050BA82 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D22056C1208D35940050BA82 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +359,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E44081F2E665ADB6E6370721 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NapchatAlarms/Pods-NapchatAlarms-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NapchatAlarms/Pods-NapchatAlarms-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -537,8 +568,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = NapchatAlarms/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -553,8 +589,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = NapchatAlarms/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -571,7 +612,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -589,7 +634,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -606,7 +655,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -623,7 +676,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
