@@ -48,10 +48,12 @@
 
         <receiver android:name=".utility.AlarmReceiver" />
 
-        <activity android:name=".activities.CustomRingtoneActivity" />
-        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.CustomRingtoneActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.AboutActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.OpenSrcLibActivity" />
-        <activity android:name=".activities.CreditActivity" />
+        <activity android:name=".activities.CreditActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.OnboardingActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -11,7 +11,8 @@ import android.widget.Toast;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
-import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
+import com.napchatalarms.napchatalarmsandroid.utility.InputValidator;
+import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 
 /** Fragment in signup process where the User enters there desired email and username.
  * Created by bbest on 12/03/18.
@@ -58,11 +59,11 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 String email = emailEditText.getText().toString();
                 int err = 0;
 
-                if (!UtilityFunctions.isValidEmail(email) || email.trim().isEmpty()) {
+                if (!InputValidator.isValidEmail(email) || email.trim().isEmpty()) {
                     err = 1;
                     validCredentials = false;
 
-                } else if (!UtilityFunctions.isValidUsername(username) || username.trim().isEmpty()) {
+                } else if (!InputValidator.isValidUsername(username) || username.trim().isEmpty()) {
                     err = 2;
                     validCredentials = false;
                 }
@@ -90,10 +91,10 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
         Toast toast = null;
         switch (err) {
             case 1:
-                toast = UtilityFunctions.createInvalidEmailToast(getActivity(), getLayoutInflater());
+                toast = Toaster.createInvalidEmailToast(getActivity(), getLayoutInflater());
                 break;
             case 2:
-                toast = UtilityFunctions.createInvalidUsernameToast(getActivity(), getLayoutInflater());
+                toast = Toaster.createInvalidUsernameToast(getActivity(), getLayoutInflater());
                 break;
             default:
                 break;

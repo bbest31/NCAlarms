@@ -25,21 +25,21 @@ public class UtilityFunctionsTest {
 
     @Test
     public void validUsernameTest(){
-        assertTrue(UtilityFunctions.isValidUsername("bbest31"));
-        assertFalse(UtilityFunctions.isValidUsername("bbest.devgmail.com"));
-        assertFalse(UtilityFunctions.isValidUsername("bbest$%^dev@gm__ail.com"));
-        assertFalse(UtilityFunctions.isValidUsername(""));
-        assertFalse(UtilityFunctions.isValidUsername(" "));
-        assertFalse(UtilityFunctions.isValidUsername("abc"));
-        assertFalse(UtilityFunctions.isValidUsername("brandonbest1234567890"));
+        assertTrue(InputValidator.isValidUsername("bbest31"));
+        assertFalse(InputValidator.isValidUsername("bbest.devgmail.com"));
+        assertFalse(InputValidator.isValidUsername("bbest$%^dev@gm__ail.com"));
+        assertFalse(InputValidator.isValidUsername(""));
+        assertFalse(InputValidator.isValidUsername(" "));
+        assertFalse(InputValidator.isValidUsername("abc"));
+        assertFalse(InputValidator.isValidUsername("brandonbest1234567890"));
     }
 
     @Test
     public void validPasswordTest(){
-        assertTrue(UtilityFunctions.isValidPassword("pwd1234556789"));
-        assertFalse(UtilityFunctions.isValidPassword(""));
-        assertFalse(UtilityFunctions.isValidPassword("!#(%&$^(*!)%*!%&"));
-        assertFalse(UtilityFunctions.isValidPassword("1234567890abcenfelknfoffffffffffffffffffihgaeroihaoirjfthstb1"));
+        assertTrue(InputValidator.isValidPassword("pwd1234556789"));
+        assertFalse(InputValidator.isValidPassword(""));
+        assertFalse(InputValidator.isValidPassword("!#(%&$^(*!)%*!%&"));
+        assertFalse(InputValidator.isValidPassword("1234567890abcenfelknfoffffffffffffffffffihgaeroihaoirjfthstb1"));
 
 
     }

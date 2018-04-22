@@ -4,7 +4,8 @@
     <string name="app_name">Napchat</string>
     <string name="app_full_name">Napchat Alarms</string>
     <string name="company_name">by Brandon Best</string>
-    <string name="version_number">v0.1.0.1-alpha</string>
+    <string name="version_number">v0.1.1.4-alpha</string>
+    <string name="version_code">6</string>
     <string name="license">Licenses</string>
     <string name="support_email">bbest.dev@gmail.com</string>
 
@@ -113,6 +114,9 @@
     <string name="snooze">Snooze</string>
     <string name="create">Create</string>
     <string name="confirm">Confirm</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
+    <string name="okay_got_it">Ok, got it!</string>
 
 
     <!--Options Menu-->
@@ -130,6 +134,8 @@
     <string name="invite">Invite</string>
     <string name="language">Language</string>
     <string name="logout">Logout</string>
+    <string name="whats_new">What\'s New?</string>
+    <string name="tutorial">Tutorial</string>
 
 
     <!--Placeholders-->
@@ -184,11 +190,12 @@
     <!--Image Descriptions-->
     <string name="left_chev">left chevron</string>
     <string name="right_chev">right chevron</string>
+    <string name="onboarding_dot">onboarding dot</string>
 
     <!--Sleep Facts-->
     <!--Citation MAX CHAR: 250-->
     <string-array name="fact_citations">
-          <item>Takuro Endo, Corinne Roth, Hans-Peter Landolt, Esther Werth, Daniel Aeschbach, Peter Achermann, and Alexander A. Borbély American Journal of Physiology-Regulatory, Integrative and Comparative Physiology 1998 274:4, R1186-R1194</item>
+        <item>Takuro Endo, Corinne Roth, Hans-Peter Landolt, Esther Werth, Daniel Aeschbach, Peter Achermann, and Alexander A. Borbély American Journal of Physiology-Regulatory, Integrative and Comparative Physiology 1998 274:4, R1186-R1194</item>
         <item>Maude Bouchard, Caroline Drapeau, Julie Carrier. The effects of stress on sleep in older adults. Department of Psychology, Université de Montréal, Montreal, QC, Canada.</item>
         <item>Maude Bouchard, Caroline Drapeau, Julie Carrier. Challenges of the sleep wake cycle. Department of Psychology, Université de Montréal, Montreal, QC, Canada.</item>
         <item>Jean–Philippe Chaput, Suzy L. Wong and Isabelle Michaud.Duration and quality of sleep among Canadians aged 18 to 79.(Statistics Canada, Catalogue Catalogue no. 82–003-X) September 20th 2017.</item>
@@ -203,6 +210,20 @@
         <item>People aged 18 to 64 with higher household education and income were more likely to report sleeping the recommended number of hours per night, compared with those with less education and lower incomes. </item>
         <item>Data suggests that the sleeping brain can process auditory stimuli and detect meaningful events. This is why having your TV on during sleep can hinder your sleep and hearing your name in the your sleep registers a stronger response in the brain than other stimuli.</item>
     </string-array>
+
+    <!--Onboarding Titles-->
+    <string-array name="onboarding_titles">
+        <item>Add Alarm Button</item>
+        <item>Edit and Delete</item>
+        <item>Facts</item>
+    </string-array>
+    <!--Onboarding Captions-->
+    <string-array name="onboarding_captions">
+        <item>Freely drag the add alarm button at your whim!</item>
+        <item>Swipe left on alarms to edit or delete</item>
+        <item>Swipe left or right on our health facts to navigate</item>
+    </string-array>
+
     <!--Misc-->
     <string name="or">or</string>
     <string name="title_activity_alarm">Alarm Activity</string>

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
-import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
+import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 
 /** Fragment users see when opening app that prompts either login options or sign up.
  * Created by bbest on 11/03/18.
@@ -89,7 +89,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         fbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilityFunctions.createWarningToast(getActivity(), getLayoutInflater()).show();
+                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 

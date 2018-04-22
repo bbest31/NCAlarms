@@ -9,11 +9,11 @@
         android:id="@+id/tone_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
+        android:background="@drawable/ringtone_list_item"
         android:fontFamily="@font/fredoka_one"
         android:paddingBottom="5dp"
         android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
         android:paddingTop="5dp"
-        android:textSize="18sp"
+        android:textSize="24sp"
         tools:ignore="RtlSymmetry" />
 </LinearLayout>

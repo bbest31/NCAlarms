@@ -29,8 +29,6 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
      */
     private FactsPageAdapter pageAdapter;
     private ViewPager pager;
-    @SuppressWarnings("unused")
-    private PagerAdapter pagerAdapter;
 
     /**
      * Instantiates a new Health facts fragment.
@@ -44,7 +42,7 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_facts, container, false);
-        initialize(view);
+        initialize();
         //noinspection ConstantConditions
         pageAdapter = new FactsPageAdapter(getActivity().getSupportFragmentManager(), NUM_PAGES);
         pager = view.findViewById(R.id.facts_view_pager);
@@ -76,7 +74,7 @@ public class HealthFactsFragment extends android.support.v4.app.Fragment {
 
 
     @SuppressWarnings("unused")
-    private void initialize(@SuppressWarnings("unused") View view) {
+    private void initialize() {
         //noinspection AccessStaticViaInstance
         NUM_PAGES = FactHolder.getInstance(getActivity()).getFacts().size() + 1;
 

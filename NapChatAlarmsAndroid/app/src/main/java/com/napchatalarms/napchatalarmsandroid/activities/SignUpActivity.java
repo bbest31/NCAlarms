@@ -117,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
                 case 0:
                     //Log event for email sign up
                     Bundle event = new Bundle();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                     event.putString(FirebaseAnalytics.Param.ACLID, currentUser.getUid());
                     event.putString("DATE", format.format(System.currentTimeMillis()));
                     event.putString("METHOD", "EMAIL");

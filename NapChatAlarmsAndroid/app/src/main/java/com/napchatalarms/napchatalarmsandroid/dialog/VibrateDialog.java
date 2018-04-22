@@ -2,8 +2,10 @@ package com.napchatalarms.napchatalarmsandroid.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,6 +21,13 @@ public class VibrateDialog extends Dialog implements View.OnClickListener {
      * The parent Activity.
      */
     private final Activity c;
+    private Button locomotiveBtn;
+    private Button heartbeatBtn;
+    private Button buzzsawBtn;
+    private Button offBtn;
+    private Button okBtn;
+    private Intent data;
+    private Vibrator vibrator;
 
     /**
      * Instantiates a new Vibrate dialog.
@@ -28,6 +37,7 @@ public class VibrateDialog extends Dialog implements View.OnClickListener {
     public VibrateDialog(Activity a) {
         super(a);
         this.c = a;
+        this.vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
@@ -45,28 +55,27 @@ public class VibrateDialog extends Dialog implements View.OnClickListener {
         /*
       The Off btn.
      */
-        Button offBtn = findViewById(R.id.no_vibrate_btn);
+        offBtn = findViewById(R.id.no_vibrate_btn);
         offBtn.setOnClickListener(this);
         /*
       The Locomotive btn.
      */
-        Button locomotiveBtn = findViewById(R.id.locomotive_btn);
+        locomotiveBtn = findViewById(R.id.locomotive_btn);
         locomotiveBtn.setOnClickListener(this);
         /*
       The Heartbeat btn.
      */
-        Button heartbeatBtn = findViewById(R.id.heartbeat_btn);
+        heartbeatBtn = findViewById(R.id.heartbeat_btn);
         heartbeatBtn.setOnClickListener(this);
         /*
       The Buzzsaw btn.
      */
-        Button buzzsawBtn = findViewById(R.id.buzzsaw_btn);
+        buzzsawBtn = findViewById(R.id.buzzsaw_btn);
         buzzsawBtn.setOnClickListener(this);
-        /*
-      The Tiptoe btn.
-     */
-        Button tiptoeBtn = findViewById(R.id.tiptoe_btn);
-        tiptoeBtn.setOnClickListener(this);
+
+        okBtn = findViewById(R.id.ok_vibrate_btn);
+        okBtn.setOnClickListener(this);
+
     }
 
     /**
@@ -78,31 +87,61 @@ public class VibrateDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.locomotive_btn:
-                Intent locomotive_data = new Intent();
-                locomotive_data.putExtra("PATTERN", 0);
-                c.onActivityReenter(Activity.RESULT_OK, locomotive_data);
+                data = new Intent();
+                data.putExtra("PATTERN", 0);
+                clearSelection();
+                selectButton(locomotiveBtn);
+                long[] locomotivePreview = {0, 500, 100, 500, 600, 500, 100, 500};
+                vibrator.vibrate(locomotivePreview,-1);
                 break;
             case R.id.buzzsaw_btn:
-                Intent buzzsaw_data = new Intent();
-                buzzsaw_data.putExtra("PATTERN", 1);
-                c.onActivityReenter(Activity.RESULT_OK, buzzsaw_data);
+                data = new Intent();
+                data.putExtra("PATTERN", 1);
+                clearSelection();
+                selectButton(buzzsawBtn);
+                long[] buzzsawPreview = {0,900};
+                vibrator.vibrate(buzzsawPreview,-1);
                 break;
             case R.id.heartbeat_btn:
-                Intent hearbeat_data = new Intent();
-                hearbeat_data.putExtra("PATTERN", 2);
-                c.onActivityReenter(Activity.RESULT_OK, hearbeat_data);
-                break;
-            case R.id.tiptoe_btn:
-                Intent tiptoe_data = new Intent();
-                tiptoe_data.putExtra("PATTERN", 3);
-                c.onActivityReenter(Activity.RESULT_OK, tiptoe_data);
+                data = new Intent();
+                data.putExtra("PATTERN", 2);
+                clearSelection();
+                selectButton(heartbeatBtn);
+                long[] heartbeatPreview = {0, 200, 100, 200, 500, 200, 100, 200, 500};
+                vibrator.vibrate(heartbeatPreview,-1);
                 break;
             case R.id.no_vibrate_btn:
-                Intent no_vibrate_data = new Intent();
-                no_vibrate_data.putExtra("PATTERN", -1);
-                c.onActivityReenter(Activity.RESULT_OK, no_vibrate_data);
+                data = new Intent();
+                data.putExtra("PATTERN", -1);
+                clearSelection();
+                selectButton(offBtn);
+                break;
+            case R.id.ok_vibrate_btn:
+                if(data != null){
+                    c.onActivityReenter(Activity.RESULT_OK, data);
+                } else{
+                    c.onActivityReenter(Activity.RESULT_CANCELED,data);
+                }
+                dismiss();
                 break;
         }
-        dismiss();
+
+    }
+
+    private void selectButton(Button button){
+        button.setTextColor(getContext().getColor(R.color.white));
+        button.setBackgroundColor(getContext().getColor(R.color.light_purple));
+    }
+
+    private void clearSelection(){
+        locomotiveBtn.setTextColor(getContext().getColor(R.color.black));
+        locomotiveBtn.setBackgroundColor(getContext().getColor(R.color.off_white));
+        buzzsawBtn.setTextColor(getContext().getColor(R.color.black));
+        buzzsawBtn.setBackgroundColor(getContext().getColor(R.color.off_white));
+        heartbeatBtn.setTextColor(getContext().getColor(R.color.black));
+        heartbeatBtn.setBackgroundColor(getContext().getColor(R.color.off_white));
+        offBtn.setTextColor(getContext().getColor(R.color.black));
+        offBtn.setBackgroundColor(getContext().getColor(R.color.off_white));
+
     }
 }

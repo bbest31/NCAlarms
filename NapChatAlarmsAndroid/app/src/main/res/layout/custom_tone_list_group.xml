@@ -14,7 +14,7 @@
         android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="30sp"
         tools:ignore="RtlSymmetry" />
 
 </LinearLayout>

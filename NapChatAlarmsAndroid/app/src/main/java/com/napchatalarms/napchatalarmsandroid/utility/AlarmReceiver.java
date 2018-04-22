@@ -53,6 +53,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             previousFilter = manager.getCurrentInterruptionFilter();
             manager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
         }
+
         //Get values for alarm
         final int vibrate = intent.getIntExtra("Vibrate", -1);
         final String ringtoneURI = intent.getStringExtra("Uri");
@@ -135,7 +136,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         if (vibrate != -1) {
 
-            VibratePattern pattern = UtilityFunctions.getVibratePattern(vibrate);
+            VibratePattern pattern = VibrateLibrary.getVibratePattern(vibrate);
             builder.setVibrate(pattern.getPattern());
         }
 

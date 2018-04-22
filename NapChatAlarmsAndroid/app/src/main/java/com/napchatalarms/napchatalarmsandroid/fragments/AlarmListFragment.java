@@ -99,7 +99,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
                         getContext());
                 // set item background
                 //noinspection ConstantConditions
-                openItem.setBackground(getActivity().getDrawable(R.drawable.circle_blue_btn));
+                openItem.setBackground(getActivity().getDrawable(R.drawable.round_edit_btn));
                 // set item width
                 openItem.setWidth(300);
                 // set item title
@@ -115,7 +115,7 @@ public class AlarmListFragment extends android.support.v4.app.Fragment implement
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getContext());
                 // set item background
-                deleteItem.setBackground(getActivity().getDrawable(R.drawable.circle_red_btn));
+                deleteItem.setBackground(getActivity().getDrawable(R.drawable.round_red_btn));
                 // set item width
                 deleteItem.setWidth(300);
                 // set a icon

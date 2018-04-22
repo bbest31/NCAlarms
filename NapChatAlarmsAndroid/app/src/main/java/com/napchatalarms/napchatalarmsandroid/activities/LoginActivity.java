@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             //Log event
             FirebaseAnalytics mAnalytics = FirebaseAnalytics.getInstance(this);
             Bundle event = new Bundle();
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             event.putString(FirebaseAnalytics.Param.ACLID, user.getUid());
             event.putString("DATE", format.format(System.currentTimeMillis()));
             mAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, event);

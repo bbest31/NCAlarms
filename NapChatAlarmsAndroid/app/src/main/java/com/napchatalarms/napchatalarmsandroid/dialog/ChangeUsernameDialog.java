@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.model.User;
-import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
+import com.napchatalarms.napchatalarmsandroid.utility.InputValidator;
 
 /** Dialog box used to change the User's username.
  * Created by bbest on 15/03/18.
@@ -84,7 +84,7 @@ public class ChangeUsernameDialog extends Dialog {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (!changeNameEditText.getText().toString().isEmpty() &&
-                UtilityFunctions.isValidUsername(changeNameEditText.getText().toString())) {
+                InputValidator.isValidUsername(changeNameEditText.getText().toString())) {
 
             final String newName = changeNameEditText.getText().toString();
 
