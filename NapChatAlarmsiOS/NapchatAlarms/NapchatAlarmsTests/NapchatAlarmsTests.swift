@@ -1,15 +1,15 @@
 //
-//  Napchat_AlarmsTests.swift
-//  Napchat AlarmsTests
+//  NapchatAlarmsTests.swift
+//  NapchatAlarmsTests
 //
 //  Created by Peter Weckend on 2018-04-22.
 //  Copyright © 2018 Napchat Alarms. All rights reserved.
 //
 
 import XCTest
-@testable import Napchat_Alarms
+@testable import NapchatAlarms
 
-class Napchat_AlarmsTests: XCTestCase {
+class NapchatAlarmsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

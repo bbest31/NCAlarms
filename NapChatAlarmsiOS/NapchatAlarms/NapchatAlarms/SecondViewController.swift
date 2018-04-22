@@ -1,6 +1,6 @@
 //
 //  SecondViewController.swift
-//  Napchat Alarms
+//  NapchatAlarms
 //
 //  Created by Peter Weckend on 2018-04-22.
 //  Copyright © 2018 Napchat Alarms. All rights reserved.
