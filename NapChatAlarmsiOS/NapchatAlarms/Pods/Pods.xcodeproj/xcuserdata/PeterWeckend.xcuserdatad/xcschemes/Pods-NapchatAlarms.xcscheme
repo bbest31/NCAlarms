@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B20672DEB85149A252B82AD01EAEF8B6"
+               BlueprintIdentifier = "D5B606847573A7AAC999CA0409F19217"
                BuildableName = "Pods_NapchatAlarms.framework"
                BlueprintName = "Pods-NapchatAlarms"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B20672DEB85149A252B82AD01EAEF8B6"
+            BlueprintIdentifier = "D5B606847573A7AAC999CA0409F19217"
             BuildableName = "Pods_NapchatAlarms.framework"
             BlueprintName = "Pods-NapchatAlarms"
             ReferencedContainer = "container:Pods.xcodeproj">
