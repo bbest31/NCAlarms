@@ -1,0 +1,6 @@
+framework module Pods_NapchatAlarmsTests {
+  umbrella header "Pods-NapchatAlarmsTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
