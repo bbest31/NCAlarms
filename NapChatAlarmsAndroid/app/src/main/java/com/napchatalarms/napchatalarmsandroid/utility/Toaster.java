@@ -50,17 +50,17 @@ public class Toaster {
     }
 
     /**
-     * Create invalid username toast toast.
+     * Create invalid password toast.
      *
      * @param activity the activity
      * @param inflater the inflater
      * @return the toast
      */
-    public static Toast createInvalidUsernameToast(Activity activity, LayoutInflater inflater) {
+    public static Toast createInvalidPasswordToast(Activity activity, LayoutInflater inflater) {
         @SuppressLint("ShowToast") Toast toast = Toast.makeText(activity, "", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 100);
-        View layout = inflater.inflate(R.layout.toast_signup_user_err,
-                (ViewGroup) activity.findViewById(R.id.signup_user_err_container));
+        View layout = inflater.inflate(R.layout.toast_signup_pwd_err,
+                (ViewGroup) activity.findViewById(R.id.signup_pwd_err_container));
         toast.setView(layout);
         return toast;
     }

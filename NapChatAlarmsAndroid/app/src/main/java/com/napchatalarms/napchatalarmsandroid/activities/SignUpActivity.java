@@ -18,8 +18,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
-import com.napchatalarms.napchatalarmsandroid.fragments.SignUpEmailFragment;
-import com.napchatalarms.napchatalarmsandroid.fragments.SignUpPasswordFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.SignUpFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 import java.text.SimpleDateFormat;
@@ -41,10 +40,6 @@ public class SignUpActivity extends AppCompatActivity {
      * The Password.
      */
     public String password;
-    /**
-     * The Username.
-     */
-    public String username;
     private FirebaseAuth mAuth;
 
     @Override
@@ -53,9 +48,8 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
         email = null;
-        username = null;
         password = null;
-        selectFragment(new View(getApplicationContext()));
+        initFragment(new View(getApplicationContext()));
 
     }
 
@@ -159,7 +153,6 @@ public class SignUpActivity extends AppCompatActivity {
     private void initProfile(final FirebaseUser user) {
 
         UserProfileChangeRequest initializeProfile = new UserProfileChangeRequest.Builder()
-                .setDisplayName(username)
                 .build();
         user.updateProfile(initializeProfile)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -186,14 +179,9 @@ public class SignUpActivity extends AppCompatActivity {
      *
      * @param view the view
      */
-    public void selectFragment(View view) {
+    public void initFragment(View view) {
         android.support.v4.app.Fragment fragment;
-        if (view == findViewById(R.id.signup_email_next_btn)) {
-            fragment = new SignUpPasswordFragment();
-        } else {
-            fragment = new SignUpEmailFragment();
-        }
-
+        fragment = new SignUpFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.signup_frame, fragment)
                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).commit();
 

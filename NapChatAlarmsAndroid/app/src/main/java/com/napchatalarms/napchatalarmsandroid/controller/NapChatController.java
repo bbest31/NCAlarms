@@ -220,7 +220,6 @@ public class NapChatController {
      */
     private void loadUserInfo() {
         //noinspection ConstantConditions
-        User.getInstance().setName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         //noinspection ConstantConditions
         User.getInstance().setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         //noinspection ConstantConditions
@@ -234,7 +233,6 @@ public class NapChatController {
         User user = User.getInstance();
         user.setUid(null);
         user.setEmail(null);
-        user.setName(null);
         user.setAlarmList(new ArrayList<Alarm>());
 //        user.setAlerts(new ArrayList<NapAlerts>());
 //        user.setFriendList(new FriendList());

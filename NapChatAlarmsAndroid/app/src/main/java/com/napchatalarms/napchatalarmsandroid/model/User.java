@@ -15,7 +15,6 @@ public class User {
     private static User instance = null;
 
     //=====ATTRIBUTES=====
-    private String name;
     private String email;
     private ArrayList<Alarm> alarmList;
     private String uid;
@@ -31,7 +30,6 @@ public class User {
         try {
             FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
             //noinspection ConstantConditions
-            this.name = fUser.getDisplayName();
             this.email = fUser.getEmail();
             this.uid = fUser.getUid();
         } catch (NullPointerException e) {
@@ -117,23 +115,6 @@ public class User {
 
     //=====GETTERS & SETTERS=====
 
-    /**
-     * Gets name.
-     *
-     * @return name
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param newName the new name
-     */
-    public void setName(String newName) {
-        this.name = newName;
-    }
 
     /**
      * Gets email.
@@ -223,6 +204,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "UID: " + this.getUid() + ", E: " + this.getEmail() + ", username: " + this.getName();
+        return "UID: " + this.getUid() + ", E: " + this.getEmail();
     }
 }

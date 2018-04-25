@@ -158,6 +158,7 @@
     <string name="invalid_credentials">Invalid Credentials</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="invalid_first_name">Invalid Username</string>
+    <string name="invalid_pwd">Invalid Password</string>
     <string name="email_sent">Email sent!</string>
     <string name="warning">Warning</string>
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
@@ -168,7 +169,7 @@
     <string name="fact_yes_msg">You\'re so smart!</string>
     <string name="fact_no_msg">Well now you know!</string>
     <string name="forgot_pass_message">Please enter your email to send a password reset email.</string>
-    <string name="sign_up_email_msg">Please enter an email and username for your account.</string>
+    <string name="sign_up_email_msg">Please enter an email and password (min. 8 chars) for your account.</string>
     <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
     <string name="signup_pwd_msg">Enter a password.(min 8 characters)</string>
     <string name="Reauthenticate">Please re-authenticate to delete account.</string>

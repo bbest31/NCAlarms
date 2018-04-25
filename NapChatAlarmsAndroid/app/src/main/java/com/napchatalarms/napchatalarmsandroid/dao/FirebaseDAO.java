@@ -138,18 +138,6 @@ public class FirebaseDAO {
                 }
             }
         });
-        dbRef.child("users").child(user.getUid()).child("username").setValue(user.getName()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @SuppressWarnings("StatementWithEmptyBody")
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                //noinspection StatementWithEmptyBody
-                if (task.isSuccessful()) {
-//                    Log.i("FirebaseDAO", "Success to write username: ");
-                } else {
-//                    Log.e("FirebaseDAO", "Failure to write username: " + task.getException().getMessage());
-                }
-            }
-        });
 
     }
 

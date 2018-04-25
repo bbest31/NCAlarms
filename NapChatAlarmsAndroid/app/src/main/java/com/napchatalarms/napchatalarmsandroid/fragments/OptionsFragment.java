@@ -75,7 +75,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      */
         Button logoutButton = view.findViewById(R.id.logout_btn);
         verifyEmailBtn = view.findViewById(R.id.verified_email_btn);
-        Button changeNameBtn = view.findViewById(R.id.change_username_btn);
+        //Button changeNameBtn = view.findViewById(R.id.change_username_btn);
         Button resetPassBtn = view.findViewById(R.id.opt_reset_pwd_btn);
         Button deleteAccountBtn = view.findViewById(R.id.delete_account_btn);
         Button aboutBtn = view.findViewById(R.id.about_btn);
@@ -121,12 +121,12 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        changeNameBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeUsername();
-            }
-        });
+//        changeNameBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                changeUsername();
+//            }
+//        });
 
 
         resetPassBtn.setOnClickListener(new View.OnClickListener() {
@@ -331,10 +331,10 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
      *
      * @see UtilityFunctions
      */
-    private void changeUsername() {
-        ChangeUsernameDialog newUsernameDialog = new ChangeUsernameDialog(getActivity());
-        newUsernameDialog.show();
-    }
+//    private void changeUsername() {
+//        ChangeUsernameDialog newUsernameDialog = new ChangeUsernameDialog(getActivity());
+//        newUsernameDialog.show();
+//    }
 
 
     /**

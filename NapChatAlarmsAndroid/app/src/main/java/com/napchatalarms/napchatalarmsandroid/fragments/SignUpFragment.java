@@ -17,28 +17,28 @@ import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 /** Fragment in signup process where the User enters there desired email and username.
  * Created by bbest on 12/03/18.
  */
-public class SignUpEmailFragment extends android.support.v4.app.Fragment {
+public class SignUpFragment extends android.support.v4.app.Fragment {
 
     /**
      * The Email edit text.
      */
     private EditText emailEditText;
     /**
-     * The Username edit text.
+     * The Password edit text.
      */
-    private EditText usernameEditText;
+    private EditText passwordEditText;
 
     /**
      * Instantiates a new Sign up email fragment.
      */
-    public SignUpEmailFragment() {
+    public SignUpFragment() {
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_signup_email_usrnm, container, false);
+        View view = inflater.inflate(R.layout.fragment_signup, container, false);
         initialize(view);
         return view;
     }
@@ -47,15 +47,15 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
         /*
       The Next button.
      */
-        Button nextButton = view.findViewById(R.id.signup_email_next_btn);
+        Button confirmButton = view.findViewById(R.id.signup_confirm_btn);
         emailEditText = view.findViewById(R.id.signup_email_edittext);
-        usernameEditText = view.findViewById(R.id.signup_username_edittext);
+        passwordEditText = view.findViewById(R.id.signup_pwd_editext);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Boolean validCredentials = true;
-                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 int err = 0;
 
@@ -63,7 +63,7 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                     err = 1;
                     validCredentials = false;
 
-                } else if (!InputValidator.isValidUsername(username) || username.trim().isEmpty()) {
+                } else if (!InputValidator.isValidPassword(password) || password.trim().isEmpty()) {
                     err = 2;
                     validCredentials = false;
                 }
@@ -73,8 +73,8 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                     SignUpActivity activity = (SignUpActivity) getActivity();
                     //noinspection ConstantConditions
                     activity.email = email;
-                    activity.username = username;
-                    activity.selectFragment(v);
+                    activity.password = password;
+                    activity.createNewUser();
                 }
                 if (!validCredentials) {
                     Toast toast = errorToast(err);
@@ -94,7 +94,7 @@ public class SignUpEmailFragment extends android.support.v4.app.Fragment {
                 toast = Toaster.createInvalidEmailToast(getActivity(), getLayoutInflater());
                 break;
             case 2:
-                toast = Toaster.createInvalidUsernameToast(getActivity(), getLayoutInflater());
+                toast = Toaster.createInvalidPasswordToast(getActivity(), getLayoutInflater());
                 break;
             default:
                 break;
