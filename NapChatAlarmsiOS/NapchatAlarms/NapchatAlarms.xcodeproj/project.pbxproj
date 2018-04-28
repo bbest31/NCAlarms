@@ -11,7 +11,7 @@
 		C269428A53A7438CD5ACE0D2 /* Pods_NapchatAlarmsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D264346D7AF8D0996319484 /* Pods_NapchatAlarmsUITests.framework */; };
 		D2205684208D2F220050BA82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2205683208D2F220050BA82 /* AppDelegate.swift */; };
 		D2205686208D2F220050BA82 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2205685208D2F220050BA82 /* FirstViewController.swift */; };
-		D2205688208D2F220050BA82 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2205687208D2F220050BA82 /* SecondViewController.swift */; };
+		D2205688208D2F220050BA82 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2205687208D2F220050BA82 /* HomeViewController.swift */; };
 		D220568B208D2F220050BA82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2205689208D2F220050BA82 /* Main.storyboard */; };
 		D220568D208D2F230050BA82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D220568C208D2F230050BA82 /* Assets.xcassets */; };
 		D2205690208D2F230050BA82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D220568E208D2F230050BA82 /* LaunchScreen.storyboard */; };
@@ -20,6 +20,8 @@
 		D22056BF208D35940050BA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D22056BE208D35940050BA82 /* GoogleService-Info.plist */; };
 		D22056C0208D35940050BA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D22056BE208D35940050BA82 /* GoogleService-Info.plist */; };
 		D22056C1208D35940050BA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D22056BE208D35940050BA82 /* GoogleService-Info.plist */; };
+		D24272BA20953032000B6CA7 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24272B920953032000B6CA7 /* AlarmTableViewCell.swift */; };
+		D24272BC20953A36000B6CA7 /* AlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24272BB20953A36000B6CA7 /* AlarmModel.swift */; };
 		DD20D99DE034531E68932544 /* Pods_NapchatAlarmsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39947979B241B3E5CB5854CD /* Pods_NapchatAlarmsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +54,7 @@
 		D2205680208D2F220050BA82 /* NapchatAlarms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NapchatAlarms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2205683208D2F220050BA82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2205685208D2F220050BA82 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		D2205687208D2F220050BA82 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		D2205687208D2F220050BA82 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D220568A208D2F220050BA82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D220568C208D2F230050BA82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D220568F208D2F230050BA82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,6 +66,8 @@
 		D22056A5208D2F230050BA82 /* NapchatAlarmsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapchatAlarmsUITests.swift; sourceTree = "<group>"; };
 		D22056A7208D2F230050BA82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D22056BE208D35940050BA82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D24272B920953032000B6CA7 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
+		D24272BB20953A36000B6CA7 /* AlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModel.swift; sourceTree = "<group>"; };
 		F8462010B7B90C9E18DB4DD2 /* Pods-NapchatAlarmsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NapchatAlarmsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NapchatAlarmsTests/Pods-NapchatAlarmsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,7 +139,9 @@
 			children = (
 				D2205683208D2F220050BA82 /* AppDelegate.swift */,
 				D2205685208D2F220050BA82 /* FirstViewController.swift */,
-				D2205687208D2F220050BA82 /* SecondViewController.swift */,
+				D2205687208D2F220050BA82 /* HomeViewController.swift */,
+				D24272BB20953A36000B6CA7 /* AlarmModel.swift */,
+				D24272B920953032000B6CA7 /* AlarmTableViewCell.swift */,
 				D2205689208D2F220050BA82 /* Main.storyboard */,
 				D220568C208D2F230050BA82 /* Assets.xcassets */,
 				D220568E208D2F230050BA82 /* LaunchScreen.storyboard */,
@@ -406,9 +412,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2205688208D2F220050BA82 /* SecondViewController.swift in Sources */,
+				D24272BC20953A36000B6CA7 /* AlarmModel.swift in Sources */,
+				D2205688208D2F220050BA82 /* HomeViewController.swift in Sources */,
 				D2205684208D2F220050BA82 /* AppDelegate.swift in Sources */,
 				D2205686208D2F220050BA82 /* FirstViewController.swift in Sources */,
+				D24272BA20953032000B6CA7 /* AlarmTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
