@@ -189,6 +189,9 @@
     <string name="google_inc">Google Inc.</string>
     <string name="swipemenulistview">SwipeMenuListView</string>
     <string name="baoyongzhang">baoyongzhang</string>
+    <string name="facebook_app_id">827964794033926</string>
+    <string name="fb_login_protocol_scheme">fb827964794033926</string>
+
 
     <!--Image Descriptions-->
     <string name="left_chev">left chevron</string>

@@ -3,12 +3,17 @@ package com.napchatalarms.napchatalarmsandroid.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
@@ -20,6 +25,7 @@ import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 @SuppressWarnings("unused")
 public class LandingFragment extends android.support.v4.app.Fragment {
 
+    private static final String TAG = "LandingFragment";
     /**
      * Instantiates a new Landing fragment.
      */
@@ -90,6 +96,36 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
+            }
+        });
+
+
+
+        // Initialize Facebook Login button
+//        mCallbackManager = CallbackManager.Factory.create();
+        LoginActivity activity = (LoginActivity) getActivity();
+
+        LoginButton loginButton = view.findViewById(R.id.face_login);
+        loginButton.setReadPermissions("email", "public_profile");
+//        loginButton.setFragment(this);
+        loginButton.registerCallback(activity.mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                LoginActivity activity = (LoginActivity) getActivity();
+                activity.handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                // ...
             }
         });
 

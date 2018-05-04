@@ -49,7 +49,7 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
      */
         Button confirmButton = view.findViewById(R.id.signup_confirm_btn);
         emailEditText = view.findViewById(R.id.signup_email_edittext);
-        passwordEditText = view.findViewById(R.id.signup_pwd_editext);
+        passwordEditText = view.findViewById(R.id.signup_pwd_edittext);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
