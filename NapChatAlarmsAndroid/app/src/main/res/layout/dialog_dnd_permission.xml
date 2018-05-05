@@ -78,7 +78,7 @@
             android:background="@drawable/round_blue_popup_btn"
             android:fontFamily="@font/fredoka_one"
             android:text="@string/allow"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

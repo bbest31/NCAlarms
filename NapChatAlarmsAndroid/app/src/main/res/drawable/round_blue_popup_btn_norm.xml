@@ -6,6 +6,6 @@
         android:left="10dp"
         android:right="10dp"
         android:top="10dp" />
-    <solid android:color="@color/light_btn_blue" />
+    <solid android:color="@color/fab_blue_norm" />
 
 </shape>

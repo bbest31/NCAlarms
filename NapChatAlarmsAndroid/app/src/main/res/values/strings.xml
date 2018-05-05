@@ -30,6 +30,15 @@
     <string name="friday_short">Fri</string>
     <string name="saturday_short">Sat</string>
 
+    <!--Snooze Menu options-->
+    <string name="one_min">1 min</string>
+    <string name="five_min">5 min</string>
+    <string name="ten_min">10 min</string>
+    <string name="fifteen_min">15 min</string>
+    <string name="twenty_min">20 min</string>
+    <string name="twenty_five_min">25 min</string>
+    <string name="thirty_min">30 min</string>
+
     <!--Image content Descriptions-->
     <string name="logo_descrip">Napchat Pillow Logo</string>
 
@@ -120,6 +129,7 @@
     <string name="skip">Skip</string>
     <string name="done">Done</string>
     <string name="okay_got_it">Ok, got it!</string>
+    <string name="minute_abbreviation">min</string>
 
 
     <!--Options Menu-->

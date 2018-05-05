@@ -28,6 +28,7 @@ import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.dialog.DnDOverrideDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.RepeatDaysDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.RingtoneDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.SnoozeDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.VibrateDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
@@ -111,7 +112,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
      * The Read permission.
      */
     private Boolean readPermission;
+    /**
+     *
+     */
     private FirebaseAnalytics mAnalytics;
+
+    private Button snoozeButton;
 
     /**
      * Declaration of view references.
@@ -123,17 +129,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         vibrateBtn = findViewById(R.id.vibrate_btn);
         ringtoneButton = findViewById(R.id.ringtone_btn);
         repeatButton = findViewById(R.id.repeat_btn);
-
-        /*
-      The Snooze spinner.
-     */
-        Spinner snoozeSelector = findViewById(R.id.snooze_spinner);
-        ArrayAdapter<CharSequence> snoozeAdapter = ArrayAdapter.createFromResource(this
-                , R.array.snooze_array
-                , R.layout.support_simple_spinner_dropdown_item);
-        snoozeAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        snoozeSelector.setAdapter(snoozeAdapter);
-        snoozeSelector.setOnItemSelectedListener(this);
+        snoozeLength = 5;
 
         //Get id indicator to see if this is a brand new alarm or if we are editing one.
         Intent intent = this.getIntent();
@@ -194,11 +190,6 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             }
             vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
             vibratePattern = alarm.getVibratePattern();
-
-            // set snooze
-            int pos = snoozeAdapter.getPosition(String.valueOf(alarm.getSnoozeLength()));
-            snoozeSelector.setSelection(pos);
-            snoozeLength = Integer.valueOf(snoozeSelector.getSelectedItem().toString());
 
             //Set repeat day selection
             if (alarm.getClass() == RepeatingAlarm.class) {
@@ -305,6 +296,15 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             public void onClick(View v) {
                 RepeatDaysDialog repeatDaysDialog = new RepeatDaysDialog(CreateAlarmActivity.this, repeatDays);
                 repeatDaysDialog.show();
+            }
+        });
+
+        snoozeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SnoozeDialog snoozeDialog = new SnoozeDialog(CreateAlarmActivity.this);
+                snoozeDialog.show();
             }
         });
 
@@ -531,6 +531,19 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             // other 'case' lines to check for other
             // permissions this app might request.
         }
+    }
+
+    public void setSnoozeLength(int length){
+        this.snoozeLength = length;
+    }
+
+    public void setSnoozeText(int length){
+        StringBuilder builder = new StringBuilder(R.string.snooze);
+        builder.append(": ")
+                .append(String.valueOf(length))
+                .append(" ")
+                .append(R.string.minute_abbreviation);
+        this.snoozeButton.setText(builder.toString());
     }
 
 
