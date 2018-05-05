@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -293,6 +296,7 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         }
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
+        googleSignOut();
 
         NapChatController.getInstance().uninitializeUser();
         Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
@@ -300,6 +304,19 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         startActivity(loginIntent);
         //noinspection ConstantConditions
         getActivity().finish();
+    }
+
+    private void googleSignOut() {
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+        // Google sign out
+        mGoogleSignInClient.signOut();
     }
 
     /**
