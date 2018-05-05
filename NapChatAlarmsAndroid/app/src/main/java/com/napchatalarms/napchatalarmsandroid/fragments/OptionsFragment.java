@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -291,6 +292,8 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             AlarmController.getInstance().cancelAlarm(getContext(), a.getId());
         }
         FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+
         NapChatController.getInstance().uninitializeUser();
         Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
