@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  FactsViewController.swift
 //  NapchatAlarms
 //
 //  Created by Peter Weckend on 2018-04-22.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FactsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
