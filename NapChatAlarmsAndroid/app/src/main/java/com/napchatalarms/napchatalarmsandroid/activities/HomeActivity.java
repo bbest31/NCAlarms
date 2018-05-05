@@ -21,6 +21,7 @@ import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.HealthFactsFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.OptionsFragment;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 
 /**
  * The activity that lists the current <code>User</code> <code>Alarms</code>.
@@ -65,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             initialize();
         }
-//        Log.i("User Info", User.getInstance().toString());
+        Log.w("User Info", User.getInstance().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create the NotificationChannel, but only on API 26+ because

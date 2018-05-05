@@ -80,34 +80,5 @@ public class ChangeUsernameDialog extends Dialog {
     /**
      *
      */
-//    private void changeUsername() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (!changeNameEditText.getText().toString().isEmpty() &&
-//                InputValidator.isValidUsername(changeNameEditText.getText().toString())) {
-//
-//            final String newName = changeNameEditText.getText().toString();
-//
-//            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                    .setDisplayName(newName)
-//                    .build();
-//            //noinspection ConstantConditions
-//            user.updateProfile(profileUpdates)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                User.getInstance().setName(newName);
-//                                changeNameEditText.setText("");
-////                                Toast.makeText(parentActivity, "Username successfully changed!", Toast.LENGTH_LONG).show();
-////                                Log.i("Options Activity", "The User's username has been updated successfully");
-//                            } else {
-//                                errText.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//                    });
-//        } else {
-//            errText.setVisibility(View.VISIBLE);
-//        }
-//    }
+
 }
