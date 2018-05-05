@@ -15,16 +15,12 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
-import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 
 /** Fragment users see when opening app that prompts either login options or sign up.
  * Created by bbest on 11/03/18.
@@ -70,7 +66,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         /*
         Google Signin Button
         */
-        SignInButton googleSignIn = view.findViewById(R.id.sign_in_button);
+        SignInButton googleSignIn = view.findViewById(R.id.google_sign_in_button);
         /*
       The App name.
      */
@@ -110,7 +106,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.sign_in_button:
+                    case R.id.google_sign_in_button:
                         signIn();
                         break;
                     // ...

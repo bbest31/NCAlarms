@@ -25,19 +25,34 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TimePicker
-                android:id="@+id/timePicker"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:elevation="1dp"
-                android:headerBackground="@android:color/transparent"
-                android:numbersSelectorColor="@color/main_amber"
-                android:numbersTextColor="@color/black"
-                 />
+                android:background="@color/off_white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="1dp"
+                app:contentPadding="10dp">
+
+                <TimePicker
+                    android:id="@+id/timePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blood_orange"
+                    android:elevation="1dp"
+                    android:headerBackground="@android:color/transparent"
+                    android:numbersSelectorColor="@color/main_amber"
+                    android:numbersTextColor="@color/black"
+                    android:timePickerMode="spinner" />
+            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardView2"
@@ -102,6 +117,21 @@
                         android:text="@string/repeat"
                         android:textAlignment="viewStart"
                         android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/attach_contacts_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/light_purple_btn"
+                        android:fontFamily="@font/fredoka_one"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="@string/attach_contacts"
+                        android:textColor="@color/white"
+                        android:textAlignment="viewStart"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
