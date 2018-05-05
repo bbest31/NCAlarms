@@ -66,10 +66,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
       The Already have acct text.
      */
         @SuppressWarnings("unused") TextView alreadyHaveAcctText = view.findViewById(R.id.have_acct_text_view);
-        /*
-      The Fb btn.
-     */
-        Button fbBtn = view.findViewById(R.id.facebook_btn);
+
         /*
         Google Signin Button
         */
@@ -100,13 +97,6 @@ public class LandingFragment extends android.support.v4.app.Fragment {
                 //noinspection ConstantConditions
                 activity.selectFragment(v);
 
-            }
-        });
-
-        fbBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
