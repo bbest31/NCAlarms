@@ -328,6 +328,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: Ask permission to access contacts
         pillowTalkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
