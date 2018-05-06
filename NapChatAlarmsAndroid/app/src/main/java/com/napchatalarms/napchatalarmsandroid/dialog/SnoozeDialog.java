@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.CreateAlarmActivity;
@@ -20,19 +20,21 @@ public class SnoozeDialog extends Dialog {
 
     private final Activity parentActivity;
 
-    private CheckBox oneMinCheckBox;
+    private RadioButton oneMinRadioButton;
 
-    private CheckBox fiveMinCheckBox;
+    private RadioButton fiveMinRadioButton;
 
-    private CheckBox tenMinCheckBox;
+    private RadioButton tenMinRadioButton;
 
-    private CheckBox fifteenMinCheckBox;
+    private RadioButton fifteenMinRadioButton;
 
-    private CheckBox twentyMinCheckBox;
+    private RadioButton twentyMinRadioButton;
 
-    private CheckBox twentyFiveMinCheckBox;
+    private RadioButton twentyFiveMinRadioButton;
 
-    private CheckBox thirtyMinCheckBox;
+    private RadioButton thirtyMinRadioButton;
+
+    private RadioGroup snoozeRadioGroup;
 
     private int snoozeLength;
 
@@ -44,13 +46,15 @@ public class SnoozeDialog extends Dialog {
     }
 
     private void initialize(){
-        oneMinCheckBox = findViewById(R.id.one_min_checkbox);
-        fiveMinCheckBox = findViewById(R.id.five_min_checkbox);
-        tenMinCheckBox = findViewById(R.id.ten_min_checkbox);
-        fifteenMinCheckBox = findViewById(R.id.fifteen_min_checkbox);
-        twentyMinCheckBox = findViewById(R.id.twenty_min_checkbox);
-        twentyFiveMinCheckBox = findViewById(R.id.twenty_five_min_checkbox);
-        thirtyMinCheckBox = findViewById(R.id.thirty_min_checkbox);
+        snoozeRadioGroup = findViewById(R.id.snooze_radio_group);
+        oneMinRadioButton = findViewById(R.id.one_min_radio_button);
+        fiveMinRadioButton = findViewById(R.id.five_min_radio_button);
+        tenMinRadioButton = findViewById(R.id.ten_min_radio_button);
+        fifteenMinRadioButton = findViewById(R.id.fifteen_min_radio_button);
+        twentyMinRadioButton = findViewById(R.id.twenty_min_radio_button);
+        twentyFiveMinRadioButton = findViewById(R.id.twenty_five_min_radio_button);
+        thirtyMinRadioButton = findViewById(R.id.thirty_min_radio_button);
+        okayButton = findViewById(R.id.snooze_okay_button);
     }
 
     @Override
@@ -68,68 +72,37 @@ public class SnoozeDialog extends Dialog {
             }
         });
 
-        oneMinCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        snoozeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                clearPreviousChoice();
-                snoozeLength = 1;
-            }
-        });
-
-        fiveMinCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                clearPreviousChoice();
-                snoozeLength = 5;
-            }
-        });
-
-        tenMinCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                clearPreviousChoice();
-                snoozeLength=10;
-            }
-        });
-
-        fifteenMinCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                clearPreviousChoice();
-                snoozeLength=15;
-            }
-        });
-
-        twentyMinCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                clearPreviousChoice();
-                snoozeLength = 20;
-            }
-        });
-
-        twentyFiveMinCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                clearPreviousChoice();
-                snoozeLength = 25;
-
-            }
-        });
-
-        thirtyMinCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                clearPreviousChoice();
-                snoozeLength = 30;
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.one_min_radio_button:
+                        snoozeLength = 1;
+                        break;
+                    case R.id.five_min_radio_button:
+                        snoozeLength = 5;
+                        break;
+                    case R.id.ten_min_radio_button:
+                        snoozeLength = 10;
+                        break;
+                    case R.id.fifteen_min_radio_button:
+                        snoozeLength = 15;
+                        break;
+                    case R.id.twenty_min_radio_button:
+                        snoozeLength = 20;
+                        break;
+                    case R.id.twenty_five_min_radio_button:
+                        snoozeLength = 25;
+                        break;
+                    case R.id.thirty_min_radio_button:
+                        snoozeLength = 30;
+                        break;
+                }
             }
         });
 
 
 
-    }
-
-    private void clearPreviousChoice(){
     }
 
 }

@@ -74,14 +74,13 @@
 
     <!--Arrays-->
     <string-array name="snooze_array">
-        <item>1</item>
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>25</item>
-        <item>30</item>
-        <item>60</item>
+        <item>1 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>25 min</item>
+        <item>30 min</item>
     </string-array>
 
     <string-array name="vibrate_patterns">
@@ -101,6 +100,7 @@
     <string name="ringtone_label">Ringtone: %s</string>
     <string name="vibrate_label">Vibrate: %s</string>
     <string name="repeat_label">Repeat: %s</string>
+    <string name="snooze_label">Snooze: %s</string>
 
     <!--Button Text-->
     <string name="edit">Edit</string>

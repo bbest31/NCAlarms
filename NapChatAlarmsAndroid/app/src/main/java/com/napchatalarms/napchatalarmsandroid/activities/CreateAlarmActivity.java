@@ -50,7 +50,7 @@ import java.util.List;
  *
  * @author bbest
  */
-public class CreateAlarmActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateAlarmActivity extends AppCompatActivity {
 
     /**
      * The External storage request.
@@ -129,6 +129,7 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
         vibrateBtn = findViewById(R.id.vibrate_btn);
         ringtoneButton = findViewById(R.id.ringtone_btn);
         repeatButton = findViewById(R.id.repeat_btn);
+        snoozeButton = findViewById(R.id.snooze_btn);
         snoozeLength = 5;
 
         //Get id indicator to see if this is a brand new alarm or if we are editing one.
@@ -169,27 +170,10 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             ringtone = alarm.getRingtoneURI();
 
             //Set vibrate
-            String vibrateString = "";
-            String[] vibrateStringArray = getResources().getStringArray(R.array.vibrate_patterns);
-            switch (alarm.getVibratePattern()) {
-                case -1:
-                    vibrateString = vibrateStringArray[0];
-                    break;
-                case 0:
-                    vibrateString = vibrateStringArray[1];
-                    break;
-                case 1:
-                    vibrateString = vibrateStringArray[2];
-                    break;
-                case 2:
-                    vibrateString = vibrateStringArray[3];
-                    break;
-                case 3:
-                    vibrateString = vibrateStringArray[4];
-                    break;
-            }
-            vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
-            vibratePattern = alarm.getVibratePattern();
+            setVibrate(alarm.getVibratePattern());
+
+            // Set snooze
+            setSnoozeLength(alarm.getSnoozeLength());
 
             //Set repeat day selection
             if (alarm.getClass() == RepeatingAlarm.class) {
@@ -205,8 +189,6 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             editAlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     editAlarm(alarm.getId(), vibratePattern, timePicker.getHour(), timePicker.getMinute(), ringtone, snoozeLength, repeatDays);
                     Intent returnIntent = new Intent();
                     setResult(Activity.RESULT_OK, returnIntent);
@@ -224,10 +206,12 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             ringtone = String.valueOf(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
 
 
-            vibratePattern = -1;
-            vibrateBtn.setText(getString(R.string.vibrate_label, getResources().getStringArray(R.array.vibrate_patterns)[0]));
+            // Set default vibrate
+            setVibrate(-1);
 
             repeatDays = new ArrayList<>();
+
+            setSnoozeText(snoozeLength);
 
             createAlarmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -242,6 +226,37 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
             });
 
         }
+    }
+
+    /**
+     * Sets the vibrate pattern integer and corresponding vibrate button text based on selection.
+     * @param pattern
+     */
+    private void setVibrate(Integer pattern) {
+        String vibrateString = "";
+        String[] vibrateStringArray = getResources().getStringArray(R.array.vibrate_patterns);
+        switch (pattern) {
+            case -1:
+                vibrateString = vibrateStringArray[0];
+                break;
+            case 0:
+                vibrateString = vibrateStringArray[1];
+                break;
+            case 1:
+                vibrateString = vibrateStringArray[2];
+                break;
+            case 2:
+                vibrateString = vibrateStringArray[3];
+                break;
+            case 3:
+                vibrateString = vibrateStringArray[4];
+                break;
+        }
+
+
+        vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
+        vibratePattern = pattern;
+
     }
 
     @Override
@@ -463,39 +478,15 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onActivityReenter(int resultCode, Intent data) {
-
-        String vibrateString = "";
         switch (resultCode) {
             case RESULT_OK:
                 int pattern = data.getIntExtra("PATTERN", -1);
-                vibratePattern = pattern;
-                if (pattern == -1) {
-                    vibrateString = getString(R.string.off);
-                } else {
-                    vibrateString = VibrateLibrary.getVibratePattern(pattern).getName();
-                }
-                vibrateBtn.setText(getString(R.string.vibrate_label, vibrateString));
+                setVibrate(pattern);
                 break;
             case RESULT_CANCELED:
                 break;
         }
 
-    }
-
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        try {
-            snoozeLength = Integer.valueOf(String.valueOf(parent.getItemAtPosition(pos)));
-        } catch (NumberFormatException e) {
-            // Log.e("CreateAlarmActivity", e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-        snoozeLength = 5;
     }
 
 
@@ -535,15 +526,42 @@ public class CreateAlarmActivity extends AppCompatActivity implements AdapterVie
 
     public void setSnoozeLength(int length){
         this.snoozeLength = length;
+        setSnoozeText(length);
     }
 
+    /**
+     * Sets the text of the snooze button to reflect the choice made from the dialog.
+     * @param length
+     */
     public void setSnoozeText(int length){
-        StringBuilder builder = new StringBuilder(R.string.snooze);
-        builder.append(": ")
-                .append(String.valueOf(length))
-                .append(" ")
-                .append(R.string.minute_abbreviation);
-        this.snoozeButton.setText(builder.toString());
+
+        String snoozeText = "";
+        String[] snoozeStringArray = getResources().getStringArray(R.array.snooze_array);
+        switch(length){
+            case 1:
+                snoozeText = snoozeStringArray[0];
+                break;
+            case 5:
+                snoozeText = snoozeStringArray[1];
+                break;
+            case 10:
+                snoozeText = snoozeStringArray[2];
+                break;
+            case 15:
+                snoozeText = snoozeStringArray[3];
+                break;
+            case 20:
+                snoozeText = snoozeStringArray[4];
+                break;
+            case 25:
+                snoozeText = snoozeStringArray[5];
+                break;
+            case 30:
+                snoozeText = snoozeStringArray[6];
+                break;
+        }
+
+        this.snoozeButton.setText(getString(R.string.snooze_label,snoozeText));
     }
 
 

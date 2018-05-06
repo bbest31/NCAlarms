@@ -5,8 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/one_min_checkbox"
+    <RadioGroup
+        android:id="@+id/snooze_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/snooze_okay_button"
+        android:checkedButton="@id/one_min_radio_button">
+
+
+    <RadioButton
+        android:id="@+id/one_min_radio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -14,84 +22,83 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/one_min"
-        app:layout_constraintBottom_toTopOf="@+id/five_min_checkbox"
+        app:layout_constraintBottom_toTopOf="@+id/five_min_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/five_min_checkbox"
+    <RadioButton
+        android:id="@+id/five_min_radio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/five_min"
-        app:layout_constraintBottom_toTopOf="@+id/ten_min_checkbox"
+        app:layout_constraintBottom_toTopOf="@+id/ten_min_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/ten_min_checkbox"
+    <RadioButton
+        android:id="@+id/ten_min_radio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/ten_min"
-        app:layout_constraintBottom_toTopOf="@+id/fifteen_min_checkbox"
+        app:layout_constraintBottom_toTopOf="@+id/fifteen_min_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/fifteen_min_checkbox"
+    <RadioButton
+        android:id="@+id/fifteen_min_radio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/fifteen_min"
-        app:layout_constraintBottom_toTopOf="@+id/twenty_min_checkbox"
+        app:layout_constraintBottom_toTopOf="@+id/twenty_min_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/twenty_min_checkbox"
+    <RadioButton
+        android:id="@+id/twenty_min_radio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/twenty_min"
-        app:layout_constraintBottom_toTopOf="@+id/twenty_five_min_checkbox"
+        app:layout_constraintBottom_toTopOf="@+id/twenty_five_min_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/twenty_five_min_checkbox"
+    <RadioButton
+        android:id="@+id/twenty_five_min_radio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/twenty_five_min"
-        app:layout_constraintBottom_toTopOf="@+id/thirty_min_checkbox"
+        app:layout_constraintBottom_toTopOf="@+id/thirty_min_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/thirty_min_checkbox"
+    <RadioButton
+        android:id="@+id/thirty_min_radio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/thirty_min"
-        app:layout_constraintBottom_toTopOf="@+id/snooze_okay_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+    </RadioGroup>
     <Button
         android:id="@+id/snooze_okay_button"
         android:layout_width="match_parent"
