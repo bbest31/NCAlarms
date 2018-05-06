@@ -15,10 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -60,17 +57,19 @@ public class CreateAlarmActivity extends AppCompatActivity {
      * The Custom ringtone result code.
      */
     @SuppressWarnings("FieldCanBeLocal")
-    private final int CUSTOM_RINGTONE_RESULT_CODE = 80;
+    private final int CUSTOM_RINGTONE_REQUEST_CODE = 80;
     /**
      * The Device ringtone result code.
      */
     @SuppressWarnings("FieldCanBeLocal")
-    private final int DEVICE_RINGTONE_RESULT_CODE = 14;
+    private final int DEVICE_RINGTONE_REQUEST_CODE = 14;
     /**
      * The Music ringtone result code.
      */
     @SuppressWarnings("FieldCanBeLocal")
-    private final int MUSIC_RINGTONE_RESULT_CODE = 19;
+    private final int MUSIC_RINGTONE_REQUEST_CODE = 19;
+
+    private final int CONTACTS_REQUEST_CODE = 31;
     /**
      * The Time picker.
      */
@@ -112,12 +111,16 @@ public class CreateAlarmActivity extends AppCompatActivity {
      * The Read permission.
      */
     private Boolean readPermission;
+
+    private ArrayList<String> attachedContacts;
     /**
      *
      */
     private FirebaseAnalytics mAnalytics;
 
     private Button snoozeButton;
+
+    private Button pillowTalkButton;
 
     /**
      * Declaration of view references.
@@ -130,6 +133,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
         ringtoneButton = findViewById(R.id.ringtone_btn);
         repeatButton = findViewById(R.id.repeat_btn);
         snoozeButton = findViewById(R.id.snooze_btn);
+        pillowTalkButton = findViewById(R.id.attach_contacts_btn);
         snoozeLength = 5;
 
         //Get id indicator to see if this is a brand new alarm or if we are editing one.
@@ -230,6 +234,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
 
     /**
      * Sets the vibrate pattern integer and corresponding vibrate button text based on selection.
+     *
      * @param pattern
      */
     private void setVibrate(Integer pattern) {
@@ -318,8 +323,16 @@ public class CreateAlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SnoozeDialog snoozeDialog = new SnoozeDialog(CreateAlarmActivity.this);
+                SnoozeDialog snoozeDialog = new SnoozeDialog(CreateAlarmActivity.this, snoozeLength);
                 snoozeDialog.show();
+            }
+        });
+
+        pillowTalkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent contactsIntent = new Intent(CreateAlarmActivity.this, ContactsActivity.class);
+                startActivityForResult(contactsIntent, CONTACTS_REQUEST_CODE);
             }
         });
 
@@ -439,13 +452,13 @@ public class CreateAlarmActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case DEVICE_RINGTONE_RESULT_CODE:
+                case DEVICE_RINGTONE_REQUEST_CODE:
                     //Return from ringtone dialog
                     Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
                     String name = RingtoneManager.getRingtone(getApplicationContext(), uri).getTitle(getApplicationContext());
                     setRingtone(String.valueOf(uri), name);
                     break;
-                case MUSIC_RINGTONE_RESULT_CODE:
+                case MUSIC_RINGTONE_REQUEST_CODE:
                     //Return from Music
                     Uri musicUri = data.getData();
                     String title = "Music";
@@ -465,11 +478,17 @@ public class CreateAlarmActivity extends AppCompatActivity {
                     cursor.close();
                     setRingtone(String.valueOf(musicUri), title);
                     break;
-                case CUSTOM_RINGTONE_RESULT_CODE:
+                case CUSTOM_RINGTONE_REQUEST_CODE:
                     String customUri = data.getStringExtra("URI");
                     String trackName = data.getStringExtra("NAME");
                     setRingtone(customUri, trackName);
                     break;
+                case CONTACTS_REQUEST_CODE:
+                    Bundle contactData = data.getExtras();
+                    ArrayList<String> contactList = contactData.getStringArrayList("contacts");
+                    setAttachedContacts(contactList);
+                    break;
+
                 default:
                     break;
             }
@@ -502,7 +521,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
         if (text != null) {
             repeatButton.setText(getString(R.string.repeat_label, text));
         } else {
-            repeatButton.setText(getString(R.string.repeat_label));
+            repeatButton.setText(getString(R.string.repeat));
         }
     }
 
@@ -524,20 +543,21 @@ public class CreateAlarmActivity extends AppCompatActivity {
         }
     }
 
-    public void setSnoozeLength(int length){
+    public void setSnoozeLength(int length) {
         this.snoozeLength = length;
         setSnoozeText(length);
     }
 
     /**
      * Sets the text of the snooze button to reflect the choice made from the dialog.
+     *
      * @param length
      */
-    public void setSnoozeText(int length){
+    public void setSnoozeText(int length) {
 
         String snoozeText = "";
         String[] snoozeStringArray = getResources().getStringArray(R.array.snooze_array);
-        switch(length){
+        switch (length) {
             case 1:
                 snoozeText = snoozeStringArray[0];
                 break;
@@ -561,7 +581,50 @@ public class CreateAlarmActivity extends AppCompatActivity {
                 break;
         }
 
-        this.snoozeButton.setText(getString(R.string.snooze_label,snoozeText));
+        this.snoozeButton.setText(getString(R.string.snooze_label, snoozeText));
+    }
+
+    private void setAttachedContacts(ArrayList<String> list) {
+        this.attachedContacts = list;
+        setContactsText(list);
+
+    }
+
+    /**
+     * Sets the text of the attached contacts to display the names of the contacts up until
+     * 15 characters have been used then we end with ...
+     *
+     * @param list
+     */
+    private void setContactsText(ArrayList<String> list) {
+
+        int len = 0;
+        String contacts = "";
+        for (String contact : list) {
+
+            if (len < 15 && (contact.length() + len) < 15) {
+
+                if (len != 0) {
+                    String name = contact.split("|")[0];
+                    contacts.concat(", " + name);
+                } else {
+                    String name = contact.split("|")[0];
+                    contacts.concat(name);
+                }
+
+            } else {
+                // If one name couldn't fit
+                if (len == 0) {
+                    contacts = list.size() + " contacts attached";
+                } else {
+                    contacts.concat("...");
+                }
+            }
+        }
+
+        pillowTalkButton.setText(getString(R.string.contacts_label, contacts));
+
+
     }
 
 

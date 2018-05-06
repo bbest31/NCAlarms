@@ -20,40 +20,20 @@ public class SnoozeDialog extends Dialog {
 
     private final Activity parentActivity;
 
-    private RadioButton oneMinRadioButton;
-
-    private RadioButton fiveMinRadioButton;
-
-    private RadioButton tenMinRadioButton;
-
-    private RadioButton fifteenMinRadioButton;
-
-    private RadioButton twentyMinRadioButton;
-
-    private RadioButton twentyFiveMinRadioButton;
-
-    private RadioButton thirtyMinRadioButton;
-
     private RadioGroup snoozeRadioGroup;
 
     private int snoozeLength;
 
     private Button okayButton;
 
-    public SnoozeDialog(Activity a) {
+    public SnoozeDialog(Activity a, int initValue) {
         super(a);
         this.parentActivity = a;
+        this.snoozeLength = initValue;
     }
 
     private void initialize(){
         snoozeRadioGroup = findViewById(R.id.snooze_radio_group);
-        oneMinRadioButton = findViewById(R.id.one_min_radio_button);
-        fiveMinRadioButton = findViewById(R.id.five_min_radio_button);
-        tenMinRadioButton = findViewById(R.id.ten_min_radio_button);
-        fifteenMinRadioButton = findViewById(R.id.fifteen_min_radio_button);
-        twentyMinRadioButton = findViewById(R.id.twenty_min_radio_button);
-        twentyFiveMinRadioButton = findViewById(R.id.twenty_five_min_radio_button);
-        thirtyMinRadioButton = findViewById(R.id.thirty_min_radio_button);
         okayButton = findViewById(R.id.snooze_okay_button);
     }
 
@@ -101,8 +81,39 @@ public class SnoozeDialog extends Dialog {
             }
         });
 
+       setChecked(snoozeLength);
 
 
+    }
+
+    /**
+     * Sets the checked item on the radio group based on the snooze length value.
+     * @param value
+     */
+    private void setChecked(int value){
+        switch(value){
+            case 1:
+                snoozeRadioGroup.check(R.id.one_min_radio_button);
+                break;
+            case 5:
+                snoozeRadioGroup.check(R.id.five_min_radio_button);
+                break;
+            case 10:
+                snoozeRadioGroup.check(R.id.ten_min_radio_button);
+                break;
+            case 15:
+                snoozeRadioGroup.check(R.id.fifteen_min_radio_button);
+                break;
+            case 20:
+                snoozeRadioGroup.check(R.id.twenty_min_radio_button);
+                break;
+            case 25:
+                snoozeRadioGroup.check(R.id.twenty_five_min_radio_button);
+                break;
+            case 30:
+                snoozeRadioGroup.check(R.id.thirty_min_radio_button);
+                break;
+        }
     }
 
 }

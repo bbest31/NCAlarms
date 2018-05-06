@@ -83,13 +83,13 @@
                         android:layout_marginBottom="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
-                        android:background="@drawable/light_purple_btn"
+                        android:background="@android:color/transparent"
                         android:fontFamily="@font/fredoka_one"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="@string/vibrate"
                         android:textAlignment="textStart"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
                     <Button
                         android:id="@+id/ringtone_btn"
@@ -98,13 +98,13 @@
                         android:layout_marginBottom="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
-                        android:background="@drawable/light_purple_btn"
+                        android:background="@android:color/transparent"
                         android:fontFamily="@font/fredoka_one"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="@string/ringtone"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
                     <Button
                         android:id="@+id/repeat_btn"
@@ -113,28 +113,13 @@
                         android:layout_marginBottom="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
-                        android:background="@drawable/light_purple_btn"
+                        android:background="@android:color/transparent"
                         android:fontFamily="@font/fredoka_one"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="@string/repeat"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white" />
-
-                    <Button
-                        android:id="@+id/attach_contacts_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/light_purple_btn"
-                        android:fontFamily="@font/fredoka_one"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="@string/attach_contacts"
-                        android:textColor="@color/white"
-                        android:textAlignment="viewStart"/>
+                        android:textColor="@color/black" />
 
                     <Button
                         android:id="@+id/snooze_btn"
@@ -143,13 +128,29 @@
                         android:layout_marginBottom="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
-                        android:background="@drawable/light_purple_btn"
+                        android:background="@android:color/transparent"
                         android:fontFamily="@font/fredoka_one"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="@string/snooze"
-                        android:textColor="@color/white"
-                        android:textAlignment="viewStart"/>
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/attach_contacts_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/fredoka_one"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="@string/attach_contacts"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black" />
+
 
 
                 </LinearLayout>

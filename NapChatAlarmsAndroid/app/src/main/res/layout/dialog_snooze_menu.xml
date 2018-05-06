@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/snooze_okay_button"
-        android:checkedButton="@id/one_min_radio_button">
+        >
 
 
     <RadioButton

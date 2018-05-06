@@ -101,6 +101,7 @@
     <string name="vibrate_label">Vibrate: %s</string>
     <string name="repeat_label">Repeat: %s</string>
     <string name="snooze_label">Snooze: %s</string>
+    <string name="contacts_label">Contacts: %s</string>
 
     <!--Button Text-->
     <string name="edit">Edit</string>
