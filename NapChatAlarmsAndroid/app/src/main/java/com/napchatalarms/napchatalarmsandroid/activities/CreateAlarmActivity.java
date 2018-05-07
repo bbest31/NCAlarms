@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
@@ -28,6 +29,7 @@ import com.napchatalarms.napchatalarmsandroid.dialog.RingtoneDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.SnoozeDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.VibrateDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.Contact;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
@@ -112,7 +114,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
      */
     private Boolean readPermission;
 
-    private ArrayList<String> attachedContacts;
+    private ArrayList<Contact> attachedContacts;
     /**
      *
      */
@@ -328,12 +330,19 @@ public class CreateAlarmActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: Ask permission to access contacts
         pillowTalkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent contactsIntent = new Intent(CreateAlarmActivity.this, ContactsActivity.class);
-                startActivityForResult(contactsIntent, CONTACTS_REQUEST_CODE);
+                if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                    //TODO: Ask permission to access contacts
+                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                            CONTACTS_REQUEST_CODE);
+                }
+
+                if (checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                    Intent contactsIntent = new Intent(CreateAlarmActivity.this, ContactsActivity.class);
+                    startActivityForResult(contactsIntent, CONTACTS_REQUEST_CODE);
+                }
             }
         });
 
@@ -486,7 +495,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
                     break;
                 case CONTACTS_REQUEST_CODE:
                     Bundle contactData = data.getExtras();
-                    ArrayList<String> contactList = contactData.getStringArrayList("contacts");
+                    ArrayList<Contact> contactList = (ArrayList<Contact>) contactData.getSerializable("contacts");
                     setAttachedContacts(contactList);
                     break;
 
@@ -585,10 +594,10 @@ public class CreateAlarmActivity extends AppCompatActivity {
         this.snoozeButton.setText(getString(R.string.snooze_label, snoozeText));
     }
 
-    private void setAttachedContacts(ArrayList<String> list) {
+    private void setAttachedContacts(ArrayList<Contact> list) {
         this.attachedContacts = list;
         setContactsText(list);
-
+        Log.w("CONTACTS", attachedContacts.toString());
     }
 
     /**
@@ -597,20 +606,18 @@ public class CreateAlarmActivity extends AppCompatActivity {
      *
      * @param list
      */
-    private void setContactsText(ArrayList<String> list) {
+    private void setContactsText(ArrayList<Contact> list) {
 
         int len = 0;
         String contacts = "";
-        for (String contact : list) {
+        for (Contact contact : list) {
 
-            if (len < 15 && (contact.length() + len) < 15) {
+            if (len < 15 && (contact.getName().length() + len) < 15) {
 
                 if (len != 0) {
-                    String name = contact.split("|")[0];
-                    contacts.concat(", " + name);
+                    contacts.concat(", " + contact.getName());
                 } else {
-                    String name = contact.split("|")[0];
-                    contacts.concat(name);
+                    contacts.concat(contact.getName());
                 }
 
             } else {

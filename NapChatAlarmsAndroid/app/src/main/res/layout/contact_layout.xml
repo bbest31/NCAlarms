@@ -25,5 +25,12 @@
             android:layout_weight="1"
             android:checked="false"
             android:text="Contact Name" />
+
+        <TextView
+            android:id="@+id/hidden_contact_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
