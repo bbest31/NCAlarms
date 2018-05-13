@@ -25,6 +25,9 @@
 		D286DF9A209E0ABF0055E406 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DF99209E0ABF0055E406 /* LoginViewController.swift */; };
 		D286DF9C209E0B0B0055E406 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DF9B209E0B0B0055E406 /* LandingPageViewController.swift */; };
 		D286DFA8209E16660055E406 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFA7209E16660055E406 /* StringConstants.swift */; };
+		D286DFAC20A8BCE80055E406 /* NewAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFAB20A8BCE80055E406 /* NewAlarmViewController.swift */; };
+		D286DFAE20A8C0B50055E406 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFAD20A8C0B50055E406 /* OptionsViewController.swift */; };
+		D286DFB020A8C2090055E406 /* OptionsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFAF20A8C2090055E406 /* OptionsConstants.swift */; };
 		DD20D99DE034531E68932544 /* Pods_NapchatAlarmsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39947979B241B3E5CB5854CD /* Pods_NapchatAlarmsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,9 @@
 		D286DF99209E0ABF0055E406 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D286DF9B209E0B0B0055E406 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		D286DFA7209E16660055E406 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		D286DFAB20A8BCE80055E406 /* NewAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmViewController.swift; sourceTree = "<group>"; };
+		D286DFAD20A8C0B50055E406 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		D286DFAF20A8C2090055E406 /* OptionsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsConstants.swift; sourceTree = "<group>"; };
 		F8462010B7B90C9E18DB4DD2 /* Pods-NapchatAlarmsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NapchatAlarmsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NapchatAlarmsTests/Pods-NapchatAlarmsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +151,7 @@
 			children = (
 				D2205683208D2F220050BA82 /* AppDelegate.swift */,
 				D286DFA7209E16660055E406 /* StringConstants.swift */,
+				D286DFAF20A8C2090055E406 /* OptionsConstants.swift */,
 				D2205689208D2F220050BA82 /* Main.storyboard */,
 				D286DFA6209E103A0055E406 /* Controllers */,
 				D286DFA5209E10350055E406 /* Models */,
@@ -214,6 +221,8 @@
 				D286DF99209E0ABF0055E406 /* LoginViewController.swift */,
 				D2205685208D2F220050BA82 /* FactsViewController.swift */,
 				D2205687208D2F220050BA82 /* HomeViewController.swift */,
+				D286DFAB20A8BCE80055E406 /* NewAlarmViewController.swift */,
+				D286DFAD20A8C0B50055E406 /* OptionsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -494,14 +503,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D286DFAC20A8BCE80055E406 /* NewAlarmViewController.swift in Sources */,
 				D286DF9A209E0ABF0055E406 /* LoginViewController.swift in Sources */,
 				D24272BC20953A36000B6CA7 /* AlarmModel.swift in Sources */,
+				D286DFB020A8C2090055E406 /* OptionsConstants.swift in Sources */,
 				D286DF9C209E0B0B0055E406 /* LandingPageViewController.swift in Sources */,
 				D2205688208D2F220050BA82 /* HomeViewController.swift in Sources */,
 				D286DFA8209E16660055E406 /* StringConstants.swift in Sources */,
 				D2205684208D2F220050BA82 /* AppDelegate.swift in Sources */,
 				D2205686208D2F220050BA82 /* FactsViewController.swift in Sources */,
 				D24272BA20953032000B6CA7 /* AlarmTableViewCell.swift in Sources */,
+				D286DFAE20A8C0B50055E406 /* OptionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,7 +692,10 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = NapchatAlarms/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsios.NapchatAlarms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -698,7 +713,10 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = NapchatAlarms/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsios.NapchatAlarms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -715,7 +733,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -733,7 +755,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -750,7 +776,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -767,7 +797,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZF5V634PBQ;
 				INFOPLIST_FILE = NapchatAlarmsUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.napchatalarms.napchatalarmsandroid.NapchatAlarmsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
