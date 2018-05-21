@@ -19,6 +19,8 @@ struct OptionsConstants {
     static let aboutStrings = ["Open Source Libraries", "Privacy Policy", "Credits", "About"]
     static let aboutSegueIdentifiers = ["Open Source Libraries", "Privacy Policy", "Credits", "About"]
     
+    static let sectionIdentifiers = ["Options", "Support", "About"]
+    
 }
 
 

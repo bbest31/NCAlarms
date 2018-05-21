@@ -26,9 +26,9 @@
 		D286DF9C209E0B0B0055E406 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DF9B209E0B0B0055E406 /* LandingPageViewController.swift */; };
 		D286DFA8209E16660055E406 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFA7209E16660055E406 /* StringConstants.swift */; };
 		D286DFAC20A8BCE80055E406 /* NewAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFAB20A8BCE80055E406 /* NewAlarmViewController.swift */; };
-		D286DFAE20A8C0B50055E406 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFAD20A8C0B50055E406 /* OptionsViewController.swift */; };
 		D286DFB020A8C2090055E406 /* OptionsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFAF20A8C2090055E406 /* OptionsConstants.swift */; };
 		D286DFB620ACF3840055E406 /* OptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFB520ACF3840055E406 /* OptionsTableViewCell.swift */; };
+		D286DFBA20B24F8A0055E406 /* OptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFB920B24F8A0055E406 /* OptionsTableViewController.swift */; };
 		DD20D99DE034531E68932544 /* Pods_NapchatAlarmsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39947979B241B3E5CB5854CD /* Pods_NapchatAlarmsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,9 +79,9 @@
 		D286DF9B209E0B0B0055E406 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		D286DFA7209E16660055E406 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
 		D286DFAB20A8BCE80055E406 /* NewAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmViewController.swift; sourceTree = "<group>"; };
-		D286DFAD20A8C0B50055E406 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		D286DFAF20A8C2090055E406 /* OptionsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsConstants.swift; sourceTree = "<group>"; };
 		D286DFB520ACF3840055E406 /* OptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTableViewCell.swift; sourceTree = "<group>"; };
+		D286DFB920B24F8A0055E406 /* OptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTableViewController.swift; sourceTree = "<group>"; };
 		F8462010B7B90C9E18DB4DD2 /* Pods-NapchatAlarmsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NapchatAlarmsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NapchatAlarmsTests/Pods-NapchatAlarmsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,7 +225,7 @@
 				D2205685208D2F220050BA82 /* FactsViewController.swift */,
 				D2205687208D2F220050BA82 /* HomeViewController.swift */,
 				D286DFAB20A8BCE80055E406 /* NewAlarmViewController.swift */,
-				D286DFAD20A8C0B50055E406 /* OptionsViewController.swift */,
+				D286DFB920B24F8A0055E406 /* OptionsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -513,11 +513,11 @@
 				D286DF9C209E0B0B0055E406 /* LandingPageViewController.swift in Sources */,
 				D2205688208D2F220050BA82 /* HomeViewController.swift in Sources */,
 				D286DFA8209E16660055E406 /* StringConstants.swift in Sources */,
+				D286DFBA20B24F8A0055E406 /* OptionsTableViewController.swift in Sources */,
 				D2205684208D2F220050BA82 /* AppDelegate.swift in Sources */,
 				D286DFB620ACF3840055E406 /* OptionsTableViewCell.swift in Sources */,
 				D2205686208D2F220050BA82 /* FactsViewController.swift in Sources */,
 				D24272BA20953032000B6CA7 /* AlarmTableViewCell.swift in Sources */,
-				D286DFAE20A8C0B50055E406 /* OptionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
