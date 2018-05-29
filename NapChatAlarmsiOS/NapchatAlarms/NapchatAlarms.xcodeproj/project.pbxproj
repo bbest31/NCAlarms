@@ -22,6 +22,7 @@
 		D22056C1208D35940050BA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D22056BE208D35940050BA82 /* GoogleService-Info.plist */; };
 		D24272BA20953032000B6CA7 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24272B920953032000B6CA7 /* AlarmTableViewCell.swift */; };
 		D24272BC20953A36000B6CA7 /* AlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24272BB20953A36000B6CA7 /* AlarmModel.swift */; };
+		D266BD5D20BD04F50067C4A9 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D266BD5C20BD04F50067C4A9 /* ForgotPasswordViewController.swift */; };
 		D286DF9A209E0ABF0055E406 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DF99209E0ABF0055E406 /* LoginViewController.swift */; };
 		D286DF9C209E0B0B0055E406 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DF9B209E0B0B0055E406 /* LandingPageViewController.swift */; };
 		D286DFA8209E16660055E406 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D286DFA7209E16660055E406 /* StringConstants.swift */; };
@@ -75,6 +76,7 @@
 		D22056BE208D35940050BA82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D24272B920953032000B6CA7 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		D24272BB20953A36000B6CA7 /* AlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModel.swift; sourceTree = "<group>"; };
+		D266BD5C20BD04F50067C4A9 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D286DF99209E0ABF0055E406 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D286DF9B209E0B0B0055E406 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		D286DFA7209E16660055E406 /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				D286DF9B209E0B0B0055E406 /* LandingPageViewController.swift */,
 				D286DF99209E0ABF0055E406 /* LoginViewController.swift */,
+				D266BD5C20BD04F50067C4A9 /* ForgotPasswordViewController.swift */,
 				D2205685208D2F220050BA82 /* FactsViewController.swift */,
 				D2205687208D2F220050BA82 /* HomeViewController.swift */,
 				D286DFAB20A8BCE80055E406 /* NewAlarmViewController.swift */,
@@ -516,6 +519,7 @@
 				D286DFBA20B24F8A0055E406 /* OptionsTableViewController.swift in Sources */,
 				D2205684208D2F220050BA82 /* AppDelegate.swift in Sources */,
 				D286DFB620ACF3840055E406 /* OptionsTableViewCell.swift in Sources */,
+				D266BD5D20BD04F50067C4A9 /* ForgotPasswordViewController.swift in Sources */,
 				D2205686208D2F220050BA82 /* FactsViewController.swift in Sources */,
 				D24272BA20953032000B6CA7 /* AlarmTableViewCell.swift in Sources */,
 			);

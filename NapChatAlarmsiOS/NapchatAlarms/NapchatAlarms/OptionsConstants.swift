@@ -11,7 +11,7 @@ import Foundation
 struct OptionsConstants {
     
     static let optionsStrings = ["Verify Email", "Reset Password", "Change Name", "Logout", "Delete Account"]
-    static let optionsSegueIdentifiers = ["verifyEmailSegue", "resetPasswordSegue", "changeNameSegue", "logoutSegue", "deleteAccountSegue"]
+    static let optionsSegueIdentifiers = ["verifyEmailSegue", "resetPasswordSegue", "changeNameSegue", "unwindToLandingPageSegue", "deleteAccountSegue"]
     
     static let supportStrings = ["FAQ", "What's New?", "Tutorial", "Language", "Submit Feedback/Problems", "Upgrade", "Invite", "Rate App", "Share App"]
     static let supportSegueIdentifiers = ["FAQSegue", "What's New?Segue", "TutorialSegue", "LanguageSegue", "Submit Feedback/ProblemsSegue", "UpgradeSegue", "InviteSegue", "Rate AppSegue", "Share AppSegue"]

@@ -37,5 +37,9 @@ class LandingPageViewController: UIViewController {
         self.performSegue(withIdentifier: "segueToLogin", sender: self)
     }
     
+    @IBAction func unwindToLandingPageWithSegue(segue:UIStoryboardSegue) {
+        
+    }
+    
 
 }

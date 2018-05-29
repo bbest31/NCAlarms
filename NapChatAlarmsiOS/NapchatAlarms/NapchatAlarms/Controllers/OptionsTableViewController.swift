@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class OptionsTableViewController: UITableViewController {
 
@@ -103,14 +104,37 @@ class OptionsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "unwindToLandingPageSegue" {
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+        }
     }
-    */
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var segueName: String
+        if indexPath.section == 0 {
+            segueName = OptionsConstants.optionsSegueIdentifiers[indexPath.row]
+        } else if indexPath.section == 1 {
+            segueName = OptionsConstants.optionsSegueIdentifiers[indexPath.row]
+        } else {
+            segueName = OptionsConstants.optionsSegueIdentifiers[indexPath.row]
+        }
+        
+        if segueName == "unwindToIntroWithSegue" {
+            performSegue(withIdentifier: "unwindToLandingPageSegue", sender: self)
+            //let introController = self.storyboard?.instantiateViewController(withIdentifier: "introPage")
+            //self.present(introController!, animated:true, completion:nil)
+        }
+        
+        self.performSegue(withIdentifier: segueName, sender: self)
+        
+    }
 }
