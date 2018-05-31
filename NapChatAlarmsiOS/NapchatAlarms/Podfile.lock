@@ -78,15 +78,17 @@ PODS:
 DEPENDENCIES:
   - Crashlytics (~> 3.10.1)
   - Fabric (~> 1.7.6)
+  - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - FirebaseUI/Auth
   - FirebaseUI/Facebook
   - FirebaseUI/Google
+  - GoogleSignIn
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Bolts
     - Crashlytics
     - Fabric
@@ -126,6 +128,6 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 4db458442f8f160f056187070b537ae974eb6010
+PODFILE CHECKSUM: 3f345ed48c388a2ec87deb8ada7f0304104b8fdd
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

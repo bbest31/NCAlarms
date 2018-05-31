@@ -227,17 +227,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N5r-Mb-xpA" customClass="GIDSignInButton">
+                                <rect key="frame" x="67" y="308" width="242" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yEv-Bm-nUh"/>
                     </view>
                     <connections>
+                        <outlet property="GoogleSignInButton" destination="N5r-Mb-xpA" id="jPQ-ha-GjJ"/>
                         <segue destination="EAX-G7-dbj" kind="show" identifier="segueToLogin" id="nxX-9V-p3i"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="segueLandingToHome" id="sWB-zW-Lzw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsq-R3-fuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1519" y="3"/>
+            <point key="canvasLocation" x="-1519.2" y="2.2488755622188905"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="2VC-vP-fYq">
@@ -474,4 +481,7 @@
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="sWB-zW-Lzw"/>
+    </inferredMetricsTieBreakers>
 </document>
