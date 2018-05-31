@@ -11,9 +11,7 @@ target 'NapchatAlarms' do
   pod 'Firebase/Database'
   pod 'Fabric', '~> 1.7.6'
   pod 'Crashlytics', '~> 3.10.1'
-  pod 'FirebaseUI/Auth'
-  pod 'FirebaseUI/Google'
-  pod 'FirebaseUI/Facebook'
+  pod 'FirebaseUI'
   pod 'GoogleSignIn'
 
 
