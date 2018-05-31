@@ -11,15 +11,19 @@ import Firebase
 import GoogleSignIn
 
 class LandingPageViewController: UIViewController, GIDSignInUIDelegate {
-
+    @IBOutlet weak var GoogleSignInButton: GIDSignInButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkUserLoggedIn()
+        //checkUserLoggedIn()
 
         
         // TODO(developer) Configure the sign-in button look/feel
         // ...
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkUserLoggedIn()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,38 +49,6 @@ class LandingPageViewController: UIViewController, GIDSignInUIDelegate {
     
     @IBAction func unwindToLandingPageWithSegue(segue:UIStoryboardSegue) {
         
-    }
-    
-    @IBOutlet weak var GoogleSignInButton: GIDSignInButton!
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        // ...
-        print("1")
-        if let error = error {
-            // ...
-            print("2")
-
-            return
-        }
-        print("3")
-
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        // ...
-        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
-            if let error = error {
-                // ...
-                print("4")
-
-                return
-            }
-            // User is signed in
-            // ...
-            print("signedin")
-            self.performSegue(withIdentifier: "segueLandingToHome", sender: self)
-            
-        }
     }
     
     func checkUserLoggedIn() {
