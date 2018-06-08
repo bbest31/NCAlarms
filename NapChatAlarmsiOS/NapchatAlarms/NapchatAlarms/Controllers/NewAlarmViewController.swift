@@ -10,6 +10,20 @@ import UIKit
 
 class NewAlarmViewController: UIViewController {
 
+    @IBOutlet weak var alarmDatePicker: UIDatePicker!
+    @IBOutlet weak var createButton: UIButton!
+    var alarmTime: Date? {
+        didSet {
+            if alarmTime != nil {
+                createButton.isEnabled = true
+                createButton.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+            } else {
+                createButton.isEnabled = false
+                createButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,6 +47,18 @@ class NewAlarmViewController: UIViewController {
     */
 
     @IBAction func createButtonTapped(_ sender: UIButton) {
+        if alarmTime != nil {
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "HH:mm"
+//            let formattedTime = formatter.date(from: alarmTime!.description)
+            
+            var alarm = AlarmModel(time: alarmTime!, timeString: alarmTime!.description, isEnabled: true)
+            
+            print(alarm.timeString)
+        } else {
+            return
+        }
+
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -41,6 +67,9 @@ class NewAlarmViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func timeChanged(_ sender: UIDatePicker) {
+        alarmTime = sender.date
+    }
 }
 
 

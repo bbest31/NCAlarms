@@ -16,7 +16,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        alarmTableView.setEditing(isEditing, animated: true)
         alarms = initializeFakeAlarms()
         
         alarmTableView.dataSource = self
@@ -36,20 +36,30 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard let cell = alarmTableView.dequeueReusableCell(withIdentifier: "alarmCell", for: indexPath) as? AlarmTableViewCell else {
             fatalError("The dequeued cell is not an instance of AlarmTableViewCell")
         }
-        print("cells created")
+
         let alarm = alarms[indexPath.row]
         cell.alarmLabel.text = alarm.timeString
         cell.alarmEnabledSwitch.isOn = alarm.isEnabled
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            alarms.remove(at: indexPath.row)
+            alarmTableView.reloadData()
+        }
+    }
 
     // create fake alarms until real ones are created by the user
     func initializeFakeAlarms() -> [AlarmModel] {
-        let alarm1 = AlarmModel(timeString: "10:23 AM", isEnabled: true)
-        let alarm2 = AlarmModel(timeString: "7:45 AM", isEnabled: false)
+        let alarm1 = AlarmModel(time: Date(), timeString: "10:23 AM", isEnabled: true)
+        let alarm2 = AlarmModel(time: Date(), timeString: "7:45 AM", isEnabled: false)
         return [alarm1, alarm2]
     }
-
 }
 

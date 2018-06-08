@@ -10,9 +10,13 @@ import UIKit
 
 class AlarmModel {
     var timeString: String // temporary until a proper timestamp is used
+    var time: Date // in UTC
+    var repeatInd: String?
+    var alarmSoundInd: String?
     var isEnabled: Bool
     
-    init(timeString: String, isEnabled: Bool) {
+    init(time: Date, timeString: String, isEnabled: Bool) {
+        self.time = time
         self.timeString = timeString
         self.isEnabled = isEnabled
     }
