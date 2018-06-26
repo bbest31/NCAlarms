@@ -19,6 +19,8 @@ import com.napchatalarms.napchatalarmsandroid.BuildConfig;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
 import com.napchatalarms.napchatalarmsandroid.fragments.AlarmListFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.AlertsFragment;
+import com.napchatalarms.napchatalarmsandroid.fragments.FriendsFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.HealthFactsFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.OptionsFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;
@@ -52,6 +54,12 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_options:
                     selectFragment(findViewById(R.id.navigation_options));
+                    return true;
+                case R.id.navigation_friends:
+                    selectFragment(findViewById(R.id.navigation_friends));
+                    return true;
+                case R.id.navigation_alert:
+                    selectFragment(findViewById(R.id.navigation_alert));
                     return true;
             }
             return false;
@@ -117,6 +125,12 @@ public class HomeActivity extends AppCompatActivity {
         } else if (view == findViewById(R.id.navigation_options) && currentFragment != R.id.navigation_options) {
             fragment = new OptionsFragment();
             currentFragment = R.id.navigation_options;
+        } else if(view == findViewById(R.id.navigation_friends) && currentFragment != R.id.navigation_friends) {
+            fragment = new FriendsFragment();
+            currentFragment = R.id.navigation_friends;
+        } else if (view == findViewById(R.id.navigation_alert) && currentFragment != R.id.navigation_alert) {
+            fragment = new AlertsFragment();
+            currentFragment = R.id.navigation_alert;
         }
 
         //noinspection StatementWithEmptyBody

@@ -4,23 +4,24 @@ package com.napchatalarms.napchatalarmsandroid.model;
  * Created by bbest on 06/05/18.
  */
 
-public class Contact {
+public class Friend {
 
-    public Contact(String displayName, String phoneNumber){
+    public Friend(String displayName, String uid){
         this.name = displayName;
-        this.number = phoneNumber;
+        this.uid = uid;
     }
+
     private String name;
 
-    public String getNumber() {
-        return number;
+    public String getUID() {
+        return uid;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 
-    private String number;
+    private String uid;
 
     public String getName() {
         return name;

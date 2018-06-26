@@ -7,20 +7,19 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.napchatalarms.napchatalarmsandroid.R;
-import com.napchatalarms.napchatalarmsandroid.adapters.ContactAdapter;
-import com.napchatalarms.napchatalarmsandroid.model.Contact;
+import com.napchatalarms.napchatalarmsandroid.adapters.FriendAdapter;
+import com.napchatalarms.napchatalarmsandroid.model.Friend;
 
 import java.util.ArrayList;
 
 public class ContactsActivity extends AppCompatActivity {
 
-    private ArrayList<Contact> contacts;
-    private ArrayList<Contact> selectedContacts;
+    private ArrayList<Friend> friends;
+    private ArrayList<Friend> selectedFriends;
     private Button okayButton;
     private Button cancelButton;
     private ListView contactListView;
@@ -31,8 +30,8 @@ public class ContactsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contacts);
         initialize();
 
-        final ContactAdapter contactAdapter = new ContactAdapter(this,contacts, selectedContacts);
-        contactListView.setAdapter(contactAdapter);
+        final FriendAdapter friendAdapter = new FriendAdapter(this, friends, selectedFriends);
+        contactListView.setAdapter(friendAdapter);
 
 
     }
@@ -41,8 +40,8 @@ public class ContactsActivity extends AppCompatActivity {
         okayButton = findViewById(R.id.contacts_okay_button);
         cancelButton = findViewById(R.id.contacts_cancel_button);
         contactListView = findViewById(R.id.contacts_listview);
-        contacts = new ArrayList<>();
-        selectedContacts = new ArrayList<>();
+        friends = new ArrayList<>();
+        selectedFriends = new ArrayList<>();
 
         // Grab contact info
         Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
@@ -59,7 +58,7 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("contactsArray", selectedContacts);
+                returnIntent.putExtra("contactsArray", selectedFriends);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
 
@@ -80,7 +79,7 @@ public class ContactsActivity extends AppCompatActivity {
         if (cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER) > 0) {
             String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
             String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-            contacts.add(new Contact(name, number));
+            friends.add(new Friend(name, number));
         }
     }
 

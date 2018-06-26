@@ -87,7 +87,8 @@
             </intent-filter>
         </activity>
         <!-- End Facebook Login -->
-        <activity android:name=".activities.ContactsActivity"></activity>
+        <activity android:name=".activities.ContactsActivity" />
+        <activity android:name=".activities.RequestActivity"></activity>
     </application>
 
 </manifest>

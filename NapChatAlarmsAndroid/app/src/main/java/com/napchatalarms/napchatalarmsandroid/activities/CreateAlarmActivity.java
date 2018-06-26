@@ -29,7 +29,7 @@ import com.napchatalarms.napchatalarmsandroid.dialog.RingtoneDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.SnoozeDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.VibrateDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
-import com.napchatalarms.napchatalarmsandroid.model.Contact;
+import com.napchatalarms.napchatalarmsandroid.model.Friend;
 import com.napchatalarms.napchatalarmsandroid.model.OneTimeAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.RepeatingAlarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
@@ -114,7 +114,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
      */
     private Boolean readPermission;
 
-    private ArrayList<Contact> attachedContacts;
+    private ArrayList<Friend> attachedFriends;
     /**
      *
      */
@@ -495,8 +495,8 @@ public class CreateAlarmActivity extends AppCompatActivity {
                     break;
                 case CONTACTS_REQUEST_CODE:
                     Bundle contactData = data.getExtras();
-                    ArrayList<Contact> contactList = (ArrayList<Contact>) contactData.getSerializable("contacts");
-                    setAttachedContacts(contactList);
+                    ArrayList<Friend> friendList = (ArrayList<Friend>) contactData.getSerializable("contacts");
+                    setAttachedFriends(friendList);
                     break;
 
                 default:
@@ -594,10 +594,10 @@ public class CreateAlarmActivity extends AppCompatActivity {
         this.snoozeButton.setText(getString(R.string.snooze_label, snoozeText));
     }
 
-    private void setAttachedContacts(ArrayList<Contact> list) {
-        this.attachedContacts = list;
+    private void setAttachedFriends(ArrayList<Friend> list) {
+        this.attachedFriends = list;
         setContactsText(list);
-        Log.w("CONTACTS", attachedContacts.toString());
+        Log.w("CONTACTS", attachedFriends.toString());
     }
 
     /**
@@ -606,18 +606,18 @@ public class CreateAlarmActivity extends AppCompatActivity {
      *
      * @param list
      */
-    private void setContactsText(ArrayList<Contact> list) {
+    private void setContactsText(ArrayList<Friend> list) {
 
         int len = 0;
         String contacts = "";
-        for (Contact contact : list) {
+        for (Friend friend : list) {
 
-            if (len < 15 && (contact.getName().length() + len) < 15) {
+            if (len < 15 && (friend.getName().length() + len) < 15) {
 
                 if (len != 0) {
-                    contacts.concat(", " + contact.getName());
+                    contacts.concat(", " + friend.getName());
                 } else {
-                    contacts.concat(contact.getName());
+                    contacts.concat(friend.getName());
                 }
 
             } else {

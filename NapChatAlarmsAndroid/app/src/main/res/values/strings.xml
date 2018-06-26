@@ -47,7 +47,9 @@
     <!--Navigation-->
     <string name="facts">Facts</string>
     <string name="Options">Options</string>
+    <string name="Friends">Friends</string>
     <string name="title_home">Home</string>
+    <string name="Alerts">Alerts</string>
 
     <!--Titles & Headers-->
     <string name="Forgot_Pass">Forgot Password?</string>
@@ -58,6 +60,7 @@
     <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
     <string name="login">Login</string>
     <string name="credits">Credits</string>
+
 
     <!--Vibrate Options-->
     <string name="locomotive">Locomotive</string>
@@ -131,6 +134,8 @@
     <string name="done">Done</string>
     <string name="okay_got_it">Ok, got it!</string>
     <string name="minute_abbreviation">min</string>
+    <string name="add_friend">Add Friend+</string>
+    <string name="Requests">Requests</string>
 
 
     <!--Options Menu-->
@@ -249,5 +254,8 @@
     <string name="credit_message">
         Special Thanks to: \n \n Icons designed by:  \n \n Freepik from www.flaticon.com \n Wissawa Khamsriwath from www.flaticon.com \n Smashicons from www.flaticon.com \n Vectors Market from www.flaticon.com
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

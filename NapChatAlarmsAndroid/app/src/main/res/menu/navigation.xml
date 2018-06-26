@@ -10,6 +10,17 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_house"
         android:title="@string/title_home" />
+    <item
+        android:id="@+id/navigation_friends"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/Friends"
+        />
+
+    <item
+        android:id="@+id/navigation_alert"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/Alerts"
+        />
 
     <item
         android:id="@+id/navigation_options"

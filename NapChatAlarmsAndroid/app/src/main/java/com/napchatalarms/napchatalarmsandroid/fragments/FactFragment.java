@@ -29,9 +29,6 @@ public class FactFragment extends Fragment implements IFactFragment {
     private static final String ARG_PAGE = "fact";
     private TextView description;
     private TextView citation;
-    private Button yesBtn;
-    private Button noBtn;
-    private TextView DYKText;
     private ScrollView scrollView;
     private int pageNumber;
     private FirebaseAnalytics mAnalytics;
@@ -73,53 +70,9 @@ public class FactFragment extends Fragment implements IFactFragment {
         View view = inflater.inflate(R.layout.fragment_fact, container, false);
         description = view.findViewById(R.id.fact_description);
         citation = view.findViewById(R.id.fact_citation);
-        yesBtn = view.findViewById(R.id.dyk_yes_btn);
-        noBtn = view.findViewById(R.id.dyk_no_btn);
-        DYKText = view.findViewById(R.id.dyk_text);
         scrollView = view.findViewById(R.id.fact_scrollview);
 
         scrollView.setScrollbarFadingEnabled(false);
-
-        yesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DYKText.setText(getString(R.string.fact_yes_msg));
-                noBtn.setVisibility(View.INVISIBLE);
-                yesBtn.setVisibility(View.INVISIBLE);
-                //noinspection ConstantConditions
-                mAnalytics = FirebaseAnalytics.getInstance(getActivity());
-                //Log event
-                Bundle event = new Bundle();
-                event.putString("DYK_ANSWER", "Y");
-                event.putString("FACT", String.valueOf(pageNumber));
-                event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
-                event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
-                // Add if they are paid or unpaid and when they joined.
-
-                mAnalytics.logEvent("DYK", event);
-            }
-        });
-
-        noBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DYKText.setText(getString(R.string.fact_no_msg));
-                yesBtn.setVisibility(View.INVISIBLE);
-                noBtn.setVisibility(View.INVISIBLE);
-                //noinspection ConstantConditions
-                mAnalytics = FirebaseAnalytics.getInstance(getActivity());
-                Bundle event = new Bundle();
-                event.putString("DYK_ANSWER", "N");
-                event.putString("FACT", String.valueOf(pageNumber));
-                event.putString(FirebaseAnalytics.Param.CAMPAIGN, "StarGazer-1");
-                event.putString(FirebaseAnalytics.Param.ACLID, User.getInstance().getUid());
-                // Add if they are paid or unpaid and when they joined.
-
-                mAnalytics.logEvent("DYK", event);
-            }
-        });
-        yesBtn.setEnabled(false);
-        noBtn.setEnabled(false);
 
         this.setFact(pageNumber);
 
@@ -149,8 +102,6 @@ public class FactFragment extends Fragment implements IFactFragment {
 
     @Override
     public void onBecameVisible() {
-        yesBtn.setEnabled(true);
-        noBtn.setEnabled(true);
 
     }
 
@@ -159,7 +110,6 @@ public class FactFragment extends Fragment implements IFactFragment {
      */
     @Override
     public void onBecameInvisible() {
-        yesBtn.setEnabled(false);
-        noBtn.setEnabled(false);
+
     }
 }

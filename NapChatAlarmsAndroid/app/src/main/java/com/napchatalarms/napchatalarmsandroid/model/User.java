@@ -18,8 +18,7 @@ public class User {
     private String email;
     private ArrayList<Alarm> alarmList;
     private String uid;
-//    private FriendList friendList;
-//    private Map<String, Group> groupList;
+    private ArrayList<Friend> friendList;
 //    private ArrayList<NapAlerts> alerts;
 //    private ArrayList<FriendRequest> friendRequests;
 
@@ -32,6 +31,7 @@ public class User {
             //noinspection ConstantConditions
             this.email = fUser.getEmail();
             this.uid = fUser.getUid();
+            //TODO: Use DAO to get friends list,requests, and alerts.
         } catch (NullPointerException e) {
             e.printStackTrace();
 //            Log.e("User", "Failed to init User");
@@ -77,9 +77,7 @@ public class User {
                 return alarm;
             }
         }
-//        Log.e("User.getAlarmById", "Could not retrieve alarm with ID = " + Id);
-//        Log.e("User", "Current User Alarms:" + User.getInstance().getAlarmList());
-//        Log.e("User", "User Info: " + User.getInstance().toString());
+
         return null;
     }
 
@@ -100,17 +98,26 @@ public class User {
 
     }
 
-//    @Exclude
-//    public Map<String, Object> toMap() {
-//        HashMap<String, Object> result = new HashMap<>();
-//        result.put("uid", uid);
-//        result.put("friends", friendList);
-//        result.put("groups", groupList);
-//        result.put("alerts", alerts);
-//        result.put("requests", friendRequests);
-//
-//        return result;
-//    }
+    public void addFriend(Friend newFriend) {
+        this.friendList.add(newFriend);
+    }
+
+    public Friend getFriend(String uid) {
+        for (Friend f : friendList) {
+            if (f.getUID().equals(uid)) {
+                return f;
+            }
+        }
+        return null;
+    }
+
+    public void removeFriend(String uid) {
+        for (Friend f : friendList) {
+            if (f.getUID().equals(uid)) {
+                friendList.remove(f);
+            }
+        }
+    }
 
 
     //=====GETTERS & SETTERS=====
@@ -170,37 +177,14 @@ public class User {
         this.uid = uid;
     }
 
-//    public FriendList getFriendList() {
-//        return friendList;
-//    }
-//
-//    public void setFriendList(FriendList friendList) {
-//        this.friendList = friendList;
-//    }
-//
-//    public Map<String, Group> getGroupMap() {
-//        return groupList;
-//    }
-//
-//    public void setGroupMap(Map<String, Group> groupList) {
-//        this.groupList = groupList;
-//    }
-//
-//    public ArrayList<NapAlerts> getAlerts() {
-//        return alerts;
-//    }
-//
-//    public void setAlerts(ArrayList<NapAlerts> alerts) {
-//        this.alerts = alerts;
-//    }
-//
-//    public ArrayList<FriendRequest> getFriendRequests() {
-//        return friendRequests;
-//    }
-//
-//    public void setFriendRequests(ArrayList<FriendRequest> friendRequests) {
-//        this.friendRequests = friendRequests;
-//    }
+
+    public ArrayList<Friend> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(ArrayList<Friend> friendList) {
+        this.friendList = friendList;
+    }
 
     @Override
     public String toString() {

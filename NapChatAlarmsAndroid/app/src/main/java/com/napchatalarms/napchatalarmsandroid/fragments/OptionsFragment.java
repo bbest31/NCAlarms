@@ -30,7 +30,6 @@ import com.napchatalarms.napchatalarmsandroid.activities.OnboardingActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.OpenSrcLibActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
-import com.napchatalarms.napchatalarmsandroid.dialog.ChangeUsernameDialog;
 import com.napchatalarms.napchatalarmsandroid.dialog.DeleteAccountDialog;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
