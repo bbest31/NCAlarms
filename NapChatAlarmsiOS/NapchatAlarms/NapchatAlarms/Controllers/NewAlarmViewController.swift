@@ -12,6 +12,7 @@ class NewAlarmViewController: UIViewController {
 
     @IBOutlet weak var alarmDatePicker: UIDatePicker!
     @IBOutlet weak var createButton: UIButton!
+    var alarm: AlarmModel?
     var alarmTime: Date? {
         didSet {
             if alarmTime != nil {
@@ -36,30 +37,25 @@ class NewAlarmViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
-
-    @IBAction func createButtonTapped(_ sender: UIButton) {
+        super.prepare(for: segue, sender: sender)
+        
         if alarmTime != nil {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "HH:mm"
-//            let formattedTime = formatter.date(from: alarmTime!.description)
+            //            let formatter = DateFormatter()
+            //            formatter.dateFormat = "HH:mm"
+            //            let formattedTime = formatter.date(from: alarmTime!.description)
             
-            var alarm = AlarmModel(time: alarmTime!, timeString: alarmTime!.description, isEnabled: true)
+            alarm = AlarmModel(time: alarmTime!, timeString: alarmTime!.description, isEnabled: true)
             
-            print(alarm.timeString)
+            print(alarm?.timeString)
         } else {
             return
         }
-
-        self.dismiss(animated: true, completion: nil)
     }
     
     

@@ -61,5 +61,33 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let alarm2 = AlarmModel(time: Date(), timeString: "7:45 AM", isEnabled: false)
         return [alarm1, alarm2]
     }
+    
+    private func saveAlarms() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(alarms, toFile: AlarmModel.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Alarms successfully saved.")
+        } else {
+            print("Failed to save alarms...")
+        }
+    }
+    
+    private func loadAlarms() -> [AlarmModel]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: AlarmModel.ArchiveURL.path) as? [AlarmModel]
+    }
+    
+    @IBAction func unwindToAlarmList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? NewAlarmViewController, let alarm = sourceViewController.alarm {
+            
+            let newIndexPath = IndexPath(row: alarms.count, section: 0)
+            
+            alarms.append(alarm)
+            alarmTableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+        }
+    }
+    
 }
+
+
 

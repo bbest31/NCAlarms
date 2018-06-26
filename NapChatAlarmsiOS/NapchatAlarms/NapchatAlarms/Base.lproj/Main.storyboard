@@ -169,7 +169,7 @@
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="createButtonTapped:" destination="VfL-tg-m4b" eventType="touchUpInside" id="6UR-fX-E1k"/>
+                                    <segue destination="8wE-v0-ize" kind="unwind" unwindAction="unwindToAlarmListWithSender:" id="1hO-qW-qHS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bmt-vZ-1Hp">
@@ -233,6 +233,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5lN-n1-tfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="8wE-v0-ize" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3607" y="30"/>
         </scene>
