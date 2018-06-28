@@ -28,6 +28,40 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        switch(segue.identifier ?? "") {
+        case "addAlarm":
+            print("adding alarm")
+            
+        case "showAlarm":
+            print("viewing alarm")
+            guard let newAlarmViewController = segue.destination as? NewAlarmViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedAlarmCell = sender as? AlarmTableViewCell else {
+                fatalError("Unexpected sender: \(sender)")
+            }
+            
+            guard let indexPath = alarmTableView.indexPath(for: selectedAlarmCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedAlarm = alarms[indexPath.row]
+            newAlarmViewController.alarm = selectedAlarm
+            
+        default:
+            print("default")
+        }
+    }
+    
+    // MARK: - Table View Methods
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return alarms.count
     }

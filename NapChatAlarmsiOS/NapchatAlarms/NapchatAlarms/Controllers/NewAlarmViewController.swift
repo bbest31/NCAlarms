@@ -11,24 +11,27 @@ import UIKit
 class NewAlarmViewController: UIViewController {
 
     @IBOutlet weak var alarmDatePicker: UIDatePicker!
-    @IBOutlet weak var createButton: UIButton!
     var alarm: AlarmModel?
     var alarmTime: Date? {
         didSet {
-            if alarmTime != nil {
-                createButton.isEnabled = true
-                createButton.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-            } else {
-                createButton.isEnabled = false
-                createButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-            }
+//            if alarmTime != nil {
+//                createButton.isEnabled = true
+//                createButton.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+//            } else {
+//                createButton.isEnabled = false
+//                createButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+//            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let alarm = alarm {
+            self.title = "Edit Alarm"
+            print(alarm.time)
+            alarmDatePicker.setDate(alarm.time, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,8 +61,7 @@ class NewAlarmViewController: UIViewController {
         }
     }
     
-    
-    @IBAction func cancelButtonTapped(_ sender: UIButton) {
+    @IBAction func cancelButtonSelected(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
