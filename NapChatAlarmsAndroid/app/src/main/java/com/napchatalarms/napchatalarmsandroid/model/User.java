@@ -19,8 +19,9 @@ public class User {
     private ArrayList<Alarm> alarmList;
     private String uid;
     private ArrayList<Friend> friendList;
-//    private ArrayList<NapAlerts> alerts;
-//    private ArrayList<FriendRequest> friendRequests;
+    private ArrayList<Alert> alerts;
+    private ArrayList<Friend> friendRequests;
+    private String username;
 
     /**
      * Private Constructor
@@ -31,6 +32,7 @@ public class User {
             //noinspection ConstantConditions
             this.email = fUser.getEmail();
             this.uid = fUser.getUid();
+            this.username = fUser.getDisplayName();
             //TODO: Use DAO to get friends list,requests, and alerts.
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -189,5 +191,41 @@ public class User {
     @Override
     public String toString() {
         return "UID: " + this.getUid() + ", E: " + this.getEmail();
+    }
+
+    public ArrayList<Alert> getAlerts() {
+        return alerts;
+    }
+
+    public void setAlerts(ArrayList<Alert> alerts) {
+        this.alerts = alerts;
+    }
+
+    public void recievedAlert(Alert alert) {
+        this.alerts.add(alert);
+    }
+
+    public ArrayList<Friend> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public void setFriendRequests(ArrayList<Friend> friendRequests) {
+        this.friendRequests = friendRequests;
+    }
+
+    public void removeRequest(String uid) {
+        for(Friend f:this.friendRequests) {
+            if(f.getUID().equals(uid)){
+                this.friendRequests.remove(f);
+            }
+        }
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

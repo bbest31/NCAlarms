@@ -14,12 +14,15 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.adapters.FriendAdapter;
+import com.napchatalarms.napchatalarmsandroid.model.User;
 
 public class FriendsFragment extends android.support.v4.app.Fragment {
 
     private SwipeMenuListView friendsListView;
     private Button addFriendButton;
     private Button requestButton;
+    private FriendAdapter friendAdapter;
 
     /**
      * Empty constructor
@@ -33,6 +36,12 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         initialize(view);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateFriendList();
     }
 
     private void initialize(View view){
@@ -80,6 +89,7 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: Go to Request Activity
+                updateFriendList();
             }
         });
 
@@ -87,9 +97,21 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: Open dialog to add friend
+
+                updateFriendList();
             }
         });
 
+
+        updateFriendList();
+
     }
+
+    private void updateFriendList(){
+        friendAdapter = new FriendAdapter(getContext(), User.getInstance().getFriendList());
+        friendsListView.setAdapter(friendAdapter);
+    }
+
+
 
 }

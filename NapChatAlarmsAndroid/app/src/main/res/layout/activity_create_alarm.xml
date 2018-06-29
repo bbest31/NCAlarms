@@ -147,7 +147,7 @@
                         android:fontFamily="@font/fredoka_one"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:text="@string/attach_contacts"
+                        android:text="@string/attach_notification"
                         android:textAlignment="viewStart"
                         android:textColor="@color/black" />
 

@@ -118,7 +118,7 @@
     <string name="next">Next</string>
     <string name="cancel">Cancel</string>
     <string name="repeat">Repeat</string>
-    <string name="attach_contacts">Attach Contacts</string>
+    <string name="attach_notification">Attach Notification</string>
     <string name="Cancel">Cancel</string>
     <string name="Send">Send</string>
     <string name="vibrate">Vibrate</string>
@@ -186,7 +186,7 @@
     <string name="fact_yes_msg">You\'re so smart!</string>
     <string name="fact_no_msg">Well now you know!</string>
     <string name="forgot_pass_message">Please enter your email to send a password reset email.</string>
-    <string name="sign_up_email_msg">Please enter an email and password (min. 8 chars) for your account.</string>
+    <string name="sign_up_email_msg">Please enter an email, username (min. 6 chars), and password (min. 8 chars)</string>
     <string name="dnd_permission_text">Please allow Napchat to override your Do Not Disturb state to ensure our alarms will sound through Alarm Only and Total Silence modes.</string>
     <string name="signup_pwd_msg">Enter a password.(min 8 characters)</string>
     <string name="Reauthenticate">Please re-authenticate to delete account.</string>

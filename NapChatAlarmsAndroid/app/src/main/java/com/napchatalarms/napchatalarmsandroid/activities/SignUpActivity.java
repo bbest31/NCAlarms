@@ -40,6 +40,9 @@ public class SignUpActivity extends AppCompatActivity {
      * The Password.
      */
     public String password;
+
+    public String username;
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -49,6 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         email = null;
         password = null;
+        username = null;
         initFragment(new View(getApplicationContext()));
 
     }
@@ -153,6 +157,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void initProfile(final FirebaseUser user) {
 
         UserProfileChangeRequest initializeProfile = new UserProfileChangeRequest.Builder()
+                .setDisplayName(username)
                 .build();
         user.updateProfile(initializeProfile)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.napchatalarms.napchatalarmsandroid.model.Alert;
 import com.napchatalarms.napchatalarmsandroid.model.Friend;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
@@ -96,19 +97,6 @@ public class FirebaseDAO {
         return instance;
     }
 
-    public void writeFriendsList(String uid, ArrayList<Friend> friends) {
-        dbRef.child("users").child(uid).child("friends").setValue(friends).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-
-                } else {
-                    Log.e("FirebaseDAO", "Failure to write user friend list: " + task.getException().getMessage());
-                }
-            }
-        });
-    }
-
     /**
      * Init user to db.
      *
@@ -129,35 +117,92 @@ public class FirebaseDAO {
             }
         });
 
+        dbRef.child("users").child(user.getUid()).child("username").setValue(user.getUsername()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()) {
+
+                } else {
+
+                }
+            }
+        });
+
+        dbRef.child("users").child(user.getUid()).child("friends").setValue(user.getFriendList()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+
+                } else {
+
+                }
+            }
+        });
+
+        dbRef.child("users").child(user.getUid()).child("alerts").setValue(user.getAlerts()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+
+                } else {
+
+                }
+            }
+        });
+
+        dbRef.child("users").child(user.getUid()).child("requests").setValue(user.getFriendRequests()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+
+                } else {
+
+                }
+            }
+        });
+
     }
 
-//    public void writeAlerts(String uid, ArrayList<NapAlerts> alerts) {
-//        //
-//        dbRef.child("users").child(uid).child("alerts").setValue(alerts).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()) {
-//
-//                } else {
-//                    Log.e("FirebaseDAO", "Failure to write user alerts: " + task.getException().getMessage());
-//                }
-//            }
-//        });
-//    }
-//
-//    public void writeFriendRequest(String uid, ArrayList<FriendRequest> requests) {
-//        //
-//        dbRef.child("users").child(uid).child("requests").setValue(requests).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()) {
-//
-//                } else {
-//                    Log.e("FirebaseDAO", "Failure to write user requests: " + task.getException().getMessage());
-//                }
-//            }
-//        });
-//    }
+    public void writeAlerts(String uid, ArrayList<Alert> alerts) {
+        //
+        dbRef.child("users").child(uid).child("alerts").setValue(alerts).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user alerts: " + task.getException().getMessage());
+                }
+            }
+        });
+    }
+
+    public void writeFriendsList(String uid, ArrayList<Friend> friends) {
+        dbRef.child("users").child(uid).child("friends").setValue(friends).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user friend list: " + task.getException().getMessage());
+                }
+            }
+        });
+    }
+
+    public void writeFriendRequest(String uid, ArrayList<Friend> requests) {
+        //
+        dbRef.child("users").child(uid).child("requests").setValue(requests).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                } else {
+                    Log.e("FirebaseDAO", "Failure to write user requests: " + task.getException().getMessage());
+                }
+            }
+        });
+    }
 
 
     /**

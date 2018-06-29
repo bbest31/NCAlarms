@@ -14,7 +14,8 @@ import com.napchatalarms.napchatalarmsandroid.activities.SignUpActivity;
 import com.napchatalarms.napchatalarmsandroid.utility.InputValidator;
 import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
 
-/** Fragment in signup process where the User enters there desired email and username.
+/**
+ * Fragment in signup process where the User enters there desired email and username.
  * Created by bbest on 12/03/18.
  */
 public class SignUpFragment extends android.support.v4.app.Fragment {
@@ -27,6 +28,8 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
      * The Password edit text.
      */
     private EditText passwordEditText;
+
+    private EditText usernameEditText;
 
     /**
      * Instantiates a new Sign up email fragment.
@@ -44,11 +47,10 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
     }
 
     private void initialize(View view) {
-        /*
-      The Next button.
-     */
+
         Button confirmButton = view.findViewById(R.id.signup_confirm_btn);
         emailEditText = view.findViewById(R.id.signup_email_edittext);
+        usernameEditText = view.findViewById(R.id.signup_username_edittext);
         passwordEditText = view.findViewById(R.id.signup_pwd_edittext);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -57,14 +59,18 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
                 Boolean validCredentials = true;
                 String password = passwordEditText.getText().toString();
                 String email = emailEditText.getText().toString();
+                String username = usernameEditText.getText().toString();
                 int err = 0;
 
                 if (!InputValidator.isValidEmail(email) || email.trim().isEmpty()) {
                     err = 1;
                     validCredentials = false;
 
-                } else if (!InputValidator.isValidPassword(password) || password.trim().isEmpty()) {
+                } else if (!InputValidator.isValidUsername(username) || username.trim().isEmpty()) {
                     err = 2;
+                    validCredentials = false;
+                } else if (!InputValidator.isValidPassword(password) || password.trim().isEmpty()) {
+                    err = 3;
                     validCredentials = false;
                 }
 
@@ -74,6 +80,7 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
                     //noinspection ConstantConditions
                     activity.email = email;
                     activity.password = password;
+                    activity.username = username;
                     activity.createNewUser();
                 }
                 if (!validCredentials) {
@@ -94,6 +101,9 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
                 toast = Toaster.createInvalidEmailToast(getActivity(), getLayoutInflater());
                 break;
             case 2:
+                //TODO: show err toast for invalid username.
+                break;
+            case 3:
                 toast = Toaster.createInvalidPasswordToast(getActivity(), getLayoutInflater());
                 break;
             default:

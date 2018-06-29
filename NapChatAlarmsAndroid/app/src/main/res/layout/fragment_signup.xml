@@ -47,6 +47,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <EditText
+                android:id="@+id/signup_username_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="@string/new_username"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintBottom_toTopOf="@+id/signup_pwd_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
@@ -67,7 +84,7 @@
                 android:id="@+id/signup_email_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:ems="10"
@@ -75,9 +92,12 @@
                 android:hint="@string/jane_doe_email_com"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
+                android:textAlignment="center"
                 android:textColor="@color/dark_grey"
-                app:layout_constraintBottom_toTopOf="@+id/signup_pwd_edittext"
+                app:layout_constraintBottom_toTopOf="@+id/signup_username_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
@@ -90,6 +110,7 @@
                 android:ems="10"
                 android:hint="@string/pass_hint"
                 android:inputType="textPassword"
+                android:singleLine="true"
                 android:textAlignment="center"
                 android:textColor="@color/dark_grey"
                 app:layout_constraintBottom_toTopOf="@+id/signup_confirm_btn"

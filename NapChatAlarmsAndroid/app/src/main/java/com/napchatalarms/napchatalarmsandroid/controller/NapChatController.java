@@ -7,6 +7,8 @@ import android.os.Build;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
+import com.napchatalarms.napchatalarmsandroid.model.Alert;
+import com.napchatalarms.napchatalarmsandroid.model.Friend;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 import java.io.File;
@@ -142,6 +144,33 @@ public class NapChatController {
         }
     }
 
+    public void loadUserFriends(Context context) throws IOException {
+        try {
+            User user = User.getInstance();
+            //TODO: finish
+        } catch (Exception e){
+
+        }
+    }
+
+    public void loadUserAlerts(Context context) throws IOException {
+        try {
+            User user = User.getInstance();
+            //TODO: finish
+        } catch (Exception e){
+
+        }
+    }
+
+    public void loadUserRequests(Context context) throws IOException {
+        try {
+            User user = User.getInstance();
+            //TODO: finish
+        } catch (Exception e){
+
+        }
+    }
+
     /**
      * Delete files.
      *
@@ -206,6 +235,29 @@ public class NapChatController {
     }
 
     /**
+     * Initialize the <code>NotificationChannel</code> for the alerts received by users friends.
+     * @param context
+     * @see NotificationChannel
+     */
+    public void initAlertChannel(Context context) {
+        int buildVersion = Build.VERSION.SDK_INT;
+        if (buildVersion >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(
+                    NOTIFICATION_SERVICE);
+            try {
+                notificationManager.getNotificationChannel("alert");
+            } catch (RuntimeException e) {
+                CharSequence channelName = "alert channel";
+                String channelDescription = "application alerts";
+                NotificationChannel alertChannel = new NotificationChannel("alert", channelName, NotificationManager.IMPORTANCE_HIGH);
+                alertChannel.setDescription(channelDescription);
+                notificationManager.createNotificationChannel(alertChannel);
+
+            }
+        }
+    }
+
+    /**
      * @param email - the user email.
      * @return newly formatted email which has @ and . replaced with underscore
      */
@@ -224,6 +276,7 @@ public class NapChatController {
         User.getInstance().setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         //noinspection ConstantConditions
         User.getInstance().setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        User.getInstance().setUsername(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
     }
 
     /**
@@ -234,9 +287,8 @@ public class NapChatController {
         user.setUid(null);
         user.setEmail(null);
         user.setAlarmList(new ArrayList<Alarm>());
-//        user.setAlerts(new ArrayList<NapAlerts>());
-//        user.setFriendList(new FriendList());
-//        user.setGroupMap(new HashMap<String, Group>());
+        user.setAlerts(new ArrayList<Alert>());
+        user.setFriendList(new ArrayList<Friend>());
     }
 
 
