@@ -12,6 +12,8 @@ class NewAlarmViewController: UIViewController {
 
     @IBOutlet weak var alarmDatePicker: UIDatePicker!
     var alarm: AlarmModel?
+    
+    @IBOutlet weak var alarmSwitch: UISwitch!
     var alarmTime: Date? {
         didSet {
 //            if alarmTime != nil {
@@ -31,6 +33,8 @@ class NewAlarmViewController: UIViewController {
             self.title = "Edit Alarm"
             print(alarm.time)
             alarmDatePicker.setDate(alarm.time, animated: true)
+            alarmSwitch.setOn(alarm.isEnabled, animated: false)
+            
         }
     }
 
@@ -53,9 +57,10 @@ class NewAlarmViewController: UIViewController {
             //            formatter.dateFormat = "HH:mm"
             //            let formattedTime = formatter.date(from: alarmTime!.description)
             
-            alarm = AlarmModel(time: alarmTime!, timeString: alarmTime!.description, isEnabled: true)
+            alarm = AlarmModel(time: alarmTime!, timeString: alarmTime!.description, isEnabled: alarmSwitch.isOn)
             
             print(alarm?.timeString)
+            print(alarm?.isEnabled)
         } else {
             return
         }
@@ -68,6 +73,8 @@ class NewAlarmViewController: UIViewController {
     @IBAction func timeChanged(_ sender: UIDatePicker) {
         alarmTime = sender.date
     }
+    
+    
 }
 
 

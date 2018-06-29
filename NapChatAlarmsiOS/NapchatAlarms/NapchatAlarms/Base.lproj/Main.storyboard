@@ -226,6 +226,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="alarmDatePicker" destination="3wP-Ea-KeM" id="cSp-Jz-cjN"/>
+                        <outlet property="alarmSwitch" destination="rVz-3R-zHp" id="s8a-hl-hOf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5lN-n1-tfn" userLabel="First Responder" sceneMemberID="firstResponder"/>

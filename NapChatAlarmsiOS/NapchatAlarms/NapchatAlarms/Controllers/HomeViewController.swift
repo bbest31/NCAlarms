@@ -73,7 +73,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         let alarm = alarms[indexPath.row]
         cell.alarmLabel.text = alarm.timeString
-        cell.alarmEnabledSwitch.isOn = alarm.isEnabled
+        cell.alarmEnabledSwitch.setOn(alarm.isEnabled, animated: true) 
         
         return cell
     }
@@ -111,16 +111,30 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func unwindToAlarmList(sender: UIStoryboardSegue) {
+        
         if let sourceViewController = sender.source as? NewAlarmViewController, let alarm = sourceViewController.alarm {
             
-            let newIndexPath = IndexPath(row: alarms.count, section: 0)
-            
-            alarms.append(alarm)
-            alarmTableView.insertRows(at: [newIndexPath], with: .automatic)
-            
+            if let selectedIndexPath = alarmTableView.indexPathForSelectedRow {
+                alarms[selectedIndexPath.row] = alarm
+                alarmTableView.reloadRows(at: [selectedIndexPath], with: .none)
+            } else {
+                let newIndexPath = IndexPath(row: alarms.count, section: 0)
+                
+                alarms.append(alarm)
+                alarmTableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
     }
     
+    // TODO: trigger this when alarm switch is toggled, add state of toggle
+    func buttonTapped(cell: AlarmTableViewCell) {
+        guard let indexPath = alarmTableView.indexPath(for: cell) else {
+            return
+        }
+        let alarm = alarms[indexPath.row]
+        // set alarm enabled property to value of toggle
+        // save the alarm
+    }
 }
 
 
