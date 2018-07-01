@@ -60,6 +60,8 @@
     <string name="dnd_permission_title">Allow Do Not Disturb Override</string>
     <string name="login">Login</string>
     <string name="credits">Credits</string>
+    <string name="remove_friend">Remove Friend</string>
+    <string name="add_friend_title">Add Friend</string>
 
 
     <!--Vibrate Options-->
@@ -134,8 +136,9 @@
     <string name="done">Done</string>
     <string name="okay_got_it">Ok, got it!</string>
     <string name="minute_abbreviation">min</string>
-    <string name="add_friend">Add Friend+</string>
+    <string name="add_friend_btn_label">Add Friend+</string>
     <string name="Requests">Requests</string>
+    <string name="Remove">Remove</string>
 
 
     <!--Options Menu-->
@@ -194,6 +197,9 @@
     <string name="conn_error">Connection Error!</string>
     <string name="login_error_message">Login Failed!</string>
     <string name="system_error_message">System Error!</string>
+    <string name="remove_friend_message">Are you sure you want to remove this friend?</string>
+    <string name="add_friend_message">Enter username to send friend request.</string>
+    <string name="add_friend_error_text">That user does not exist!</string>
 
     <!--Open Source Libraries-->
     <string name="firebase_auth">Firebase Authentication</string>
@@ -255,7 +261,5 @@
         Special Thanks to: \n \n Icons designed by:  \n \n Freepik from www.flaticon.com \n Wissawa Khamsriwath from www.flaticon.com \n Smashicons from www.flaticon.com \n Vectors Market from www.flaticon.com
     </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

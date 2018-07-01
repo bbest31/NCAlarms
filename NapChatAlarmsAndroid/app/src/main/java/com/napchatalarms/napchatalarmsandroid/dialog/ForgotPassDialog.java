@@ -59,8 +59,8 @@ public class ForgotPassDialog extends Dialog implements android.view.View.OnClic
      */
         Button send = findViewById(R.id.forgot_pass_send_btn);
         Button cancel = findViewById(R.id.forgot_pass_cancel_btn);
-        emailEntry = findViewById(R.id.password_reset_email_entry);
-        errText = findViewById(R.id.forgot_password_error_text);
+        emailEntry = findViewById(R.id.add_friend_edit_text);
+        errText = findViewById(R.id.add_friend_error_text);
         send.setOnClickListener(this);
         cancel.setOnClickListener(this);
 

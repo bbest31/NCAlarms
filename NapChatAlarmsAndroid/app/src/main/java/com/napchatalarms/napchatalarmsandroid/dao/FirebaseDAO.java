@@ -247,5 +247,47 @@ public class FirebaseDAO {
         });
     }
 
+    public void removeFriend(String uid, String friendUID){
+        ArrayList<Friend> friends = User.getInstance().getFriendList();
+
+        for(Friend friend:friends) {
+            if(friend.getUID().equals(friendUID)) {
+                User.getInstance().removeFriend(friendUID);
+                break;
+            }
+        }
+        dbRef.child("users").child(uid).child("friends").setValue(friends).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()) {
+                    //Log.i("FirebaseDAO", "Successfully removed user.");
+                } else {
+                    //Log.i("FirebaseDAO", "Failed to remove user.");
+                }
+            }
+        });
+    }
+
+    public void sendFriendRequest(String targetUID){
+        Friend sendingUser = new Friend(User.getInstance().getUsername(),User.getInstance().getUid());
+        //TODO: add new user to requests.
+    }
+
+    public void confirmRequest(){
+
+    }
+
+    public void denyRequest(){
+
+    }
+
+    public void sendAlert(){
+
+    }
+
+    public void scrubAlerts(){
+
+    }
+
 
 }

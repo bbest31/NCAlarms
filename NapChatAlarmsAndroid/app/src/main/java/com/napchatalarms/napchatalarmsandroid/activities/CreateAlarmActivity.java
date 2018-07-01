@@ -333,16 +333,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
         pillowTalkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                    //TODO: Ask permission to access contacts
-                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                            CONTACTS_REQUEST_CODE);
-                }
 
-                if (checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-                    Intent contactsIntent = new Intent(CreateAlarmActivity.this, ContactsActivity.class);
-                    startActivityForResult(contactsIntent, CONTACTS_REQUEST_CODE);
-                }
             }
         });
 

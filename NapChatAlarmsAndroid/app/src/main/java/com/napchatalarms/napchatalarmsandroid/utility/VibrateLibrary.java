@@ -7,7 +7,6 @@ import com.napchatalarms.napchatalarmsandroid.model.VibratePattern;
  */
 
 public class VibrateLibrary {
-    //TODO need to have Vibrate Pattern names from strings.xml
     private static final long[] HEARTBEAT = {0, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500, 200, 100, 200, 500};
     private static final VibratePattern HEARTBEAT_PATTERN = new VibratePattern(2, "Heartbeat", HEARTBEAT);
     private static final long[] BUZZSAW = {0, 10000};

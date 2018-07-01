@@ -18,7 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/fredoka_one"
-        android:text="@string/Forgot_Pass"
+        android:text="@string/remove_friend"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@color/dark_grey"
@@ -29,65 +29,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/add_friend_text"
+        android:id="@+id/remove_friend_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/forgot_pass_message"
+        android:text="@string/remove_friend_message"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_friend_title" />
-
-    <EditText
-        android:id="@+id/add_friend_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/email_hint"
-        android:inputType="textEmailAddress"
-        android:singleLine="true"
-        android:textAlignment="viewStart"
-        android:textColor="@color/dark_grey"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/add_friend_error_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_friend_text"
-        tools:ignore="TextFields" />
-
-    <TextView
-        android:id="@+id/add_friend_error_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/forgot_password_error_message"
-        android:textColor="@color/unverified_red"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remove_friend_text">
 
         <Button
-            android:id="@+id/forgot_pass_cancel_btn"
+            android:id="@+id/delete_friend_cancel_btn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@+id/add_friend_edit_text" />
 
         <Button
-            android:id="@+id/forgot_pass_send_btn"
+            android:id="@+id/delete_friend_confirm_btn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,7 +78,7 @@
             android:layout_weight="1"
             android:background="@drawable/round_blue_popup_btn"
             android:fontFamily="@font/fredoka_one"
-            android:text="@string/Send"
+            android:text="@string/confirm"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

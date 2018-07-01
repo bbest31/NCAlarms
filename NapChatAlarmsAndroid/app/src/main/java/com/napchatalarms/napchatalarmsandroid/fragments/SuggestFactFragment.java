@@ -18,14 +18,15 @@ import com.napchatalarms.napchatalarmsandroid.abstractions.IFactFragment;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * The type Suggest fact fragment.
- *
- * @todo 26/03/18 Have the text boxes wait for them to send the email before clearing. Created by bbest on 18/03/18.
  */
 @SuppressWarnings("unused")
 public class SuggestFactFragment extends FactFragment implements IFactFragment {
     private static final String ARG_PAGE = "submitFact";
+    private final int EMAIL_REQCODE = 0;
     private Button submitBtn;
     private EditText descriptionField;
     private EditText link;
@@ -84,12 +85,11 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
                 emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
                 try {
-                    startActivity(Intent.createChooser(emailIntent, "Send email using..."));
+                    startActivityForResult(Intent.createChooser(emailIntent, "Send email using..."), EMAIL_REQCODE);
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(getActivity(), "No email clients installed.", Toast.LENGTH_SHORT).show();
                 }
-                descriptionField.setText("");
-                link.setText("");
+
             }
         });
         // Set the view to be disabled so they aren't clickable before the fragment is visible.
@@ -127,5 +127,20 @@ public class SuggestFactFragment extends FactFragment implements IFactFragment {
         link.setEnabled(false);
         descriptionField.setEnabled(false);
         submitBtn.setEnabled(false);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case EMAIL_REQCODE:
+                    //Back from emailing fact.
+                    descriptionField.setText("");
+                    link.setText("");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

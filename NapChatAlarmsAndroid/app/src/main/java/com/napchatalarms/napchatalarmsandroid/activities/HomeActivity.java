@@ -171,6 +171,7 @@ public class HomeActivity extends AppCompatActivity {
 
             // TODO This is an upgrade
       //      Log.w("HOME","This is a upgrade");
+
         }
 
         // Update the shared preferences with the current version code

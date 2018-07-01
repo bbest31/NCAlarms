@@ -1,5 +1,6 @@
 package com.napchatalarms.napchatalarmsandroid.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,11 +15,17 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.napchatalarms.napchatalarmsandroid.R;
+import com.napchatalarms.napchatalarmsandroid.activities.RequestActivity;
 import com.napchatalarms.napchatalarmsandroid.adapters.FriendAdapter;
+import com.napchatalarms.napchatalarmsandroid.dialog.AddFriendDialog;
+import com.napchatalarms.napchatalarmsandroid.dialog.DeleteFriendDialog;
 import com.napchatalarms.napchatalarmsandroid.model.User;
+
+import static android.app.Activity.RESULT_OK;
 
 public class FriendsFragment extends android.support.v4.app.Fragment {
 
+    private final int REQUEST_REQCODE = 1;
     private SwipeMenuListView friendsListView;
     private Button addFriendButton;
     private Button requestButton;
@@ -27,7 +34,7 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
     /**
      * Empty constructor
      */
-    public FriendsFragment(){
+    public FriendsFragment() {
 
     }
 
@@ -44,7 +51,7 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
         updateFriendList();
     }
 
-    private void initialize(View view){
+    private void initialize(View view) {
         friendsListView = view.findViewById(R.id.friend_list_view);
         addFriendButton = view.findViewById(R.id.add_friend_button);
         requestButton = view.findViewById(R.id.requests_button);
@@ -60,7 +67,7 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
                 // set item width
                 deleteItem.setWidth(300);
                 // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete_trashcan);
+                deleteItem.setTitle(R.string.Remove);
                 deleteItem.setTitleSize(18);
                 deleteItem.setTitleColor(Color.WHITE);
                 // add to menu
@@ -73,10 +80,10 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
         friendsListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                if(index == 0) {
-                    //TODO:Delete friend button selected. Affirm action with dialog.Remove from user model and update DB reference. Also update the other users friends list.
-
-
+                if (index == 0) {
+                    DeleteFriendDialog dialog = new DeleteFriendDialog(getActivity(), friendAdapter.getItem(position).getUID());
+                    dialog.show();
+                    updateFriendList();
                 }
                 return false;
             }
@@ -88,30 +95,41 @@ public class FriendsFragment extends android.support.v4.app.Fragment {
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Go to Request Activity
-                updateFriendList();
+                Intent requestIntent = new Intent(getActivity(), RequestActivity.class);
+                startActivityForResult(requestIntent, REQUEST_REQCODE);
             }
         });
 
         addFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Open dialog to add friend
-
+                AddFriendDialog addFriendDialog = new AddFriendDialog(getActivity());
+                addFriendDialog.show();
                 updateFriendList();
             }
         });
-
 
         updateFriendList();
 
     }
 
-    private void updateFriendList(){
+    private void updateFriendList() {
         friendAdapter = new FriendAdapter(getContext(), User.getInstance().getFriendList());
         friendsListView.setAdapter(friendAdapter);
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 1:
+                    //Back from RequestActivity
+                    updateFriendList();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
 }
