@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.fragments.LandingFragment;
 import com.napchatalarms.napchatalarmsandroid.fragments.LoginFragment;
 import com.napchatalarms.napchatalarmsandroid.model.User;

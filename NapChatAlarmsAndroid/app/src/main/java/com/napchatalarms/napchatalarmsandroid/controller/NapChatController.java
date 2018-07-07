@@ -144,33 +144,6 @@ public class NapChatController {
         }
     }
 
-    public void loadUserFriends(Context context) throws IOException {
-        try {
-            User user = User.getInstance();
-            //TODO: finish
-        } catch (Exception e){
-
-        }
-    }
-
-    public void loadUserAlerts(Context context) throws IOException {
-        try {
-            User user = User.getInstance();
-            //TODO: finish
-        } catch (Exception e){
-
-        }
-    }
-
-    public void loadUserRequests(Context context) throws IOException {
-        try {
-            User user = User.getInstance();
-            //TODO: finish
-        } catch (Exception e){
-
-        }
-    }
-
     /**
      * Delete files.
      *
@@ -192,7 +165,6 @@ public class NapChatController {
      * @param context the context
      */
     public void loadUserData(Context context) {
-        loadUserInfo();
         try {
             loadUserAlarms(context);
         } catch (IOException e) {
@@ -270,7 +242,7 @@ public class NapChatController {
     /**
      * Load user info.
      */
-    private void loadUserInfo() {
+    public void initUserInfo() {
         //noinspection ConstantConditions
         //noinspection ConstantConditions
         User.getInstance().setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());

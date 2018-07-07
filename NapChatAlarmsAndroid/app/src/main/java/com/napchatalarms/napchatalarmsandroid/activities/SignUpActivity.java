@@ -167,6 +167,7 @@ public class SignUpActivity extends AppCompatActivity {
                             try {
                                 //Create new files directory for user in internal storage
                                 NapChatController.getInstance().loadUserData(getApplicationContext());
+                                NapChatController.getInstance().initUserInfo();
                                 FirebaseDAO dao = FirebaseDAO.getInstance();
                                 User newUser = User.getInstance();
                                 dao.initUserToDB(newUser);

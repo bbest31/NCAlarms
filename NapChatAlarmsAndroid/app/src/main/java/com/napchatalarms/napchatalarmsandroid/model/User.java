@@ -2,6 +2,7 @@ package com.napchatalarms.napchatalarmsandroid.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 
 import java.util.ArrayList;
 
@@ -27,19 +28,7 @@ public class User {
      * Private Constructor
      */
     private User() {
-        try {
-            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-            //noinspection ConstantConditions
-            this.email = fUser.getEmail();
-            this.uid = fUser.getUid();
-            this.username = fUser.getDisplayName();
-            //TODO: Use DAO to get friends list,requests, and alerts.
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-//            Log.e("User", "Failed to init User");
-        }
 
-        this.alarmList = new ArrayList<>();
     }
 
     /**
@@ -50,6 +39,7 @@ public class User {
     public static User getInstance() {
         if (instance == null) {
             instance = new User();
+            FirebaseDAO.getInstance().loadUserInfo();
         }
         return instance;
     }
@@ -201,6 +191,10 @@ public class User {
         this.alerts = alerts;
     }
 
+    public void clearAlerts() {
+        getAlerts().clear();
+    }
+
     public void recievedAlert(Alert alert) {
         this.alerts.add(alert);
     }
@@ -227,5 +221,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setUserInfo(User user){
+        setEmail(user.getEmail());
+        setUsername(user.getUsername());
+        setFriendList(user.getFriendList());
+        setFriendRequests(user.getFriendRequests());
+        setAlerts(user.getAlerts());
     }
 }

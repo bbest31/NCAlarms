@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.napchatalarms.napchatalarmsandroid.R;
 import com.napchatalarms.napchatalarmsandroid.activities.LoginActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.dialog.ForgotPassDialog;
 import com.napchatalarms.napchatalarmsandroid.utility.InputValidator;
 import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
@@ -164,6 +165,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
 
         if (currentUser != null) {
             //Load user data.
+            FirebaseDAO.getInstance().loadUserInfo();
             NapChatController.getInstance().loadUserData(context);
             LoginActivity activity = (LoginActivity) getActivity();
             //noinspection ConstantConditions
