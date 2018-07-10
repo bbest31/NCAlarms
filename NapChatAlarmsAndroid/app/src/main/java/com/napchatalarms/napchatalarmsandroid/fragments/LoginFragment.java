@@ -165,7 +165,6 @@ public class LoginFragment extends android.support.v4.app.Fragment {
 
         if (currentUser != null) {
             //Load user data.
-            FirebaseDAO.getInstance().loadUserInfo();
             NapChatController.getInstance().loadUserData(context);
             LoginActivity activity = (LoginActivity) getActivity();
             //noinspection ConstantConditions

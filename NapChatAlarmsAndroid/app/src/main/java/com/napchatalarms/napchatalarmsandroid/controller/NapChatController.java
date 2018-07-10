@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.Alert;
 import com.napchatalarms.napchatalarmsandroid.model.Friend;
@@ -165,6 +166,7 @@ public class NapChatController {
      * @param context the context
      */
     public void loadUserData(Context context) {
+        FirebaseDAO.getInstance().loadUserInfo();
         try {
             loadUserAlarms(context);
         } catch (IOException e) {

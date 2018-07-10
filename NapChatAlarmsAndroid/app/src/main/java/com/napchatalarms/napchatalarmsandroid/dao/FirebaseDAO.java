@@ -18,6 +18,7 @@ import com.napchatalarms.napchatalarmsandroid.model.Friend;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data access object that connects and reads/writes to the Firebase Realtime Database.
@@ -102,8 +103,7 @@ public class FirebaseDAO {
         });
     }
 
-    public void writeFriendRequest(String uid, ArrayList<Friend> requests) {
-        //
+    public void writeFriendRequests(String uid, ArrayList<Friend> requests) {
         dbRef.child("users").child(uid).child("friendRequests").setValue(requests).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -180,24 +180,39 @@ public class FirebaseDAO {
         });
     }
 
+    /**
+     * Adds the Friend object representing the sending user to the receiving users friend request list.
+     * @param targetUID
+     */
     public void sendFriendRequest(String targetUID) {
         Friend sendingUser = new Friend(User.getInstance().getUsername(), User.getInstance().getUid());
         dbRef.child("users").child(targetUID).runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
-                User targetUser = mutableData.getValue(User.class);
-                if (!targetUser.getFriendRequests().contains(sendingUser)) {
-                    targetUser.getFriendRequests().add(sendingUser);
-                    return Transaction.success(mutableData);
-                } else {
-                    return Transaction.success(mutableData);
+                User targetRequests = mutableData.getValue(User.class);
+                if(targetRequests != null) {
+                    if (!targetRequests.getFriendRequests().contains(sendingUser)) {
+                        //Add the new request
+                        targetRequests.getFriendRequests().add(sendingUser);
+                        return Transaction.success(mutableData);
+                    } else {
+                        // Already contains a request from this user.
+                        return Transaction.success(mutableData);
+                    }
                 }
+                else {
+                    // came up null so some issue arose.
+                }
+
+                return Transaction.success(mutableData);
             }
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
                 // Transaction completed
                 Log.d("FirebaseDAO", "requestTransaction:onComplete:" + databaseError);
+                //TODO: if error is null then we send back a confirmation toast to the activity. (may have to have it as a param)
+                // otherwise we send back a failed toast.
             }
         });
 
@@ -219,7 +234,7 @@ public class FirebaseDAO {
         dbRef.child("users").child(User.getInstance().getUid()).child("alerts").setValue(new ArrayList<Friend>());
     }
 
-    public void loadUserInfo() {
+    public void setUserListener() {
         dbRef.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -230,6 +245,88 @@ public class FirebaseDAO {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void loadUserInfo() {
+        //noinspection ConstantConditions
+        User.getInstance().setUsername(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        //noinspection ConstantConditions
+        User.getInstance().setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        //noinspection ConstantConditions
+        User.getInstance().setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        getFriends();
+        getAlerts();
+        getRequests();
+    }
+
+    public void getFriends() {
+        dbRef.child("users").child(User.getInstance().getUid()).child("friendList").runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                ArrayList<Friend> friends = mutableData.getValue(ArrayList.class);
+                if (friends != null) {
+                    User.getInstance().setFriendList(friends);
+                    return Transaction.success(mutableData);
+                } else {
+                    Log.e("DAO", "Failed to load user friends list.");
+                    User.getInstance().setFriendList(new ArrayList<>());
+                    return Transaction.abort();
+                }
+
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+            }
+        });
+    }
+
+    public void getRequests() {
+        dbRef.child("users").child(User.getInstance().getUid()).child("friendRequests").runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                ArrayList<Friend> requests = mutableData.getValue(ArrayList.class);
+                if (requests != null) {
+                    User.getInstance().setFriendRequests(requests);
+                    return Transaction.success(mutableData);
+                } else {
+                    Log.e("DAO", "Failed to load user friends requests.");
+                    User.getInstance().setFriendRequests(new ArrayList<>());
+                    return Transaction.abort();
+                }
+
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+            }
+        });
+    }
+
+    public void getAlerts() {
+        dbRef.child("users").child(User.getInstance().getUid()).child("alerts").runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                ArrayList<Alert> alerts = mutableData.getValue(ArrayList.class);
+                if (alerts != null) {
+                    User.getInstance().setAlerts(alerts);
+                    return Transaction.success(mutableData);
+                } else {
+                    Log.e("DAO", "Failed to load user alerts.");
+                    User.getInstance().setAlerts(new ArrayList<>());
+                    return Transaction.abort();
+                }
+
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
 
             }
         });

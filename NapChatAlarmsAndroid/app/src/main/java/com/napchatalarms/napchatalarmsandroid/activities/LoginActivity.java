@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser != null) {
             User user = User.getInstance();
             NapChatController.getInstance().loadUserData(context);
+            Log.i("LOGIN SUCCESS",User.getInstance().toString());
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
 
             //Log event

@@ -19,7 +19,6 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
 
     public Dialog dialog;
     private Activity parent;
-    private String targetUsername;
 
     public AddFriendDialog(Activity a) {
         super(a);
@@ -44,8 +43,8 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_friend_send_button:
-                targetUsername = ((EditText) findViewById(R.id.add_friend_edit_text)).getText().toString();
-                addFriend();
+                String targetUsername = ((EditText) findViewById(R.id.add_friend_edit_text)).getText().toString();
+                addFriend(targetUsername);
                 break;
             case R.id.add_friend_cancel_button:
                 dismiss();
@@ -55,8 +54,8 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    private void addFriend() {
+    private void addFriend(String target) {
         //TODO: add a confirmation toast.
-        FirebaseDAO.getInstance().sendFriendRequest(targetUsername);
+        FirebaseDAO.getInstance().sendFriendRequest(target);
     }
 }

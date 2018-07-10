@@ -2,7 +2,6 @@ package com.napchatalarms.napchatalarmsandroid.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 
 import java.util.ArrayList;
 
@@ -28,8 +27,24 @@ public class User {
      * Private Constructor
      */
     private User() {
+        try {
+            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+            //noinspection ConstantConditions
+            this.username = fUser.getDisplayName();
+            this.email = fUser.getEmail();
+            this.uid = fUser.getUid();
 
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+//            Log.e("User", "Failed to init User");
+        }
+
+        this.alarmList = new ArrayList<>();
+        this.friendList = new ArrayList<>();
+        this.friendRequests = new ArrayList<>();
+        this.alerts = new ArrayList<>();
     }
+
 
     /**
      * Instance method
@@ -39,7 +54,6 @@ public class User {
     public static User getInstance() {
         if (instance == null) {
             instance = new User();
-            FirebaseDAO.getInstance().loadUserInfo();
         }
         return instance;
     }
@@ -178,11 +192,6 @@ public class User {
         this.friendList = friendList;
     }
 
-    @Override
-    public String toString() {
-        return "UID: " + this.getUid() + ", E: " + this.getEmail();
-    }
-
     public ArrayList<Alert> getAlerts() {
         return alerts;
     }
@@ -208,8 +217,8 @@ public class User {
     }
 
     public void removeRequest(String uid) {
-        for(Friend f:this.friendRequests) {
-            if(f.getUID().equals(uid)){
+        for (Friend f : this.friendRequests) {
+            if (f.getUID().equals(uid)) {
                 this.friendRequests.remove(f);
             }
         }
@@ -223,11 +232,24 @@ public class User {
         this.username = username;
     }
 
-    public void setUserInfo(User user){
+    public void setUserInfo(User user) {
         setEmail(user.getEmail());
         setUsername(user.getUsername());
         setFriendList(user.getFriendList());
         setFriendRequests(user.getFriendRequests());
         setAlerts(user.getAlerts());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", alarmList=" + alarmList +
+                ", uid='" + uid + '\'' +
+                ", friendList=" + friendList +
+                ", alerts=" + alerts +
+                ", friendRequests=" + friendRequests +
+                ", username='" + username + '\'' +
+                '}';
     }
 }
