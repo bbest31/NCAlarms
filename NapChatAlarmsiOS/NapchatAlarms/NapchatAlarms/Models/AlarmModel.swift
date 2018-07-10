@@ -60,7 +60,7 @@ class AlarmModel: NSObject, NSCoding {
         
         let alarmSoundInd = aDecoder.decodeObject(forKey: PropertyKey.alarmSoundInd) as? String
         
-        guard let isEnabled = aDecoder.decodeObject(forKey: PropertyKey.isEnabled) as? Bool else {
+        guard let isEnabled = aDecoder.decodeBool(forKey: PropertyKey.isEnabled) as? Bool else {
             os_log("Unable to decode the isEnabled property for an AlarmModel object.", log: OSLog.default, type: .debug)
             return nil
         }

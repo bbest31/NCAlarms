@@ -17,7 +17,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         alarmTableView.setEditing(isEditing, animated: true)
-        alarms = initializeFakeAlarms()
+        //alarms = initializeFakeAlarms()
+        if let savedAlarms = loadAlarms() {
+            alarms += savedAlarms
+            alarmTableView.reloadData()
+        } else {
+            // can load sample alarms here
+            print("No alarms exist.")
+        }
         
         alarmTableView.dataSource = self
         alarmTableView.delegate = self
@@ -85,8 +92,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             alarms.remove(at: indexPath.row)
+            saveAlarms()
+            // TODO: see if this is better
+            // tableView.deleteRows(at: [indexPath], with: .fade)
             alarmTableView.reloadData()
+        } else if editingStyle == UITableViewCellEditingStyle.insert {
+            
         }
+        
     }
 
     // create fake alarms until real ones are created by the user
@@ -111,7 +124,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func unwindToAlarmList(sender: UIStoryboardSegue) {
-        
         if let sourceViewController = sender.source as? NewAlarmViewController, let alarm = sourceViewController.alarm {
             
             if let selectedIndexPath = alarmTableView.indexPathForSelectedRow {
@@ -123,6 +135,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 alarms.append(alarm)
                 alarmTableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            saveAlarms()
         }
     }
     
