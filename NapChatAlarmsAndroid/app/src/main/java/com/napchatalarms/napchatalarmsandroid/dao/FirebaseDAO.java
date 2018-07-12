@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -332,15 +333,30 @@ public class FirebaseDAO {
         });
     }
 
-    public void uniqueUsername() {
-        dbRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void uniqueUsername(String username) {
+        dbRef.child("users").orderByChild("username").equalTo(username).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-
-                    System.out.print(user.getUsername());
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String username = dataSnapshot.getValue(String.class);
+                if(username == null){
+                    System.out.println("User username is unique");
                 }
+                System.out.println("User username is not unique");
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -349,4 +365,5 @@ public class FirebaseDAO {
             }
         });
     }
+
 }

@@ -14,10 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,11 +27,10 @@ import com.napchatalarms.napchatalarmsandroid.activities.OnboardingActivity;
 import com.napchatalarms.napchatalarmsandroid.activities.OpenSrcLibActivity;
 import com.napchatalarms.napchatalarmsandroid.controller.AlarmController;
 import com.napchatalarms.napchatalarmsandroid.controller.NapChatController;
-import com.napchatalarms.napchatalarmsandroid.dialog.DeleteAccountDialog;
+import com.napchatalarms.napchatalarmsandroid.dao.FirebaseDAO;
 import com.napchatalarms.napchatalarmsandroid.model.Alarm;
 import com.napchatalarms.napchatalarmsandroid.model.User;
 import com.napchatalarms.napchatalarmsandroid.utility.Toaster;
-import com.napchatalarms.napchatalarmsandroid.utility.UtilityFunctions;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -49,8 +45,6 @@ import java.util.ArrayList;
  * @author bbest
  */
 public class OptionsFragment extends android.support.v4.app.Fragment {
-
-    private Button verifyEmailBtn;
 
 
     /**
@@ -77,26 +71,19 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
       The Logout button.
      */
         Button logoutButton = view.findViewById(R.id.logout_btn);
-        verifyEmailBtn = view.findViewById(R.id.verified_email_btn);
-        //Button changeNameBtn = view.findViewById(R.id.change_username_btn);
-        Button resetPassBtn = view.findViewById(R.id.opt_reset_pwd_btn);
         Button deleteAccountBtn = view.findViewById(R.id.delete_account_btn);
         Button aboutBtn = view.findViewById(R.id.about_btn);
         Button faqBtn = view.findViewById(R.id.faq_btn);
         Button upgradeBtn = view.findViewById(R.id.upgrade_btn);
         Button privacyPolicyBtn = view.findViewById(R.id.privacy_policy_btn);
         Button rateBtn = view.findViewById(R.id.rate_btn);
-        Button shareBtn = view.findViewById(R.id.share_app_btn);
         Button submitFeedbackBtn = view.findViewById(R.id.feedback_btn);
         Button openSrcBtn = view.findViewById(R.id.open_src_btn);
-        Button inviteBtn = view.findViewById(R.id.opt_inv_btn);
-        Button languageBtn = view.findViewById(R.id.opt_lang_btn);
         Button creditsBtn = view.findViewById(R.id.credits_btn);
         Button tutorialBtn = view.findViewById(R.id.tutorial_btn);
         Button whatsNewBtn = view.findViewById(R.id.whats_new_btn);
 
 
-        checkEmailVerification();
 
         //=====ONCLICK METHODS=====
 
@@ -124,20 +111,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
             }
         });
 
-//        changeNameBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                changeUsername();
-//            }
-//        });
-
-
-        resetPassBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                resetPassword();
-            }
-        });
 
         upgradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,18 +137,11 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         whatsNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toaster.createWarningToast(getActivity(),getLayoutInflater()).show();
-            }
-        });
-
-        rateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
-        shareBtn.setOnClickListener(new View.OnClickListener() {
+        rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
@@ -201,9 +167,25 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
 
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(getActivity());
-                deleteAccountDialog.show();
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.warning)
+                        .setMessage(R.string.delete_account_warning)
+                        .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteAccount();
+                            }
+                        });
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Cancel
+                    }
+                });
+
+                builder.create().show();
+
             }
         });
 
@@ -213,20 +195,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
                 Intent intent = new Intent(getActivity(), OpenSrcLibActivity.class);
                 //noinspection ConstantConditions
                 getActivity().startActivity(intent);
-            }
-        });
-
-        inviteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
-            }
-        });
-
-        languageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toaster.createWarningToast(getActivity(), getLayoutInflater()).show();
             }
         });
 
@@ -272,8 +240,6 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        checkEmailVerification();
     }
 
 
@@ -293,113 +259,64 @@ public class OptionsFragment extends android.support.v4.app.Fragment {
         for (Alarm a : alarmArrayList) {
             AlarmController.getInstance().cancelAlarm(getContext(), a.getId());
         }
-        FirebaseAuth.getInstance().signOut();
-        LoginManager.getInstance().logOut();
-        googleSignOut();
 
-        NapChatController.getInstance().uninitializeUser();
-        Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(loginIntent);
-        //noinspection ConstantConditions
-        getActivity().finish();
-    }
-
-    private void googleSignOut() {
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-        // Google sign out
-        mGoogleSignInClient.signOut();
-    }
-
-    /**
-     * Gets the current user and resend a verification email to the user email address.
-     *
-     * @see FirebaseAuth
-     */
-    private void resendVerificationEmail() {
-        //noinspection ConstantConditions
-        FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
+        AuthUI.getInstance()
+                .signOut(getActivity())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-//                            Log.i("Options Fragment", "Resent Verification Email successfully");
-                            Toaster.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
-                            verifyEmailBtn.setText(R.string.sent);
-                            verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+                        // ...
+                        if(task.isSuccessful()){
+                            NapChatController.getInstance().uninitializeUser();
+                            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(loginIntent);
+                            //noinspection ConstantConditions
+                            getActivity().finish();
+                        } else {
 
-                                }
-                            });
                         }
                     }
                 });
+
     }
 
 
     /**
-     * This method asserts the new first and surname are of correct format and updates the users name.
-     *
-     * @see UtilityFunctions
-     */
-//    private void changeUsername() {
-//        ChangeUsernameDialog newUsernameDialog = new ChangeUsernameDialog(getActivity());
-//        newUsernameDialog.show();
-//    }
-
-
-    /**
-     * This method sends a reset password email in order to change the users password.
+     * Deletes the user account and proceeds to the <code>LoginActivity</code>
      *
      * @see FirebaseAuth
      */
-    private void resetPassword() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        String emailAddress = User.getInstance().getEmail();
+    private void deleteAccount() {
 
-        auth.sendPasswordResetEmail(emailAddress)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toaster.createEmailSuccessToast(getActivity(), getLayoutInflater()).show();
-
-//                            Log.i("Options Activity", "Email sent.");
-                        }
-                    }
-                });
-    }
-
-    private void checkEmailVerification() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //Checks to see if the user has a verified email.
-        //noinspection ConstantConditions
-        if (!user.isEmailVerified()) {
-            verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    resendVerificationEmail();
-                }
-            });
-        } else {
-            verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            //noinspection ConstantConditions
-            verifyEmailBtn.setTextColor(getContext().getColor(R.color.verified_green));
-            verifyEmailBtn.setText(R.string.verified);
+        ArrayList<Alarm> alarmArrayList = User.getInstance().getAlarmList();
+        for (Alarm a : alarmArrayList) {
+            AlarmController.getInstance().cancelAlarm(getContext(), a.getId());
         }
+        FirebaseDAO.getInstance().removeUser(User.getInstance().getUid());
+
+        AuthUI.getInstance()
+                .delete(getActivity())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                        if (task.isSuccessful()) {
+                            try {
+                                NapChatController.getInstance().deleteFiles(getContext());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            NapChatController.getInstance().uninitializeUser();
+//                            Log.i("reAuthDeleteAccount", "User account deleted.");
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            getActivity().startActivity(intent);
+                            getActivity().finish();
+                        } else {
+                            //TODO: error toast
+                        }
+                    }
+                });
     }
 
 

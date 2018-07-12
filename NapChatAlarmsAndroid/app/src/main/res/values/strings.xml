@@ -182,6 +182,7 @@
     <string name="email_sent">Email sent!</string>
     <string name="warning">Warning</string>
     <string name="logout_warning">Logging out will deactivate all current active alarms!</string>
+    <string name="delete_account_warning">Are you sure you want to proceed?</string>
     <string name="sent">Sent</string>
     <string name="link_msg">Academic research papers, journals, and articles only. Preferably peer reviewed.</string>
     <string name="forgot_password_error_message">*Email not associated with an account.</string>
@@ -212,8 +213,8 @@
     <string name="google_inc">Google Inc.</string>
     <string name="swipemenulistview">SwipeMenuListView</string>
     <string name="baoyongzhang">baoyongzhang</string>
-    <string name="facebook_app_id">827964794033926</string>
-    <string name="fb_login_protocol_scheme">fb827964794033926</string>
+    <string name="facebook_application_id" translatable="false">827964794033926</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb827964794033926</string>
 
 
     <!--Image Descriptions-->
