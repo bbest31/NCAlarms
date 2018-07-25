@@ -10,6 +10,7 @@
     <string name="support_email">bbest.dev@gmail.com</string>
     <string name="channel_name">NAPCHATALARMCHANNEL</string>
     <string name="channel_description">Notification channel for Napchat Alarms</string>
+    <string name="server_client_id">747826833878-mrm8lvkjkuunagndt8g4mdftvbudp3bt.apps.googleusercontent.com</string>
 
     <!--Days of the week-->
     <string name="sunday">Sunday</string>

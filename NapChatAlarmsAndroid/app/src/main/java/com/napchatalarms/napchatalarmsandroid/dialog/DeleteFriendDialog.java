@@ -38,7 +38,7 @@ public class DeleteFriendDialog extends Dialog implements android.view.View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_delete_account);
+        setContentView(R.layout.dialog_delete_friend);
 
         Button confirmButton = findViewById(R.id.delete_friend_confirm_btn);
         Button cancelButton = findViewById(R.id.delete_friend_cancel_btn);

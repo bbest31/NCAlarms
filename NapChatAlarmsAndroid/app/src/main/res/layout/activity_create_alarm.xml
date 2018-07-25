@@ -12,10 +12,11 @@
 
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,10 +29,10 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:background="@color/off_white"
                 app:cardCornerRadius="20dp"
@@ -51,8 +52,7 @@
                     android:headerBackground="@android:color/transparent"
                     android:numbersSelectorColor="@color/main_amber"
                     android:numbersTextColor="@color/black"
-                    android:theme="@style/TimePickerTheme"
-                    />
+                    android:theme="@style/TimePickerTheme" />
 
 
             </android.support.v7.widget.CardView>
@@ -149,36 +149,46 @@
                         android:paddingRight="5dp"
                         android:text="@string/attach_notification"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/black" />
-
-
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <Button
-                android:id="@+id/create_alarm_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/dark_blue"
-                android:fontFamily="@font/fredoka_one"
-                android:text="@string/create"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/edit_alarm_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/dark_blue"
-                android:fontFamily="@font/fredoka_one"
-                android:text="@android:string/ok"
-                android:textColor="@color/white"
-                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/edit_alarm_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/fab_blue_norm"
+            android:fontFamily="@font/fredoka_one"
+            android:text="@android:string/ok"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/create_alarm_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/fab_blue_norm"
+            android:fontFamily="@font/fredoka_one"
+            android:text="@string/create"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

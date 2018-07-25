@@ -12,13 +12,13 @@
         android:title="@string/title_home" />
     <item
         android:id="@+id/navigation_friends"
-        android:icon="@drawable/ic_friends"
+        android:icon="@drawable/ic_friendship"
         android:title="@string/Friends"
         />
 
     <item
         android:id="@+id/navigation_alert"
-        android:icon="@drawable/ic_alert"
+        android:icon="@drawable/ic_warning_sign"
         android:title="@string/Alerts"
         />
 
