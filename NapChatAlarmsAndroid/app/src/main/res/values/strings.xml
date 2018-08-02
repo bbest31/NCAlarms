@@ -216,6 +216,7 @@
     <string name="baoyongzhang">baoyongzhang</string>
     <string name="facebook_application_id" translatable="false">827964794033926</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb827964794033926</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb827964794033926</string>
 
 
     <!--Image Descriptions-->

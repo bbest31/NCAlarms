@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "747826833878-6vjnqkb0e2nv09i6thu9dk4lmf8tka9n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.napchatalarms.napchatalarmsandroid",
+            "certificate_hash": "420c35abced17985b89156056476299f8c08ede5"
+          }
+        },
+        {
+          "client_id": "747826833878-198eekrrtssh601d4ma66p5oacj86rpv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.napchatalarms.napchatalarmsandroid",
+            "certificate_hash": "363cb808655da6a07883179a50c7148171fac44a"
+          }
+        },
+        {
           "client_id": "747826833878-mrm8lvkjkuunagndt8g4mdftvbudp3bt.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,20 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747826833878-6ujutcejahr1renbrldso54nalpvepsc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "747826833878-6ml6q3a1kc7a6gd0c7kek968pbs4vtbv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.napchatalarms.napchatalarmsios.NapchatAlarms"
+              }
+            }
+          ]
         },
         "ads_service": {
           "status": 2
